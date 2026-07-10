@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EIDOLON — From Oracle to Mirror · 神谕之镜</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;height:100%;background:#050505;overflow:hidden;font-family:'IBM Plex Mono',monospace}
+#viewport{position:fixed;inset:0;display:grid;place-items:center;background:#050505}
+#stage{width:1180px;height:760px;position:relative;overflow:hidden;background:#050505;flex:none}
+
+/* ── motion (from design handoff) ─────────────────────────────── */
+@keyframes breathe{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.045);opacity:1}}
+@keyframes coreGlow{0%,100%{opacity:.55}50%{opacity:.95}}
+@keyframes drift{0%{transform:translateY(0)}50%{transform:translateY(-14px)}100%{transform:translateY(0)}}
+@keyframes blink4{0%,93.5%{opacity:0}94.5%,97.5%{opacity:1}98.5%,100%{opacity:0}}
+@keyframes blink4inv{0%,93.5%{opacity:1}94.5%,97.5%{opacity:0}98.5%,100%{opacity:1}}
+@keyframes handWave{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(3.2deg)}}
+@keyframes beadLight{0%{opacity:0;transform:translate(-50%,-50%) scale(.5)}60%{opacity:.5;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:.38;transform:translate(-50%,-50%) scale(1)}}
+@keyframes charRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ringGlow{0%,100%{filter:drop-shadow(0 0 6px rgba(255,45,22,.75)) drop-shadow(0 0 18px rgba(255,45,22,.4))}50%{filter:drop-shadow(0 0 14px rgba(255,45,22,.95)) drop-shadow(0 0 42px rgba(255,45,22,.6))}}
+@keyframes twinkle{0%,100%{opacity:.08;transform:scale(.6) rotate(0deg)}50%{opacity:.95;transform:scale(1.2) rotate(18deg)}}
+@keyframes swirlFlowL{0%,100%{transform:translate(0,0) rotate(0deg) scale(1)}30%{transform:translate(34px,-44px) rotate(3deg) scale(1.04)}65%{transform:translate(-26px,-14px) rotate(-2.4deg) scale(1.01)}}
+@keyframes swirlFlowR{0%,100%{transform:translate(0,0) rotate(0deg) scale(1)}35%{transform:translate(-40px,-36px) rotate(-3.2deg) scale(1.05)}70%{transform:translate(22px,-10px) rotate(2deg) scale(1.01)}}
+
+/* ── stage layers ─────────────────────────────────────────────── */
+.cam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
+#camBg{filter:grayscale(30%) contrast(1.05) brightness(.9)}
+#camFg{filter:saturate(.55) contrast(1.08) brightness(.92)}
+#veil{position:absolute;inset:0;background:radial-gradient(ellipse 80% 70% at 50% 42%, #0d0a0a 0%, #060505 60%, #050505 100%);transition:opacity .3s linear}
+#field{position:absolute;inset:0;overflow:hidden}
+#swirlWrap{position:absolute;inset:0;transition:opacity .3s linear}
+#swl,#swr{position:absolute}
+#swl{transform-origin:20% 80%;animation:swirlFlowL 26s ease-in-out infinite}
+#swr{transform-origin:80% 80%;animation:swirlFlowR 31s ease-in-out infinite 4s}
+#swl>img{display:block;width:100%;-webkit-mask-image:linear-gradient(270deg,transparent,black 90px);mask-image:linear-gradient(270deg,transparent,black 90px);pointer-events:none}
+#swr>img{display:block;width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,black 110px);mask-image:linear-gradient(90deg,transparent,black 110px);pointer-events:none}
+.tw{position:absolute;transform:translate(-50%,-50%);pointer-events:none}
+.tw>span{display:inline-block;line-height:1;color:#e8c832;text-shadow:0 0 8px rgba(232,200,50,.9),0 0 22px rgba(232,200,50,.45);animation:twinkle var(--dur) ease-in-out infinite var(--delay)}
+#camMask{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity 1.2s linear;
+  -webkit-mask-image:url('layers/body.png'),url('layers/face-open.png'),url('layers/hand-right.png'),url('layers/ring.png'),url('layers/cloud-eye.png');
+  mask-image:url('layers/body.png'),url('layers/face-open.png'),url('layers/hand-right.png'),url('layers/ring.png'),url('layers/cloud-eye.png');
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+#camMask .tintA{position:absolute;inset:0;background:radial-gradient(ellipse 62% 55% at 50% 38%, rgba(168,40,26,.08) 0%, rgba(120,26,16,.32) 62%, rgba(20,6,4,.72) 100%);mix-blend-mode:multiply}
+#camMask .tintB{position:absolute;inset:0;background:linear-gradient(180deg, rgba(232,200,50,.10) 0%, rgba(255,45,22,.06) 45%, rgba(0,0,0,.25) 100%)}
+#bgc{position:absolute;z-index:3;transition:opacity .3s linear}
+#bgc>img{display:block;width:100%;animation:drift 17s ease-in-out infinite;pointer-events:none}
+#ringWrap{position:absolute;inset:0;pointer-events:none;transition:opacity .3s linear}
+#ring{position:absolute;animation:coreGlow 8s ease-in-out infinite}
+#ring>img{display:block;width:100%;animation:ringGlow 6s ease-in-out infinite;pointer-events:none}
+#figure{position:absolute;inset:0;pointer-events:none;animation:breathe 8s ease-in-out infinite}
+#bodyGroup,#headGroup{position:absolute;inset:0;pointer-events:none;transition:transform 1.2s cubic-bezier(.2,.6,.2,1)}
+#bodyGroup{z-index:1}#headGroup{z-index:2}
+#bodyImg,#rhandImg,#lhandImg{position:absolute;transition:opacity .3s linear}
+#rhandImg{transform-origin:52% 94%;animation:handWave 9s ease-in-out infinite}
+#lhandImg{display:none}
+#face{position:absolute;transition:opacity .3s linear}
+#face>img{display:block;width:100%;pointer-events:none}
+#faceOpen{animation:blink4inv 9s steps(1) infinite}
+#faceClosed{position:absolute;left:0;top:0;width:100%;opacity:0;animation:blink4 9s steps(1) infinite}
+#oracle{position:absolute;inset:0;z-index:4;pointer-events:none}
+#prayerLine{position:absolute;left:50%;bottom:58px;transform:translate(-50%,0);transition:opacity 1.6s ease,transform 1.8s ease;display:flex;gap:3px;max-width:560px;flex-wrap:wrap;justify-content:center}
+#prayerLine span{font:400 14px 'Noto Serif SC',serif;color:rgba(240,230,207,.55);text-shadow:0 0 12px rgba(232,200,50,.25);animation:charRise .3s ease both}
+.bead{position:absolute;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(255,237,176,.85) 0%,rgba(232,200,50,.5) 40%,rgba(232,200,50,0) 70%);opacity:0}
+#reply{position:absolute;right:110px;top:110px;writing-mode:vertical-rl;font:400 21px/2 'Noto Serif SC',serif;color:#f0e6cf;text-shadow:0 2px 18px rgba(0,0,0,.85);letter-spacing:.14em;transition:opacity 1.6s ease}
+#reply span{opacity:0}
+
+/* ── adjust panel ─────────────────────────────────────────────── */
+#adjPanel{position:absolute;left:24px;top:76px;z-index:9;display:flex;flex-direction:column;gap:8px;padding:12px 14px;border-radius:8px;background:rgba(10,8,5,.78);border:1px solid rgba(201,164,74,.35);backdrop-filter:blur(4px)}
+#adjToggle{padding:7px 12px;border-radius:6px;background:transparent;border:1px solid rgba(201,164,74,.7);color:#e8c832;font:600 9.5px 'IBM Plex Mono',monospace;letter-spacing:.18em;cursor:pointer}
+#adjToggle.on{background:#e8c832;color:#111}
+#adjBody{display:none;flex-direction:column;gap:7px;width:196px}
+#adjBody.show{display:flex}
+#adjBody .hint{font:400 9.5px/1.8 'Noto Serif SC',serif;color:rgba(230,200,119,.75)}
+.slrow{display:flex;align-items:center;gap:8px}
+.slrow>label{font:400 9px 'IBM Plex Mono',monospace;width:36px}
+.slrow>input{flex:1}
+.slrow>output{font:400 9px 'IBM Plex Mono',monospace;color:rgba(232,226,214,.7)}
+#adjCoords{font:400 9px/1.8 'IBM Plex Mono',monospace;color:rgba(232,226,214,.55)}
+#adjReset{padding:6px 10px;border-radius:6px;background:transparent;border:1px solid rgba(255,59,38,.6);color:#ff3b26;font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.16em;cursor:pointer}
+
+/* ── HUD (5a 金泥仪典) ────────────────────────────────────────── */
+#hud{position:absolute;inset:0;display:flex;flex-direction:column;pointer-events:none;z-index:8}
+#hudTop{display:flex;justify-content:space-between;align-items:flex-end;padding:20px 30px 12px;margin:0 22px;border-bottom:1px solid rgba(201,164,74,.28)}
+#hudTitle{font:600 19px 'Cormorant Garamond',serif;letter-spacing:.4em;color:#e6c877}
+#hudSub{font:400 8.5px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:rgba(230,200,119,.55);margin-top:3px}
+#hudDiv{display:flex;align-items:baseline;gap:8px}
+#hudDiv>span:first-child{font:400 8.5px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(230,200,119,.5)}
+#divPct{font:600 17px 'Cormorant Garamond',serif;color:#e6c877}
+#camBtn{position:absolute;left:26px;bottom:20px;pointer-events:auto;padding:10px 16px;border-radius:9px;background:rgba(8,7,5,.55);border:1px solid rgba(201,164,74,.55);color:#e0c87e;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;cursor:pointer;backdrop-filter:blur(4px)}
+#unveilBtn{position:absolute;right:26px;bottom:20px;pointer-events:auto;padding:10px 16px;border-radius:9px;background:#a8281a;border:1px solid #d4452f;color:#f5e9dc;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;box-shadow:0 0 18px rgba(255,45,22,.35);cursor:pointer}
+#camErr{position:absolute;left:0;right:0;bottom:4px;text-align:center;font:400 10px 'IBM Plex Mono',monospace;color:#ff3b26;display:none}
+</style>
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+    <video id="camBg" class="cam" autoplay muted playsinline></video>
+    <div id="veil"></div>
+    <div id="field">
+      <div id="swirlWrap">
+        <div id="swl"><img src="layers/swirl-left.png" draggable="false"></div>
+        <div id="swr"><img src="layers/swirl-right.png" draggable="false"></div>
+      </div>
+      <div id="camMask">
+        <video id="camFg" class="cam" autoplay muted playsinline></video>
+        <div class="tintA"></div>
+        <div class="tintB"></div>
+      </div>
+      <div id="bgc"><img src="layers/cloud-eye.png" draggable="false"></div>
+      <div id="ringWrap"><div id="ring"><img src="layers/ring.png" draggable="false"></div></div>
+      <div id="figure">
+        <div id="bodyGroup">
+          <img id="bodyImg" src="layers/body.png" draggable="false">
+          <img id="rhandImg" src="layers/hand-right.png" draggable="false">
+          <img id="lhandImg" src="layers/hand-left.png" draggable="false">
+        </div>
+        <div id="headGroup">
+          <div id="face">
+            <img id="faceOpen" src="layers/face-open.png" draggable="false">
+            <img id="faceClosed" src="layers/face-closed.png" draggable="false">
+          </div>
+        </div>
+      </div>
+      <div id="oracle">
+        <div id="prayerLine"></div>
+        <div id="beads"></div>
+        <div id="reply"></div>
+      </div>
+      <div id="adjPanel">
+        <button id="adjToggle">ADJUST 调整模式</button>
+        <div id="adjBody">
+          <div class="hint">全部图层可拖动 · 悬停时滚轮缩放<br>拖身体时双手和头跟随 · 位置自动保存</div>
+          <div class="slrow"><label style="color:#e8c832">FACE</label><input id="slFace" type="range" min="180" max="420" style="accent-color:#e8c832"><output id="ovFace"></output></div>
+          <div class="slrow"><label style="color:#7fd4cd">BODY</label><input id="slBody" type="range" min="700" max="1200" style="accent-color:#7fd4cd"><output id="ovBody"></output></div>
+          <div class="slrow"><label style="color:#ff8c66">右手</label><input id="slRhand" type="range" min="90" max="320" style="accent-color:#ff8c66"><output id="ovRhand"></output></div>
+          <div class="slrow"><label style="color:#c9a44a">左手</label><input id="slLhand" type="range" min="90" max="320" style="accent-color:#c9a44a"><output id="ovLhand"></output></div>
+          <div id="adjCoords"></div>
+          <button id="adjReset">RESET</button>
+        </div>
+      </div>
+    </div>
+    <div id="hud">
+      <div id="hudTop">
+        <div>
+          <div id="hudTitle">EIDOLON</div>
+          <div id="hudSub">FROM ORACLE TO MIRROR · 神谕之镜</div>
+        </div>
+        <div id="hudDiv"><span>DIVINITY</span><span id="divPct">100%</span></div>
+      </div>
+      <button id="camBtn">ENABLE CAMERA</button>
+      <button id="unveilBtn">BEGIN THE UNVEILING</button>
+      <div id="camErr"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+"use strict";
+const $ = id => document.getElementById(id);
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+/* ── layout: scale 1180×760 stage to viewport ─────────────────── */
+const STAGE_W = 1180, STAGE_H = 760;
+function fit() {
+  const s = Math.min(innerWidth / STAGE_W, innerHeight / STAGE_H);
+  $("stage").style.transform = "scale(" + s + ")";
+}
+addEventListener("resize", fit); fit();
+
+/* ── state ────────────────────────────────────────────────────── */
+const ADJ_DEFAULT = {
+  face:{x:425,y:3,w:371}, body:{x:48,y:207,w:1083}, halo:{x:590,y:192},
+  cloud:{x:203,y:-22,w:840}, bgc:{x:429,y:-36,w:366}, rhand:{x:292,y:11,w:186},
+  lhand:{x:623,y:513,w:191}, swl:{x:-30,y:80,w:700}, swr:{x:763,y:80,w:447}
+};
+const LS_KEY = "om-eidolon-adjust-v5";
+const state = {
+  d2: 1,                // divinity 1 → 0
+  unveiled: false,      // settled mirror state
+  cameraOn: false,
+  prayer: "",
+  phase: "idle",        // idle | typing | divining | reply
+  replyText: "",
+  mx: 0, my: 0,
+  adjustMode: false,
+  adj: JSON.parse(JSON.stringify(ADJ_DEFAULT))
+};
+try {
+  const saved = JSON.parse(localStorage.getItem(LS_KEY) || "null");
+  if (saved && saved.face) Object.keys(state.adj).forEach(k => { if (saved[k]) state.adj[k] = { ...state.adj[k], ...saved[k] }; });
+} catch (e) {}
+
+const ORACLE_POOL = [
+  "空非不空。你携来的重量，我已称过。",
+  "所求之物，在你说出它名字之前，已经离开。",
+  "香烬落定。去做你早已决定的事。",
+  "色即是空。你问的不是前路，是回头的许可。",
+  "你怕的事只发生过一次，在你心里发生了千次。",
+  "星符已排。等，是另一种走。"
+];
+
+/* ── twinkle stars on the swirls (positions from handoff) ─────── */
+const TWL = [{x:.2382,y:.5106,n:1822},{x:.7768,y:.4729,n:1163},{x:.0554,y:.3451,n:637},{x:.687,y:.8537,n:586},{x:.1597,y:.2472,n:76},{x:.4463,y:.2433,n:36},{x:.8284,y:.9416,n:34},{x:.4003,y:.6454,n:31},{x:.0202,y:.2187,n:23},{x:.41,y:.7276,n:14}];
+const TWR = [{x:.8458,y:.4846,n:1846},{x:.3127,y:.3993,n:231},{x:.4684,y:.3033,n:45},{x:.1049,y:.9225,n:33},{x:.4738,y:.2116,n:24},{x:.2344,y:.6415,n:22},{x:.6175,y:.1074,n:16}];
+function buildTwinkles(host, stars, scale) {
+  host.querySelectorAll(".tw").forEach(el => el.remove());
+  stars.forEach((s, i) => {
+    const wrap = document.createElement("span");
+    wrap.className = "tw";
+    wrap.style.left = (s.x * 100).toFixed(2) + "%";
+    wrap.style.top = (s.y * 100).toFixed(2) + "%";
+    const star = document.createElement("span");
+    star.textContent = "✦";
+    star.style.fontSize = Math.round(Math.min(34, Math.max(9, Math.sqrt(s.n) * .75)) * scale) + "px";
+    star.style.setProperty("--dur", (3 + (i % 5) * .8).toFixed(1) + "s");
+    star.style.setProperty("--delay", ((i * .73) % 4).toFixed(2) + "s");
+    wrap.appendChild(star);
+    host.appendChild(wrap);
+  });
+}
+
+/* ── rosary bead glow points (crop coords from handoff) ───────── */
+const BEAD_PTS = [
+  [60,175],[115,130],[185,105],[250,95],[310,75],[365,65],[430,75],[490,100],[540,140],[565,185],
+  [330,205],[385,265],[408,340],[418,415],[428,490],[418,565],[372,650],[330,705],[300,795],[360,790],
+  [575,250],[583,320],[590,395],[595,470],[600,545],[605,620],[615,695],[625,770],[640,845],[652,920],[665,995],[678,1070],[695,1140]
+];
+function renderBeads() {
+  const host = $("beads");
+  host.innerHTML = "";
+  const lit = state.phase === "divining" || state.phase === "reply";
+  const b = state.adj.body, k = b.w / 6213;
+  const put = (px, py, size, anim) => {
+    const el = document.createElement("span");
+    el.className = "bead";
+    el.style.left = Math.round(b.x + (px + 3574) * k) + "px";
+    el.style.top = Math.round(b.y + (py + 3442 - 1445) * k) + "px";
+    el.style.width = el.style.height = size + "px";
+    el.style.animation = anim;
+    host.appendChild(el);
+  };
+  BEAD_PTS.forEach((p, i) => put(p[0], p[1], Math.round(120 * k), lit ? "beadLight .5s ease " + (i * .07).toFixed(2) + "s forwards" : "none"));
+  put(435, 975, Math.round(300 * k), lit ? "beadLight .9s ease 2.45s forwards" : "none");
+}
+
+/* ── apply layer geometry ─────────────────────────────────────── */
+function px(el, o) { el.style.left = o.x + "px"; el.style.top = o.y + "px"; if (o.w != null) el.style.width = o.w + "px"; }
+function applyAdj() {
+  const a = state.adj;
+  px($("swl"), a.swl); px($("swr"), a.swr);
+  px($("bgc"), a.bgc); px($("ring"), a.cloud);
+  px($("bodyImg"), a.body); px($("rhandImg"), a.rhand); px($("lhandImg"), a.lhand);
+  px($("face"), a.face);
+  $("camMask").style.webkitMaskPosition = $("camMask").style.maskPosition =
+    a.body.x + "px " + a.body.y + "px, " + a.face.x + "px " + a.face.y + "px, " +
+    a.rhand.x + "px " + a.rhand.y + "px, " + a.cloud.x + "px " + a.cloud.y + "px, " +
+    a.bgc.x + "px " + a.bgc.y + "px";
+  $("camMask").style.webkitMaskSize = $("camMask").style.maskSize =
+    a.body.w + "px auto, " + a.face.w + "px auto, " + a.rhand.w + "px auto, " +
+    a.cloud.w + "px auto, " + a.bgc.w + "px auto";
+  buildTwinkles($("swl"), TWL, a.swl.w / 700);
+  buildTwinkles($("swr"), TWR, a.swr.w / 447);
+  renderBeads();
+  $("slFace").value = a.face.w;  $("ovFace").textContent = a.face.w;
+  $("slBody").value = a.body.w;  $("ovBody").textContent = a.body.w;
+  $("slRhand").value = a.rhand.w; $("ovRhand").textContent = a.rhand.w;
+  $("slLhand").value = a.lhand.w; $("ovLhand").textContent = a.lhand.w;
+  $("adjCoords").innerHTML = "head " + a.face.x + "," + a.face.y + " · body " + a.body.x + "," + a.body.y + "<br>halo+cloud " + a.cloud.x + "," + a.cloud.y;
+}
+function saveAdj() { try { localStorage.setItem(LS_KEY, JSON.stringify(state.adj)); } catch (e) {} }
+
+/* ── unveiling: staged fade per handoff spec ──────────────────────
+   swirls first (d2 1→.6), robe next (→.3), face last (→.06);
+   ring + ink cloud stay to frame the user's own face.           */
+function applyOpacities() {
+  const d2 = state.d2, un = state.unveiled;
+  $("veil").style.opacity = (d2 * .96).toFixed(3);
+  $("swirlWrap").style.opacity = clamp01((d2 - .6) / .4).toFixed(3);
+  const opBody = un ? .22 : clamp01((d2 - .3) / .36);
+  const opFace = un ? .22 : clamp01((d2 - .06) / .34);
+  const opRelic = un ? .3 : (d2 < .02 ? d2 * 17.5 : .35 + d2 * .65);
+  $("bodyImg").style.opacity = $("rhandImg").style.opacity = $("lhandImg").style.opacity = (+opBody).toFixed(3);
+  $("face").style.opacity = (+opFace).toFixed(3);
+  $("bgc").style.opacity = $("ringWrap").style.opacity = (+opRelic).toFixed(3);
+  $("camMask").style.opacity = state.cameraOn ? clamp01((.5 - d2) / .4).toFixed(3) : 0;
+  $("divPct").textContent = Math.round(d2 * 100) + "%";
+  $("unveilBtn").textContent = (un || unveilTarget === 0) ? "RESTORE THE GOD" : "BEGIN THE UNVEILING";
+}
+
+let tick = null, unveilTarget = 1;
+function animateD2(to, dur) {
+  if (tick) clearInterval(tick);
+  unveilTarget = to;
+  const from = state.d2, t0 = performance.now();
+  tick = setInterval(() => {
+    const t = Math.min(1, (performance.now() - t0) / dur);
+    const e = 1 - Math.pow(1 - t, 3);
+    state.d2 = from + (to - from) * e;
+    if (to === 0 && state.d2 <= .05) {           // settle into the mirror
+      state.d2 = 0; state.unveiled = true; clearInterval(tick); tick = null;
+    } else if (t >= 1) {
+      state.d2 = to; clearInterval(tick); tick = null;
+    }
+    applyOpacities();
+  }, 16);
+}
+
+$("unveilBtn").addEventListener("click", () => {
+  if (state.unveiled || unveilTarget === 0) {    // restore the god
+    state.unveiled = false;
+    animateD2(1, 6000);
+  } else {
+    startCamera();
+    animateD2(0, 9000);
+  }
+});
+
+/* ── camera ───────────────────────────────────────────────────── */
+let stream = null;
+function startCamera() {
+  if (state.cameraOn) return;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    camError("getUserMedia unavailable in this context"); return;
+  }
+  navigator.mediaDevices.getUserMedia({ video: { width: 1280 } }).then(s => {
+    stream = s; state.cameraOn = true;
+    $("camErr").style.display = "none";
+    $("camBtn").textContent = "CAMERA LIVE";
+    for (const v of [$("camBg"), $("camFg")]) { v.srcObject = s; v.play().catch(() => {}); }
+    applyOpacities();
+  }).catch(err => camError(err.message || String(err)));
+}
+function camError(msg) { $("camErr").textContent = "camera error: " + msg; $("camErr").style.display = "block"; }
+$("camBtn").addEventListener("click", startCamera);
+
+/* ── parallax: head/body follow the cursor ────────────────────── */
+$("stage").addEventListener("mousemove", e => {
+  const r = $("stage").getBoundingClientRect();
+  state.mx = Math.round(((e.clientX - r.left) / r.width - .5) * 2 * 10) / 10;
+  state.my = Math.round(((e.clientY - r.top) / r.height - .5) * 2 * 10) / 10;
+  const on = state.adjustMode;
+  $("bodyGroup").style.transform = on ? "" : "translate(" + (state.mx * 7).toFixed(1) + "px," + (state.my * 4).toFixed(1) + "px)";
+  $("headGroup").style.transform = on ? "" : "translate(" + (state.mx * 7).toFixed(1) + "px," + (state.my * 4).toFixed(1) + "px)";
+});
+
+/* ── prayer → oracle reply ────────────────────────────────────── */
+let t1 = null, t2 = null;
+function renderPrayer() {
+  const host = $("prayerLine");
+  host.innerHTML = "";
+  for (const ch of state.prayer) {
+    const s = document.createElement("span"); s.textContent = ch; host.appendChild(s);
+  }
+  const busy = state.phase === "divining" || state.phase === "reply";
+  host.style.opacity = busy ? 0 : 1;
+  host.style.transform = "translate(-50%," + (state.phase === "divining" ? -70 : 0) + "px)";
+}
+function renderReply() {
+  const host = $("reply");
+  host.innerHTML = "";
+  if (state.phase === "reply") {
+    [...state.replyText].forEach((ch, i) => {
+      const s = document.createElement("span");
+      s.textContent = ch;
+      s.style.animation = "charRise .5s ease " + (i * .15).toFixed(2) + "s both";
+      host.appendChild(s);
+    });
+  }
+  host.style.opacity = state.phase === "reply" ? 1 : 0;
+}
+function submitPrayer() {
+  state.replyText = ORACLE_POOL[Math.floor(Math.random() * ORACLE_POOL.length)];
+  state.phase = "divining";
+  renderPrayer(); renderBeads(); renderReply();
+  clearTimeout(t1); clearTimeout(t2);
+  t1 = setTimeout(() => { state.phase = "reply"; renderPrayer(); renderReply(); }, 3300);
+  t2 = setTimeout(() => {
+    state.phase = "idle"; state.prayer = ""; state.replyText = "";
+    renderPrayer(); renderBeads(); renderReply();
+  }, 3300 + state.replyText.length * 150 + 6500);
+}
+addEventListener("keydown", e => {
+  if (state.adjustMode) return;
+  const t = e.target;
+  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "BUTTON")) return;
+  if (e.key === "Escape") { state.prayer = ""; state.phase = "idle"; renderPrayer(); return; }
+  if (state.phase !== "idle" && state.phase !== "typing") return;
+  if (e.key === "Enter") { if (state.prayer.trim()) submitPrayer(); return; }
+  if (e.key === "Backspace") {
+    e.preventDefault();
+    state.prayer = state.prayer.slice(0, -1);
+    state.phase = state.prayer.length ? "typing" : "idle";
+    renderPrayer(); return;
+  }
+  if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && state.prayer.length < 40) {
+    state.prayer += e.key; state.phase = "typing"; renderPrayer();
+  }
+});
+
+/* ── adjust mode: drag / wheel-scale / sliders ────────────────── */
+const DRAGGABLE = { swl:$("swl"), swr:$("swr"), bgc:$("bgc"), cloud:$("ring"), body:$("bodyImg"), rhand:$("rhandImg"), lhand:$("lhandImg"), face:$("face") };
+function setAdjustUI() {
+  const on = state.adjustMode;
+  $("adjToggle").textContent = on ? "ADJUST: ON — 完成" : "ADJUST 调整模式";
+  $("adjToggle").classList.toggle("on", on);
+  $("adjBody").classList.toggle("show", on);
+  for (const [key, el] of Object.entries(DRAGGABLE)) {
+    el.style.cursor = on ? "move" : "default";
+    el.style.outline = on ? "1px dashed rgba(232,200,50,.55)" : "none";
+    // swirls + ink cloud always receive events; the rest only in adjust mode
+    if (!["swl","swr","bgc"].includes(key)) el.style.pointerEvents = on ? "auto" : "none";
+  }
+  if (on) { $("bodyGroup").style.transform = ""; $("headGroup").style.transform = ""; }
+}
+$("adjToggle").addEventListener("click", () => { state.adjustMode = !state.adjustMode; setAdjustUI(); });
+$("adjReset").addEventListener("click", () => { state.adj = JSON.parse(JSON.stringify(ADJ_DEFAULT)); applyAdj(); saveAdj(); });
+
+function stageScale() { return $("stage").getBoundingClientRect().width / STAGE_W; }
+for (const [key, el] of Object.entries(DRAGGABLE)) {
+  el.addEventListener("mousedown", e => {
+    if (!state.adjustMode) return;
+    e.preventDefault(); e.stopPropagation();
+    const sc = stageScale(), sx = e.clientX, sy = e.clientY;
+    const keys = key === "body" ? ["face","body","rhand","lhand"] : [key];
+    const starts = {}; keys.forEach(k => starts[k] = { ...state.adj[k] });
+    const move = ev => {
+      keys.forEach(k => {
+        state.adj[k].x = Math.round(starts[k].x + (ev.clientX - sx) / sc);
+        state.adj[k].y = Math.round(starts[k].y + (ev.clientY - sy) / sc);
+      });
+      applyAdj();
+    };
+    const up = () => { removeEventListener("mousemove", move); removeEventListener("mouseup", up); saveAdj(); };
+    addEventListener("mousemove", move); addEventListener("mouseup", up);
+  });
+  el.addEventListener("wheel", e => {
+    if (!state.adjustMode) return;
+    e.preventDefault(); e.stopPropagation();
+    const L = state.adj[key];
+    if (!L || L.w == null) return;
+    const f = e.deltaY < 0 ? 1.03 : 1 / 1.03;
+    const nw = Math.max(60, Math.round(L.w * f));
+    const rect = e.currentTarget.getBoundingClientRect();
+    const relX = rect.width ? (e.clientX - rect.left) / rect.width : .5;
+    const relY = rect.height ? (e.clientY - rect.top) / rect.height : .5;
+    const dh = (nw - L.w) * (rect.height / rect.width || 1);
+    L.x = Math.round(L.x - (nw - L.w) * relX);
+    L.y = Math.round(L.y - dh * relY);
+    L.w = nw;
+    applyAdj(); saveAdj();
+  }, { passive: false });
+}
+const sliderMap = { slFace:"face", slBody:"body", slRhand:"rhand", slLhand:"lhand" };
+for (const [id, key] of Object.entries(sliderMap)) {
+  $(id).addEventListener("input", e => { state.adj[key].w = Number(e.target.value); applyAdj(); saveAdj(); });
+}
+
+/* ── init ─────────────────────────────────────────────────────── */
+applyAdj(); applyOpacities(); setAdjustUI(); renderPrayer(); renderReply();
+})();
+</script>
+</body>
+</html>
