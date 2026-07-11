@@ -288,6 +288,7 @@ function summonEndState(firstReply) {
   $("swirlWrap").style.opacity = 1;
   ["bodyImg", "rhandImg"].forEach(id => $(id).style.opacity = 1);
   $("face").style.opacity = 1;
+  $("face").classList.remove("shut");
   $("face").classList.add("live");
   $("bgc").style.opacity = $("ringWrap").style.opacity = 1;
   $("comet").style.display = "none";
@@ -327,6 +328,8 @@ function startSummon(firstText) {
     [2550, () => {
       $("figureIn").classList.remove("off");
       ["bodyImg", "rhandImg"].forEach(id => $(id).style.opacity = 1);
+      $("face").classList.add("shut");
+      $("face").style.opacity = 1;
     }],
     [3000, () => {
       $("ringWrap").style.opacity = 1;
@@ -335,11 +338,8 @@ function startSummon(firstText) {
       audio.bell();
     }],
     [3250, () => { $("bgc").style.opacity = 1; }],
-    [3550, () => { $("face").style.opacity = 1; }],
-    [4500, () => {
-      $("face").classList.add("flash");
-      setTimeout(() => $("face").classList.remove("flash"), 180);
-    }],
+    [4400, () => { $("face").classList.remove("shut"); }],
+    [5100, () => { $("face").classList.add("live"); }],
     [5000, () => {
       const vo = $("tcVo");
       vo.innerHTML = "";
