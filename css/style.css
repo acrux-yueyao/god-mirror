@@ -130,6 +130,8 @@ html,body{margin:0;height:100%;background:#050505;overflow:hidden;font-family:'I
 #muteBtn{position:absolute;right:30px;top:64px;pointer-events:auto;background:none;border:none;color:rgba(230,200,119,.5);font:400 12px 'IBM Plex Mono',monospace;cursor:pointer;letter-spacing:.1em}
 #skipBtn{position:absolute;right:30px;top:20px;z-index:28;pointer-events:auto;background:none;border:none;color:rgba(232,226,214,.5);font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.3em;cursor:pointer;display:none;animation:skipPulse 2.4s ease-in-out infinite}
 #skipBtn.show{display:block}
+#aboutLink{position:absolute;left:30px;top:22px;z-index:28;font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:rgba(232,226,214,.35);text-decoration:none}
+#aboutLink:hover{color:#c9a44a}
 #camErr{position:absolute;left:0;right:0;bottom:64px;text-align:center;font:400 9px 'IBM Plex Mono',monospace;color:rgba(255,59,38,.8);display:none;z-index:9}
 
 /* ── chat bar ─────────────────────────────────────────────────── */
