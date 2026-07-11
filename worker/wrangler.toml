@@ -1,0 +1,3 @@
+name = "eidolon-oracle"
+main = "index.js"
+compatibility_date = "2026-07-01"
