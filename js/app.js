@@ -13,7 +13,7 @@ const wait = ms => new Promise(r => setTimeout(r, ms));
 const STAGE_W = 1180, STAGE_H = 760;
 function fit() {
   const s = Math.min(innerWidth / STAGE_W, innerHeight / STAGE_H);
-  $("stage").style.transform = "scale(" + s + ")";
+  $("stage").style.transform = "translate(-50%,-50%) scale(" + s + ")";
 }
 addEventListener("resize", fit); fit();
 
@@ -168,7 +168,7 @@ function startCamera() {
     stream = s; state.cameraOn = true;
     $("camErr").style.display = "none";
     $("camBtn").textContent = "CAMERA LIVE";
-    for (const v of [$("camBg"), $("camFg")]) { v.srcObject = s; v.play().catch(() => {}); }
+    const v = $("camFg"); v.srcObject = s; v.play().catch(() => {});
     if (state.act >= 5) { $("camMask").style.opacity = 1; $("mirrorNote").classList.remove("show"); }
     return true;
   }).catch(err => { camError(err.message || String(err)); return false; });
