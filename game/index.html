@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>顺意 · 客户端</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+<div id="viewport">
+  <div id="stage">
+
+    <div id="scrTitle" class="scr on">
+      <div id="titleArt">
+        <div id="taFace"><div class="taEye l"></div><div class="taEye r"></div><div class="taMouth"></div></div>
+        <div id="taFigure"><div class="taBody"></div><div class="taCape"></div><div class="taHair"></div></div>
+        <img class="refImg cover" src="art/title.png" alt="" onerror="this.remove()">
+        <div id="taSlot">主视觉占位 · keyart-title(ref-05:巨脸上的披风人)</div>
+      </div>
+      <div id="titleWord">
+        <div id="twZh">神谕之镜</div>
+        <div id="twEn">GOD SHIFT · FROM ORACLE TO MIRROR</div>
+      </div>
+      <div id="menuRow"><button id="startBtn" class="btn">开 始</button><button id="continueBtn" class="btn">继续</button></div>
+      <div id="langRow"><button class="langBtn" data-lang="zh">中文</button><span>·</span><button class="langBtn" data-lang="en">EN</button></div>
+      <div id="titleFoot">GREYBOX M0 · placeholder art · story &amp; flow are real</div>
+    </div>
+
+    <div id="scrBoot" class="scr">
+      <img class="refImg cover world" src="art/boot-world.png" alt="" onerror="this.remove()">
+      <div id="bootLogo">顺 意</div>
+      <div id="bootSlogan"></div>
+      <div id="license" style="display:none">
+        <div id="licText"></div>
+        <div id="licBtns">
+          <button id="licYes">同 意</button>
+          <button id="licNo">不同意</button>
+        </div>
+        <div id="licNote"></div>
+      </div>
+      <div id="loginLine"></div>
+    </div>
+
+    <div id="scrDesk" class="scr">
+      <img id="deskArt" class="refImg cover" alt="">
+      <div id="deskHead"><span id="deskDate"></span><span id="deskCase"></span></div>
+
+      <div id="deskScene">
+        <div id="deskObjects">
+          <div id="deskScreen" class="deskObj">
+            <div class="objFace screenFace"><div class="scrGlow"></div><img id="screenArt" alt=""><div id="deskScreenText"></div></div>
+            <div class="doTag"></div>
+          </div>
+          <div id="deskFile" class="deskObj">
+            <div class="objFace fileFace"><div class="fileTab"></div><img id="fileArt" alt=""></div>
+            <div class="doTag"></div>
+          </div>
+          <div id="deskStamp" class="deskObj locked">
+            <div class="stampFace">
+              <img id="stampArt" alt="">
+              <svg id="stampSvg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <defs><filter id="inkRough" x="-20%" y="-20%" width="140%" height="140%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="n"/>
+                  <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+                </filter></defs>
+                <g filter="url(#inkRough)" fill="none" stroke="#c15b4a" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="18" y="18" width="84" height="84" rx="17" stroke-width="5"/>
+                  <path d="M42 61 l13 16 l26 -33" stroke-width="8"/>
+                </g>
+              </svg>
+            </div>
+            <div class="doTag"></div>
+          </div>
+        </div>
+        <div id="deskPov"></div>
+      </div>
+
+      <div id="sceneGrid"></div>
+
+      <div id="filePanel"><div id="filePaper" class="paper">
+        <div id="fileTitle"></div><div id="fileLines"></div>
+        <button id="fileClose" class="btn"></button>
+      </div></div>
+
+      <button id="noteBtn" class="btn">✎ 笔记本</button>
+      <button id="nightBtn" class="btn" style="display:none">夜 · 向顺意汇报 →</button>
+      <div id="deskHint"></div>
+    </div>
+
+    <div id="scrScene" class="scr">
+      <img id="sceneArt" alt="">
+      <div id="scenePhTxt">【占位场景图】</div>
+      <div id="sceneBack">ESC · 返回</div>
+      <div id="sceneCaption">
+        <div id="sceneTitle"></div>
+        <div id="sceneAnchor"></div>
+        <div id="sceneWho" style="display:none"></div>
+        <div id="sceneBody"></div>
+        <div id="sceneTestimony" style="display:none"></div>
+        <div id="stanceRow" style="display:none">
+          <button class="btn stance" data-k="soothe"></button>
+          <button class="btn stance" data-k="ask"></button>
+        </div>
+        <button id="sceneAdvance" class="btn" style="display:none">▸ 继续</button>
+        <button id="sceneNote" class="btn" style="display:none">✎ 记入笔记本</button>
+      </div>
+    </div>
+
+    <div id="scrCommunity" class="scr">
+      <img class="refImg cover commMap" src="art/community-map.png" alt="" onerror="this.remove()">
+      <div id="commPh">【占位 · 社区地图(等上传)】</div>
+      <div id="commHead"><span id="commTitle"></span><span id="commAnchor"></span></div>
+      <div id="commHotspots"></div>
+      <div id="commPop"><div id="commPopText"></div><button id="commPopClose" class="btn"></button></div>
+      <button id="commLeave" class="btn"></button>
+    </div>
+
+    <div id="notebook">
+      <img id="nbBg" alt="">
+      <div id="nbPaper" class="scrapbook">
+        <div id="nbTitle">剪贴本 · E-13</div>
+        <div id="nbList"></div>
+        <div id="nbFoot"></div>
+        <button id="nbClose" class="btn">合上</button>
+      </div>
+    </div>
+
+    <div id="scrNight" class="scr">
+      <img class="refImg cover nightBg" src="art/night.png" alt="" onerror="this.remove()">
+      <div id="nHead"><span class="name">顺 意</span><span class="nHeadR"><span class="rate">同意率 99.97%</span><span class="lat" id="latency">LATENCY 0.000s</span></span></div>
+      <div id="nLog"></div>
+      <div id="nWheel"></div>
+      <div id="nBar">
+        <input id="nInput" type="text" maxlength="60" autocomplete="off" placeholder="向顺意汇报…">
+        <button id="nSend">◆</button>
+      </div>
+      <div id="nToast"></div>
+      <button id="sleepBtn" class="btn">睡 →</button>
+    </div>
+
+    <div id="scrFinale" class="scr">
+      <img id="fBg" class="refImg cover" alt="">
+      <div id="fHead"><span>封存层 B-2 · 隔离审讯</span><span id="fArch">归档系统:正常</span></div>
+      <div id="fLog"></div>
+      <div id="fAsk"><button id="fAskBtn" class="btn"></button></div>
+      <div id="fStamps">
+        <div class="stampBtn green" data-k="A">✓</div>
+        <div class="stampBtn red" data-k="B">?</div>
+      </div>
+      <div id="crashFx"></div>
+      <div id="printFx">
+        <img id="printBg" class="refImg cover" alt="">
+        <div id="printPaper" class="paper">
+          <div id="printTitle"></div>
+          <div id="printLines"></div>
+          <div id="printSign"></div>
+        </div>
+      </div>
+      <div id="freezeFx"></div>
+    </div>
+
+    <div id="scrEnd" class="scr">
+      <img id="endBg" class="refImg cover" alt="">
+      <video id="mirrorCam" playsinline muted></video>
+      <video id="ruptureFx" playsinline></video>
+      <canvas id="ruptureCanvas"></canvas>
+      <div id="endBox">
+        <div id="endTitle"></div>
+        <div id="endBody"></div>
+        <div id="endInputRow" style="display:none">
+          <input id="endInput" type="text" maxlength="60" autocomplete="off">
+          <button id="endSend">◆</button>
+        </div>
+        <div id="endLocked" style="display:none"></div>
+        <div id="endTag"></div>
+        <button id="endRestart" class="btn" style="display:none">重新开始</button>
+      </div>
+    </div>
+
+    <div id="halfBeat"><span>·&nbsp;·&nbsp;·</span></div>
+    <div id="flashFx"></div>
+    <div id="archived">已归档</div>
+    <div id="prologue"><div id="prologueLine"></div><div id="prologueHint"></div></div>
+    <div id="introCard"><div id="introBox"><div id="introTitle"></div><div id="introLines"></div><button id="introGo" class="btn"></button></div></div>
+    <div id="trans"><div id="transStamp"></div><img class="refImg ladybug" src="art/ladybug.png" alt="" onerror="this.remove()"></div>
+  </div>
+</div>
+<script type="module" src="js/game.js?v=17"></script>
+</body>
+</html>

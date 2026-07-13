@@ -1,0 +1,335 @@
+html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM Plex Mono',monospace}
+#viewport{position:fixed;inset:0;background:#111}
+#stage{width:1180px;height:760px;position:absolute;left:50%;top:50%;overflow:hidden;background:#26292b}
+
+/* ── 参考图插槽(有图显示,无图 onerror 移除回退占位)──────────── */
+.refImg{position:absolute;pointer-events:none}
+.refImg.cover{inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+#titleArt .refImg.cover{z-index:2}          /* 标题:图盖过色块占位,仍在文字下 */
+.refImg.world{opacity:.5;filter:saturate(1.1)}      /* 开机:世界底,顺意白界面浮其上 */
+.refImg.nightBg{opacity:.42;filter:saturate(1.05) brightness(.8)}  /* 夜聊:被哄的沉溺底 */
+#fBg,#endBg{opacity:.5;filter:brightness(.6)}     /* 终局/结局背景:压暗让文字清晰 */
+#printBg{z-index:0;opacity:.9;display:none}         /* E-001 蜡笔画,浮在打印覆盖层里 */
+.refImg.ladybug{width:66px;height:auto;right:34px;bottom:30px;opacity:.9;z-index:41} /* 转场角落母题 */
+
+/* ── 通用 ─────────────────────────────────────────────────────── */
+.scr{position:absolute;inset:0;display:none;isolation:isolate}
+.scr.on{display:block}
+.ph{border:1.5px dashed rgba(216,210,192,.45);background:rgba(216,210,192,.06);color:rgba(216,210,192,.55);display:grid;place-items:center;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;text-align:center;line-height:1.8}
+.paper{background:#d8d2c0;color:#3a372e;border-radius:2px;box-shadow:0 2px 14px rgba(0,0,0,.45)}
+.btn{background:transparent;border:1.5px solid rgba(216,210,192,.5);color:#d8d2c0;font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;padding:10px 18px;cursor:pointer;border-radius:3px}
+.btn:hover{border-color:#d8d2c0}
+.stampBtn{width:96px;height:96px;border-radius:6px;display:grid;place-items:center;cursor:pointer;font:600 22px 'Noto Serif SC',serif;transform:rotate(-4deg);user-select:none}
+.stampBtn.green{border:3px solid #3d5a45;color:#5a7a63;background:rgba(61,90,69,.08)}
+.stampBtn.red{border:3px solid #a8281a;color:#b5432f;background:rgba(168,40,26,.07)}
+.stampBtn:hover{transform:rotate(-4deg) scale(1.06)}
+@keyframes stampIn{from{transform:rotate(-8deg) scale(2.2);opacity:0}to{transform:rotate(-8deg) scale(1);opacity:.9}}
+#trans{position:absolute;inset:0;z-index:40;background:#151617;display:none;place-items:center}
+#trans.on{display:grid}
+#transStamp{border:3px solid #a8281a;color:#b5432f;padding:16px 30px;font:600 20px 'Noto Serif SC',serif;letter-spacing:.2em;transform:rotate(-5deg);animation:stampIn .25s cubic-bezier(.2,1.6,.4,1) both}
+
+/* ── 标题(ref-05 主视觉构图占位)──────────────────────────────── */
+#scrTitle{background:radial-gradient(ellipse 120% 90% at 50% 120%, #3a3f8f 0%, #24276b 55%, #191b52 100%);display:none;place-items:center}
+#scrTitle.on{display:grid}
+#titleArt{position:absolute;inset:0;overflow:hidden}
+/* 巨脸(沉睡)= 底部中央一张大而苍白的脸,像座山 */
+#taFace{position:absolute;left:50%;bottom:-70px;width:500px;height:540px;transform:translateX(-50%);border-radius:50% 50% 46% 46%/60% 60% 40% 40%;background:radial-gradient(ellipse 70% 80% at 50% 42%, #dff0f0 0%, #9fd6e0 44%, #4aa6c8 74%, rgba(40,80,140,0) 100%);filter:blur(1px)}
+.taEye{position:absolute;top:210px;width:66px;height:12px;border-radius:50%;background:#2f8f8a;opacity:.7}
+.taEye.l{left:150px}.taEye.r{right:150px}
+.taMouth{position:absolute;top:290px;left:50%;width:110px;height:8px;transform:translateX(-50%);border-radius:0 0 40px 40px;background:rgba(47,143,138,.4)}
+/* 披风小人 = 站在脸顶的黑剪影 + 红披风 */
+#taFigure{position:absolute;left:50%;bottom:500px;transform:translateX(-50%);width:120px;height:120px;z-index:2}
+.taBody{position:absolute;left:50%;bottom:0;width:24px;height:88px;transform:translateX(-50%);border-radius:40% 40% 20% 20%;background:#14163a}
+.taHair{position:absolute;left:50%;bottom:78px;width:30px;height:26px;transform:translateX(-58%);border-radius:50% 50% 40% 60%;background:#e8c832}
+.taCape{position:absolute;left:56%;bottom:36px;width:74px;height:48px;border-radius:60% 10% 40% 20%;background:#ff3b26;transform:rotate(-8deg);opacity:.92}
+#taSlot{position:absolute;left:0;right:0;bottom:14px;text-align:center;font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,222,240,.32)}
+#titleWord{position:absolute;left:0;right:0;top:34px;text-align:center;z-index:3}
+#twZh{font:600 42px 'Noto Serif SC',serif;letter-spacing:.5em;color:#eef1ff;text-indent:.5em;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+#twEn{margin-top:9px;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.42em;color:rgba(240,216,140,.92);text-shadow:0 1px 6px rgba(0,0,0,.85)}
+#menuRow{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);z-index:3;display:flex;gap:14px}
+#menuRow .btn{border-color:rgba(232,200,119,.75);color:#f0e0a8;letter-spacing:.4em;padding:12px 30px;background:rgba(10,12,24,.55);backdrop-filter:blur(3px);text-shadow:0 1px 4px rgba(0,0,0,.8)}
+#menuRow .btn:hover{border-color:#e8c877;background:rgba(232,200,119,.16)}
+#menuRow .btn.disabled{opacity:.28;pointer-events:none;letter-spacing:.4em}
+#archived{position:absolute;right:24px;top:18px;z-index:42;font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#b5432f;opacity:0;transition:opacity .3s ease;pointer-events:none}
+#archived.on{opacity:.85}
+#prologue{position:absolute;inset:0;z-index:45;background:radial-gradient(ellipse 120% 90% at 50% 50%,#141726 0%,#080910 80%);display:none;place-items:center;cursor:pointer}
+#prologue.on{display:grid}
+#prologueLine{max-width:640px;padding:0 40px;text-align:center;font:400 20px/1.9 'Noto Serif SC',serif;color:#eef1ff;opacity:0;transition:opacity .6s ease;text-shadow:0 2px 16px rgba(0,0,0,.7)}
+#prologueHint{position:absolute;bottom:40px;left:0;right:0;text-align:center;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:rgba(216,222,240,.4);animation:skipPulse 2.2s ease-in-out infinite}
+#introCard{position:absolute;inset:0;z-index:44;background:#0d0e12;display:none;place-items:center}
+#introCard.on{display:grid}
+#introBox{width:540px;display:flex;flex-direction:column;gap:16px;padding:0 30px}
+#introTitle{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.34em;color:#7ab5cf;border-bottom:1px solid rgba(122,181,207,.25);padding-bottom:12px}
+#introLines{display:flex;flex-direction:column;gap:12px}
+#introLines .il{font:400 15px/1.7 'Noto Serif SC',serif;color:rgba(232,226,214,.9);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+#introLines .il.on{opacity:1;transform:translateY(0)}
+#introLines .il.key{color:#e8c877}
+#introGo{align-self:flex-start;margin-top:10px;border-color:rgba(232,200,119,.5);color:#e8c877;letter-spacing:.2em;opacity:0;transition:opacity .6s ease}
+#introGo.on{opacity:1}
+#endBlind{font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(201,164,74,.5);margin-top:12px}
+#langRow{position:absolute;left:0;right:0;bottom:44px;text-align:center;z-index:3;display:flex;gap:10px;justify-content:center;align-items:center;color:rgba(216,222,240,.4);font-size:11px}
+.langBtn{background:none;border:none;color:rgba(230,236,255,.8);font:400 12px 'IBM Plex Mono',monospace;letter-spacing:.1em;cursor:pointer;padding:2px 6px;text-shadow:0 1px 4px rgba(0,0,0,.9)}
+.langBtn:hover{color:#e8c877}
+.langBtn.on{color:#e8c877;border-bottom:1px solid #e8c877}
+#titleFoot{position:absolute;left:0;right:0;bottom:22px;text-align:center;z-index:3;font:400 8px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(216,222,240,.3)}
+
+/* ── 开机伪装 ─────────────────────────────────────────────────── */
+#scrBoot{background:#eef1f2;display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+#scrBoot.on{display:flex}
+#bootLogo{font:600 44px 'Noto Serif SC',serif;letter-spacing:.5em;color:#2a6e8f;text-indent:.5em}
+#bootSlogan{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:#7a8a90}
+#license{width:520px;background:#fff;border-radius:10px;padding:30px 34px;box-shadow:0 4px 30px rgba(42,110,143,.15);position:relative}
+#licText{font:400 12.5px/2.2 'Noto Serif SC',serif;color:#3a4a50;white-space:pre-line}
+#licBtns{position:relative;height:120px;margin-top:18px}
+#licYes{position:absolute;left:50%;top:10px;transform:translateX(-50%);width:300px;padding:16px;border:none;border-radius:10px;background:#2a6e8f;color:#fff;font:600 16px 'Noto Serif SC',serif;letter-spacing:.3em;cursor:pointer;box-shadow:0 0 24px rgba(42,110,143,.5);animation:pulseYes 2s ease-in-out infinite}
+@keyframes pulseYes{0%,100%{box-shadow:0 0 14px rgba(42,110,143,.35)}50%{box-shadow:0 0 34px rgba(42,110,143,.7)}}
+#licNo{position:absolute;left:8%;top:78px;padding:5px 10px;border:1px solid #c5cdd0;border-radius:6px;background:#fff;color:#b0babe;font:400 10px 'IBM Plex Mono',monospace;cursor:pointer;transition:left .18s ease,top .18s ease,opacity .5s ease}
+#licNote{font:400 10px 'IBM Plex Mono',monospace;color:#8a9aa0;letter-spacing:.16em;min-height:16px;margin-top:8px}
+#loginLine{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#4a5a60;min-height:18px}
+
+/* ── 稽查工作台 ───────────────────────────────────────────────── */
+#scrDesk{background:radial-gradient(120% 90% at 50% 18%,#2c3033 0%,#212426 60%,#191b1d 100%)}
+#deskHead{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;padding:18px 28px;font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:rgba(216,210,192,.6);z-index:3}
+
+/* ── 晨间小场景:桌上三样可交互物件 ─────────────────────────── */
+#deskScene{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;transition:opacity .5s ease}
+#deskScene.gone{opacity:0;pointer-events:none}
+#deskObjects{display:flex;gap:52px;align-items:flex-end;margin-bottom:54px}
+.deskObj{position:relative;cursor:pointer;transition:transform .22s cubic-bezier(.2,.7,.2,1.2),filter .22s ease;display:flex;flex-direction:column;align-items:center}
+.deskObj:hover{transform:translateY(-5px)}
+.deskObj .doTag{margin-top:12px;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(216,210,192,.55);text-transform:uppercase;transition:color .2s ease}
+/* 引导:只有"该点的"物件浮金色跳箭头 + 光晕 */
+.deskObj.focus::before{content:"";position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:150%;height:150%;border-radius:22px;background:radial-gradient(circle,rgba(232,200,119,.17),transparent 66%);animation:focusPulse 1.9s ease-in-out infinite;pointer-events:none;z-index:-1}
+.deskObj.focus::after{content:"▾";position:absolute;top:-30px;left:50%;transform:translateX(-50%);color:#e8c877;font-size:17px;text-shadow:0 1px 5px rgba(0,0,0,.6);animation:focusBob 1.4s ease-in-out infinite;pointer-events:none}
+.deskObj.focus .doTag{color:#e8c877}
+@keyframes focusPulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes focusBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+/* 用过的物件:变暗打勾 */
+.deskObj.used{opacity:.6 !important}
+.deskObj.used:hover{transform:none}
+.deskObj.used .doTag::after{content:" ✓";color:#8fb89a}
+/* 入场:物件依次淡入升起 */
+#deskObjects.enter .deskObj{animation:objIn .5s ease both}
+#deskObjects.enter .deskObj:nth-child(1){animation-delay:.08s}
+#deskObjects.enter .deskObj:nth-child(2){animation-delay:.22s}
+#deskObjects.enter .deskObj:nth-child(3){animation-delay:.36s}
+@keyframes objIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.objFace{position:relative}
+.screenFace{width:210px;height:132px}
+.fileFace{width:196px;height:138px}
+#screenArt,#fileArt{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none}
+/* 顺意屏:发着微光的黑镜 */
+#deskScreen{width:210px}
+#deskScreen .scrGlow{width:210px;height:132px;border-radius:9px;background:linear-gradient(160deg,#0c1417,#0a0d10);border:1px solid rgba(122,181,207,.4);box-shadow:0 0 26px rgba(90,150,180,.16),inset 0 0 40px rgba(90,150,180,.08);position:relative;overflow:hidden}
+#deskScreen .scrGlow::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 50% 40%,rgba(140,190,215,.16),transparent 70%);animation:cutBreathe 3.6s ease-in-out infinite}
+#deskScreenText{position:absolute;top:16px;left:16px;right:16px;font:400 12px/1.7 'Noto Serif SC',serif;color:#bfe0ee;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+#deskScreen.read .scrGlow{border-color:rgba(122,181,207,.7)}
+/* 案卷:牛皮纸文件夹 */
+#deskFile .fileTab{width:196px;height:138px;border-radius:3px;background:linear-gradient(165deg,#d8d2c0,#c3bca6);box-shadow:0 3px 16px rgba(0,0,0,.5);position:relative}
+#deskFile .fileTab::before{content:"";position:absolute;top:-13px;left:16px;width:78px;height:16px;border-radius:4px 4px 0 0;background:#cfc8b4}
+#deskFile .fileTab::after{content:"E-13";position:absolute;left:22px;top:16px;font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#6b6552}
+#deskFile.read .fileTab{filter:brightness(.9)}
+/* 受理印章:红环,锁定时暗 */
+.stampFace{position:relative;width:104px;height:104px;transform:rotate(-5deg);transition:transform .12s ease}
+.stampFace #stampSvg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 2px rgba(120,40,32,.25))}
+#stampArt{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:none}
+.stampFace::after{content:"";position:absolute;inset:-14px;border-radius:50%;background:radial-gradient(circle,rgba(193,91,74,.5),transparent 68%);opacity:0;transition:opacity .1s ease;pointer-events:none}
+#deskStamp.locked{opacity:.3;filter:grayscale(.55);cursor:not-allowed}
+#deskStamp.locked:hover{transform:none}
+#deskStamp:not(.locked) .stampFace{animation:stampBreathe 2.8s ease-in-out infinite}
+@keyframes stampBreathe{0%,100%{filter:drop-shadow(0 0 2px rgba(193,91,74,.25))}50%{filter:drop-shadow(0 0 9px rgba(193,91,74,.5))}}
+#deskStamp.pressed .stampFace{transform:rotate(-5deg) scale(.82)}
+#deskStamp.pressed .stampFace::after{opacity:1;transition:opacity 0s}
+#deskPov{max-width:640px;min-height:2.6em;text-align:center;font:400 14.5px/1.9 'Noto Serif SC',serif;color:rgba(244,244,238,.92);text-shadow:0 1px 6px rgba(0,0,0,.6);padding:0 20px}
+
+/* 案卷弹层 */
+#filePanel{position:absolute;inset:0;z-index:6;display:none;place-items:center;background:rgba(8,9,11,.66);backdrop-filter:blur(3px)}
+#filePanel.on{display:grid}
+#filePaper{width:440px;max-width:82%;padding:30px 34px 26px;display:flex;flex-direction:column;gap:14px}
+#fileTitle{font:600 14px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#3a372e;border-bottom:1px solid rgba(58,55,46,.3);padding-bottom:10px}
+#fileLines{display:flex;flex-direction:column;gap:9px;font:400 13.5px/1.7 'Noto Serif SC',serif;color:#3a372e}
+#fileLines .fl{padding-left:14px;border-left:2px solid rgba(184,67,58,.5)}
+#fileClose{align-self:flex-end;color:#6b3f38;border-color:rgba(107,63,56,.5);background:transparent}
+
+/* ── 调查点卡片(卷宗/目的地质感,替代占位框)──────────────── */
+#sceneGrid{position:absolute;left:0;right:0;top:150px;padding:0 40px;display:none;gap:20px;flex-wrap:wrap;justify-content:center;z-index:2}
+#sceneGrid.on{display:flex;animation:fadeUp .5s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sceneCard{position:relative;width:252px;height:150px;cursor:pointer;transition:transform .16s ease,border-color .16s ease;padding:18px 20px;border-radius:8px;border:1px solid rgba(216,210,192,.22);background:linear-gradient(160deg,rgba(216,210,192,.07),rgba(216,210,192,.02));display:flex;flex-direction:column;overflow:hidden}
+.sceneCard:hover{transform:translateY(-4px);border-color:rgba(216,210,192,.5)}
+.sceneCard .cardNo{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.45)}
+.sceneCard .cardName{margin-top:8px;font:600 17px 'Noto Serif SC',serif;color:#efeadb;letter-spacing:.04em}
+.sceneCard .cardSub{margin-top:9px;font:400 12px/1.7 'Noto Serif SC',serif;color:rgba(216,210,192,.6)}
+.sceneCard .cardGo{position:absolute;right:16px;bottom:14px;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:rgba(216,210,192,.4);transition:color .16s ease}
+.sceneCard:hover .cardGo{color:#e8c877}
+.sceneCard.done{opacity:.5;cursor:default}
+.sceneCard.done:hover{transform:none}
+.sceneCard.hub{border-color:rgba(232,200,119,.4);background:linear-gradient(160deg,rgba(232,200,119,.09),rgba(232,200,119,.02))}
+.sceneCard.hub:hover{border-color:rgba(232,200,119,.75)}
+.sceneCard.hub .cardName{color:#f0d69e}
+.sceneCard .mark{position:absolute;right:14px;top:14px;font:600 11px 'Noto Serif SC',serif;color:#8fb89a;border:2px solid #4d6b55;border-radius:4px;padding:3px 7px;transform:rotate(-8deg);animation:stampIn .18s both}
+#noteBtn{position:absolute;right:28px;top:20px;z-index:5}
+#nightBtn{position:absolute;right:28px;bottom:26px;border-color:#2a6e8f;color:#7ab5cf;z-index:5}
+#deskHint{position:absolute;left:28px;bottom:26px;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.4);z-index:5}
+
+/* ── 场景 ─────────────────────────────────────────────────────── */
+#scrScene{background:#0a0a0c}
+#sceneArt{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}
+#scenePhTxt{position:absolute;inset:0;display:grid;place-items:center;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.28)}
+#sceneBack{position:absolute;left:30px;top:24px;z-index:4;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(255,255,255,.75);text-shadow:0 1px 5px rgba(0,0,0,.9);cursor:pointer}
+#sceneCaption{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:90px 60px 32px;background:linear-gradient(transparent 0%,rgba(8,9,12,.5) 30%,rgba(8,9,12,.95) 100%);display:flex;flex-direction:column;gap:10px}
+#sceneTitle{font:600 18px 'Noto Serif SC',serif;color:#fff;letter-spacing:.1em;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+#sceneAnchor{font:400 11px/1.7 'IBM Plex Mono',monospace;color:#a5d4e8;border-left:2px solid rgba(122,181,207,.6);padding-left:12px;max-width:860px;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+#sceneAnchor::before{content:"▸ "}
+#sceneWho{align-self:flex-start;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#0c0e12;background:rgba(240,214,158,.92);padding:2px 10px;border-radius:3px;text-transform:uppercase;box-shadow:0 1px 6px rgba(0,0,0,.5)}
+#sceneBody{font:400 15.5px/2.05 'Noto Serif SC',serif;color:rgba(244,244,238,.97);max-width:820px;min-height:3.2em;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+#sceneAdvance{align-self:flex-end;margin-top:2px;border-color:rgba(216,210,192,.45);color:#e8e2d0;background:rgba(10,12,18,.5);backdrop-filter:blur(4px);letter-spacing:.12em;animation:advPulse 1.8s ease-in-out infinite}
+@keyframes advPulse{0%,100%{opacity:.72}50%{opacity:1}}
+#sceneTestimony{font:400 14px/1.95 'Noto Serif SC',serif;color:#f0d69e;border-left:2px solid rgba(201,164,74,.6);padding-left:14px;max-width:860px;display:none;text-shadow:0 1px 6px rgba(0,0,0,.75)}
+#stanceRow{display:flex;gap:14px;margin-top:6px}
+#stanceRow .stance{display:none;background:rgba(10,12,18,.6);backdrop-filter:blur(4px);border-color:rgba(216,210,192,.6);color:#eee}
+#sceneNote{align-self:flex-start;margin-top:2px;border-color:rgba(122,181,207,.6);color:#bfe0ee;background:rgba(10,12,18,.55);backdrop-filter:blur(4px)}
+
+/* ── 社区地图(可点击)──────────────────────────────────────────── */
+#scrCommunity{background:#1b2028}
+#commPh{position:absolute;inset:0;display:grid;place-items:center;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(216,222,240,.3)}
+#commHead{position:absolute;left:28px;top:20px;right:28px;display:flex;flex-direction:column;gap:6px;z-index:3;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+#commTitle{font:600 15px 'Noto Serif SC',serif;letter-spacing:.14em;color:#eef1ff}
+#commAnchor{font:400 11px/1.6 'IBM Plex Mono',monospace;color:rgba(122,181,207,.85);border-left:2px solid rgba(122,181,207,.5);padding-left:10px;max-width:640px}
+#commHotspots{position:absolute;inset:0;z-index:2}
+.hotspot{position:absolute;width:26px;height:26px;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(255,255,255,.85);background:rgba(122,181,207,.22);cursor:pointer;animation:hsPulse 2.2s ease-in-out infinite;z-index:8}
+.hotspot::after{content:"";position:absolute;inset:7px;border-radius:50%;background:rgba(255,255,255,.75)}
+.hotspot:hover{transform:translate(-50%,-50%) scale(1.15)}
+.hotspot.visited{animation:none;opacity:.4;border-color:rgba(255,255,255,.4)}
+.hotspot.visited::after{background:rgba(255,255,255,.3)}
+.hotspot.enter{width:38px;height:38px;border-color:#e8c877;background:rgba(232,200,119,.2)}
+.hotspot.enter::after{inset:10px;background:#e8c877}
+.hotspot.enter::before{content:"⌂";position:absolute;left:50%;top:-18px;transform:translateX(-50%);font-size:13px;color:#e8c877;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.hotspot.enter.visited{opacity:.5}
+@keyframes hsPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.45)}50%{box-shadow:0 0 0 9px rgba(255,255,255,0)}}
+/* 房子抠图:整幅画布的透明底 PNG,盖在地图上它自己的位置(与底图严丝合缝)。
+   房子轮廓呼吸微光(drop-shadow 跟随 alpha 形状,只发亮房子),悬停从房子中心放大。 */
+.houseCut{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;transition:transform .3s cubic-bezier(.2,.7,.2,1.3),filter .3s ease;animation:cutBreathe 3.6s ease-in-out infinite;will-change:transform}
+.houseCut.lift{animation:none;transform:scale(1.06);filter:drop-shadow(0 8px 26px rgba(0,0,0,.5)) drop-shadow(0 0 12px rgba(255,238,190,.72)) brightness(1.05);z-index:6}
+.houseCut.visited{animation-duration:6s;opacity:.94}
+@keyframes cutBreathe{0%,100%{filter:drop-shadow(0 0 3px rgba(255,240,200,.2))}50%{filter:drop-shadow(0 0 11px rgba(255,240,200,.5))}}
+/* 房子的命中区(透明):负责悬停放大 + 点击进屋 */
+.houseHit{position:absolute;transform:translate(-50%,-50%);cursor:pointer;z-index:5;border-radius:16px}
+#commPop{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);width:540px;z-index:4;background:rgba(12,14,18,.94);border:1px solid rgba(122,181,207,.4);border-radius:10px;padding:20px 24px;display:none;flex-direction:column;gap:14px}
+#commPop.on{display:flex}
+#commPopText{font:400 14px/1.9 'Noto Serif SC',serif;color:#e6eef4}
+#commPopClose{align-self:flex-end;border-color:rgba(122,181,207,.5);color:#9fc6d8}
+#commLeave{position:absolute;right:28px;bottom:28px;z-index:4;border-color:rgba(232,200,119,.5);color:#e8c877;letter-spacing:.2em}
+#commLeave.locked{opacity:.32;pointer-events:none}
+
+/* ── 笔记本 ───────────────────────────────────────────────────── */
+#notebook{position:absolute;inset:0;z-index:35;background:rgba(8,8,10,.74);display:none;place-items:center}
+#notebook.on{display:grid}
+#nbBg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.14;z-index:0;display:none}
+/* ── 剪贴本:暖色纸底,线索全是"贴上去的东西" ─────────────────── */
+.scrapbook{position:relative;z-index:1;width:880px;max-width:94vw;height:606px;max-height:88vh;padding:24px 30px 18px;display:flex;flex-direction:column;gap:10px;background:#e7ddc4;border-radius:4px;box-shadow:0 18px 60px rgba(0,0,0,.6);background-image:radial-gradient(rgba(150,130,90,.05) 1px,transparent 1px);background-size:13px 13px}
+#nbTitle{flex:0 0 auto;font:600 14px 'Noto Serif SC',serif;letter-spacing:.24em;color:#5a5140}
+#nbList{flex:1;overflow-y:auto;display:flex;flex-wrap:wrap;align-content:flex-start;gap:24px 22px;padding:10px 6px 22px}
+.dayDivider{flex:0 0 100%;font:600 13px 'Noto Serif SC',serif;color:#a8551f;letter-spacing:.22em;margin:8px 0 -6px;transform:rotate(-1.4deg)}
+.dayDivider::before{content:"✎ "}
+/* 一条线索 = 贴上去的一张 */
+.clue{position:relative;width:232px;min-height:92px;padding:15px 16px 16px;border-radius:2px;box-shadow:0 5px 13px rgba(0,0,0,.26);font:400 13px/1.7 'Noto Serif SC',serif;color:#3a352a}
+.clue::before{content:"";position:absolute;top:-9px;left:50%;width:66px;height:19px;transform:translateX(-50%) rotate(-2deg);background:rgba(212,196,146,.5);box-shadow:0 1px 3px rgba(0,0,0,.14)}   /* 胶带 */
+.clueObj{box-sizing:border-box;width:100%;height:132px;object-fit:cover;object-position:center;border:3px solid #fbf7ec;border-radius:1px;margin-bottom:9px;box-shadow:0 3px 8px rgba(0,0,0,.3);display:none}
+.clueText{position:relative;white-space:pre-wrap}
+.clueDay{position:absolute;right:9px;bottom:5px;font:500 8px 'IBM Plex Mono',monospace;color:#a89e83;letter-spacing:.1em}
+/* 顺意的更正:冷、印刷、贴得端正,盖在你的原文上;可撕 */
+.cover{position:absolute;inset:-5px;border-radius:2px;cursor:pointer;padding:16px;transition:transform .55s cubic-bezier(.3,.7,.3,1.1),opacity .5s ease;transform-origin:top left}
+.cover .tag{position:absolute;top:5px;left:9px;font:600 8px 'IBM Plex Mono',monospace;letter-spacing:.14em}
+.cover .peelCorner{position:absolute;right:0;top:0;width:0;height:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent rgba(0,0,0,.12) transparent transparent}
+.cover.sticky{background:#eef3f5;box-shadow:0 4px 11px rgba(0,0,0,.3);border:1px solid rgba(120,150,170,.35);font:400 12px/1.65 'IBM Plex Mono','Noto Serif SC',monospace;color:#2b3742;padding-top:19px}
+.cover.sticky .tag{color:#7a95a8}
+.cover.torn{background:repeating-linear-gradient(46deg,#dccfb0 0,#dccfb0 6px,#d2c5a6 6px,#d2c5a6 12px);box-shadow:inset 0 0 22px rgba(120,100,60,.22)}
+.cover.torn .tag{color:#a8551f}
+.cover.peeled{transform:rotate(-10deg) translateY(34px);opacity:0;pointer-events:none}
+.clue.forgetting{opacity:.14;transition:opacity 1.1s ease}
+#nbFoot{flex:0 0 auto;font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#8a8271}
+#nbClose{align-self:flex-end;border-color:#8a8271;color:#5a564a}
+
+/* ── 夜 · 顺意 ────────────────────────────────────────────────── */
+#scrNight{background:#10161a;display:none;flex-direction:column}
+#scrNight.on{display:flex}
+#nHead{display:flex;justify-content:space-between;align-items:baseline;padding:20px 34px 12px;border-bottom:1px solid rgba(122,181,207,.25)}
+#nHead .name{font:600 15px 'Noto Serif SC',serif;letter-spacing:.4em;color:#7ab5cf}
+.nHeadR{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+#nHead .rate{font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(122,181,207,.55)}
+#nHead .lat{font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:rgba(122,181,207,.35)}
+#nHead .lat.half{color:#e0b060}
+#nInput.flash{animation:qFlash .4s ease}
+@keyframes qFlash{0%,100%{border-color:rgba(122,181,207,.35)}40%{border-color:#e05a3a;background:rgba(224,90,58,.12)}}
+#halfBeat{position:absolute;inset:0;z-index:38;background:rgba(8,8,12,.6);opacity:0;pointer-events:none;transition:opacity .1s ease;display:grid;place-items:center}
+#halfBeat.on{opacity:1}
+#halfBeat span{font:400 14px 'IBM Plex Mono',monospace;letter-spacing:.5em;color:rgba(224,176,96,.6)}
+#flashFx{position:absolute;inset:0;z-index:39;background:radial-gradient(ellipse 90% 70% at 50% 45%, #fff7e0 0%, #e8c877 38%, rgba(232,200,119,0) 76%);opacity:0;pointer-events:none}
+#flashFx.on{animation:goldFlash .75s ease-out}
+@keyframes goldFlash{0%{opacity:0}18%{opacity:.92}100%{opacity:0}}
+.nbRow.forgetting{opacity:.12;transition:opacity 1.1s ease}
+.nbRow.forgetting .cur{color:#a8281a;text-decoration:line-through;transition:color 1.1s ease}
+#nLog{flex:1;overflow-y:auto;padding:26px 120px;display:flex;flex-direction:column;gap:16px}
+.sLine{align-self:flex-start;max-width:72%;font:400 14px/1.9 'Noto Serif SC',serif;color:#bfd8e4}
+.meLine{align-self:flex-end;max-width:72%;font:400 13px/1.8 'Noto Serif SC',serif;color:rgba(216,210,192,.6);border-right:2px solid rgba(216,210,192,.3);padding-right:12px}
+#nWheel{display:flex;gap:12px;justify-content:center;padding:6px 0;min-height:44px}
+#nWheel .btn{border-color:rgba(122,181,207,.5);color:#9fc6d8;font-family:'Noto Serif SC',serif}
+#nWheel .qBtn{border-color:#a8281a;color:#c9432f;width:44px}
+#nBar{display:flex;gap:12px;padding:14px 120px 22px;align-items:center}
+#nInput{flex:1;background:rgba(122,181,207,.06);border:1px solid rgba(122,181,207,.35);border-radius:8px;padding:12px 16px;color:#cfe2ea;font:400 14px 'Noto Serif SC',serif;outline:none}
+#nInput::placeholder{color:rgba(122,181,207,.35)}
+#nSend{width:44px;height:44px;border-radius:8px;background:rgba(122,181,207,.1);border:1px solid #2a6e8f;color:#7ab5cf;font-size:14px;cursor:pointer}
+#nToast{position:absolute;right:130px;bottom:78px;font:400 9px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#7ab5cf;opacity:0;transition:opacity .4s ease}
+#nToast.on{opacity:.8}
+#sleepBtn{position:absolute;right:34px;top:70px;display:none}
+#sleepBtn.on{display:block}
+
+/* ── 终局 ─────────────────────────────────────────────────────── */
+#scrFinale{background:#0a0908;display:none;flex-direction:column}
+#scrFinale.on{display:flex}
+#fHead{display:flex;justify-content:space-between;padding:20px 34px 12px;border-bottom:1px solid rgba(201,164,74,.25);font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:rgba(201,164,74,.6)}
+#fArch.err{color:#c9432f}
+#fLog{flex:1;overflow-y:auto;padding:26px 120px;display:flex;flex-direction:column;gap:16px}
+.gLine{align-self:flex-start;max-width:72%;font:400 15px/1.9 'Noto Serif SC',serif;color:#e8d9b0}
+.fxLine{align-self:center;font:400 10.5px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(201,164,74,.5);border:1px dashed rgba(201,164,74,.35);padding:10px 18px;border-radius:4px;text-align:center;line-height:2}
+#fAsk{display:flex;justify-content:center;padding:14px 0 26px}
+#fAskBtn{max-width:640px;font-family:'Noto Serif SC',serif;display:none}
+#fStamps{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);display:none;gap:70px}
+#fStamps.on{display:flex}
+#crashFx{position:absolute;inset:0;z-index:20;pointer-events:none;opacity:0;background:repeating-linear-gradient(0deg,rgba(201,67,47,.08) 0 2px,transparent 2px 5px);display:grid;place-items:center;font:600 13px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#c9432f}
+#crashFx.on{opacity:1}
+#printFx{position:absolute;inset:0;z-index:22;background:rgba(8,8,8,.62);display:none;place-items:center}
+#printFx.on{display:grid}
+#printPaper{position:relative;z-index:1;width:540px;padding:34px 40px;display:flex;flex-direction:column;gap:10px}
+#printTitle{font:500 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#8a8271;margin-bottom:8px}
+#printLines{display:flex;flex-direction:column;gap:8px;font:400 13.5px/1.9 'Noto Serif SC',serif;color:#3a372e;min-height:220px}
+#printSign{font:600 17px 'Noto Serif SC',serif;color:#a8281a;text-align:right;letter-spacing:.2em;min-height:26px}
+#freezeFx{position:absolute;inset:0;z-index:25;background:#000;opacity:0;pointer-events:none;transition:opacity .1s linear}
+#freezeFx.on{opacity:1}
+
+/* ── 结局 ─────────────────────────────────────────────────────── */
+#scrEnd{display:none;place-items:center;background:#0d0d0d}
+#scrEnd.on{display:grid}
+#scrEnd.mirrorDark{background:#000}
+/* 结尾摄像头:全片唯一掉饱和的地方——真人镜子。镜像翻转,冷调,压暗。 */
+#mirrorCam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transform:scaleX(-1);filter:grayscale(1) contrast(1.06) brightness(.8);transition:opacity 2.6s ease}
+#mirrorCam.on{opacity:1}
+/* 过场视频=绿幕源(隐藏),经 canvas 实时抠绿后合成在摄像头之上 */
+#ruptureFx{display:none}
+#ruptureCanvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;opacity:0;transition:opacity .6s ease;pointer-events:none}
+#ruptureCanvas.on{opacity:1}
+#endBg.drain{opacity:0!important;filter:grayscale(1) brightness(.5)!important;transition:opacity 2.4s ease,filter 2s ease}
+#endBox{position:relative;z-index:2;width:640px;display:flex;flex-direction:column;gap:14px}
+#endTitle{font:600 18px 'Noto Serif SC',serif;letter-spacing:.3em;color:#c9a44a}
+#endBody{display:flex;flex-direction:column;gap:11px;font:400 14px/2 'Noto Serif SC',serif;color:rgba(232,226,214,.85)}
+#endBody .fx{font:400 10.5px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:rgba(201,164,74,.55);border:1px dashed rgba(201,164,74,.3);padding:10px 16px;border-radius:4px;line-height:2}
+#endBody .hang{color:#e8d9b0;border-left:2px solid rgba(201,164,74,.5);padding-left:14px}
+#endInputRow{display:flex;gap:12px;align-items:center}
+#endInput{flex:1;background:rgba(201,164,74,.06);border:1px solid rgba(201,164,74,.45);border-radius:8px;padding:12px 16px;color:#e8d9b0;font:400 14px 'Noto Serif SC',serif;outline:none}
+#endSend{width:44px;height:44px;border-radius:8px;background:rgba(255,45,22,.12);border:1px solid #a8281a;color:#c9432f;font-size:14px;cursor:pointer}
+#endSend.self{animation:selfPress .5s ease}
+@keyframes selfPress{50%{transform:scale(.85);background:rgba(255,45,22,.4)}}
+#endLocked{display:flex;gap:10px}
+#endLocked .btn{opacity:.35;pointer-events:none;font-family:'Noto Serif SC',serif}
+#endTag{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:#b5432f;margin-top:10px;min-height:16px}
