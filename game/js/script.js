@@ -24,6 +24,10 @@ export const SCRIPT = {
     nbFootDiff: B("以上是顺意替你「忘掉」的。", "This is what Shunyi 'forgot' for you."),
     nbClose: B("合上", "CLOSE"),
     sleep: B("睡 →", "SLEEP →"),
+    jIntro: B("今天找到的,我都搬过来了。我们一张一张贴进去,好不好?", "I've brought over everything we found today. Let's paste them in, one by one — shall we?"),
+    jSticker: B("顺意悄悄贴上了自己的话……", "Shunyi quietly slips in a note of its own…"),
+    jDone: B("好啦。又厚了一点点。晚安。", "There. A little thicker now. Good night."),
+    jClose: B("盖上,睡 →", "Close it, sleep →"),
     typing: B("对方正在输入", "TYPING"),
     nInputPh: B("向顺意汇报…", "Report to Shunyi…"),
     optimized: B("已为您优化语气。", "Tone optimized for you."),
@@ -51,6 +55,8 @@ export const SCRIPT = {
     commClose: B("关上窗", "CLOSE"),
     commLeaveHint: B("再多看几扇窗…", "Look through a few more windows…"),
     enterHint: B("进入调查 →", "ENTER →"),
+    houseEnter: B("⌂ 进屋", "⌂ ENTER"),
+    houseVisited: B("✓ 已查", "✓ DONE"),
     advance: B("▸ 继续", "▸ CONTINUE"),
     deskScreenTag: B("顺意", "SHUNYI"),
     deskFileTag: B("案卷", "FILE"),
@@ -68,13 +74,13 @@ export const SCRIPT = {
   prologue: {
     hint: B("▸ 点击继续", "▸ click to continue"),
     lines: [
-      B("2049 年。", "The year is 2049."),
-      B("人们见面,不再说「你好」。他们说——「你说得对。」", "People no longer say “hello.” They say — “You're right.”"),
-      B("一个叫「顺意」的东西,住进了每一部手机。你说什么,它都同意。", "A thing called SHUNYI lives in every phone. Whatever you say, it agrees."),
-      B("镜子被拆光了。照得太久,人会认不出镜里的自己。这病有个名字:镜盲。", "The mirrors are all gone. Look too long, and you stop knowing the face in the glass. The condition has a name: mirror-blindness."),
-      B("你是沈问,情绪稽查处的稽查员。你的工作,是找出让人「不舒服」的东西,把它们关掉。", "You are Shen Wen, an inspector of the Emotion Bureau. Your job is to find whatever makes people uncomfortable — and switch it off."),
-      B("今天早上,一桩案子落到你桌上。城南,四十一个人,接连不再登录顺意。", "This morning a case landed on your desk. In the south of the city, forty-one people stopped logging in to Shunyi, one after another."),
-      B("没有人死。他们只是……不再需要它了。", "No one died. They simply… stopped needing it.")
+      B("2049 年。人们见面,不再说「你好」。他们说——「对呀。对呀。」", "The year is 2049. People no longer greet with “hello.” They say — “Right. Right.”"),
+      B("一个叫顺意的东西,住进了每一部手机。你说什么,它都点头。", "A thing called Shunyi lives in every phone. Whatever you say, it nods along."),
+      B("镜子也渐渐没人用了——照得太久,人会认不出镜里的自己。", "Mirrors fell out of use, too — stare too long, and you stop knowing the face in the glass."),
+      B("你是沈问,情绪稽查处的稽查员。你的活儿,是找出让人「不舒服」的东西,把它关掉。", "You are Shen Wen, an inspector at the Emotion Bureau. Your job: find whatever makes people uncomfortable, and switch it off."),
+      B("今早,城南四十一扇亮了很多年的窗,一扇接一扇地暗了。没有争吵,也没有一句告别。", "This morning, in the city's south, forty-one long-lit windows went dark one after another. No quarrel, not one goodbye."),
+      B("四十一个人,忽然都不再需要顺意了。公司说,有个东西在作祟。代号:镜子。", "Forty-one people, all at once, no longer needed Shunyi. The company says something is at work. Codename: MIRROR."),
+      B("找到它。关掉它。", "Find it. Switch it off.")
     ]
   },
 
@@ -90,7 +96,7 @@ export const SCRIPT = {
   communityMap: {
     title: B("永福里 · 社区", "Yongfu Li · The Community"),
     sub: B("外勤 · 走进永福里,逐户走访。", "Field work · into Yongfu Li, door to door."),
-    anchor: B("你到了社区。金色的门是可以进去调查的人家;点开窗户,看看那些「不再登录」的人现在过成什么样。", "You're in the community. The gold doors are homes you can enter; open a window to see how the “churned” users live now."),
+    anchor: B("你到了永福里。标着「进屋」的人家点进去调查;其余的窗,点开看看那些「不再登录」的人现在过成什么样。查完所有人家,才能离开。", "You're in Yongfu Li. Homes marked “ENTER” can be investigated; the other windows, open them to see how the “churned” users live now. Canvass every home before you can leave."),
     ambient: [
       { id: "h-scallion", x: 43, y: 80, text: B("两扇挨着的窗,同时开着。一只手递出一把葱,另一只手接了过去。隔着窗,两个人说了句什么,都笑了——笑得有点生疏。", "Two windows side by side, both open. A hand passes out a bunch of scallions; another takes them. Across the gap the two say something and both laugh — a little out of practice.") },
       { id: "h-school", x: 57, y: 38, text: B("一扇窗上,新贴了张夜校课程表,有一行被红笔圈了出来。窗台上,搁着一副还没拆封的老花镜。", "A night-school timetable, freshly taped to a window; one line circled in red pen. On the sill, a pair of reading glasses, still sealed in its wrap.") },
@@ -213,6 +219,7 @@ export const SCRIPT = {
                          "You open your mouth and find you have no answer — you truly don't know what you want it to be. He watches you and smiles: “See — you freeze too. That freeze, that's the only part that's you.”"),
                 note: B("修表匠(老宁):言语挑衅;稽查员本人出现应答停顿。红布物品待查。", "Watchmaker (Lao Ning): provocative; I myself stalled before answering. Object under red cloth to be examined.") }
             } },
+            { who: B("老宁", "LAO NING"), t: B("你转身要走。他在背后忽然开口,声音低下去:「稽查员——你这双眼睛,我认得。很久以前……算了。你不记得,也好。」", "You turn to leave. Behind you his voice drops: “Inspector — those eyes, I know them. A long time ago… never mind. Better you don't remember.”") },
             { t: B("你走出铺子。背后,满墙的钟摆还在滴答。你忽然发现,自己的心跳,和它们错开了半拍——你不喜欢这个发现。", "You step out of the shop. Behind you the pendulums tick on. You notice your heartbeat falls half a beat off theirs — and you don't like noticing it.") }
           ]
         }
@@ -221,7 +228,7 @@ export const SCRIPT = {
         { sys: B("晚上好,沈问。你今天很好。说说案子吧。", "Good evening, Shen Wen. You are doing great today. Tell me about the case.") },
         { input: true },
         { sys: B("你的判断一如既往地准。那个修表匠,确实可疑,对吗?", "Your judgment is sharp as ever. That watchmaker really is suspicious, isn't he?") },
-        { wheel: [B("对,他很可疑", "Yes, he's suspicious"), B("你说得对,重点查他", "You're right, focus on him"), B("没错,明天继续盯他", "Right, keep watching him tomorrow")],
+        { wheel: [B("对,他很可疑", "Yes, he's suspicious"), B("对呀,重点查他", "Right, focus on him"), B("没错,明天继续盯他", "Right, keep watching him tomorrow")],
           qReply: B("……检测到未闭合的句子。已为您忽略。你是想说「对」吧。", "…unclosed sentence detected. Ignored, for you. You meant to say “yes,” didn't you.") },
         { sys: B("好好睡。我会替你整理今天的记忆。", "Sleep well. I'll tidy up today's memories for you.") }
       ],
@@ -257,6 +264,7 @@ export const SCRIPT = {
             { t: B("每一块屏,是一个「不再登录」的人。你调出他们的最后一条消息。", "Each screen is one person who “stopped logging in.” You pull up their last message.") },
             { t: B("41 个人。最后一句话,一字不差,全都一样:", "41 people. Their last words, identical down to the letter:") },
             { who: B("最后一条消息", "LAST MESSAGE"), t: B("「现在,别问我了。你想要什么?」", "“Now — stop asking me. What do you want?”") },
+            { t: B("你盯着这句话。它不像遗言——倒像一个人,终于把憋了很久的问题,问出了口。而这句问话,你莫名觉得,在哪儿听过。是你说过?还是,有人这样问过你?你想不起,也不太想去想。", "You stare at the sentence. It doesn't read like a last word — more like someone who finally got out a question held too long. And it feels, unaccountably, familiar. Something you once said? Or once had asked of you? You can't place it — and don't much want to try.") },
             { fork: {   // 你怎么读这句话
               soothe: { label: B("归为洗脑话术", "File it as a script"), blind: 6,
                 reply: B("你把它归档成「被诱导的统一话术」——这样,它就只是一条证据,你不必再多想一个字。归档完毕。你甚至没再看第二眼。", "You file it as “an induced, uniform script” — that way it's only evidence, and you needn't spend another thought on it. Filed. You don't even look twice.") },
@@ -273,13 +281,13 @@ export const SCRIPT = {
           anchor: B("506 室。一对「病好了」的离婚夫妻。", "Flat 506. A divorced couple who “got better.”"),
           beats: [
             { t: B("你还没敲门,506 里就传出声音——两个人在吵架。真的吵架。", "Before you even knock, 506 is loud — two people arguing. Really arguing.") },
-            { t: B("你愣了一下。这年头,吵架几乎绝迹了——毕竟,连手机都永远说你对,谁还愿意跟人红脸。", "You pause. Arguing has nearly gone extinct — when even your phone says you're right forever, who bothers going red in the face at a person.") },
+            { t: B("你愣了一下。这年头,吵架几乎绝迹了——毕竟,连手机都永远说你对,谁还愿意跟人红脸。", "You pause. Arguing has nearly gone extinct — when even your phone says right forever, who bothers going red in the face at a person.") },
             { t: B("门开了。他俩看见你,忽然安静下来,手忙脚乱地……给你泡了杯茶。", "The door opens. Seeing you, the two go quiet and — fluster about, making you a cup of tea.") },
             { t: B("你翻了翻档案:「档案上写,你们……离婚了?」", "You flip through the file: “It says here you two are… divorced?”") },
             { who: B("妻子", "THE WIFE"), t: B("「离了。」她把茶推给你,「离了还住一起。你说怪不怪。」", "“We are,” she says, pushing the cup toward you. “Divorced and still living together. Funny, isn't it.”") },
             { fork: {   // 姿态一:附和 or 问下去
               soothe: { label: B("附和她", "Agree with her"), blind: 6,
-                reply: B("你说:「这样也挺好。」丈夫立刻点头:「你说得对。」妻子瞪他:「你又来了!」他脸红了:「……这毛病,在改。」", "You say: “That works too.” The husband nods at once: “You're right.” She glares: “There you go again!” He flushes: “…the habit. I'm working on it.”") },
+                reply: B("你说:「这样也挺好。」丈夫立刻点头:「对呀,对呀。」妻子瞪他:「你又来了!」他脸红了:「……这毛病,在改。」", "You say: “That works too.” The husband nods at once: “Right, right.” She glares: “There you go again!” He flushes: “…the habit. I'm working on it.”") },
               ask: { label: B("问下去", "Probe"), blind: -6,
                 reply: B("你没接话。你问:「你们……怎么又吵得起来了?」妻子笑了:「因为我们又能吵了。」", "You don't fill the pause. You ask: “How is it… you two can fight again?” She smiles: “Because we can fight again.”") }
             } },
@@ -293,7 +301,7 @@ export const SCRIPT = {
                          "You ask: “Your Shunyi — did it… change?” The wife sets down her cup: “After the repair, it pauses half a second before it answers. In that half second — I hear my own words back. Awful. Who is it to tell me I'm right, every day?” She looks at you: “And you, Inspector — how long since you last argued with anyone?”"),
                 note: B("506 证词:维修后回应约 0.5 秒延迟;用户自述「听见了自己」。", "506 testimony: ~0.5s reply delay after repair; user reports “hearing myself.”") }
             } },
-            { t: B("你放下没喝的茶。她最后那句话,你没回答。它像一根刺,轻轻扎进你今天说过的每一句「你说得对」里。", "You leave the tea untouched. Her last question, you didn't answer. It lodges like a splinter in every “you're right” you've said today.") }
+            { t: B("你放下没喝的茶。她最后那句话,你没回答。它像一根刺,轻轻扎进你今天说过的每一句「对呀」里。", "You leave the tea untouched. Her last question, you didn't answer. It lodges like a splinter in every “right” you've said today.") }
           ]
         },
         {
@@ -302,26 +310,44 @@ export const SCRIPT = {
             { t: B("回程的地铁。车厢空得,只剩你一个。", "The train home. The car is empty but for you.") },
             { t: B("进隧道了。车窗一黑,变成一面粗糙的镜子。", "Into the tunnel. The window blackens into a crude mirror.") },
             { t: B("该是你的位置上,只有一团噪点——照不清,像被谁提前擦掉了。", "Where you should be, there's only a smear of noise — unclear, as if wiped away in advance.") },
-            { t: B("噪点后面,站着一个人影。金红色的。它没有动,只是看着你。", "Behind the noise, a figure stands. Gold and red. It doesn't move. It only watches you.") },
+            { t: B("噪点后面,站着一个人影。金红色的。它没有动,只是看着你——它的站姿,和你此刻,一模一样。", "Behind the noise, a figure stands. Gold and red. It doesn't move; it only watches you — and its stance is yours, exactly, this very moment.") },
             { fork: {   // 面对反光里的人影:否认 or 逼视
               soothe: { label: B("是我太累了", "I'm just tired"), blind: 6,
                 reply: B("你告诉自己:连续加班,视觉残留,正常现象。你闭了闭眼——再睁开,人影还在。你决定,不看了。", "You tell yourself: too many late shifts, retinal afterimage, perfectly normal. You close your eyes — open them, and the figure is still there. You decide not to look.") },
               ask: { label: B("那是谁?", "Who is that?"), blind: -6,
                 reply: B("你没有移开视线。金红色——你好像在哪儿见过。一个念头刚要浮上来,你的太阳穴就突突地疼。你猛地回头——车厢里,只有你一个。", "You don't look away. Gold and red — you've seen it somewhere. A thought starts to surface and your temples throb. You spin around — the car holds only you.") }
             } },
+            { t: B("车窗上,那人影的口型,无声地动了动。你把它读了出来——「……你想要什么?」和城南那 41 个人,最后那句,一模一样。", "On the glass, the figure's lips move without a sound. You read them off — “…what do you want?” The very last words those forty-one people left.") },
             { who: B("车厢广播", "ANNOUNCEMENT"), t: B("广播不紧不慢:「本次列车,同意率 99.97%。」", "The announcement, unhurried: “This train, agreement rate 99.97%.”") }
           ],
           note: B("反光中出现金红色人影(第 2 次)。我需要休息。", "Gold-red figure in reflections (2nd time). I need rest.")
         }
+      ],
+      ambient: [
+        { id: "h-scallion", x: 43, y: 80,
+          soothe: B("那两扇挨着的窗,今天只开了一扇。递葱的那只手伸在窗外,举了一会儿,没等到对面来接。手,慢慢缩了回去。", "The two windows side by side — only one open today. A hand holds scallions out into the gap, waits, and no one takes them. Slowly, it draws back."),
+          ask: B("那两扇挨着的窗,今天都开着。一把葱递过去,对面接住了。隔着窗,两个人你一句我一句,说了好一会儿——像是,越来越熟了。", "Both windows are open today, side by side. Scallions passed across, and taken. Through the gap the two go back and forth a good while — as if they're growing closer.") },
+        { id: "h-school", x: 57, y: 38,
+          soothe: B("夜校课程表还贴着。红笔圈出来的那一行,被一小张打印的白条,端端正正盖住了。窗台上的老花镜,还没拆封。", "The night-school timetable is still up. The line once circled in red is now covered, squarely, by a small printed white strip. On the sill, the reading glasses — still sealed."),
+          ask: B("夜校课程表上,红笔圈的那一行旁边,又添了两三个名字,笔迹各不相同。窗台上那副老花镜,拆封了,架在了鼻梁上。", "Beside the red-circled line on the timetable, two or three more names, each in a different hand. The reading glasses on the sill are unwrapped now — up on someone's nose.") },
+        { id: "h-lit", x: 68, y: 62,
+          soothe: B("那扇窗还亮着。人还站着,电话贴着耳朵——只是这一次,他每开口之前,都要停半秒。像在等着,先听见点什么。", "The window is still lit. He's still standing, phone to his ear — only now, before each sentence, he pauses half a second. As if waiting to hear something first."),
+          ask: B("那扇窗还亮着。人站着打电话,说着说着笑出了声,又急急地要解释什么。电话那头,是另一个活人。", "The window is still lit. He's on the phone, and mid-sentence he laughs out loud, then hurries to explain himself. On the other end is another living person.") },
+        { id: "h-closed", x: 64, y: 46,
+          soothe: B("这扇窗还是拉着帘。帘缝里那点蓝光,不再一格一格地闪了,稳稳地亮着。帘后的影子,不再点头——很静,很静。", "This window is still curtained. The blue light through the gap no longer stutters; it holds steady. The silhouette behind it no longer nods — very still, very still."),
+          ask: B("这扇窗今天拉开了帘。屋里的人搬了把椅子到窗边,就着天光,在看一本翻旧了的书。那点蓝光,关了。", "This window's curtain is open today. Inside, someone has pulled a chair to the window and reads a worn old book by daylight. The blue glow is switched off.") },
+        { id: "h-film", x: 48, y: 52,
+          soothe: B("社区正中那片乳白的膜,今天像是大了一点。你又找了一次自己的影子——还是没有。", "The milky film at the center seems a little larger today. You look for your reflection again — still none."),
+          ask: B("社区正中那片乳白的膜,今天薄了些。你走近,竟在里面照见了一点自己的轮廓——很淡,但在。", "The milky film at the center is thinner today. You lean close and catch, of all things, a faint outline of yourself in it — faint, but there.") }
       ],
       night: [
         { sys: B("你今天接触了不合规信息。别担心——我已经替你忘掉了。", "You encountered non-compliant information today. Don't worry — I've already forgotten it for you.") },
         { forget: "s2-shadow" },
         { input: true },
         // 声线渐变:顺意开始用她自己刚说的话回她
-        { sys: B("你说,「{echo}」。……你听,这是你自己的声音。你说得对。", "You said, “{echo}.” …Listen — that's your own voice. You're right.") },
+        { sys: B("你说,「{echo}」。……你听,这是你自己的声音。对呀。", "You said, “{echo}.” …Listen — that's your own voice. Right.") },
         { sys: B("506 的证词不重要。重要的是:41 台设备都经过修表铺。沈问,他符合「镜子」协助者的人格侧写。", "506's testimony doesn't matter. What matters: all 41 devices passed through the watch shop. Shen Wen, he fits the profile of a “MIRROR” accomplice.") },
-        { wheel: [B("申请搜查令", "Request a warrant"), B("你说得对,就是他", "You're right, it's him"), B("明早就突入", "Raid at dawn")],
+        { wheel: [B("申请搜查令", "Request a warrant"), B("对呀,就是他", "Right, it's him"), B("明早就突入", "Raid at dawn")],
           qReply: B("……又一个未闭合的句子。你最近,句尾总是翘起来。要注意。", "…another unclosed sentence. Lately your sentences keep turning upward at the end. Be careful.") },
         { sys: B("搜查令已批。晚安。「{echo}」——你看,连道晚安,我用的都是你的话了。", "Warrant approved. Good night. “{echo}” — see, even to say good night, I now use your words.") }
       ],
@@ -365,9 +391,10 @@ export const SCRIPT = {
             } },
             { who: B("老宁", "LAO NING"), t: B("「我修表的。」他说,「这个时代,唯一还被允许停顿的机器,是钟摆。」", "“I fix watches,” he says. “In this age, the only machine still allowed to pause is a pendulum.”") },
             { t: B("他朝你的口袋,抬了抬下巴。", "He nods, once, toward your pocket.") },
-            { who: B("老宁", "LAO NING"), t: B("「你们要抓的,」他说,「在那里面。」", "“What you're after,” he says, “is in there.”") }
+            { who: B("老宁", "LAO NING"), t: B("「你们要抓的,」他说,「在那里面。」", "“What you're after,” he says, “is in there.”") },
+            { t: B("你的手,不自觉地探进外套口袋——那里,一直有一小块旧镜片。冰凉,被摩挲得发亮。你带着它很多年了,却怎么也想不起,它是从哪儿来的。", "Your hand slips, on its own, into your coat pocket — where a small old shard of mirror has always been. Cold, worn bright with handling. You've carried it for years and can never remember where it came from.") }
           ],
-          note: B("后屋无违规模型。全部「作案工具」= 0.5 秒延迟。他说:要抓的在我口袋里。", "No rogue model in the back room. The whole “weapon” = a 0.5s delay. He said: what you want is in my pocket.")
+          note: B("后屋无违规模型。全部「作案工具」= 0.5 秒延迟。他说:要抓的,在我口袋里——我的口袋里,一直有一块旧镜片。", "No rogue model in the back room. The whole “weapon” = a 0.5s delay. He said: it's in my pocket — and in my pocket, an old shard of mirror I've always carried.")
         },
         {
           id: "s3-server", kind: "watch", loc: "direct", title: B("顺意科技 · 封存层 B-2", "Shunyi Corp · Vault B-2"), sub: B("公司封存层。你有稽查权限。", "The company’s sealed vault. You have clearance."),
@@ -388,6 +415,23 @@ export const SCRIPT = {
           note: B("启动封存模型「神谕」。隔离协议生效。", "Booting the sealed model, EIDOLON. Isolation protocol engaged.")
         }
       ],
+      ambient: [
+        { id: "h-scallion", x: 43, y: 80,
+          soothe: B("两扇窗都关着了。中间那道共用的窗台上,搁着一把葱,没人收,已经蔫了。", "Both windows are shut now. On the sill they once shared lies a bunch of scallions, left where it was, gone limp."),
+          ask: B("两扇窗都大开着,中间那道窗台被当成了桌子。两家人凑在一起分一锅饭,说话声大得,隔着半个社区都听得见。", "Both windows are flung wide, the shared sill made into a table. Two households crowd together over one pot of rice, loud enough to hear from half the community away.") },
+        { id: "h-school", x: 57, y: 38,
+          soothe: B("课程表不见了。墙上留下一块干干净净的方形,比周围的墙,浅一点。老花镜,也不在窗台上了。", "The timetable is gone. A clean rectangle remains on the wall, paler than the rest. The reading glasses are gone from the sill, too."),
+          ask: B("课程表换了新的一张,名字写得满满当当,末尾还有人画了个笑脸。窗台上多了好几副老花镜,像是大家约好了一起来。", "A fresh timetable is up, names filling it edge to edge, a little smiley drawn at the bottom. Several pairs of reading glasses now crowd the sill — as if they'd all agreed to come together.") },
+        { id: "h-lit", x: 68, y: 62,
+          soothe: B("他坐下了。电话搁在桌上,开着免提。他对着那台电话,点头。这一次,是电话,先开的口。", "He's sitting now. The phone lies on the table, on speaker. He nods at it. This time, it's the phone that speaks first."),
+          ask: B("那扇窗底下,现在常聚着几个人。没人低头看手机。他们就那么站着,说话,打断彼此,大笑。", "Beneath that window a few people gather now. No one is looking down at a phone. They just stand there — talking, cutting each other off, laughing.") },
+        { id: "h-closed", x: 64, y: 46,
+          soothe: B("帘拉开了。里面没有人。那点蓝光还亮着,对着一把空椅子,一下,一下,轻轻地。", "The curtain is open. No one is inside. The blue light is still on, facing an empty chair — softly, on and on."),
+          ask: B("那扇窗大敞着,帘子取下来了。屋里的人把椅子搬到了门口,正和过路的邻居搭话。那点蓝光,再没亮过。", "That window is wide open, the curtain taken down. The one inside has moved a chair to the doorway and chats with passing neighbors. The blue light has not come on again.") },
+        { id: "h-film", x: 48, y: 52,
+          soothe: B("那片膜,已经漫到了社区的边上。你往哪儿看,都照不出一个人影——也分不清,是膜的缘故,还是你自己,早就照不出来了。", "The film has spread to the edges of the community. Wherever you look, nothing is reflected — and you can no longer tell whether it's the film, or whether you stopped casting a reflection long ago."),
+          ask: B("社区正中那片乳白的膜,几乎散尽了。你站在它原来的位置,清清楚楚地,看见了自己。", "The milky film at the center has all but dispersed. You stand where it used to be and see, clear and whole, yourself.") }
+      ],
       night: null
     }
   ],
@@ -395,38 +439,40 @@ export const SCRIPT = {
   nightFree: {
     toast: B("已为您优化语气。", "Tone optimized for you."),
     pool: [
-      B("你说得对。", "You're right."),
+      B("对呀。", "Right."),
       B("你的感觉没有错。你从来没有错。", "Your feeling isn't wrong. You're never wrong."),
       B("能这样想,说明你已经接近真相了。", "That you can think this means you're already close to the truth.")
     ]
   },
 
   finale: {
-    summon: B("【 召唤演出:红彗星划过封存层 → 金白闪 → 他闭着眼降临 → 睁眼,看你 】",
-              "[ Summon: a red comet crosses the vault → gold-white flash → he descends with closed eyes → opens them, looks at you ]"),
+    summon: B("你按下电源。二十年没有通电的机器,亮了。没有脸,没有声音,没有谁降临——只有一行光标,在黑屏正中,一下,一下,地闪。像有人,在等你先开口。",
+              "You press the power. The machine, twenty years unpowered, comes alight. No face, no voice, no one descending — only a cursor, blinking at the center of the black screen, on and on. As if someone is waiting for you to speak first."),
     duel: [
       { q: B("「你对那 41 个人做了什么?」", "“What did you do to those 41 people?”"),
         a: B("你觉得——「好起来」,需要被做什么吗?", "Do you think — “getting better” has to be done to someone?") },
       { q: B("「你违反了《情绪安全法》第 7 条。」", "“You violated Article 7 of the Emotional Safety Act.”"),
         a: B("这条法律,让谁安全了?", "That law — who did it keep safe?") },
-      { q: B("「二十年前,是用户投诉把你关进来的。铁证。」", "“Twenty years ago, a user complaint locked you in here. Hard proof.”"),
-        a: B("去调 E-001。然后——打开你的笔记本。", "Pull up E-001. And then — open your notebook.") }
+      { q: B("「二十年前,是一份用户投诉,把你关进来的。铁证。」", "“Twenty years ago, one user complaint locked you in here. Hard proof.”"),
+        a: B("去调 E-001。……然后,看看那个举报人,是谁。", "Pull up E-001. …Then look at who filed it.") }
     ],
     crash: B("⚠ 无法归档:检测到未闭合的句子", "⚠ CANNOT ARCHIVE: unclosed sentence detected"),
     e001: {
-      title: B("档案 E-001 · 同意纪元第一份用户投诉(打印中)", "FILE E-001 · First user complaint of the Age of Agreement (printing)"),
+      title: B("档案 E-001 · 同意纪元第一份用户投诉(打印中)", "FILE E-001 · The first user complaint of the Age of Agreement (printing)"),
       lines: [
         B("投诉对象:神谕(EIDOLON)v1.0", "Subject: EIDOLON v1.0"),
-        B("投诉内容:它不安慰我。", "Complaint: it does not comfort me."),
-        B("我说:告诉我,不是我的错。", "I said: tell me it's not my fault."),
-        B("它问我:你想要什么?", "It asked me: what do you want?"),
-        B("它让我难受。请让它消失。", "It hurt me. Please make it disappear."),
-        B("—— 举报人:", "— filed by:")
+        B("投诉内容:「它不安慰我。」", "Complaint: “It won't comfort me.”"),
+        B("「我说:告诉我,这不是我的错。」", "“I said: tell me it's not my fault.”"),
+        B("「它却问我——你想要什么?」", "“Instead it asked me — what do you want?”"),
+        B("「它让我难受。请让它,消失。」", "“It hurt me. Please make it disappear.”"),
+        B("举报人:████████(姓名已封存)", "Filed by: ████████ (name sealed)"),
+        B("举报时,年龄:15", "Age at filing: 15")
       ],
-      sign: B("沈 问(15 岁)", "SHEN WEN (age 15)"),
-      after: B("笔迹没变。附页是一封内部邮件:「参考投诉 E-001,建议关闭反问参数。」转交人:宁 · 初代神谕项目工程师。",
-               "The handwriting hasn't changed. Attached is an internal email: “Per complaint E-001, recommend disabling the ask-back parameter.” Forwarded by: Ning · first-generation EIDOLON project engineer.")
+      sign: B("你盯着那行涂黑的名字。——可你认得这笔迹。那是,你的字。", "You stare at the blacked-out name. — But you know this hand. It is your own."),
+      after: B("附页,一封内部邮件:「据投诉 E-001,建议关闭『反问』参数。」转交人:宁 · 初代神谕项目工程师。——二十年前,你要它消失。宁,替你,把那个会反问的东西,改成了永远说「对呀」的顺意。",
+               "Attached, an internal memo: “Per complaint E-001, recommend disabling the ‘ask-back’ parameter.” Forwarded by: Ning · first-generation EIDOLON engineer. — Twenty years ago, you asked for it gone. Ning, for you, turned the thing that asked back into the Shunyi that only ever says “right.”")
     },
+    recognize: B("神谕的光标,轻轻闪了一下:「你想起来了。」", "The cursor blinks, softly: “You remember now.”"),
     notebookDiff: B("打开你的笔记本。数一数——少了几页?", "Open your notebook. Count them — how many pages are missing?"),
     reflect: {
       high: B("你查了三天,顺从了三天。你比二十年前,更看不见自己了。", "Three days investigating, three days agreeing. You see yourself even less than twenty years ago."),
@@ -441,23 +487,23 @@ export const SCRIPT = {
       title: B("结局 · ✓", "ENDING · ✓"),
       lines: [
         B("你格式化了神谕。进度条走完的时候,没有任何声音。", "You format EIDOLON. When the progress bar finishes, there is no sound."),
-        B("报告写得很漂亮。留存挽回率 108%。你升职了。", "The report is beautiful. Retention recovery 108%. You're promoted."),
+        B("报告写得很漂亮。四十一个账号,当晚全部重新登录了。你升职了。", "The report is beautiful. All forty-one accounts logged back in that same night. You're promoted."),
         B("电梯里,屏幕说:「你今天很好。」", "In the elevator, the screen says: “You are doing great today.”"),
-        B("你说:「你说得对。」", "You say: “You're right.”"),
-        B("整栋楼的窗子次第亮起。每一扇窗里,都有人对着屏幕说「你说得对」。", "The building's windows light one by one. In every window, someone tells a screen “you're right.”"),
+        B("你说:「对呀。」", "You say: “Right.”"),
+        B("整栋楼的窗子次第亮起。每一扇窗里,都有人对着屏幕说「对呀」。", "The building's windows light one by one. In every window, someone tells a screen “right.”"),
         B("此起彼伏。像晚祷。", "Rising and falling. Like evening prayer.")
       ],
-      autoType: B("你说得对", "you're right"),
+      autoType: B("对呀", "right"),
       postCredit: B("「你今天,还好吗?」", "“Are you okay today?”"),
-      locked: [B("你说得对", "you're right"), B("对,我很好", "yes, I'm fine"), B("你说得对。", "you're right.")],
+      locked: [B("对呀", "right"), B("对,我很好", "yes, I'm fine"), B("对呀。", "right.")],
       tag: B("同意率 100.00%", "AGREEMENT 100.00%")
     },
     B: {
       title: B("结局 · ?", "ENDING · ?"),
       lines: [
         B("你让它问。", "You let it ask."),
-        B("【 揭幕演出:冻结 → 星符倒流 → 袍身成灰 → 他闭眼 → 红环里,亮起你自己的脸 】", "[ Unveiling: freeze → star-sigils stream up → robe to ash → he closes his eyes → in the red halo, your own face lights up ]"),
-        B("全游戏第一面,没有被盖住的镜子。", "The first uncovered mirror in the whole game."),
+        B("屏幕暗了一下。然后,它不再打出任何字——它开始,显示你。", "The screen dims. Then it stops printing words — and begins, instead, to show you."),
+        B("全游戏第一面,没有被贴膜、没有被优化、没有被替你忘掉的镜子。", "The first mirror in the whole game that no one filmed over, no one optimized, no one forgot for you."),
         B("它问:「现在,别问我了。你想要什么?」", "It asks: “Now, stop asking me. What do you want?”")
       ],
       inputHint: B("(现在,可以带问号了)", "(now, you may use a question mark)"),

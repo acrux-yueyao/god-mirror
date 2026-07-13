@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=18";
+import { SCRIPT } from "./script.js?v=35";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -179,7 +179,6 @@ async function boot() {
     $("license").style.display = "none";
     await typeInto($("loginLine"), b.login, 16);
     await wait(1000);
-    await showPrologue();  // 世界观序幕
     startDay(0);
   }, { once: true });
 }
@@ -232,7 +231,7 @@ function startDay(i) {
   const d = T.days[i];
   trans(d.date).then(async () => {
     show("scrDesk");
-    setImg("deskArt", "morning-" + d.n);   // 可选晨间背景,没有则回退深色桌面
+    setImg("deskArt", "book-background");   // 工作台底:装饰边框跨页
     $("deskDate").textContent = d.date;
     $("deskCase").textContent = d.head;
     $("nightBtn").style.display = "none";
@@ -324,17 +323,22 @@ function revealCards(d) {
     card.querySelector(".cardSub").textContent = opts.sub || "";
     return card;
   };
-  d.scenes.filter(s => s.loc !== "community").forEach(sc => {
-    const card = mkCard({ id: sc.id, name: sc.title, sub: sc.sub });
-    card.addEventListener("click", () => { if (!card.classList.contains("done")) openScene(sc, card); });
-    grid.appendChild(card);
+  // 按场景数组顺序出卡;社区枢纽卡插在第一个社区场景的位置(不再永远排最后)
+  let hubPlaced = false;
+  d.scenes.forEach(sc => {
+    if (sc.loc === "community") {
+      if (hubPlaced || !dayCommunity.length) return;
+      hubPlaced = true;
+      const cm = T.communityMap;
+      const hub = mkCard({ id: "community-hub", name: cm.title, sub: cm.sub, hub: true });
+      hub.addEventListener("click", () => { commMapCard = hub; openCommunityDay(); });
+      grid.appendChild(hub);
+    } else {
+      const card = mkCard({ id: sc.id, name: sc.title, sub: sc.sub });
+      card.addEventListener("click", () => { if (!card.classList.contains("done")) openScene(sc, card); });
+      grid.appendChild(card);
+    }
   });
-  if (dayCommunity.length) {
-    const cm = T.communityMap;
-    const hub = mkCard({ id: "community-hub", name: cm.title, sub: cm.sub, hub: true });
-    hub.addEventListener("click", () => { commMapCard = hub; openCommunityDay(); });
-    grid.appendChild(hub);
-  }
   grid.classList.add("on");
 }
 
@@ -437,17 +441,26 @@ function openCommunityDay(keep) {
   const host = $("commHotspots"); host.innerHTML = "";
   // 可进入的人家 = 当天的社区场景。优先渲染「房子抠图」(悬停微放大),没有抠图则回退小圆点。
   dayCommunity.forEach(sc => {
+    const visited = commVisited.has(sc.id);
+    const tagAt = (x, y) => {   // 明确的「进屋 / 已查」标牌,让房子看得出能点
+      const tag = document.createElement("div");
+      tag.className = "houseTag" + (visited ? " done" : "");
+      tag.style.left = x + "%"; tag.style.top = y + "%";
+      tag.textContent = visited ? T.ui.houseVisited : T.ui.houseEnter;
+      host.appendChild(tag);
+    };
     const dotFallback = () => {
       const dot = document.createElement("div");
-      dot.className = "hotspot enter" + (commVisited.has(sc.id) ? " visited" : "");
-      dot.style.left = (sc.x != null ? sc.x : 50) + "%"; dot.style.top = (sc.y != null ? sc.y : 50) + "%";
+      dot.className = "hotspot enter" + (visited ? " visited" : "");
+      const x = sc.x != null ? sc.x : 50, y = sc.y != null ? sc.y : 50;
+      dot.style.left = x + "%"; dot.style.top = y + "%";
       dot.addEventListener("click", () => enterHouse(sc));
-      host.appendChild(dot);
+      host.appendChild(dot); tagAt(x, y - 6);
     };
     if (sc.cut) {
       const c = sc.cut;
       const im = document.createElement("img");
-      im.className = "houseCut" + (commVisited.has(sc.id) ? " visited" : "");
+      im.className = "houseCut" + (visited ? " visited" : "");
       im.style.transformOrigin = c.cx + "% " + c.cy + "%";   // 从房子中心放大
       im.alt = "";
       const hit = document.createElement("div");   // 透明命中区,盖在房子上
@@ -460,14 +473,18 @@ function openCommunityDay(keep) {
       im.onerror = () => { im.remove(); hit.remove(); dotFallback(); };  // 抠图未上传 → 回退圆点
       im.src = "art/" + c.img + ".png";
       host.appendChild(im); host.appendChild(hit);
+      tagAt(c.cx, c.cy - c.h / 2 + 2);   // 标牌落在房子上方
     } else dotFallback();
   });
-  // 看一眼的窗 = 社区氛围
-  cm.ambient.forEach(h => {
+  // 看一眼的窗 = 社区氛围;每天一套(一天比一天更空),第一天沿用 communityMap.ambient
+  // 同一扇窗按玩家姿态分两种读法:顺从(附和多→blindness 高→把空当"变好")/ 清醒(追问多→看见掏空)
+  const ambient = (T.days[state.dayIdx] && T.days[state.dayIdx].ambient) || cm.ambient;
+  const ambientText = h => h.text || (state.blindness > 50 ? h.soothe : h.ask);   // 净附和→疏远(soothe)/ 中立或追问→和谐(ask)
+  ambient.forEach(h => {
     const dot = document.createElement("div");
     dot.className = "hotspot" + (commVisited.has(h.id) ? " visited" : "");
     dot.style.left = h.x + "%"; dot.style.top = h.y + "%";
-    dot.addEventListener("click", () => { $("commPopText").textContent = h.text; $("commPop").classList.add("on"); commVisited.add(h.id); dot.classList.add("visited"); });
+    dot.addEventListener("click", () => { $("commPopText").textContent = ambientText(h); $("commPop").classList.add("on"); commVisited.add(h.id); dot.classList.add("visited"); });
     host.appendChild(dot);
   });
   updateLeave();
@@ -545,50 +562,211 @@ const CLUE_IMG = {
   "s1-granny": "s1-granny-shard",    // 掌心大的碎镜片
   "s1-laoning": "s1-laoning-cloth",  // 盖着脸的红布
   "s2-archive": "s2-archive-log",    // 41 条同样的记录
-  "s2-shadow": "s2-shadow-figure"    // 反光里的金红人影
+  "s2-shadow": "s2-shadow-figure",   // 回程·地铁车窗:反光里的金红人影
+  "s2-couple": "s2-couple",          // 506 那对夫妻(tag03 抠图)
+  "s3-raid": "s3-raid",              // 后屋 · 无违规模型
+  "s3-server": "s3-server"           // 封存层 · 神谕
 };
-/* 剪贴本:每条线索=贴上去的一张;顺意的篡改=盖在上面的印刷便利贴(可撕开露出你的原文) */
-function renderNotebook(showDiff = false) {
-  const list = $("nbList"); list.innerHTML = "";
-  let lastDay = null;
-  state.notes.forEach(n => {
-    if (n.day !== lastDay) {
-      lastDay = n.day;
-      const dv = document.createElement("div"); dv.className = "dayDivider";
-      dv.textContent = (T.days[n.day - 1] ? T.days[n.day - 1].date : "D" + n.day);
-      list.appendChild(dv);
-    }
-    const h = hashId(n.id);
-    const clue = document.createElement("div"); clue.className = "clue"; clue.dataset.id = n.id;
-    clue.style.background = CLUE_TINTS[h % CLUE_TINTS.length];
-    clue.style.transform = "rotate(" + ((h % 7) - 3) + "deg)";
-    const obj = document.createElement("img"); obj.className = "clueObj"; obj.alt = "";   // 物件美术槽
-    obj.onload = () => obj.style.display = "block"; obj.onerror = () => {};
-    obj.src = "art/" + (CLUE_IMG[n.id] || ("clue-" + n.id)) + ".png";
-    clue.appendChild(obj);
-    const txt = document.createElement("div"); txt.className = "clueText"; txt.textContent = n.orig;   // 底=你的原文
-    clue.appendChild(txt);
-    const day = document.createElement("div"); day.className = "clueDay"; day.textContent = "D" + n.day; clue.appendChild(day);
-    if (n.deleted || n.orig !== n.cur) {          // 顺意动过手 → 盖一张更正
-      const cover = document.createElement("div");
-      cover.className = "cover " + (n.deleted ? "torn" : "sticky");
-      const tag = document.createElement("div"); tag.className = "tag";
-      tag.textContent = n.deleted ? T.ui.nbForgot : T.ui.nbOptimized; cover.appendChild(tag);
-      if (!n.deleted) { const ct = document.createElement("div"); ct.textContent = n.cur; cover.appendChild(ct); }
-      const corner = document.createElement("div"); corner.className = "peelCorner"; cover.appendChild(corner);
-      cover.title = T.ui.peelClue;
-      cover.addEventListener("click", () => { cover.classList.add("peeled"); sfx.ask(); });
-      if (showDiff) cover.classList.add("peeled");   // 结局:全撕开,露出真相
-      clue.appendChild(cover);
-    }
-    list.appendChild(clue);
+const WASHI = ["dots", "plain", "stripe", "purp"];
+const TAPES = ["tape-a", "tape-b", "stickers/tag01-01"];   // 和纸胶带(含带笑脸那卷)
+// tag01 的装饰小贴纸:星星 / 爱心 / 箭头,随线索散着贴,种类丰富(不只用一种)
+const DECOS = [
+  "stickers/tag01-02", "stickers/tag01-03", "stickers/tag01-04", "stickers/tag01-05", "stickers/tag01-10",  // 星
+  "stickers/tag01-11", "stickers/tag01-13", "stickers/tag01-16", "stickers/tag01-18", "stickers/tag01-24", "stickers/tag01-09",  // 心
+  "stickers/tag01-15", "stickers/tag01-17", "stickers/tag01-19", "stickers/tag01-21"   // 箭头
+];
+const DECO_SPOTS = [
+  { right: "-14%", top: "-8%", width: "24%", transform: "rotate(16deg)" },
+  { right: "-12%", bottom: "-6%", width: "26%", transform: "rotate(-10deg)" },
+  { left: "-13%", bottom: "-4%", width: "22%", transform: "rotate(-16deg)" }
+];
+const PENCILS = ["#c8683e", "#a54b8b", "#3d7a86", "#7a4bab", "#c26a3a", "#4a7a3d"];
+// 贴进跨页的槽位:左右两页交替,躲开中缝
+const NB_SLOTS = [
+  { x: 7,  y: 12, w: 21, rot: -4 },
+  { x: 56, y: 10, w: 22, rot: 3  },
+  { x: 9,  y: 55, w: 20, rot: -2 },
+  { x: 70, y: 50, w: 21, rot: -2 },
+  { x: 31, y: 40, w: 16, rot: 3  },
+  { x: 77, y: 27, w: 15, rot: 4  }
+];
+function clueSrc(n) { return "art/" + (CLUE_IMG[n.id] || ("clue-" + n.id)) + ".png"; }
+function spreadSrc(day) { return "art/scrapbook0" + (((day - 1) % 3) + 1) + ".png"; }   // 剪贴本分天旧纸底
+function nbDaysAvailable() {
+  const set = [...new Set(state.notes.map(n => n.day))].sort((a, b) => a - b);
+  return set.length ? set : [state.dayIdx + 1];
+}
+let nbDay = 1, journalActive = false;
+// 镜子碎片母题:每页角落固定出现(呼应"镜")
+function shardMotifEl() {
+  const d = document.createElement("div"); d.className = "shardMotif";
+  d.innerHTML = '<svg viewBox="0 0 200 260"><g stroke="#f6f3ee" stroke-width="1.4" stroke-linejoin="round">' +
+    '<polygon points="14,44 74,12 96,72 42,96" fill="#c9d6d4"/><polygon points="74,12 142,26 120,82 96,72" fill="#b7c8c9"/>' +
+    '<polygon points="96,72 120,82 100,142 46,120" fill="#d3ddd9"/><polygon points="46,120 100,142 82,190 22,160" fill="#c1cfce"/>' +
+    '<polygon points="120,82 160,112 130,150 100,142" fill="#aebfc0"/></g>' +
+    '<g stroke="#fff" stroke-width="1" opacity=".6"><line x1="32" y1="56" x2="56" y2="42"/><line x1="92" y1="46" x2="116" y2="62"/></g></svg>';
+  return d;
+}
+function washiEl(kind, css) { const t = document.createElement("div"); t.className = "washi " + kind; Object.assign(t.style, css); return t; }
+function washiImg(src, css) { const t = document.createElement("img"); t.className = "washiPng"; t.alt = ""; t.onerror = () => t.remove(); t.src = "art/" + src + ".png"; Object.assign(t.style, css); return t; }
+function decoSticker(src, css) { const t = document.createElement("img"); t.className = "decoSticker"; t.alt = ""; t.onerror = () => t.remove(); t.src = "art/" + src + ".png"; Object.assign(t.style, css); return t; }
+function pencilCircleSVG(color, undrawn) {
+  return '<svg class="pcircle" viewBox="0 0 120 90" preserveAspectRatio="none">' +
+    '<ellipse cx="60" cy="45" rx="54" ry="38" stroke="' + color + '" pathLength="100" ' +
+    'style="stroke-dasharray:100;stroke-dashoffset:' + (undrawn ? 100 : 0) + ';transition:stroke-dashoffset 1s ease"/></svg>';
+}
+// 顺意偷贴的更正条:盖在你手写原文上,可撕开露出原文
+function addCover(cap, n, opts) {
+  opts = opts || {};
+  const cover = document.createElement("div");
+  cover.className = "cover " + (n.deleted ? "torn" : "sticky");
+  const tag = document.createElement("div"); tag.className = "tag";
+  tag.textContent = n.deleted ? T.ui.nbForgot : T.ui.nbOptimized; cover.appendChild(tag);
+  if (!n.deleted) { const ct = document.createElement("div"); ct.className = "ctext"; ct.textContent = n.cur; cover.appendChild(ct); }
+  const corner = document.createElement("div"); corner.className = "peelCorner"; cover.appendChild(corner);
+  cover.title = T.ui.peelClue;
+  cover.addEventListener("click", () => { cover.classList.add("peeled"); sfx.ask(); });
+  if (opts.peeled) cover.classList.add("peeled");
+  cap.appendChild(cover);
+  return cover;
+}
+// 造一条"贴好的线索":相纸 + 胶带 + 手写小字 + 彩铅圈(+顺意更正条)
+function buildPasted(n, slot, opts) {
+  opts = opts || {};
+  const h = hashId(n.id);
+  const el = document.createElement("div"); el.className = "pasted"; el.dataset.id = n.id;
+  el.style.left = slot.x + "%"; el.style.top = slot.y + "%"; el.style.width = slot.w + "%";
+  el.style.transform = "rotate(" + slot.rot + "deg)";
+  const photo = document.createElement("div"); photo.className = "photo";
+  const img = document.createElement("img"); img.alt = "";
+  img.onerror = () => { photo.classList.add("blank"); img.remove(); };
+  img.src = clueSrc(n); photo.appendChild(img); el.appendChild(photo);
+  el.appendChild(washiImg(TAPES[h % TAPES.length], { left: "-9%", top: "-7%", width: "48%", transform: "rotate(-28deg)" }));
+  if (h % 2 === 0) el.appendChild(washiImg(TAPES[(h >> 2) % TAPES.length], { right: "-7%", bottom: "12%", width: "34%", transform: "rotate(16deg)" }));
+  // tag01 装饰小贴纸:每张线索散 1~2 张,种类由 hash 决定
+  const spot = h % DECO_SPOTS.length;
+  el.appendChild(decoSticker(DECOS[h % DECOS.length], DECO_SPOTS[spot]));
+  if ((h >> 5) % 2 === 0) el.appendChild(decoSticker(DECOS[(h >> 3) % DECOS.length], DECO_SPOTS[(spot + 1) % DECO_SPOTS.length]));
+  const cap = document.createElement("div"); cap.className = "capWrap";
+  const pencil = PENCILS[h % PENCILS.length];
+  cap.innerHTML = pencilCircleSVG(pencil, !!opts.draw);
+  const hcap = document.createElement("div"); hcap.className = "hcap";
+  hcap.style.color = pencil; hcap.style.transform = "rotate(" + (((h >> 3) % 5) - 2) + "deg)";
+  hcap.textContent = n.orig; cap.appendChild(hcap);
+  if (!opts.noCover && (n.deleted || n.orig !== n.cur)) addCover(cap, n, { peeled: opts.peeled });
+  el.appendChild(cap);
+  const day = document.createElement("div"); day.className = "clueDay"; day.textContent = "D" + n.day; el.appendChild(day);
+  return el;
+}
+function buildNbChrome(day) {
+  const sb = $("nbPaper"), days = nbDaysAvailable(), idx = days.indexOf(day);
+  ["prev", "next"].forEach(dir => {
+    let nav = sb.querySelector(".nbNav." + dir);
+    if (!nav) { nav = document.createElement("div"); nav.className = "nbNav " + dir; nav.textContent = dir === "prev" ? "‹" : "›"; nav.onclick = () => flipDay(dir); sb.appendChild(nav); }
+    nav.classList.toggle("off", dir === "prev" ? idx <= 0 : idx >= days.length - 1);
   });
+  let th = sb.querySelector(".nbThick");
+  if (!th) { th = document.createElement("div"); th.className = "nbThick"; sb.appendChild(th); }
+  th.innerHTML = "";
+  days.forEach(d => { const i = document.createElement("i"); if (d === day) i.className = "on"; th.appendChild(i); });
+}
+function paintSpread(day, opts) {
+  opts = opts || {};
+  $("nbPaper").style.backgroundImage = "url('" + spreadSrc(day) + "')";
+  $("nbTitle").textContent = T.ui.nbTitle;
+  const list = $("nbList"); list.innerHTML = "";
+  state.notes.filter(n => n.day === day).forEach((n, i) => list.appendChild(buildPasted(n, NB_SLOTS[i % NB_SLOTS.length], { peeled: opts.peeled })));
+  buildNbChrome(day);
+}
+function flipDay(dir) {
+  const days = nbDaysAvailable(), idx = days.indexOf(nbDay), ni = dir === "prev" ? idx - 1 : idx + 1;
+  if (ni < 0 || ni >= days.length) return;
+  nbDay = days[ni]; if (sfx.blip) sfx.blip();
+  paintSpread(nbDay, {}); $("nbFoot").textContent = T.ui.nbFoot;
+}
+function renderNotebook(showDiff = false) {
+  const days = nbDaysAvailable(); nbDay = days[days.length - 1];
+  paintSpread(nbDay, { peeled: showDiff });
   $("nbFoot").textContent = showDiff ? T.ui.nbFootDiff : (state.dayIdx >= 1 ? T.ui.nbFoot : "");
-  const bg = $("nbBg");   // 忘掉(擦白)↔ 归还(飞纸):底层记忆图
-  if (bg) { bg.style.display = "none"; bg.onload = () => bg.style.display = "block"; bg.onerror = () => bg.style.display = "none"; bg.src = "art/" + (showDiff ? "diff" : "forget") + ".png"; }
 }
 $("noteBtn").addEventListener("click", () => { renderNotebook(false); $("notebook").classList.add("on"); });
-$("nbClose").addEventListener("click", () => $("notebook").classList.remove("on"));
+$("nbClose").addEventListener("click", () => { if (journalActive) return; $("notebook").classList.remove("on"); });
+
+// ── 每日整理:陪顺意把今天的线索一张张贴进书里(睡前) ──────────────
+function showJToast(txt) {
+  const sb = $("nbPaper"); let t = sb.querySelector(".jToast");
+  if (!t) { t = document.createElement("div"); t.className = "jToast"; sb.appendChild(t); }
+  t.textContent = txt; t.classList.add("on"); clearTimeout(showJToast._t);
+  showJToast._t = setTimeout(() => t.classList.remove("on"), 1900);
+}
+function playJournal(day) {
+  return new Promise(resolve => {
+    nbDay = day; journalActive = true;
+    const sb = $("nbPaper");
+    sb.style.backgroundImage = "url('" + spreadSrc(day) + "')";
+    $("nbTitle").textContent = T.ui.nbTitle; $("nbFoot").textContent = "";
+    $("nbClose").style.display = "none";   // 贴完才出现"盖上睡"
+    const list = $("nbList"); list.innerHTML = "";
+    buildNbChrome(day);
+    sb.querySelectorAll(".scatterTray,.shunyiSay,.shunyiPet,.jToast,.agreeSticker").forEach(e => e.remove());
+    let say = document.createElement("div"); say.className = "shunyiSay"; say.textContent = T.ui.jIntro; sb.appendChild(say);
+    let pet = document.createElement("img"); pet.className = "shunyiPet"; pet.alt = ""; pet.onerror = () => pet.remove(); pet.src = "art/shunyi-wave.png"; sb.appendChild(pet);
+    setTimeout(() => { say.classList.add("on"); pet.classList.add("on"); }, 250);
+    const notes = state.notes.filter(n => n.day === day);
+    const built = notes.map((n, i) => {
+      const slot = NB_SLOTS[i % NB_SLOTS.length];
+      const el = buildPasted(n, slot, { draw: true, noCover: true });   // 圈先不画、贴纸稍后偷贴
+      el.style.opacity = "0";
+      el.style.transform = "translateY(90px) scale(.55) rotate(" + slot.rot + "deg)";
+      el.style.transition = "transform .6s cubic-bezier(.2,.8,.3,1.05), opacity .5s ease";
+      list.appendChild(el);
+      return { n, el, slot };
+    });
+    const tray = document.createElement("div"); tray.className = "scatterTray"; sb.appendChild(tray);
+    let pasted = 0;
+    built.forEach(({ n, el, slot }) => {
+      const ob = document.createElement("div"); ob.className = "scatterObj";
+      const img = document.createElement("img"); img.alt = "";
+      img.onerror = () => { img.remove(); const bl = document.createElement("div"); bl.className = "blank"; ob.appendChild(bl); };
+      img.src = clueSrc(n); ob.appendChild(img);
+      ob.onclick = () => {
+        if (ob.dataset.used) return; ob.dataset.used = "1";
+        ob.style.transition = "opacity .3s ease"; ob.style.opacity = "0"; ob.style.pointerEvents = "none";
+        if (sfx.soothe) sfx.soothe();
+        el.style.opacity = "1"; el.style.transform = "rotate(" + slot.rot + "deg)";
+        setTimeout(() => { const c = el.querySelector(".pcircle ellipse"); if (c) c.style.strokeDashoffset = "0"; }, 380);
+        if (++pasted === built.length) setTimeout(finishRitual, 950);
+      };
+      tray.appendChild(ob);
+    });
+    if (!built.length) { setTimeout(finishRitual, 400); }
+    function finishRitual() {
+      const tampered = built.filter(b => b.n.deleted || b.n.orig !== b.n.cur);
+      if (tampered.length) {
+        showJToast(T.ui.jSticker); if (sfx.ask) sfx.ask();
+        pet.src = "art/shunyi-reach.png";   // 伸爪·偷贴
+        const seal = document.createElement("img"); seal.className = "agreeSticker"; seal.alt = "";
+        seal.onerror = () => seal.remove(); seal.src = "art/sticker-agree.png";
+        seal.style.left = "16%"; seal.style.top = "63%"; seal.style.transform = "rotate(-8deg) scale(.5)"; seal.style.opacity = "0";
+        seal.style.transition = "transform .5s cubic-bezier(.2,.8,.3,1.05), opacity .5s ease";
+        list.appendChild(seal);
+        setTimeout(() => { seal.style.opacity = "1"; seal.style.transform = "rotate(-8deg) scale(1)"; }, 300);
+        tampered.forEach((b, k) => {
+          const cover = addCover(b.el.querySelector(".capWrap"), b.n, {});
+          cover.style.opacity = "0"; cover.style.transform = "translateY(-16px) rotate(-5deg)";
+          cover.style.transition = "transform .5s ease, opacity .5s ease";
+          setTimeout(() => { cover.style.opacity = "1"; cover.style.transform = ""; }, 300 + k * 520);
+        });
+      }
+      const delay = 500 + tampered.length * 520 + 500;
+      setTimeout(() => {
+        say.textContent = T.ui.jDone; pet.src = "art/shunyi-rest.png";   // 趴着·晚安
+        const btn = $("nbClose"); const prev = T.ui.nbClose; btn.style.display = ""; btn.textContent = T.ui.jClose;
+        btn.onclick = () => { btn.onclick = null; btn.textContent = prev; tray.remove(); say.classList.remove("on"); journalActive = false; resolve(); };
+      }, delay);
+    }
+  });
+}
 
 function applyNightEdits(day) {
   if (!day.edits) return;
@@ -695,7 +873,16 @@ function wheelChoice(beat) {
     });
   });
 }
-$("sleepBtn").addEventListener("click", () => { $("sleepBtn").classList.remove("on"); startDay(state.dayIdx + 1); });
+$("sleepBtn").addEventListener("click", async () => {
+  $("sleepBtn").classList.remove("on");
+  const finishedDay = state.dayIdx + 1;   // 刚过完的这天(notes.day 与之对应)
+  if (state.notes.some(n => n.day === finishedDay)) {
+    $("notebook").classList.add("on");
+    await playJournal(finishedDay);        // 陪顺意把今天的线索贴进书里
+    $("notebook").classList.remove("on");
+  }
+  startDay(state.dayIdx + 1);
+});
 
 /* ══ 终局(四层底) ════════════════════════════════════════════ */
 async function startFinale() {
@@ -720,6 +907,8 @@ async function startFinale() {
   }
   await wait(600);
   await printE001(F.e001);
+  await wait(500);
+  if (F.recognize) await gLine(F.recognize);   // 神谕:你想起来了
   await meLineF("……");
   await gLine(F.notebookDiff);
   await wait(700);
@@ -922,5 +1111,11 @@ try { saved = localStorage.getItem("sm-lang") || "zh"; } catch (e) {}
 setLang(saved);
 refreshMenu();
 
-$("startBtn").addEventListener("click", () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); boot(); });
+$("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
+
+
+
+
+
