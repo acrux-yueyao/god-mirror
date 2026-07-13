@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=17";
+import { SCRIPT } from "./script.js?v=18";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -635,8 +635,21 @@ function doSend() {
   meLine(cleaned).then(() => {
     if (optimized) showToast(T.ui.optimized);
     if (wheelResolve) { const r = wheelResolve; wheelResolve = null; r(); return; }
-    (async () => { await wait(700); sfx.soothe(); await sLine(T.nightFree.pool[state.poolIdx++ % T.nightFree.pool.length]); })();
+    (async () => { await wait(400); const reply = await askOracle(cleaned); sfx.soothe(); await sLine(reply); })();
   });
+}
+// 顺意的实时回复:调 /api/oracle(key 只在服务器端);任何失败都回退静态文案池,离线也能玩
+async function askOracle(userText) {
+  try {
+    const r = await fetch("/api/oracle", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text: userText, lang: LANG }) });
+    if (!r.ok) throw 0;
+    const d = await r.json();
+    const t = ((d && d.reply) || "").trim();
+    if (!t) throw 0;
+    return t;
+  } catch (e) {
+    return T.nightFree.pool[state.poolIdx++ % T.nightFree.pool.length];
+  }
 }
 function showToast(txt) {
   $("nToast").textContent = txt; $("nToast").classList.add("on");
