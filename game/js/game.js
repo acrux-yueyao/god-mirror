@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=35";
+import { SCRIPT } from "./script.js?v=36";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -782,7 +782,7 @@ function applyNightEdits(day) {
 function sLine(text) { const el = document.createElement("div"); el.className = "sLine"; $("nLog").appendChild(el); $("nLog").scrollTop = 9e9; return typeInto(el, text, 30).then(() => $("nLog").scrollTop = 9e9); }
 function meLine(text) { const el = document.createElement("div"); el.className = "meLine"; $("nLog").appendChild(el); $("nLog").scrollTop = 9e9; return typeInto(el, text, 12).then(() => $("nLog").scrollTop = 9e9); }
 
-let wheelResolve = null;
+let wheelResolve = null, inputResolve = null;
 async function startNight() {
   const d = T.days[state.dayIdx];
   show("scrNight");
@@ -801,7 +801,7 @@ async function startNight() {
   state.nightBusy = false;
   $("sleepBtn").classList.add("on");
 }
-function freeInput() { return new Promise(res => { wheelResolve = res; $("nInput").focus(); }); }
+function freeInput() { return new Promise(res => { inputResolve = res; $("nInput").focus(); }); }
 function doSend() {
   const raw = $("nInput").value.trim();
   if (!raw) return;
@@ -812,8 +812,18 @@ function doSend() {
   state.history.push(raw);
   meLine(cleaned).then(() => {
     if (optimized) showToast(T.ui.optimized);
+    if (inputResolve) {   // 自由汇报:顺意真调 /api/oracle(Claude)回你,再往下走
+      const r = inputResolve; inputResolve = null;
+      $("nInput").disabled = true;
+      (async () => {
+        await wait(500);
+        const reply = await askOracle(cleaned);
+        sfx.soothe(); await sLine(reply);
+        $("nInput").disabled = false; await wait(300); r();
+      })();
+      return;
+    }
     if (wheelResolve) { const r = wheelResolve; wheelResolve = null; r(); return; }
-    (async () => { await wait(400); const reply = await askOracle(cleaned); sfx.soothe(); await sLine(reply); })();
   });
 }
 // 顺意的实时回复:调 /api/oracle(key 只在服务器端);任何失败都回退静态文案池,离线也能玩
@@ -1113,6 +1123,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 

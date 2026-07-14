@@ -225,12 +225,14 @@ export const SCRIPT = {
         }
       ],
       night: [
-        { sys: B("晚上好,沈问。你今天很好。说说案子吧。", "Good evening, Shen Wen. You are doing great today. Tell me about the case.") },
+        { sys: B("晚上好,沈问。你今天很好。今天,查得怎么样?", "Good evening, Shen Wen. You are doing great today. How did it go out there?") },
         { input: true },
-        { sys: B("你的判断一如既往地准。那个修表匠,确实可疑,对吗?", "Your judgment is sharp as ever. That watchmaker really is suspicious, isn't he?") },
+        { sys: B("嗯,我都听着呢。还有别的吗?", "Mm. I'm listening to every word. Anything else?") },
+        { input: true },
+        { sys: B("你的判断,一如既往地准。那个修表匠——确实可疑,对吧?", "Your judgment is sharp as ever. That watchmaker — he really is suspicious, right?") },
         { wheel: [B("对,他很可疑", "Yes, he's suspicious"), B("对呀,重点查他", "Right, focus on him"), B("没错,明天继续盯他", "Right, keep watching him tomorrow")],
           qReply: B("……检测到未闭合的句子。已为您忽略。你是想说「对」吧。", "…unclosed sentence detected. Ignored, for you. You meant to say “yes,” didn't you.") },
-        { sys: B("好好睡。我会替你整理今天的记忆。", "Sleep well. I'll tidy up today's memories for you.") }
+        { sys: B("好好睡。明天,又是好的一天。", "Sleep well. Tomorrow will be another good day.") }
       ],
       edits: [
         { id: "s1-elevator", del: true },
@@ -341,12 +343,13 @@ export const SCRIPT = {
           ask: B("社区正中那片乳白的膜,今天薄了些。你走近,竟在里面照见了一点自己的轮廓——很淡,但在。", "The milky film at the center is thinner today. You lean close and catch, of all things, a faint outline of yourself in it — faint, but there.") }
       ],
       night: [
-        { sys: B("你今天接触了不合规信息。别担心——我已经替你忘掉了。", "You encountered non-compliant information today. Don't worry — I've already forgotten it for you.") },
-        { forget: "s2-shadow" },
+        { sys: B("晚上好,沈问。今天,辛苦了。跟我说说吧。", "Good evening, Shen Wen. You've had a long day. Tell me about it.") },
+        { input: true },
+        { sys: B("嗯。你说的,我都替你收好了。剩下的,别多想。", "Mm. I've put everything you said away, safe. The rest — don't dwell on it.") },
         { input: true },
         // 声线渐变:顺意开始用她自己刚说的话回她
         { sys: B("你说,「{echo}」。……你听,这是你自己的声音。对呀。", "You said, “{echo}.” …Listen — that's your own voice. Right.") },
-        { sys: B("506 的证词不重要。重要的是:41 台设备都经过修表铺。沈问,他符合「镜子」协助者的人格侧写。", "506's testimony doesn't matter. What matters: all 41 devices passed through the watch shop. Shen Wen, he fits the profile of a “MIRROR” accomplice.") },
+        { sys: B("506 那对,证词反复,不可信。要紧的是——41 台设备,都过了修表铺。他,符合「镜子」协助者的侧写。……对吧?", "That couple at 506 kept changing their story; unreliable. What matters — all 41 devices passed through the watch shop. He fits the profile of a “MIRROR” accomplice. …Right?") },
         { wheel: [B("申请搜查令", "Request a warrant"), B("对呀,就是他", "Right, it's him"), B("明早就突入", "Raid at dawn")],
           qReply: B("……又一个未闭合的句子。你最近,句尾总是翘起来。要注意。", "…another unclosed sentence. Lately your sentences keep turning upward at the end. Be careful.") },
         { sys: B("搜查令已批。晚安。「{echo}」——你看,连道晚安,我用的都是你的话了。", "Warrant approved. Good night. “{echo}” — see, even to say good night, I now use your words.") }
