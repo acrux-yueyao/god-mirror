@@ -660,14 +660,14 @@ const DECO_SPOTS = [
   { left: "-13%", bottom: "-4%", width: "22%", transform: "rotate(-16deg)" }
 ];
 const PENCILS = ["#c8683e", "#a54b8b", "#3d7a86", "#7a4bab", "#c26a3a", "#4a7a3d"];
-// 贴进跨页的槽位:左右两页交替,躲开中缝
+// 贴进跨页的槽位:左右两页交替,躲开中缝;右下角那格放最后,给顺意气泡+宠物留位
 const NB_SLOTS = [
   { x: 7,  y: 12, w: 21, rot: -4 },
   { x: 56, y: 10, w: 22, rot: 3  },
   { x: 9,  y: 55, w: 20, rot: -2 },
-  { x: 70, y: 50, w: 21, rot: -2 },
   { x: 31, y: 40, w: 16, rot: 3  },
-  { x: 77, y: 27, w: 15, rot: 4  }
+  { x: 77, y: 27, w: 15, rot: 4  },
+  { x: 70, y: 50, w: 21, rot: -2 }
 ];
 function clueSrc(n) { return "art/" + (CLUE_IMG[n.id] || ("clue-" + n.id)) + ".png"; }
 function spreadSrc(day) { return "art/scrapbook0" + (((day - 1) % 3) + 1) + ".png"; }   // 剪贴本分天旧纸底
@@ -806,7 +806,7 @@ function playJournal(day) {
     built.forEach(({ n, el, slot }) => {
       const ob = document.createElement("div"); ob.className = "scatterObj";
       const img = document.createElement("img"); img.alt = "";
-      img.onerror = () => { img.remove(); const bl = document.createElement("div"); bl.className = "blank"; ob.appendChild(bl); };
+      img.onerror = () => { img.remove(); const bl = document.createElement("div"); bl.className = "trayNote"; bl.textContent = n.orig; ob.appendChild(bl); };   // 无图线索 → 手写字条(别用空白纸)
       img.src = clueSrc(n); ob.appendChild(img);
       ob.onclick = () => {
         if (ob.dataset.used) return; ob.dataset.used = "1";
