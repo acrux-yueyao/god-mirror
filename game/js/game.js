@@ -262,46 +262,33 @@ function playMorning(d) {
   const m = d.morning;
   return new Promise(async (resolve) => {
     const scene = $("deskScene"), objs = $("deskObjects"), note = $("deskScreen"), file = $("deskFile"), stamp = $("deskStamp");
-    const pet = $("deskPet"), say = $("deskPetSay"), cover = $("noteCover"), vid = $("noteOpenVid");
-    const all = [note, file, stamp];
+    const pet = $("deskPet"), say = $("deskPetSay"), cover = $("noteCover");
+    file.style.display = "none";   // 案卷内容并进 CASE 本子,中间文件夹不再单列
+    const all = [note, stamp];
     const setFocus = el => all.forEach(o => o.classList.toggle("focus", o === el));   // 只有"该点的"发光引导
     scene.classList.remove("gone");
     all.forEach(o => o.classList.remove("read", "used", "focus", "pressed"));
     stamp.classList.add("locked");
     objs.classList.remove("enter"); void objs.offsetWidth; objs.classList.add("enter");   // 重放入场动效
-    // 左:案卷本(封面 handbook.png + 翻开 handbook-open.mp4);中/右:案卷 / 印章 美术槽
+    // 左:CASE 案卷本(封面 handbook.png);右:受理印章
     cover.style.display = "block"; cover.onerror = () => cover.style.display = "none"; cover.src = "art/handbook.png";
-    vid.style.display = "none"; vid.onerror = () => {}; vid.src = "art/handbook-open.mp4";
-    deskSlot("fileArt", file.querySelector(".fileTab"), "desk-file");
     deskSlot("stampArt", $("stampSvg"), "stamp");
-    note.querySelector(".doTag").textContent = T.ui.deskNoteTag;
-    file.querySelector(".doTag").textContent = T.ui.deskFileTag;
+    note.querySelector(".doTag").textContent = T.ui.deskFileTag;
     stamp.querySelector(".doTag").textContent = m.stamp;
     $("deskHint").textContent = T.ui.deskHintMorning;
-    let fileRead = false, noteBusy = false;
-    // 翻案卷本:播翻开动画 → 打开剪贴本(第二天起能发现顺意夜里改过的)→ 合上回封面
-    note.onclick = async () => {
-      if (noteBusy) return; noteBusy = true; sfx.blip();
-      cover.style.display = "none"; vid.style.display = "block";
-      try { vid.currentTime = 0; const p = vid.play(); if (p) await p.catch(() => {}); } catch (e) {}
-      await new Promise(r => { let done = false; const fin = () => { if (!done) { done = true; r(); } }; vid.onended = fin; setTimeout(fin, 3200); });
-      renderNotebook(false); $("notebook").classList.add("on");
-      await waitClick($("nbClose"));
-      $("notebook").classList.remove("on");
-      vid.style.display = "none"; cover.style.display = "block";
-      noteBusy = false;
-    };
-    file.onclick = () => openFile(m.file);
+    let caseRead = false;
+    // 点 CASE 本子 → 直接翻出案卷内容(无视频)
+    note.onclick = () => { sfx.blip(); openFile(m.file); };
     $("fileClose").onclick = async () => {
       $("filePanel").classList.remove("on");
-      if (!fileRead) {
-        fileRead = true; file.classList.add("used"); stamp.classList.remove("locked");
+      if (!caseRead) {
+        caseRead = true; note.classList.add("used"); stamp.classList.remove("locked");
         setFocus(stamp); $("deskHint").textContent = T.ui.deskHintGo;
         await typeInto($("deskPov"), m.afterFile, 16);
       }
     };
     stamp.onclick = async () => {
-      if (stamp.classList.contains("locked")) { sfx.ask(); if (!file.classList.contains("used")) setFocus(file); await typeInto($("deskPov"), T.ui.deskNudge, 16); return; }
+      if (stamp.classList.contains("locked")) { sfx.ask(); if (!caseRead) setFocus(note); await typeInto($("deskPov"), T.ui.deskNudge, 16); return; }
       stamp.onclick = null; setFocus(null);
       pet.style.display = "none"; say.style.display = "none";
       stamp.classList.add("pressed", "used"); sfx.thunk();
@@ -316,7 +303,7 @@ function playMorning(d) {
     pet.style.display = "block"; pet.onerror = () => pet.style.display = "none"; pet.src = "art/shunyi-wave.png";
     say.style.display = "block"; say.textContent = ""; await typeInto(say, m.screen, 22);
     pet.src = "art/shunyi-peek.png";
-    setFocus(file);   // 引导去读案卷
+    setFocus(note);   // 引导去翻 CASE 案卷本
   });
 }
 function revealCards(d) {
@@ -1136,6 +1123,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 
