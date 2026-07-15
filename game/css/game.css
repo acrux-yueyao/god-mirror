@@ -157,11 +157,22 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 /* 案卷弹层 */
 #filePanel{position:absolute;inset:0;z-index:6;display:none;place-items:center;background:rgba(8,9,11,.66);backdrop-filter:blur(3px)}
 #filePanel.on{display:grid}
-#filePaper{width:440px;max-width:82%;padding:30px 34px 26px;display:flex;flex-direction:column;gap:14px}
-#fileTitle{font:600 14px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#3a372e;border-bottom:1px solid rgba(58,55,46,.3);padding-bottom:10px}
-#fileLines{display:flex;flex-direction:column;gap:9px;font:400 13.5px/1.7 'Noto Serif SC',serif;color:#3a372e}
-#fileLines .fl{padding-left:14px;border-left:2px solid rgba(184,67,58,.5)}
-#fileClose{align-self:flex-end;color:#6b3f38;border-color:rgba(107,63,56,.5);background:transparent}
+/* 撕边毛边纸 · 手写案卷 */
+#filePaper{position:relative;isolation:isolate;width:452px;max-width:84%;padding:40px 42px 34px;display:flex;flex-direction:column;gap:15px;background:transparent!important;box-shadow:none!important;border-radius:0}
+#filePaper::before{content:"";position:absolute;inset:-6px;z-index:-1;
+  background:
+    radial-gradient(130% 90% at 26% 4%, rgba(255,251,239,.75), rgba(255,251,239,0) 55%),
+    radial-gradient(120% 100% at 88% 96%, rgba(203,188,150,.4), rgba(203,188,150,0) 50%),
+    repeating-linear-gradient(94deg, rgba(150,130,90,.05) 0 2px, rgba(150,130,90,0) 2px 5px),
+    linear-gradient(160deg,#f2ead6 0%,#eadfc4 55%,#e3d6ba 100%);
+  box-shadow:0 16px 38px rgba(24,16,5,.52);
+  filter:url(#paperTear)}
+#fileTitle{position:relative;font:600 15px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#4a3f2c;padding-bottom:13px}
+#fileTitle::after{content:"";position:absolute;left:0;bottom:3px;width:58%;height:2.5px;background:#b8433a;opacity:.62;filter:url(#inkRough)}
+#fileLines{display:flex;flex-direction:column;gap:11px;font:500 18px/1.5 'Caveat','Zhi Mang Xing',cursive;color:#3a3020}
+#fileLines .fl{position:relative;padding-left:16px}
+#fileLines .fl::before{content:"";position:absolute;left:2px;top:3px;bottom:3px;width:2.5px;border-radius:2px;background:rgba(184,67,58,.6);filter:url(#inkRough)}
+#fileClose{align-self:flex-end;margin-top:4px;font-family:'IBM Plex Mono',monospace;color:#6b3f38;border-color:rgba(107,63,56,.5);background:transparent}
 
 /* ── 调查点卡片(卷宗/目的地质感,替代占位框)──────────────── */
 #sceneGrid{position:absolute;left:0;right:0;top:150px;padding:0 40px;display:none;gap:20px;flex-wrap:wrap;justify-content:center;z-index:2}
