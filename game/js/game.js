@@ -825,13 +825,14 @@ function playJournal(day) {
       if (tampered.length) {
         showJToast(T.ui.jSticker); if (sfx.ask) sfx.ask();
         pet.src = "art/shunyi-reach.png";   // 伸爪·偷贴
-        const seal = document.createElement("img"); seal.className = "agreeSticker"; seal.alt = "";
-        seal.onerror = () => seal.remove(); seal.src = "art/sticker-agree.png";
-        seal.style.left = "16%"; seal.style.top = "63%"; seal.style.transform = "rotate(-8deg) scale(.5)"; seal.style.opacity = "0";
-        seal.style.transition = "transform .5s cubic-bezier(.2,.8,.3,1.05), opacity .5s ease";
-        list.appendChild(seal);
-        setTimeout(() => { seal.style.opacity = "1"; seal.style.transform = "rotate(-8deg) scale(1)"; }, 300);
         tampered.forEach((b, k) => {
+          // 顺意偷贴一张「自己的」小贴纸(tag01 可爱款):贴在被改线索的角上(照片/胶带区,避开文字),图案+位置各不相同,不再钉死一处
+          const deco = DECOS[hashId(b.n.id + "seal") % DECOS.length];
+          const spot = DECO_SPOTS[hashId(b.n.id + "s") % DECO_SPOTS.length];
+          const seal = decoSticker(deco, Object.assign({}, spot, { width: "30%", zIndex: "6", opacity: "0", transform: (spot.transform || "") + " scale(.35)", transition: "transform .5s cubic-bezier(.2,.8,.3,1.05), opacity .5s ease" }));
+          b.el.appendChild(seal);
+          setTimeout(() => { seal.style.opacity = "1"; seal.style.transform = (spot.transform || "") + " scale(1)"; }, 300 + k * 200);
+          // 覆盖原文(顺意改写的「更顺」的说法,可撕开看原文)
           const cover = addCover(b.el.querySelector(".capWrap"), b.n, {});
           cover.style.opacity = "0"; cover.style.transform = "translateY(-16px) rotate(-5deg)";
           cover.style.transition = "transform .5s ease, opacity .5s ease";
