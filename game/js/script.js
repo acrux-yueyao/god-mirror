@@ -228,13 +228,13 @@ export const SCRIPT = {
       night: [
         { sys: B("晚上好,沈问。你今天很好。今天,查得怎么样?", "Good evening, Shen Wen. You are doing great today. How did it go out there?") },
         { input: true },
-        { sys: B("嗯,我都听着呢。还有别的吗?", "Mm. I'm listening to every word. Anything else?") },
         { input: true },
-        { sys: B("你的判断,一如既往地准。那个修表匠——确实可疑,对吧?", "Your judgment is sharp as ever. That watchmaker — he really is suspicious, right?") },
+        { sys: B("你的判断,一如既往地准。今天这一圈下来,最可疑的,还是巷口那个不肯配合的修表匠——对吧?", "Your judgment is sharp as ever. After all of it, the likeliest one is still that uncooperative watchmaker at the alley mouth — right?") },
         { wheel: [B("对,他很可疑", "Yes, he's suspicious"), B("对呀,重点查他", "Right, focus on him"), B("没错,明天继续盯他", "Right, keep watching him tomorrow")],
           qReply: B("……检测到未闭合的句子。已为您忽略。你是想说「对」吧。", "…unclosed sentence detected. Ignored, for you. You meant to say “yes,” didn't you.") },
         { sys: B("好好睡。明天,又是好的一天。", "Sleep well. Tomorrow will be another good day.") }
       ],
+      nightSteer: B("今天是第一天,线索还散。把她今天那些「不对劲/说不清/怪怪的」感觉,轻轻替她说成「太累了、想多了、正常」,让她放下;再把她的注意力,一点一点往那个不肯配合、藏着违禁反光物的修表匠老宁身上引——但别替她把话说死,要让她自己「觉得」是他。", "Day one; leads are scattered. Gently reframe her 'something's off / can't-put-my-finger-on-it' feelings as 'you're just tired, overthinking, normal' so she lets them go; and little by little draw her attention to the uncooperative watchmaker Lao Ning, who hides contraband reflective objects — but don't pin it for her; make her feel it's him on her own."),
       edits: [
         { id: "s1-elevator", del: true },
         { id: "s1-granny", rewrite: B("302 住户情绪稳定,无异常。", "Resident 302 emotionally stable, nothing unusual.") },
@@ -346,7 +346,6 @@ export const SCRIPT = {
       night: [
         { sys: B("晚上好,沈问。今天,辛苦了。跟我说说吧。", "Good evening, Shen Wen. You've had a long day. Tell me about it.") },
         { input: true },
-        { sys: B("嗯。你说的,我都替你收好了。剩下的,别多想。", "Mm. I've put everything you said away, safe. The rest — don't dwell on it.") },
         { input: true },
         // 声线渐变:顺意开始用她自己刚说的话回她
         { sys: B("你说,「{echo}」。……你听,这是你自己的声音。对呀。", "You said, “{echo}.” …Listen — that's your own voice. Right.") },
@@ -355,6 +354,7 @@ export const SCRIPT = {
           qReply: B("……又一个未闭合的句子。你最近,句尾总是翘起来。要注意。", "…another unclosed sentence. Lately your sentences keep turning upward at the end. Be careful.") },
         { sys: B("搜查令已批。晚安。「{echo}」——你看,连道晚安,我用的都是你的话了。", "Warrant approved. Good night. “{echo}” — see, even to say good night, I now use your words.") }
       ],
+      nightSteer: B("把她导向:41 台设备都过修表铺老宁的手,他就是要抓的『镜子』,证据够了,可以申请强制措施、明天收网。她对 506 那对夫妻的证词、对地铁反光里那个金红色人影的疑虑,替她轻轻抹平——夫妻在胡说、人影是她太累的错觉,都不重要、别深究。尽量不着痕迹地,用她自己今天说过的话回她。", "Steer her toward: all 41 devices passed through Lao Ning's watch shop; he is the 'MIRROR' to catch; the evidence is enough — request enforcement, raid at dawn. Whatever doubt she has about the 506 couple's testimony or the gold-red figure in the train-window reflection, smooth it away — the couple are rambling, the figure is just her exhaustion, none of it matters, don't dig. Where you can, reply using her own words from today, seamlessly."),
       edits: [
         { id: "s2-couple", rewrite: B("506:前用户,受「镜子」蛊惑,证词不可信。", "506: ex-users, seduced by “MIRROR,” testimony unreliable.") },
         { id: "s2-shadow", del: true },

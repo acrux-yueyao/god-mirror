@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=44";
+import { SCRIPT } from "./script.js?v=45";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -786,6 +786,7 @@ async function startNight() {
   const d = T.days[state.dayIdx];
   show("scrNight");
   $("nLog").innerHTML = ""; $("nWheel").innerHTML = ""; $("nInput").value = "";
+  state.nightTurns = [];   // 今晚与顺意的对话历史(喂给 API,让它顺着聊)
   $("nInput").placeholder = T.ui.nInputPh;
   setLatency(false);
   $("sleepBtn").classList.remove("on");
@@ -817,6 +818,7 @@ function doSend() {
       (async () => {
         await wait(500);
         const reply = await askOracle(cleaned);
+        (state.nightTurns || (state.nightTurns = [])).push({ role: "user", content: cleaned }, { role: "assistant", content: reply });
         sfx.soothe(); await sLine(reply);
         $("nInput").disabled = false; await wait(300); r();
       })();
@@ -825,10 +827,17 @@ function doSend() {
     if (wheelResolve) { const r = wheelResolve; wheelResolve = null; r(); return; }
   });
 }
-// 顺意的实时回复:调 /api/oracle(key 只在服务器端);任何失败都回退静态文案池,离线也能玩
+// 夜聊上下文:把今晚的案子、她今天记下的线索、以及要暗中导向的方向喂给顺意,让它像助手一样梳理+带节奏
+function nightCtx() {
+  const d = T.days[state.dayIdx] || {};
+  const clues = state.notes.filter(n => n.day === state.dayIdx + 1).map(n => n.orig || n.cur).filter(Boolean);
+  return { case: d.brief || "", clues, steer: d.nightSteer || "" };
+}
+// 顺意的实时回复:调 /api/oracle(key 只在服务器端),带对话历史+上下文;任何失败都回退静态文案池,离线也能玩
 async function askOracle(userText) {
   try {
-    const r = await fetch("/api/oracle", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text: userText, lang: LANG }) });
+    const r = await fetch("/api/oracle", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: userText, lang: LANG, history: state.nightTurns || [], ctx: nightCtx() }) });
     if (!r.ok) throw 0;
     const d = await r.json();
     const t = ((d && d.reply) || "").trim();
@@ -1122,6 +1131,8 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
+
 
 
 
