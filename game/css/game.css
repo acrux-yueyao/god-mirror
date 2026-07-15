@@ -1,3 +1,5 @@
+/* 本地手写英文字体 Kiddo(中文用 Long Cang / 龙藏,走 Google Fonts)*/
+@font-face{font-family:'Kiddo';src:url('../fonts/kiddo-bundle/kiddo-notregular/kiddo-regular.otf') format('opentype');font-display:swap}
 html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM Plex Mono',monospace}
 #viewport{position:fixed;inset:0;background:#111}
 #stage{width:1180px;height:760px;position:absolute;left:50%;top:50%;overflow:hidden;background:#26292b}
@@ -169,7 +171,7 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
   filter:url(#paperTear)}
 #fileTitle{position:relative;font:600 15px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#4a3f2c;padding-bottom:13px}
 #fileTitle::after{content:"";position:absolute;left:0;bottom:3px;width:58%;height:2.5px;background:#b8433a;opacity:.62;filter:url(#inkRough)}
-#fileLines{display:flex;flex-direction:column;gap:11px;font:500 18px/1.5 'Caveat','Zhi Mang Xing',cursive;color:#3a3020}
+#fileLines{display:flex;flex-direction:column;gap:11px;font:400 21px/1.55 'Kiddo','Long Cang',cursive;color:#332b1c}
 #fileLines .fl{position:relative;padding-left:16px}
 #fileLines .fl::before{content:"";position:absolute;left:2px;top:3px;bottom:3px;width:2.5px;border-radius:2px;background:rgba(184,67,58,.6);filter:url(#inkRough)}
 #fileClose{align-self:flex-end;margin-top:4px;font-family:'IBM Plex Mono',monospace;color:#6b3f38;border-color:rgba(107,63,56,.5);background:transparent}
@@ -290,7 +292,7 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 .washi.stripe{background:repeating-linear-gradient(45deg,#f2c76b 0,#f2c76b 5px,#f7dd9a 5px,#f7dd9a 10px)}
 .washi.purp{background:#b3a2d9;background-image:radial-gradient(rgba(255,255,255,.8) 22%,transparent 24%);background-size:9px 9px}
 .capWrap{position:relative;margin-top:7px}
-.hcap{position:relative;z-index:2;font-family:'Zhi Mang Xing','Noto Serif SC',cursive;font-size:17px;line-height:1.42;white-space:pre-wrap}
+.hcap{position:relative;z-index:2;font-family:'Kiddo','Long Cang','Noto Serif SC',cursive;font-size:19px;line-height:1.4;white-space:pre-wrap}
 /* 无对应图的线索(如社区汇总):做成暖纸手写便签,而不是空白相框 */
 .pasted.noteOnly .capWrap{background:rgba(250,244,228,.92);border-radius:9px;padding:11px 14px;box-shadow:0 6px 14px rgba(40,25,10,.26)}
 .pasted.noteOnly .capWrap::before{content:"";position:absolute;inset:2px;border:2px solid #a58a5f;border-radius:8px;filter:url(#inkRough);pointer-events:none}
