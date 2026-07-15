@@ -125,7 +125,7 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 #deskScreenText{position:absolute;top:16px;left:16px;right:16px;font:400 12px/1.7 'Noto Serif SC',serif;color:#bfe0ee;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 #deskScreen.read .scrGlow{border-color:rgba(122,181,207,.7)}
 /* 案卷本:封面 handbook.png + 翻开 handbook-open.mp4 */
-.noteFace{width:148px;aspect-ratio:864/1152;position:relative}
+.noteFace{width:210px;aspect-ratio:864/1152;position:relative}
 #noteCover{width:100%;display:block;filter:drop-shadow(0 9px 16px rgba(30,18,8,.42));transition:transform .22s ease}
 #deskScreen:hover #noteCover{transform:rotate(-2deg)}
 #noteOpenVid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150%;max-width:none;display:none;filter:drop-shadow(0 12px 22px rgba(30,18,8,.5))}

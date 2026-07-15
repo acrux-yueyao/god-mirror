@@ -300,9 +300,8 @@ function playMorning(d) {
     };
     await typeInto($("deskPov"), m.intro, 16);
     // 顺意小宠物:探头登场 → 挥手问早(气泡)
-    pet.style.display = "block"; pet.onerror = () => pet.style.display = "none"; pet.src = "art/shunyi-wave.png";
+    pet.style.display = "block"; pet.onerror = () => pet.style.display = "none"; pet.src = "art/shunyi-rest.png";
     say.style.display = "block"; say.textContent = ""; await typeInto(say, m.screen, 22);
-    pet.src = "art/shunyi-peek.png";
     setFocus(note);   // 引导去翻 CASE 案卷本
   });
 }
@@ -1123,6 +1122,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 
