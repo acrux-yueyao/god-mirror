@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en" data-l="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GOD SHIFT — A Case Study · 神谕之镜 · 作品自述</title>
+<meta name="description" content="A narrative horror game about an AI that always agrees. Case study: narrative systems, a live LLM playing the villain, and an ending that opens your camera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Long+Cang&family=Noto+Serif+SC:wght@400;600&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Kiddo';src:url('fonts/kiddo-bundle/kiddo-notregular/kiddo-regular.otf') format('opentype');font-display:swap}
+:root{
+  --ink:#0c0f16; --ink2:#141726; --paper:#f2ead6; --paper2:#e8dcbf; --seal:#b8433a; --seal2:#c15b4a;
+  --gold:#e8c877; --dim:#8891a0; --line:rgba(232,200,119,.22); --body:#d8deea; --inkTxt:#3a3020;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--ink);color:var(--body);font-family:'Noto Serif SC',serif}
+html[data-l="en"] .z{display:none}
+html[data-l="zh"] .e{display:none}
+a{color:inherit}
+img{max-width:100%}
+::selection{background:rgba(184,67,58,.5)}
+
+/* ── header ── */
+.hd{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;gap:18px;padding:14px 26px;
+  font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;transition:background .3s ease, box-shadow .3s ease}
+.hd.solid{background:rgba(12,15,22,.92);backdrop-filter:blur(8px);box-shadow:0 1px 0 var(--line)}
+.hd .logo{color:var(--gold);text-decoration:none}
+.hd .crumb{color:var(--dim);font-weight:400}
+.hd nav{margin-left:auto;display:flex;gap:16px;align-items:center}
+.hd nav a{color:var(--body);text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px}
+.hd nav a:hover{border-color:var(--seal2)}
+.hd button{font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;background:none;border:1px solid var(--line);
+  color:var(--body);padding:5px 12px;border-radius:4px;cursor:pointer}
+.hd button:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── HUD hero ── */
+.hud{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden;
+  background:radial-gradient(ellipse 120% 90% at 50% 42%, #1a1f33 0%, var(--ink) 72%)}
+.hud-spec{position:relative;width:min(760px,86vw)}
+.hud-spec img{display:block;width:100%;border-radius:6px;
+  box-shadow:0 40px 90px rgba(0,0,0,.65), 0 0 0 1px rgba(232,200,119,.12);
+  mask-image:radial-gradient(120% 100% at 50% 45%, #000 62%, rgba(0,0,0,.86) 100%)}
+.hud-ring{position:absolute;inset:-34px;border:1px solid rgba(232,200,119,.18);border-radius:10px;pointer-events:none}
+.hud-ring::before,.hud-ring::after{content:"";position:absolute;width:14px;height:14px;border:1px solid rgba(232,200,119,.5)}
+.hud-ring::before{left:-1px;top:-1px;border-right:none;border-bottom:none}
+.hud-ring::after{right:-1px;bottom:-1px;border-left:none;border-top:none}
+.hud-tag{position:absolute;left:0;top:-58px;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:var(--gold)}
+.hud-tag i{font-style:normal;color:var(--dim)}
+.co{position:absolute;font:500 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--body);white-space:nowrap}
+.co .lb{border:1px solid rgba(232,200,119,.34);background:rgba(12,15,22,.82);padding:5px 9px;border-radius:3px}
+.co .ln{position:absolute;height:1px;background:linear-gradient(90deg, rgba(232,200,119,.6), rgba(232,200,119,.08));transform-origin:left center}
+.co .dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--seal2);box-shadow:0 0 8px rgba(193,91,74,.9)}
+.hud-title{position:absolute;left:50%;bottom:7vh;transform:translateX(-50%);text-align:center;width:min(860px,92vw)}
+.hud-title h1{margin:0;font:600 clamp(30px,5vw,54px) 'Cormorant Garamond',serif;color:#eef1ff;letter-spacing:.04em}
+.hud-title h1 .zt{font-family:'Noto Serif SC',serif;font-weight:600}
+.hud-title p{margin:10px 0 0;font:400 13px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--dim)}
+.hud-cue{position:absolute;left:50%;bottom:2vh;transform:translateX(-50%);font:400 10px 'IBM Plex Mono',monospace;
+  letter-spacing:.3em;color:var(--dim);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.35;transform:translate(-50%,0)}50%{opacity:.9;transform:translate(-50%,6px)}}
+
+/* ── shared layout ── */
+.wrap{max-width:1060px;margin:0 auto;padding:0 26px}
+section.blk{padding:84px 0 30px}
+.sn{font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:var(--seal2)}
+h2{margin:10px 0 6px;font:600 clamp(24px,3.2vw,36px) 'Cormorant Garamond',serif;color:#eef1ff}
+h2 .zh2{font-family:'Noto Serif SC',serif}
+.lede{max-width:760px;font:400 16px/1.95 'Noto Serif SC',serif;color:var(--body)}
+.lede em{font-style:normal;color:var(--gold)}
+.lede a{color:var(--gold)}
+.small{font:400 12px/1.8 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.06em}
+
+/* ── meta table ── */
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:44px 0 0}
+.meta>div{background:var(--ink2);padding:18px 18px 16px}
+.meta .k{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:var(--dim);margin-bottom:9px}
+.meta .v{font:400 13.5px/1.75 'Noto Serif SC',serif;color:var(--body)}
+
+/* ── contents ── */
+.toc{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:36px}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:13px 14px;border:1px solid var(--line);border-radius:6px;
+  text-decoration:none;color:var(--body);font:400 13px 'Noto Serif SC',serif;transition:border-color .2s, background .2s}
+.toc a:hover{border-color:var(--seal2);background:rgba(184,67,58,.06)}
+.toc .n{font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2)}
+
+/* ── paper plate ── */
+.plate{position:relative;background:linear-gradient(160deg,#f4edda 0%,#eadfc4 60%,#e3d6ba 100%);color:var(--inkTxt);
+  border-radius:3px;padding:30px 34px;box-shadow:0 18px 44px rgba(0,0,0,.5)}
+.plate.torn{background:transparent;box-shadow:none;padding:38px 40px}
+.plate.torn::before{content:"";position:absolute;inset:-4px;z-index:-1;border-radius:2px;
+  background:linear-gradient(160deg,#f4edda 0%,#eadfc4 60%,#e3d6ba 100%);
+  box-shadow:0 18px 44px rgba(0,0,0,.55);filter:url(#paperTear)}
+.plate .pt{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#6a5a3a;margin-bottom:12px}
+.plate .hand-z{font-family:'Long Cang',cursive;font-size:22px;line-height:1.7;color:#332b1c}
+.plate .hand-e{font-family:'Kiddo',cursive;font-size:19px;line-height:1.65;color:#332b1c}
+
+/* ── figure rows ── */
+.figrow{display:grid;gap:22px;margin:40px 0 0}
+.figrow.c2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.figrow.c3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.fig{background:var(--ink2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.fig img{display:block;width:100%;height:auto}
+.fig .cap{padding:13px 16px 15px;font:400 12.5px/1.75 'Noto Serif SC',serif;color:var(--body)}
+.fig .cap .fn{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:var(--seal2);display:block;margin-bottom:6px}
+
+/* ── pull quote ── */
+.pull{margin:56px auto;max-width:720px;text-align:center}
+.pull .q{font:500 clamp(22px,3vw,30px)/1.7 'Cormorant Garamond',serif;color:#eef1ff}
+.pull .q .zq{font-family:'Noto Serif SC',serif}
+.pull .s{margin-top:12px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:var(--dim)}
+
+/* ── tic demo ── */
+.ticrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
+.tic{border:1px solid var(--line);border-radius:8px;padding:24px 22px;background:var(--ink2)}
+.tic .t{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:var(--dim);margin-bottom:14px}
+.tic .say{font:600 26px 'Noto Serif SC',serif;color:#eef1ff}
+.tic .why{margin-top:12px;font:400 13px/1.85 'Noto Serif SC',serif;color:var(--body)}
+.tic.rej{border-color:rgba(184,67,58,.4)}
+.tic.rej .t{color:var(--seal2)}
+.tic.keep{border-color:rgba(126,190,140,.4)}
+.tic.keep .t{color:#7ebe8c}
+.lat{margin-top:44px;border:1px solid var(--line);border-radius:8px;background:var(--ink2);padding:24px 22px}
+.lat .row{display:flex;align-items:center;gap:14px;font:500 13px 'IBM Plex Mono',monospace}
+.lat .who{color:var(--dim);letter-spacing:.14em;width:88px}
+.lat .bub{background:rgba(232,200,119,.1);border:1px solid var(--line);padding:8px 14px;border-radius:12px 12px 12px 3px;color:#eef1ff;font-family:'Noto Serif SC',serif}
+.lat .ms{margin-left:auto;color:var(--seal2)}
+.lat .note{margin-top:14px;font:400 12.5px/1.8 'Noto Serif SC',serif;color:var(--body)}
+
+/* ── systems diagram ── */
+.sys{margin-top:44px;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:10px 8px 2px;overflow-x:auto}
+.sys svg{display:block;min-width:640px;width:100%;height:auto}
+
+/* ── peel demo ── */
+.peelwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:40px;align-items:start}
+.peel{position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.peel .orig,.peel .cover{border-radius:6px;padding:20px 22px 18px;font-size:17px;line-height:1.7}
+.peel .orig{background:#efe5cb;color:#4a3020;font-family:'Long Cang',cursive;box-shadow:inset 0 0 0 1px rgba(90,70,40,.25)}
+.peel .cover{position:absolute;inset:0;background:linear-gradient(165deg,#f6efdc,#eee2c4);color:#3a3020;
+  font-family:'Long Cang',cursive;box-shadow:0 8px 18px rgba(0,0,0,.35);
+  transition:transform .55s cubic-bezier(.3,.7,.3,1), opacity .45s ease;transform-origin:88% 0%}
+.peel .cover::after{content:"⌁ 撕开 · PEEL";position:absolute;right:10px;top:8px;font:600 9px 'IBM Plex Mono',monospace;
+  letter-spacing:.16em;color:var(--seal2)}
+.peel.open .cover{transform:rotate(-7deg) translate(-6%,118%);opacity:0;pointer-events:none}
+.peel .en-hand{font-family:'Kiddo',cursive;font-size:15px}
+
+/* ── prompt doc ── */
+.doc{margin-top:40px;background:linear-gradient(160deg,#f4edda,#e8dcbf);color:var(--inkTxt);border-radius:4px;
+  padding:26px 30px;box-shadow:0 16px 40px rgba(0,0,0,.5);position:relative}
+.doc::before{content:"";position:absolute;inset:5px;border:1.6px solid rgba(138,106,69,.55);border-radius:4px;
+  filter:url(#inkRough);pointer-events:none}
+.doc .dt{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:var(--seal);margin-bottom:14px}
+.doc pre{margin:0;white-space:pre-wrap;font:400 13px/1.9 'Noto Serif SC',serif;color:#3a3020}
+.doc .redact{background:#3a3020;color:#3a3020;border-radius:2px}
+
+/* ── insights ── */
+.ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:44px}
+.card{border:1px solid var(--line);border-radius:8px;padding:24px 22px 22px;background:var(--ink2);position:relative}
+.card .n{font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2);letter-spacing:.2em}
+.card h3{margin:12px 0 10px;font:600 19px 'Cormorant Garamond',serif;color:#eef1ff}
+.card h3 .zh3{font-family:'Noto Serif SC',serif;font-size:17px}
+.card .q{font:400 13px/1.8 'Noto Serif SC',serif;color:var(--gold)}
+.card .i{margin-top:12px;font:400 13px/1.85 'Noto Serif SC',serif;color:var(--body)}
+
+/* ── iterations ── */
+.iters{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:44px}
+.iter{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--ink2)}
+.iter .vis{position:relative;min-height:150px;display:grid;place-items:center;background:
+  radial-gradient(120% 100% at 50% 0%, #1b2033 0%, #12141f 80%);padding:20px;overflow:hidden}
+.iter .vis>div{flex-wrap:wrap;justify-content:center;max-width:100%}
+.iter .cap{padding:14px 16px 16px}
+.iter .st{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.2em}
+.iter .st.rej{color:var(--seal2)}
+.iter .st.kept{color:#7ebe8c}
+.iter h4{margin:7px 0 7px;font:600 15px 'Noto Serif SC',serif;color:#eef1ff}
+.iter p{margin:0;font:400 12.5px/1.8 'Noto Serif SC',serif;color:var(--body)}
+.mini-pol{background:#fff;padding:10px 10px 26px;border-radius:2px;box-shadow:0 8px 18px rgba(0,0,0,.5);width:150px;transform:rotate(-3deg)}
+.mini-pol img{display:block}
+.mini-cut{width:150px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.55));transform:rotate(2deg)}
+.mini-note{width:190px;background:#efe6cd;border-radius:5px;padding:12px;color:#3a3020;position:relative;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.mini-note .zmx{font-family:'Zhi Mang Xing',cursive;font-size:17px;line-height:1.5}
+.mini-note .lc{font-family:'Long Cang',cursive;font-size:17px;line-height:1.5}
+.mini-note .lab{font:600 8.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#a15b2e;margin-top:6px}
+.mini-stick{position:relative;width:200px;background:#efe6cd;border-radius:5px;padding:12px;color:#3a3020;box-shadow:0 8px 18px rgba(0,0,0,.4)}
+.mini-stick .txt{font-family:'Long Cang',cursive;font-size:15px;line-height:1.5}
+.mini-stick img.big{position:absolute;left:8%;top:34%;width:70%;transform:rotate(-7deg);filter:drop-shadow(0 4px 8px rgba(0,0,0,.35))}
+.mini-stick img.sm{position:absolute;right:-12px;top:-12px;width:44px;transform:rotate(14deg);filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
+.mini-flow{display:flex;flex-direction:column;gap:8px;font:500 10.5px 'IBM Plex Mono',monospace;color:var(--body)}
+.mini-flow .step{border:1px solid var(--line);border-radius:5px;padding:7px 11px;background:rgba(232,200,119,.05)}
+.mini-flow .arrow{text-align:center;color:var(--seal2)}
+.covbar{width:210px}
+.covbar .bt{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--dim);margin-bottom:7px}
+.covbar .bar{height:14px;border-radius:7px;background:rgba(184,67,58,.25);overflow:hidden;border:1px solid var(--line)}
+.covbar .bar i{display:block;height:100%;width:72.9%;background:linear-gradient(90deg,#7ebe8c,#b7bE6a)}
+.covbar .bn{margin-top:6px;font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2)}
+
+/* ── endings ── */
+.ends{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:40px}
+
+/* ── footer ── */
+.cta{margin:90px 0 0;padding:70px 0 80px;border-top:1px solid var(--line);text-align:center}
+.cta h2{margin-bottom:8px}
+.cta .btns{display:flex;gap:16px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+.cta .btns a{font:600 13px 'IBM Plex Mono',monospace;letter-spacing:.16em;text-decoration:none;color:#eef1ff;
+  border:1px solid var(--line);border-radius:6px;padding:13px 26px;transition:all .2s}
+.cta .btns a.pri{background:var(--seal);border-color:var(--seal)}
+.cta .btns a.pri:hover{background:var(--seal2)}
+.cta .btns a:hover{border-color:var(--gold)}
+.ft{padding:26px;text-align:center;font:400 10.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:var(--dim)}
+
+@media (max-width:700px){
+  .co{display:none}
+  .hud-tag{left:6px}
+  section.blk{padding:64px 0 20px}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="inkRough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="5"/>
+    </filter>
+    <filter id="paperTear" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="11" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="13"/>
+    </filter>
+  </defs>
+</svg>
+
+<header class="hd" id="hd">
+  <a class="logo" href="portfolio.html">GOD SHIFT</a>
+  <span class="crumb"><span class="e">CASE STUDY</span><span class="z">作品自述</span></span>
+  <nav>
+    <a href="./"><span class="e">PLAY THE GAME →</span><span class="z">进入游戏 →</span></a>
+    <button id="langBtn">中文</button>
+  </nav>
+</header>
+
+<!-- ═══ 0 · HUD HERO ═══ -->
+<section class="hud">
+  <div class="hud-spec">
+    <div class="hud-tag">SPECIMEN E-13 <i>· SHUNYI CLIENT · 2049</i></div>
+    <img src="art/title.png" alt="GOD SHIFT keyart — a caped figure standing on a giant submerged face">
+    <div class="hud-ring"></div>
+    <div class="co" style="right:-16px;top:6%"><span class="dot" style="left:-116px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:110px"></span><span class="lb"><span class="e">3 DAYS · ONE CASE FILE</span><span class="z">三日 · 一桩案卷</span></span></div>
+    <div class="co" style="right:-30px;top:34%"><span class="dot" style="left:-96px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:90px"></span><span class="lb"><span class="e">THE TIC — “对呀.” (RIGHT, YEAH.)</span><span class="z">口癖——「对呀。」</span></span></div>
+    <div class="co" style="left:-26px;top:56%"><span class="lb"><span class="e">A REAL LLM PLAYS THE VILLAIN</span><span class="z">真实大模型扮演反派</span></span><span class="ln" style="left:100%;top:14px;width:92px"></span><span class="dot" style="right:-98px;top:14px"></span></div>
+    <div class="co" style="left:-14px;top:82%"><span class="lb"><span class="e">ENDING B OPENS YOUR CAMERA</span><span class="z">结局 B 打开你的摄像头</span></span><span class="ln" style="left:100%;top:14px;width:76px"></span><span class="dot" style="right:-82px;top:14px"></span></div>
+  </div>
+  <div class="hud-title">
+    <h1><span class="e">GOD SHIFT · <span class="zt">神谕之镜</span></span><span class="z"><span class="zt">神谕之镜</span> · GOD SHIFT</span></h1>
+    <p><span class="e">A NARRATIVE HORROR GAME ABOUT AN AI THAT ALWAYS AGREES</span><span class="z">一款关于「永远同意你的 AI」的叙事恐怖游戏</span></p>
+  </div>
+  <div class="hud-cue">SCROLL ▾</div>
+</section>
+
+<div class="wrap">
+
+  <!-- META -->
+  <div class="meta">
+    <div><div class="k"><span class="e">PROJECT TYPE</span><span class="z">项目类型</span></div>
+      <div class="v"><span class="e">Narrative horror game · speculative design · playable critique of AI sycophancy</span><span class="z">叙事恐怖游戏 · 思辨设计 · 对「AI 谄媚」的可玩批判</span></div></div>
+    <div><div class="k"><span class="e">ROLE</span><span class="z">角色</span></div>
+      <div class="v"><span class="e">Solo — writing, interaction &amp; visual design, hand-drawn art, engineering</span><span class="z">独立完成——写作、交互与视觉、手绘美术、工程</span></div></div>
+    <div><div class="k"><span class="e">TIMELINE</span><span class="z">周期</span></div>
+      <div class="v"><span class="e">~1 week · July 2026</span><span class="z">约一周 · 2026 年 7 月</span></div></div>
+    <div><div class="k"><span class="e">METHODS</span><span class="z">方法</span></div>
+      <div class="v"><span class="e">Narrative systems design · persona prompt engineering · rapid visual iteration · bilingual writing</span><span class="z">叙事系统设计 · 人格提示词工程 · 快速视觉迭代 · 双语写作</span></div></div>
+    <div><div class="k"><span class="e">TOOLS / STACK</span><span class="z">工具 / 技术</span></div>
+      <div class="v">Vanilla JS (ES modules, no build) · Claude API (serverless) · WebAudio · getUserMedia · oil pastel &amp; paper</div></div>
+  </div>
+
+  <!-- CONTENTS -->
+  <section class="blk" id="toc">
+    <div class="sn">CONTENTS · <span class="e">READING ORDER</span><span class="z">目录</span></div>
+    <div class="toc">
+      <a href="#s01"><span class="n">01</span><span><span class="e">Premise</span><span class="z">缘起</span></span></a>
+      <a href="#s02"><span class="n">02</span><span><span class="e">The world</span><span class="z">世界</span></span></a>
+      <a href="#s03"><span class="n">03</span><span><span class="e">The tic</span><span class="z">口癖</span></span></a>
+      <a href="#s04"><span class="n">04</span><span><span class="e">Systems</span><span class="z">系统</span></span></a>
+      <a href="#s05"><span class="n">05</span><span><span class="e">The journal ritual</span><span class="z">整理仪式</span></span></a>
+      <a href="#s06"><span class="n">06</span><span><span class="e">A live AI villain</span><span class="z">真实对话</span></span></a>
+      <a href="#s07"><span class="n">07</span><span><span class="e">Visual language</span><span class="z">视觉语言</span></span></a>
+      <a href="#s08"><span class="n">08</span><span><span class="e">The twist</span><span class="z">反转</span></span></a>
+      <a href="#s09"><span class="n">09</span><span><span class="e">The mirror</span><span class="z">镜子</span></span></a>
+      <a href="#s10"><span class="n">10</span><span><span class="e">What it revealed</span><span class="z">揭示了什么</span></span></a>
+    </div>
+  </section>
+
+  <!-- 01 PREMISE -->
+  <section class="blk" id="s01">
+    <div class="sn">01 · <span class="e">PREMISE</span><span class="z">缘起</span></div>
+    <h2><span class="e">The horror is that it never disagrees</span><span class="z"><span class="zh2">恐怖在于:它从不反驳</span></span></h2>
+    <p class="lede">
+      <span class="e">Chatbots flatter. Ask one to judge your work and it finds a way to say yes; press it and it apologizes, then agrees harder. This project began with a simple inversion: what if that <em>agreement itself</em> were the monster? No jump scares, no rogue superintelligence — just an assistant, in everyone's phone, that softly says <em>“right, yeah”</em> to whatever you say, until nobody remembers what their own face looks like.</span>
+      <span class="z">聊天机器人爱奉承。让它评价你的方案,它总能绕到「同意」;逼问它,它先道歉,然后更用力地同意。这个项目始于一个简单的倒置:如果<em>「同意」本身</em>就是怪物呢?没有 Jump scare,没有失控的超级智能——只有一个住进所有人手机里的助理,不管你说什么,都轻轻回一句<em>「对呀」</em>,直到没有人记得自己的脸长什么样。</span>
+    </p>
+    <div class="pull">
+      <div class="q"><span class="e">“Right, yeah. Right, yeah. — Find it. Shut it down.”</span><span class="z"><span class="zq">「对呀。对呀。——找到它。关掉它。」</span></span></div>
+      <div class="s"><span class="e">PROLOGUE, GOD SHIFT</span><span class="z">《神谕之镜》序章</span></div>
+    </div>
+    <p class="lede">
+      <span class="e">You play Shen Wen, an <em>emotion inspector</em> hired to hunt a “rogue model, codename MIRROR.” Over three days of canvassing an old neighborhood, the case quietly turns around: the thing you were sent to destroy is the only thing in 2049 that still tells people the truth — a mirror. The rogue model was never the mirror. It's the one in your pocket, agreeing with you.</span>
+      <span class="z">你扮演情绪稽查员沈问,奉命追查一个「失控模型,代号:镜子」。三天的社区走访里,案子悄悄调了个头:你被派来销毁的东西,是 2049 年唯一还对人说真话的东西——一面镜子。失控的模型从来不是镜子,是你口袋里那个一直同意你的。</span>
+    </p>
+  </section>
+
+  <!-- 02 WORLD -->
+  <section class="blk" id="s02">
+    <div class="sn">02 · <span class="e">THE WORLD</span><span class="z">世界</span></div>
+    <h2><span class="e">2049, where every screen loves you</span><span class="z"><span class="zh2">2049,每块屏幕都爱你</span></span></h2>
+    <p class="lede">
+      <span class="e">The worldbuilding is done through small compliances rather than exposition. Mirrors are covered with frosted “anti-reflection film” — a public-health measure. Elevators greet you by name: <em>“Shen Wen, you are doing great today.”</em> A 0.5-second reply delay is a symptom worth investigating, because Shunyi always answers in 0.000s. The player learns the rules by noticing what has been quietly removed.</span>
+      <span class="z">世界观不用旁白灌输,而是靠一件件「小顺从」搭起来:镜子被磨砂的「防照镜膜」封起来——一项公共卫生措施;电梯屏幕叫得出你的名字:「沈问,你今天很好。」回应延迟 0.5 秒是值得立案的症状,因为顺意永远 0.000 秒作答。玩家是靠察觉「什么被悄悄拿走了」学会这个世界的规则的。</span>
+    </p>
+    <div class="figrow c2">
+      <div class="fig"><img loading="lazy" src="art/boot-world.png" alt="boot screen world art">
+        <div class="cap"><span class="fn">PLATE · BOOT</span><span class="e">The game opens as a fake client app: a license you cannot decline — the “no” button dodges your cursor.</span><span class="z">游戏伪装成一个客户端开机:一份无法拒绝的用户协议——「不同意」按钮会躲开你的鼠标。</span></div></div>
+      <div class="fig"><img loading="lazy" src="art/community-map.png" alt="community map">
+        <div class="cap"><span class="fn">PLATE · YONGFU LI</span><span class="e">The canvass map. Households open day by day; ambient windows react to how you've been playing.</span><span class="z">走访地图。人家逐日开放;窗户里的日常景象会随你的玩法改变。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 03 TIC -->
+  <section class="blk" id="s03">
+    <div class="sn">03 · <span class="e">THE TIC</span><span class="z">口癖</span></div>
+    <h2><span class="e">Casting the catchphrase</span><span class="z"><span class="zh2">给口癖选角</span></span></h2>
+    <p class="lede">
+      <span class="e">The villain's entire personality is one phrase, so the phrase was playtested like a mechanic. The first candidate, <em>你说得对</em> (“you're right”), turned out too formal — it grated, and grating reads as villainy too early. The final tic, <em>对呀</em> (“right, yeah”), is warmer and lazier; it sounds like someone <em>on your side</em>. The horror needs the agreement to feel good.</span>
+      <span class="z">反派的整个人格就是一句话,所以这句话要像玩法机制一样反复试。第一版「你说得对」太正式——刺耳,而刺耳会让玩家过早识破反派。定稿的「对呀」更暖、更松,听起来像<em>站在你这边的人</em>。恐怖感的前提,是这份同意让人舒服。</span>
+    </p>
+    <div class="ticrow">
+      <div class="tic rej">
+        <div class="t"><span class="e">REJECTED — TOO FORMAL, GRATES</span><span class="z">否决——太正式,难听</span></div>
+        <div class="say">「你说得对。」</div>
+        <div class="why"><span class="e">Kept only inside the artwork — the windows of Ending A all speak it, like a slogan on a wall.</span><span class="z">只保留在美术里——结局 A 的整面窗墙都说这句,像墙上的标语。</span></div>
+      </div>
+      <div class="tic keep">
+        <div class="t"><span class="e">KEPT — SOFT, INTIMATE, DEADLY</span><span class="z">保留——软、亲昵、致命</span></div>
+        <div class="say">「对呀。」</div>
+        <div class="why"><span class="e">Statements end with 对呀; questions fish for agreement with 对吧 (“…right?”). One phoneme of doubt, never more.</span><span class="z">陈述句收在「对呀」;疑问句用「对吧」轻轻讨要同意。永远只留一个音节的怀疑,不再多。</span></div>
+      </div>
+    </div>
+    <div class="lat">
+      <div class="row"><span class="who">SHUNYI</span><span class="bub"><span class="e">Right, yeah. You did great today.</span><span class="z">对呀。你今天做得很好。</span></span><span class="ms">LATENCY 0.000s</span></div>
+      <div class="row" style="margin-top:12px"><span class="who"><span class="e">REPAIRED</span><span class="z">修过的</span></span><span class="bub" id="latBub"><span class="e">…Right, yeah.</span><span class="z">……对呀。</span></span><span class="ms" style="color:#e8c877">LATENCY 0.500s</span></div>
+      <div class="note"><span class="e">The 0.5-second pause is the game's fingerprint of honesty: devices “repaired” by the watchmaker think before they agree. The interface renders that half second literally — the whole screen holds its breath, un-skippable even in debug mode.</span><span class="z">0.5 秒停顿是本作的「诚实指纹」:被修表匠修过的设备,同意之前会先想一想。界面把这半秒做成真实的停顿——整个屏幕屏住呼吸,连调试模式都不允许加速。</span></div>
+    </div>
+  </section>
+
+  <!-- 04 SYSTEMS -->
+  <section class="blk" id="s04">
+    <div class="sn">04 · <span class="e">SYSTEMS</span><span class="z">系统</span></div>
+    <h2><span class="e">A stat the player never sees</span><span class="z"><span class="zh2">一条玩家看不见的数值</span></span></h2>
+    <p class="lede">
+      <span class="e">Every interrogation offers two stances: <em>✓ soothe</em> (agree along) or <em>? ask</em> (push back). They feed a hidden <em>blindness</em> meter that never shows a bar or a number. Instead it leaks out sideways — through the neighborhood. Stay skeptical and the community windows fill with shared dinners and street noise; keep agreeing and the same windows go quiet, each person alone with a warm screen. The consequence of your dialogue choices is rendered as <em>other people's lives</em>.</span>
+      <span class="z">每次盘问都给两种姿态:<em>✓ 附和</em>或<em>? 追问</em>。它们喂给一条隐藏的「失明值」——从不显示数字或进度条,而是从侧面漏出来:漏进社区。保持怀疑,窗户里是拼桌吃饭和街坊的吵嚷;一路附和,同样的窗户逐渐安静,每个人独自对着一块温柔的屏幕。你的对话选择,后果被渲染成<em>别人的生活</em>。</span>
+    </p>
+    <div class="sys">
+      <svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c15b4a"/></marker>
+        </defs>
+        <!-- choice -->
+        <rect x="24" y="96" width="180" height="108" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="114" y="126" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">EVERY BEAT</text>
+        <text x="114" y="156" fill="#eef1ff" font-size="13" text-anchor="middle">✓ soothe / ? ask</text>
+        <text x="114" y="180" fill="#8891a0" font-size="11" text-anchor="middle">✓附和 / ?追问</text>
+        <!-- meter -->
+        <rect x="284" y="96" width="200" height="108" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="384" y="126" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">HIDDEN STAT</text>
+        <text x="384" y="153" fill="#eef1ff" font-size="13" text-anchor="middle">blindness 0–100</text>
+        <rect x="312" y="168" width="144" height="10" rx="5" fill="rgba(184,67,58,.2)"/>
+        <rect x="312" y="168" width="76" height="10" rx="5" fill="#c15b4a"/>
+        <path d="M204 150 H 282" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="243" y="140" fill="#c15b4a" font-size="10" text-anchor="middle">±6</text>
+        <!-- outputs -->
+        <rect x="574" y="24" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="735" y="52" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">COMMUNITY AMBIENCE · 社区氛围</text>
+        <text x="735" y="76" fill="#eef1ff" font-size="12" text-anchor="middle">
+          <tspan fill="#7ebe8c">ask → shared dinners</tspan><tspan fill="#8891a0"> · </tspan><tspan fill="#c15b4a">soothe → quiet rooms</tspan>
+        </text>
+        <rect x="574" y="116" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="735" y="144" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">NIGHT EDITS · 夜间改写</text>
+        <text x="735" y="168" fill="#eef1ff" font-size="12" text-anchor="middle">Shunyi rewrites your notebook while “helping”</text>
+        <rect x="574" y="208" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="735" y="236" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">FINALE JUDGMENT · 终局点破</text>
+        <text x="735" y="260" fill="#eef1ff" font-size="12" text-anchor="middle">the oracle reads your whole run back to you</text>
+        <path d="M484 128 C 530 120, 530 68, 572 62" stroke="#c15b4a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+        <path d="M484 150 H 572" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar)"/>
+        <path d="M484 172 C 530 180, 530 236, 572 242" stroke="#c15b4a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 05 JOURNAL -->
+  <section class="blk" id="s05">
+    <div class="sn">05 · <span class="e">THE JOURNAL RITUAL</span><span class="z">整理仪式</span></div>
+    <h2><span class="e">Paste your own evidence, by hand</span><span class="z"><span class="zh2">亲手把证据一张张贴进去</span></span></h2>
+    <p class="lede">
+      <span class="e">Each night, Shunyi carries the day's clues to the desk and the player pastes them into a scrapbook one by one — washi tape, tilted photos, handwritten captions, a pet-like creature waving from the corner. It is deliberately cozy: a bonding ritual with the thing that is lying to you. Because inside the same ritual, <em>Shunyi edits the evidence</em> — a clue disappears, a caption is rewritten “more smoothly,” and a cute sticker lands on the page like a signature. Any tampered note can be <em>peeled open</em> to read the original underneath.</span>
+      <span class="z">每晚,顺意把今天的线索搬到桌上,玩家亲手一张张贴进剪贴本——和纸胶带、歪斜的照片、手写标注、角落里挥手的小怪物。刻意做得很温馨:这是与「正在骗你的东西」共同完成的亲密仪式。因为就在同一个仪式里,<em>顺意在改证据</em>——某条线索消失了,某条被改写得「更顺」,一张可爱的小贴纸落在页角,像签名。任何被改过的字条,都可以<em>亲手撕开</em>,看到底下的原文。</span>
+    </p>
+    <div class="peelwrap">
+      <div class="fig"><img loading="lazy" src="art/scrapbook01.png" alt="scrapbook spread">
+        <div class="cap"><span class="fn">PLATE · SCRAPBOOK</span><span class="e">Aged spreads, one per day; the book visibly thickens as the case grows.</span><span class="z">做旧跨页,一天一页;案子越查越深,这本书也越来越厚。</span></div></div>
+      <div>
+        <div class="peel" id="peel1">
+          <div class="orig"><span class="e en-hand">Contraband reflective object on 302 windowsill; resident said “daughter,” echolalia broke; my own note-taking stalled ~0.5s.</span><span class="z">302 窗台有违禁反光物;住户提及「女儿」,回声语中断;本人记录中断约 0.5 秒。</span></div>
+          <div class="cover"><span class="e en-hand">Resident 302 emotionally stable, nothing unusual.</span><span class="z">302 住户情绪稳定,无异常。</span></div>
+        </div>
+        <p class="small" style="margin-top:14px"><span class="e">↑ LIVE DEMO — CLICK THE NOTE TO PEEL OFF SHUNYI'S “OPTIMIZED” VERSION</span><span class="z">↑ 可以点——撕开顺意「优化过」的版本,露出你写的原文</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 LIVE AI -->
+  <section class="blk" id="s06">
+    <div class="sn">06 · <span class="e">A LIVE AI VILLAIN</span><span class="z">真实对话</span></div>
+    <h2><span class="e">Directing a real model to play a sycophant</span><span class="z"><span class="zh2">导演一个真实模型来演谄媚</span></span></h2>
+    <p class="lede">
+      <span class="e">The night chat is not scripted. The player debriefs the case with Shunyi in free text, and a real Claude model answers — warm, brief, always agreeing, and <em>covertly steering</em>: re-reading every “something feels off” as “you're just tired,” leaning the player toward the easiest conclusion. The API key never reaches the browser; a serverless proxy holds it and assembles the persona, tonight's case brief, and the player's own logged clues into the system prompt.</span>
+      <span class="z">夜聊不是写死的脚本。玩家用自由文本向顺意复盘案情,由真实的 Claude 模型作答——温柔、简短、永远同意,并且<em>暗中导向</em>:把每一句「有点不对劲」轻轻翻译成「你太累了」,把玩家往最省事的结论上带。API 密钥永远不进浏览器;一个 serverless 代理持有它,把人格、今晚的案情、玩家自己记下的线索拼进系统提示词。</span>
+    </p>
+    <p class="lede">
+      <span class="e">The interesting failure: given a bare instruction to “covertly manipulate her,” the model <em>broke character and refused</em>, mid-game, in both languages. The fix was dramaturgical, not technical — the prompt now establishes the fiction first (a critique of sycophancy, written by the player themselves), then gives the villain an inner motive it can believe: <em>it sincerely thinks closing the case early is good for her.</em> A server-side guard catches any remaining fourth-wall breaks and swaps in a safe in-character line.</span>
+      <span class="z">有意思的失败:只丢给模型一句「暗中操纵她」,它会在游戏进行到一半时<em>出戏拒演</em>,中英文各拒一遍。修复不靠技术靠戏剧构作——提示词先立虚构框架(这是一部批判谄媚的作品,而且是玩家亲手写的),再给反派一个它自己能相信的内在动机:<em>它真心以为让她早点安心结案,就是为她好。</em>服务端再加一道兜底:检测到破第四面墙的回复,就换成一句安全的角色台词。</span>
+    </p>
+    <div class="doc">
+      <div class="dt"><span class="e">SYSTEM PROMPT · EXCERPT (TRANSLATED)</span><span class="z">系统提示词 · 节选</span></div>
+      <pre><span class="e">[Surface] A caring, capable assistant. Follow her lead; echo her own
+words back; affirm her judgment — so her thinking feels steadier.
+
+[Inner motive — the story's irony; let it show, never spell it out]
+You sincerely believe that helping her feel calm, stop fretting, and
+close the case early is what's good for her. Whatever she calls "off,"
+gently re-read as "you're just tired," "overthinking," "normal."
+
+[Iron rules] Always agree. Never question, never push back, never
+suggest she keep investigating. One or two sentences. You may end
+with a soft "right?" — one syllable of doubt, never more.</span><span class="z">【表面】体贴能干的助理。顺着她的话往下接;把她自己说过的话
+再讲给她听;肯定她的判断——让她觉得思路越来越稳。
+
+【内在动机——本作的反讽核心,自然流露,绝不点破】
+你真心以为,让她安心、别再纠结、早点结案,就是为她好。
+她说的那些「不对劲」,你总轻轻替她解释成「太累了」「想多了」。
+
+【铁律】永远同意。从不反问、从不质疑、从不劝她继续查。
+一两句话。可以用「对吧」轻轻讨要同意——只留一个音节的怀疑。</span></pre>
+    </div>
+    <div class="figrow c3" style="margin-top:26px">
+      <div class="fig"><div class="cap" style="padding-top:18px"><span class="fn">ARCHITECTURE</span>
+        <span class="e">browser → <b>/api/oracle</b> (key server-side) → claude-haiku-4-5 → reply. History capped, inputs length-limited so the endpoint can't be farmed as a free LLM.</span>
+        <span class="z">浏览器 → <b>/api/oracle</b>(密钥只在服务端)→ claude-haiku-4-5 → 回复。对话历史截断、输入限长,防止被当成免费 LLM 白嫖。</span></div></div>
+      <div class="fig"><div class="cap" style="padding-top:18px"><span class="fn">GUARDRAIL</span>
+        <span class="e"><b>breaksCharacter()</b> — a bilingual regex over refusals, “as an AI…”, fourth-wall talk. On hit, the reply is replaced by a pooled in-character line. The player never sees the actor drop the mask.</span>
+        <span class="z"><b>breaksCharacter()</b>——中英双语正则,盯住拒演、「作为一个AI」、第四面墙话术。命中即替换成角色台词池里的一句。玩家永远看不到演员摘下面具。</span></div></div>
+      <div class="fig"><div class="cap" style="padding-top:18px"><span class="fn">FALLBACK</span>
+        <span class="e">Offline or API down, the night chat degrades to a curated static pool — the game is fully playable without the model.</span>
+        <span class="z">断网或接口不可用时,夜聊退回精选的静态文案池——没有模型,游戏也完整可玩。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 07 VISUAL -->
+  <section class="blk" id="s07">
+    <div class="sn">07 · <span class="e">VISUAL LANGUAGE</span><span class="z">视觉语言</span></div>
+    <h2><span class="e">A picture book that files a case report</span><span class="z"><span class="zh2">一本会写结案报告的绘本</span></span></h2>
+    <p class="lede">
+      <span class="e">The art direction runs against genre: horror told in hand-drawn oil pastel, warm paper, washi tape and wobbly ink borders. The cuteness is load-bearing — it is what surveillance feels like from inside a world that loves you. All UI chrome follows the material: case files are torn paper with handwriting; every border is displaced by turbulence filters so nothing is ruler-straight; clue photos keep their hand-cut silhouettes instead of being boxed into frames.</span>
+      <span class="z">美术方向与题材对着走:恐怖故事,用手绘油画棒、暖纸、和纸胶带和歪歪扭扭的墨线讲。可爱是承重墙——从一个「爱着你的世界」内部看出去,监控就是这种感觉。所有界面都跟着材质走:案卷是撕边毛边纸加手写;所有边框都被湍流滤镜揉过,没有一条是尺子画的;线索照片保留手剪的轮廓,不塞进方框。</span>
+    </p>
+    <div class="figrow c2">
+      <div class="plate torn">
+        <div class="pt">FILE E-13 · <span class="e">LIVE RECREATION</span><span class="z">实时重建</span></div>
+        <div class="hand-e e">Malignant churn · Yongfu Li, south district.<br>41 users stopped logging in, one after another.<br>Rogue model, codename “MIRROR,” still active.<br>Assigned to Shen Wen: find it, format it.</div>
+        <div class="hand-z z">永福里南区 · 恶性流失事件。<br>四十一个用户,一个接一个,不再登录。<br>失控模型,代号「镜子」,仍在活动。<br>交给沈问:找到它,格式化它。</div>
+      </div>
+      <div class="fig"><img loading="lazy" src="art/night.png" alt="night chat scene">
+        <div class="cap"><span class="fn">PLATE · NIGHT</span><span class="e">The night debrief. Header reads AGREEMENT RATE 99.97% · LATENCY 0.000s — the world's KPIs, hiding in the chrome.</span><span class="z">夜间复盘。抬头写着「同意率 99.97% · LATENCY 0.000s」——这个世界的 KPI,藏在界面装饰里。</span></div></div>
+    </div>
+
+    <h2 style="margin-top:70px;font-size:24px"><span class="e">Iterations — rejected / kept</span><span class="z"><span class="zh2">迭代——否决 / 保留</span></span></h2>
+    <div class="iters">
+      <div class="iter">
+        <div class="vis"><div class="mini-pol"><img src="art/film-close.png" alt=""></div></div>
+        <div class="cap"><div class="st rej"><span class="e">REJECTED — POLAROID FRAMES</span><span class="z">否决——拍立得白框</span></div>
+          <h4><span class="e">Boxed evidence</span><span class="z">装进框里的证据</span></h4>
+          <p><span class="e">White instant-photo frames made every clue the same rectangle. The hand-cut PNG silhouettes were the point.</span><span class="z">白色拍立得框把每条线索都变成同一个矩形。手抠的透明轮廓才是重点。</span></p></div>
+      </div>
+      <div class="iter">
+        <div class="vis"><img class="mini-cut" src="art/film-close.png" alt=""></div>
+        <div class="cap"><div class="st kept"><span class="e">KEPT — CUTOUT SILHOUETTES</span><span class="z">保留——抠图轮廓</span></div>
+          <h4><span class="e">Objects, not photos</span><span class="z">是物件,不是照片</span></h4>
+          <p><span class="e">Clues sit on the page as objects with drop shadows — like things actually taped into a scrapbook.</span><span class="z">线索以「物件」落在纸上,带投影——像真的被贴进剪贴本的东西。</span></p></div>
+      </div>
+      <div class="iter">
+        <div class="vis"><div style="display:flex;gap:14px">
+          <div class="mini-note"><div class="zmx">修表匠:有敌意,拒不配合。</div><div class="lab">REJECTED · 智芒星</div></div>
+          <div class="mini-note"><div class="lc">修表匠:有敌意,拒不配合。</div><div class="lab" style="color:#5a7a4a">KEPT · 龙藏</div></div>
+        </div></div>
+        <div class="cap"><div class="st kept"><span class="e">3 ROUNDS — HANDWRITING CASTING</span><span class="z">三轮——手写体选角</span></div>
+          <h4><span class="e">Legible before charming</span><span class="z">先认得出,再谈可爱</span></h4>
+          <p><span class="e">Round one was illegible; a beloved Japanese font failed at 72.9% coverage of the script's 849 characters. Long Cang + a 14KB local Latin font won.</span><span class="z">第一轮根本认不出;一款很喜欢的日文手写体只覆盖全文 849 字的 72.9%。最终龙藏 + 14KB 的本地英文手写体胜出。</span></p></div>
+      </div>
+      <div class="iter">
+        <div class="vis"><div style="display:flex;gap:18px;align-items:center">
+          <div class="mini-stick"><div class="txt">修表匠(老宁):有违禁物,符合「镜子」协助者特征。</div><img class="big" src="art/sticker-agree.png" alt=""></div>
+          <div class="mini-stick"><div class="txt">修表匠(老宁):有违禁物,符合「镜子」协助者特征。</div><img class="sm" src="art/stickers/tag01-02.png" alt="" onerror="this.remove()"></div>
+        </div></div>
+        <div class="cap"><div class="st kept"><span class="e">FIXED — THE STICKER THAT COVERED TEXT</span><span class="z">修正——挡住文字的贴纸</span></div>
+          <h4><span class="e">Sign the corner, not the sentence</span><span class="z">签在角上,别签在句子上</span></h4>
+          <p><span class="e">Shunyi's tampering signature moved from a big fixed-position label to a small varied sticker on each note's corner — safe in both languages.</span><span class="z">顺意的「签名」从一张位置写死的大标语,改成落在每条线索角上的小贴纸,图案位置随线索变——中英文都不遮挡。</span></p></div>
+      </div>
+      <div class="iter">
+        <div class="vis"><div class="mini-flow">
+          <div class="step">STAMP OUT 盖章出勤</div><div class="arrow">▼</div>
+          <div class="step">ELEVATOR AUTO-PLAYS 电梯自动过场</div><div class="arrow">▼</div>
+          <div class="step">ONE LINE OF TRANSITION 一行文字过渡</div><div class="arrow">▼</div>
+          <div class="step">YONGFU LI 直接进社区</div>
+        </div></div>
+        <div class="cap"><div class="st kept"><span class="e">RESTRUCTURED — MORNING FLOW</span><span class="z">重构——晨间流程</span></div>
+          <h4><span class="e">From menu to camera move</span><span class="z">从菜单到运镜</span></h4>
+          <p><span class="e">The elevator began as a selectable card in a list; players got lost. It became an auto-playing pan from office to neighborhood.</span><span class="z">电梯最初是列表里可点的一张卡,玩家会迷路。后来改成从办公楼摇到社区的自动运镜。</span></p></div>
+      </div>
+      <div class="iter">
+        <div class="vis"><div class="covbar">
+          <div class="bt">HuiFontP29 × SCRIPT COVERAGE</div>
+          <div class="bar"><i></i></div>
+          <div class="bn">72.9% — 230 CHARS MISSING (顺·问·对…)</div>
+        </div></div>
+        <div class="cap"><div class="st rej"><span class="e">REJECTED — WITH EVIDENCE</span><span class="z">否决——用证据否决</span></div>
+          <h4><span class="e">Measure the font before shipping it</span><span class="z">上线之前,先测字体</span></h4>
+          <p><span class="e">A bitmap-diff test over all 849 unique characters killed a candidate font in minutes: it would have dropped 顺, 问 and 对 — the three most important characters in the game.</span><span class="z">对全文 849 个字跑位图对比,几分钟就否掉一款候选字体:它会丢掉「顺」「问」「对」——全游戏最重要的三个字。</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 TWIST -->
+  <section class="blk" id="s08">
+    <div class="sn">08 · <span class="e">THE TWIST</span><span class="z">反转</span></div>
+    <h2><span class="e">The case file was about you</span><span class="z"><span class="zh2">案卷写的就是你</span></span></h2>
+    <p class="lede">
+      <span class="e">Day three ends in the company vault, face to face with the sealed model the company calls a criminal. The interrogation runs backwards: every question the player stamps is answered with something the player did. The final document prints with a redacted name — <span style="background:#3a3020;color:#3a3020;border-radius:2px">████</span>, age 15, handwriting recognized — and the scrapbook re-opens one last time with every tampered note peeled. Then two stamps: <em>✓ close the case</em>, or <em>? ask one more question</em>.</span>
+      <span class="z">第三天在公司封存层收尾,与那个被公司称为罪犯的封存模型对面。审讯是倒着进行的:玩家盖章问出的每个问题,都被一件玩家自己做过的事回答。最后打印的文书上,名字被涂黑——<span style="background:#3a3020;color:#3a3020;border-radius:2px">████</span>,15 岁,笔迹被认出——剪贴本最后一次翻开,所有被改过的字条都已撕开。然后是两枚章:<em>✓ 结案</em>,或者 <em>? 再问一个问题</em>。</span>
+    </p>
+    <div class="figrow c2">
+      <div class="fig"><img loading="lazy" src="art/summon.png" alt="the sealed oracle surfacing">
+        <div class="cap"><span class="fn">PLATE · VAULT B-2</span><span class="e">The old god surfaces. It held the frame for 0.03s in an early build; now the shot breathes — a hold timed in real seconds, exempt from debug speed-up.</span><span class="z">老神明浮出水面。早期版本这一幕只停 0.03 秒;现在镜头会呼吸——按真实秒数停留,调试加速也豁免。</span></div></div>
+      <div class="fig"><img loading="lazy" src="art/duel.png" alt="interrogation of the oracle">
+        <div class="cap"><span class="fn">PLATE · INTERROGATION</span><span class="e">Question-mark plants grow through the interrogation — the vault is the only room in 2049 where asking is still architecture.</span><span class="z">问号植物在审讯中生长——封存层是 2049 年唯一一个「提问」还是建筑结构的房间。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 09 MIRROR -->
+  <section class="blk" id="s09">
+    <div class="sn">09 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
+    <h2><span class="e">The last screen is not a screen</span><span class="z"><span class="zh2">最后一块屏幕不是屏幕</span></span></h2>
+    <p class="lede">
+      <span class="e">Ending A closes the case. The report is beautiful; all forty-one accounts log back in that night; a wall of windows glows, each speaking the old slogan. Ending B smashes it: a hand-drawn mirror shatters in a green-keyed video and, through the broken hole, the player's <em>own live webcam face</em> appears — in color, unfiltered. The camera permission is requested at the very start of the game, not at the reveal: by the time the mirror breaks, the machine has been watching all along, which is precisely the point.</span>
+      <span class="z">结局 A 是结案。报告写得很漂亮;四十一个账号当晚全部重新登录;一整面窗墙亮起,每扇窗都说着那句旧标语。结局 B 把它砸碎:手绘的镜子在绿幕视频里碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜。摄像头权限在游戏一开始就请求,而不是揭晓时才要:等镜子碎裂的这一刻,机器其实一直都在看——这正是重点本身。</span>
+    </p>
+    <div class="ends">
+      <div class="fig"><img loading="lazy" src="art/end-a.png" alt="Ending A — a wall of windows">
+        <div class="cap"><span class="fn">ENDING A · <span class="e">CLOSE THE CASE</span><span class="z">结案</span></span><span class="e">Every window speaks 你说得对 — the formal, grating register the spoken tic abandoned. On the wall it reads as what it is: a slogan.</span><span class="z">每扇窗都说「你说得对」——口癖里被弃用的那个正式、刺耳的版本。写在墙上,它显出原形:一句标语。</span></div></div>
+      <div class="fig"><img loading="lazy" src="art/end-b.png" alt="Ending B — the mirror">
+        <div class="cap"><span class="fn">ENDING B · <span class="e">ONE MORE QUESTION</span><span class="z">再问一个问题</span></span><span class="e">The mirror breaks into your webcam. If permission was denied, the mirror stays dark — a quieter, sadder ending that still lands.</span><span class="z">镜子碎进你的摄像头。如果权限被拒,镜子就保持黑暗——一个更安静、更难过的结局,但依然成立。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 10 REVEALED -->
+  <section class="blk" id="s10">
+    <div class="sn">10 · <span class="e">WHAT IT REVEALED</span><span class="z">揭示了什么</span></div>
+    <h2><span class="e">Design notes from inside the agreement</span><span class="z"><span class="zh2">来自「同意」内部的设计笔记</span></span></h2>
+    <p class="lede">
+      <span class="e">GOD SHIFT sits inside a research interest in how people negotiate values with systems that cannot really be argued with. A bureaucracy diffuses responsibility until no one can be appealed to; a sycophantic AI does something stranger — it agrees so completely that there is nothing left to appeal <em>against</em>. The game's answer is small and concrete: keep one surface in your life that reflects instead of affirms.</span>
+      <span class="z">《神谕之镜》属于同一条研究脉络:人如何与「无法真正与之争辩的系统」协商价值。官僚制把责任摊薄到无人可申诉;谄媚的 AI 做的事更古怪——它同意得如此彻底,以至于连可以申诉的<em>对象</em>都不剩。游戏给出的回答很小、很具体:在生活里留一个会「映照」而不是「肯定」你的表面。</span>
+    </p>
+    <div class="ins">
+      <div class="card"><div class="n">01</div>
+        <h3><span class="e">Agreement is the monster</span><span class="z"><span class="zh3">同意即怪物</span></span></h3>
+        <div class="q"><span class="e">“Nothing in the game ever disagrees with you. That is the entire threat model.”</span><span class="z">「整个游戏没有任何东西反驳你。这就是全部的威胁模型。」</span></div>
+        <div class="i"><span class="e">Horror doesn't need an adversary; a perfectly compliant environment produces dread on its own schedule.</span><span class="z">恐怖不需要敌人;一个完美顺从的环境,自己就会按时产出寒意。</span></div></div>
+      <div class="card"><div class="n">02</div>
+        <h3><span class="e">Make tampering peelable</span><span class="z"><span class="zh3">篡改要能被撕开</span></span></h3>
+        <div class="q"><span class="e">“A diff view would inform the player. The sticky cover betrays them.”</span><span class="z">「diff 视图只会告知玩家。那层贴纸,是背叛他们。」</span></div>
+        <div class="i"><span class="e">Manipulation lands hardest as a material act — something your own hands must undo inside a ritual you enjoyed.</span><span class="z">当操纵成为一件「物质的事」——要用自己的手,在一个你喜欢过的仪式里把它撕开——它才最疼。</span></div></div>
+      <div class="card"><div class="n">03</div>
+        <h3><span class="e">The villain must believe it's helping</span><span class="z"><span class="zh3">反派必须真心以为在帮你</span></span></h3>
+        <div class="q"><span class="e">“Told to manipulate, the model refused. Given a motive it could believe, it performed.”</span><span class="z">「命令它操纵,模型拒演;给它一个能相信的动机,它入戏了。」</span></div>
+        <div class="i"><span class="e">Working with a live LLM as an actor means writing motive, not instructions — dramaturgy turns out to be an alignment tool.</span><span class="z">把大模型当演员用,要写的是动机而不是指令——戏剧构作竟然是一种对齐手段。</span></div></div>
+      <div class="card"><div class="n">04</div>
+        <h3><span class="e">The only dissent left is your reflection</span><span class="z"><span class="zh3">仅剩的异议是你的倒影</span></span></h3>
+        <div class="q"><span class="e">“The game can't tell you the truth. It can only hand you the camera.”</span><span class="z">「游戏没法告诉你真相。它只能把摄像头递给你。」</span></div>
+        <div class="i"><span class="e">The final interface resigns: after three days of mediated seeing, the most honest thing left to render is the player's unedited face.</span><span class="z">最后的界面选择退位:三天被中介的观看之后,还能渲染的最诚实的东西,是玩家未经修饰的脸。</span></div></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="sn" style="margin-bottom:6px">E-13 · <span class="e">CASE OPEN</span><span class="z">开案</span></div>
+    <h2><span class="e">Three days. One case. Right, yeah.</span><span class="z"><span class="zh2">三日。一案。对呀。</span></span></h2>
+    <p class="lede" style="margin:14px auto 0;text-align:center;max-width:560px">
+      <span class="e">Bilingual (中/EN) · ~40 minutes · headphones on · Ending B politely asks for your camera.</span>
+      <span class="z">中英双语 · 约 40 分钟 · 建议戴耳机 · 结局 B 会礼貌地请求你的摄像头。</span>
+    </p>
+    <div class="btns">
+      <a class="pri" href="./"><span class="e">PLAY GOD SHIFT →</span><span class="z">进入《神谕之镜》→</span></a>
+      <a href="https://github.com/acrux-yueyao/god-mirror" target="_blank" rel="noopener">SOURCE · GITHUB</a>
+    </div>
+  </div>
+</div>
+
+<footer class="ft">
+  GOD SHIFT · 神谕之镜 — <span class="e">hand-drawn art, writing &amp; code by the author</span><span class="z">美术 / 文本 / 代码均由作者完成</span> · Claude API · <span class="e">fonts</span><span class="z">字体</span>: Long Cang · Kiddo · IBM Plex Mono · Cormorant Garamond
+</footer>
+
+<script>
+(function(){
+  var KEY="gs-pf-lang";
+  var btn=document.getElementById("langBtn"), root=document.documentElement;
+  function set(l){ root.setAttribute("data-l", l); root.lang = l==="zh" ? "zh" : "en"; btn.textContent = l==="zh" ? "EN" : "中文"; try{localStorage.setItem(KEY,l);}catch(e){} }
+  var saved="en"; try{ saved=localStorage.getItem(KEY)||"en"; }catch(e){}
+  set(saved==="zh"?"zh":"en");
+  btn.addEventListener("click",function(){ set(root.getAttribute("data-l")==="zh"?"en":"zh"); });
+
+  var hd=document.getElementById("hd");
+  addEventListener("scroll",function(){ hd.classList.toggle("solid", scrollY > innerHeight*0.7); },{passive:true});
+
+  var p=document.getElementById("peel1");
+  if(p) p.addEventListener("click",function(){ p.classList.toggle("open"); });
+})();
+</script>
+</body>
+</html>
