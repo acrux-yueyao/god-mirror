@@ -248,7 +248,7 @@ export const SCRIPT = {
                "The archive results are in. You open your notebook — a few lines don't quite match what you remember."),
       morning: {
         intro: B("第二天。你没先看屏,先翻开了笔记本——习惯。", "Day two. You don't check the screen first; you open your notebook — habit."),
-        screen: B("早。昨天那些让你不舒服的,我都替你抹平了。你会更好办案。", "Morning. Whatever discomfited you yesterday, I've smoothed it away. You'll work the case better for it."),
+        screen: B("早,沈问。睡得好吗?昨天的都过去了。今天,又是好的一天。", "Morning, Shen Wen. Sleep well? Yesterday is behind you. Today's another good day."),
         file: { title: B("调档结果 · E-13 附页", "ARCHIVE RESULTS · FILE E-13, addendum"), lines: [
           B("41 名流失用户,社区走访补录:", "41 churned users, community canvass appended:"),
           B("302 王氏,独居;女儿三年未归。", "Flat 302, Ms. Wang, lives alone; daughter gone three years."),
