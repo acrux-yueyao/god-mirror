@@ -288,7 +288,7 @@ function playMorning(d) {
       }
     };
     stamp.onclick = async () => {
-      if (stamp.classList.contains("locked")) { sfx.ask(); if (!caseRead) setFocus(note); await typeInto($("deskPov"), T.ui.deskNudge, 16); return; }
+      if (stamp.classList.contains("locked")) { sfx.ask(); if (!caseRead) { setFocus(note); openFile(m.file); } return; }   // 防卡死:点锁住的印章=直接替你翻开案卷
       stamp.onclick = null; setFocus(null);
       pet.style.display = "none"; say.style.display = "none";
       stamp.classList.add("pressed", "used"); sfx.thunk();
@@ -1122,6 +1122,8 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
+
 
 
 
