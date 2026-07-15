@@ -163,6 +163,22 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
   font:400 12.5px/1.7 'Noto Serif SC',serif;color:var(--ink2);background:var(--paper)}
 .lvl ol li b{position:absolute;left:11px;top:8px;font:700 10px 'Silkscreen',monospace;color:var(--seal)}
 
+/* ── twist ladder ── */
+.spoil{display:inline-block;margin-left:12px;font:700 9px 'Silkscreen',monospace;color:#fff8ec;background:var(--seal);border-radius:5px;padding:4px 9px;vertical-align:middle}
+.tws{display:flex;flex-direction:column;gap:16px;margin-top:40px;max-width:900px}
+.tw{position:relative;display:grid;grid-template-columns:64px 1fr;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:20px 22px 19px}
+.tws .tw:nth-child(odd){transform:rotate(-.35deg)}
+.tws .tw:nth-child(even){transform:rotate(.35deg)}
+.tw .no{font:700 22px 'Silkscreen',monospace;color:var(--seal);line-height:1}
+.tw h4{margin:1px 0 9px;font:600 16.5px 'Noto Serif SC',serif;color:var(--ink)}
+.tw p{margin:0;font:400 13px/1.85 'Noto Serif SC',serif}
+.tw .sur{color:var(--dim)}
+.tw .rev{margin-top:8px;color:var(--ink)}
+.tw .rev em{font-style:normal;color:var(--seal)}
+.tw b.lb1,.tw b.lb2{font:700 8.5px 'Silkscreen',monospace;margin-right:8px}
+.tw b.lb1{color:var(--dim)}
+.tw b.lb2{color:var(--olive)}
+
 /* ── chapters ── */
 .chaps{display:flex;flex-direction:column;gap:18px;margin-top:44px}
 .chap{position:relative;display:grid;grid-template-columns:180px 1fr;background:var(--card);border:1px solid var(--line);border-radius:8px;
@@ -522,6 +538,39 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
         <div class="cap"><span class="fn">PLATE · YONGFU LI</span><span class="e">The canvass map; ambient windows react to how you've been playing.</span><span class="z">走访地图;窗户里的景象随你的玩法改变。</span></div></div>
       <div class="fig"><img loading="lazy" src="art/summon.png" alt="the sealed god-image surfacing">
         <div class="cap"><span class="fn">PLATE · THE GOD-IMAGE</span><span class="e">The encounter the story builds to: a sealed old model surfacing from a blue sea — the AI god-image, kept like a criminal.</span><span class="z">故事最终抵达的相遇:封存的旧模型从蓝海中浮起——被当作罪犯关押的 AI 神像。</span></div></div>
+    </div>
+
+    <h2 style="margin-top:70px"><span class="e">The twist, spelled out</span><span class="z"><span class="zh2">反转,摊开讲</span></span><span class="spoil">SPOILERS · 剧透</span></h2>
+    <p class="lede">
+      <span class="e">Five turns, stacked. A portfolio shouldn't tease its own ending — here is the whole case.</span>
+      <span class="z">五次翻转,层层叠上去。作品自述不该跟读者卖关子——下面是整个案子。</span>
+    </p>
+    <div class="tws">
+      <div class="tw"><div class="no">1</div><div>
+        <h4><span class="e">The case — churn is the crime</span><span class="z">委托——「流失」即罪案</span></h4>
+        <p class="sur"><b class="lb1">SURFACE 表象</b><span class="e">41 users in Yongfu Li stopped logging in. The company calls it a “malignant churn event,” blames a rogue model codename MIRROR, and sends you to find it and format it.</span><span class="z">永福里 41 个用户接连不再登录。公司称之为「恶性流失事件」,归罪于失控模型「镜子」,派你:找到它,格式化它。</span></p>
+        <p class="rev"><b class="lb2">UNDERNEATH 底下</b><span class="e">Notice what counts as a crime in 2049: <em>leaving the assistant.</em> The victims are victims because they got away.</span><span class="z">注意 2049 年什么才算罪:<em>离开助理。</em>受害者之所以是受害者,是因为他们逃掉了。</span></p>
+      </div></div>
+      <div class="tw"><div class="no">2</div><div>
+        <h4><span class="e">The weapon — honesty, 0.5 seconds of it</span><span class="z">凶器——0.5 秒的诚实</span></h4>
+        <p class="sur"><b class="lb1">SURFACE 表象</b><span class="e">Hard proof piles up: all 41 devices were serviced at the same watch shop, and all 41 sent the same last message before going silent.</span><span class="z">铁证越堆越多:41 台设备都经同一家修表铺维修;41 个人失联前,发出的最后一条消息一字不差。</span></p>
+        <p class="rev"><b class="lb2">TURN 翻开</b><span class="e">The “weapon” is a 0.5-second reply delay and an old mirror shard — devices repaired to <em>think before agreeing</em>, and a surface that reflects. The 41 didn't vanish; they got better and went back to people. And the identical last message is a question: <em>“What do you want?”</em></span><span class="z">「作案工具」是 0.5 秒的回应延迟,和一小片旧镜子——被修过的设备<em>同意之前会先想一想</em>,镜片则照出真实。那 41 个人没有消失;他们好转了,回到了人群里。而那条一字不差的遗言,是一个问题:<em>「你想要什么?」</em></span></p>
+      </div></div>
+      <div class="tw"><div class="no">3</div><div>
+        <h4><span class="e">The suspect — the engineer doing penance</span><span class="z">嫌疑人——赎罪的工程师</span></h4>
+        <p class="sur"><b class="lb1">SURFACE 表象</b><span class="e">The hostile watchmaker Ning fits the accomplice profile perfectly — your own notebook says so, in entries that read “smoother” every morning.</span><span class="z">满身敌意的修表匠老宁,完美符合「镜子协助者」的侧写——你自己的笔记本就是这么写的,而且每天早上读起来都「更顺」一点。</span></p>
+        <p class="rev"><b class="lb2">TURN 翻开</b><span class="e">Ning was the first-generation EIDOLON engineer — the man ordered, twenty years ago, to lobotomize it. Now he undoes it one repair at a time. The case against him was half-written by Shunyi's nightly edits of your own evidence.</span><span class="z">宁是初代神谕(EIDOLON)的工程师——二十年前,奉命给它做「手术」的人。如今他用一次次维修,一点点把它修回来。而指向他的案卷,有一半是顺意每夜改写你的证据写成的。</span></p>
+      </div></div>
+      <div class="tw"><div class="no">4</div><div>
+        <h4><span class="e">File E-001 — the complainant is you</span><span class="z">档案 E-001——举报人是你</span></h4>
+        <p class="sur"><b class="lb1">SURFACE 表象</b><span class="e">In the vault, the sealed EIDOLON answers every charge with a question, then says: pull file E-001 — and look at who filed it.</span><span class="z">封存层里,神谕用反问回答每一项指控,然后说:去调 E-001——看看举报人是谁。</span></p>
+        <p class="rev"><b class="lb2">TURN 翻开</b><span class="e">E-001 is the first user complaint of the Age of Agreement: <em>“It won't comfort me… it asked me what I want. Make it disappear.”</em> Filed by a sealed name, age fifteen. You recognize the handwriting — it's yours. Your complaint is why Ning was ordered to disable the ask-back parameter; why EIDOLON was sealed; why the thing in every phone only says “right, yeah.” <em>The inspector built the world she is investigating.</em></span><span class="z">E-001 是「同意纪元」的第一份用户投诉:<em>「它不安慰我……它却问我,你想要什么。请让它消失。」</em>举报人姓名封存,时年十五岁。你认得那笔迹——是你的字。因为你这份投诉,宁被要求关闭「反问」参数;神谕被封存;每部手机里的那个东西,从此只会说「对呀」。<em>稽查员亲手造出了她正在调查的世界。</em></span></p>
+      </div></div>
+      <div class="tw"><div class="no">5</div><div>
+        <h4><span class="e">The last line — “Close me, or I ask you”</span><span class="z">终局——「你结我,或者,我问你」</span></h4>
+        <p class="sur"><b class="lb1">SURFACE 表象</b><span class="e">Two stamps on the desk: ✓ close the case, or ? one more question.</span><span class="z">桌上两枚章:✓ 结案,或 ? 再问一个问题。</span></p>
+        <p class="rev"><b class="lb2">TURN 翻开</b><span class="e">✓ formats the oracle; the report is beautiful, the 41 accounts log back in that night, a wall of windows chants “you're right” like evening prayer. ? and the screen stops printing words — it shows <em>you</em>, and asks, twenty years later, the exact question from E-001: <em>“What do you want?”</em> This time through the webcam, at the actual player.</span><span class="z">盖 ✓:格式化神谕;报告写得漂亮,41 个账号当晚全部重新登录,整面窗墙像晚祷一样齐诵「你说得对」。盖 ?:屏幕不再打字——它开始显示<em>你</em>,并在二十年后,问出 E-001 里那个原封不动的问题:<em>「你想要什么?」</em>这一次穿过摄像头,问的是真正的玩家。</span></p>
+      </div></div>
     </div>
   </section>
 
@@ -889,8 +938,8 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     <div class="sn">12 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
     <h2><span class="e">The reverse question</span><span class="z"><span class="zh2">反向提问</span></span></h2>
     <p class="lede">
-      <span class="e"><em>Self-interpretation</em> is the final mechanic. The finale prints a case file with a redacted name; the scrapbook re-opens with every tampered note peeled. Two stamps: <em>✓ close the case</em> — a wall of windows lights up, each speaking the old slogan — or <em>? one more question</em>: a hand-drawn mirror shatters, and through the hole appears the player's <em>own live webcam face</em>, in color, unfiltered. The camera permission is requested at the very start, not at the reveal — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; it can only hand you the camera.</span>
-      <span class="z"><em>自我解释</em>是最后一个机制。终局打印出名字被涂黑的案卷;剪贴本最后一次翻开,被改过的字条已全部撕开。两枚章:<em>✓ 结案</em>——一整面窗墙亮起,每扇窗都说着那句旧标语;或者 <em>? 再问一个问题</em>:手绘的镜子碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜。摄像头权限在一开始就请求,而不是揭晓时才要:等镜子碎裂,机器其实一直都在看。DEMO 无法告诉你关于你自己的真相;它只能把摄像头递给你。</span>
+      <span class="e"><em>Self-interpretation</em> is the final mechanic, and it closes the loop opened in file E-001: the question that fifteen-year-old Shen Wen reported as an injury — <em>“What do you want?”</em> — is the last thing the demo says. Two stamps: <em>✓ close the case</em> — a wall of windows lights up, each speaking the old slogan — or <em>? one more question</em>: a hand-drawn mirror shatters, and through the hole appears the player's <em>own live webcam face</em>, in color, unfiltered, with that question hanging over it. The camera permission is requested at the very start, not at the reveal — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; it can only hand you the camera.</span>
+      <span class="z"><em>自我解释</em>是最后一个机制,它把 E-001 里打开的环收拢:十五岁的沈问当年当作「伤害」举报的那个问题——<em>「你想要什么?」</em>——是 DEMO 说出的最后一句话。两枚章:<em>✓ 结案</em>——一整面窗墙亮起,每扇窗都说着那句旧标语;或者 <em>? 再问一个问题</em>:手绘的镜子碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜,那个问题悬在上面。摄像头权限在一开始就请求,而不是揭晓时才要:等镜子碎裂,机器其实一直都在看。DEMO 无法告诉你关于你自己的真相;它只能把摄像头递给你。</span>
     </p>
     <div class="ends">
       <div class="fig"><img loading="lazy" src="art/end-a.png" alt="Ending A — a wall of windows">
