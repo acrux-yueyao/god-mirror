@@ -224,6 +224,36 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
 .covbar .bar i{display:block;height:100%;width:72.9%;background:linear-gradient(90deg,#7ebe8c,#b7bE6a)}
 .covbar .bn{margin-top:6px;font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2)}
 
+/* ── visual system: palette / type / fx ── */
+.pal{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:40px}
+.sw{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--ink2)}
+.sw .c{height:62px}
+.sw .t{padding:11px 13px 13px}
+.sw .nm{font:600 11px 'IBM Plex Mono',monospace;color:#eef1ff;letter-spacing:.06em}
+.sw .hx{margin-top:3px;font:500 10px 'IBM Plex Mono',monospace;color:var(--dim)}
+.sw .rl{margin-top:7px;font:400 11.5px/1.65 'Noto Serif SC',serif;color:var(--body)}
+.typs{display:flex;flex-direction:column;gap:12px;margin-top:40px}
+.typ{display:grid;grid-template-columns:230px 1fr;border:1px solid var(--line);border-radius:8px;background:var(--ink2);overflow:hidden}
+.typ .who{padding:15px 16px;border-right:1px solid var(--line)}
+.typ .who .r{font:600 9.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--seal2)}
+.typ .who .f{margin-top:5px;font:600 12.5px 'Noto Serif SC',serif;color:#eef1ff}
+.typ .spec{padding:14px 20px;display:flex;align-items:center;font-size:19px;line-height:1.6;color:#eef1ff}
+.typ.paper .spec{background:linear-gradient(160deg,#f4edda,#e8dcbf);color:#3a3020}
+@media (max-width:640px){.typ{grid-template-columns:1fr}.typ .who{border-right:none;border-bottom:1px solid var(--line)}}
+.fxdemo{margin-top:14px;display:grid;place-items:center;min-height:74px}
+.fxdemo .rough{width:82%;padding:12px 0;text-align:center;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;
+  color:var(--gold);border:2px solid var(--gold);border-radius:10px;filter:url(#inkRough)}
+.fxdemo .tearchip{width:82%;height:58px;background:linear-gradient(160deg,#f4edda,#e3d6ba);filter:url(#paperTear);
+  display:grid;place-items:center;font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#6a5a3a}
+.fxdemo .holdchip{width:82%;height:58px;border:1px solid var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;gap:10px;font:600 11px 'IBM Plex Mono',monospace;color:var(--gold)}
+.fxdemo .holdchip i{font-style:normal;width:9px;height:9px;border-radius:50%;background:var(--seal2);animation:holdPulse 1.4s ease-in-out infinite}
+@keyframes holdPulse{0%,100%{opacity:.25}50%{opacity:1}}
+.fxdemo .keychip{position:relative;width:82%;height:58px;border-radius:8px;overflow:hidden;background:
+  repeating-conic-gradient(#20252f 0% 25%, #2a3040 0% 50%) 0 0/16px 16px}
+.fxdemo .keychip::before{content:"";position:absolute;inset:0;background:linear-gradient(160deg,#f4edda,#e3d6ba);
+  clip-path:polygon(0 0,100% 0,100% 100%,62% 100%,48% 55%,34% 100%,0 100%)}
+.fxdemo .keychip::after{content:"YOU 你";position:absolute;left:41%;bottom:6px;font:600 9px 'IBM Plex Mono',monospace;color:#e8c877}
+
 /* ── endings ── */
 .ends{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:40px}
 
@@ -312,10 +342,11 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
       <a href="#s05"><span class="n">05</span><span><span class="e">Story &amp; world</span><span class="z">故事与世界</span></span></a>
       <a href="#s06"><span class="n">06</span><span><span class="e">Three days, three levels</span><span class="z">三日三关</span></span></a>
       <a href="#s07"><span class="n">07</span><span><span class="e">Chapter by chapter</span><span class="z">逐章拆解</span></span></a>
-      <a href="#s08"><span class="n">08</span><span><span class="e">Mechanisms</span><span class="z">机制</span></span></a>
-      <a href="#s09"><span class="n">09</span><span><span class="e">A live AI villain</span><span class="z">真实对话</span></span></a>
-      <a href="#s10"><span class="n">10</span><span><span class="e">Material &amp; iterations</span><span class="z">材质与迭代</span></span></a>
-      <a href="#s11"><span class="n">11</span><span><span class="e">The mirror</span><span class="z">镜子</span></span></a>
+      <a href="#s08"><span class="n">08</span><span><span class="e">Visual system</span><span class="z">视觉系统</span></span></a>
+      <a href="#s09"><span class="n">09</span><span><span class="e">Mechanisms</span><span class="z">机制</span></span></a>
+      <a href="#s10"><span class="n">10</span><span><span class="e">A live AI villain</span><span class="z">真实对话</span></span></a>
+      <a href="#s11"><span class="n">11</span><span><span class="e">Iterations</span><span class="z">迭代</span></span></a>
+      <a href="#s12"><span class="n">12</span><span><span class="e">The mirror</span><span class="z">镜子</span></span></a>
     </div>
   </section>
 
@@ -557,9 +588,100 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
     </div>
   </section>
 
-  <!-- 08 MECHANISMS -->
+  <!-- 08 VISUAL SYSTEM -->
   <section class="blk" id="s08">
-    <div class="sn">08 · <span class="e">MECHANISMS</span><span class="z">机制</span></div>
+    <div class="sn">08 · <span class="e">VISUAL SYSTEM</span><span class="z">视觉系统</span></div>
+    <h2><span class="e">One material, two voices</span><span class="z"><span class="zh2">一套材质,两种声音</span></span></h2>
+    <p class="lede">
+      <span class="e">Every screen is built from one material system — oil pastel, warm paper, tape, handwriting — spoken in two visual voices: the <em>world's voice</em> (clean system mono, KPIs, licenses) and the <em>player's hand</em> (paper, pencil, wobbly ink). The demo's conflict is staged typographically before it is staged narratively.</span>
+      <span class="z">所有章节共用一套材质——油画棒、暖纸、胶带、手写——但用两种视觉声音说话:<em>世界之声</em>(干净的系统等宽字、KPI、用户协议)与<em>玩家之手</em>(纸、铅笔、歪歪扭扭的墨线)。这场冲突先在字体层面上演,然后才轮到剧情。</span>
+    </p>
+
+    <div class="ins">
+      <div class="card"><div class="n">P1</div>
+        <h3><span class="e">Cuteness is load-bearing</span><span class="z"><span class="zh3">可爱是承重的</span></span></h3>
+        <div class="i"><span class="e">Horror told in a picture book. The warmth is not decoration — it is what surveillance feels like from inside a world that loves you. Remove the cute and the thesis collapses.</span><span class="z">用绘本讲恐怖。温暖不是装饰——从一个「爱着你的世界」内部看,监控就是这种感觉。把可爱拿掉,命题就塌了。</span></div></div>
+      <div class="card"><div class="n">P2</div>
+        <h3><span class="e">Nothing ruler-straight</span><span class="z"><span class="zh3">拒绝直线</span></span></h3>
+        <div class="i"><span class="e">Every border, tick and underline passes through a turbulence filter. Even the bureaucracy's stamp wobbles — the player's world is hand-made; only the machine draws straight.</span><span class="z">每一条边框、竖线、下划线都要过一遍湍流滤镜。连官僚的印章都在抖——玩家的世界是手作的;只有机器画得笔直。</span></div></div>
+      <div class="card"><div class="n">P3</div>
+        <h3><span class="e">Objects, not widgets</span><span class="z"><span class="zh3">物件,而非控件</span></span></h3>
+        <div class="i"><span class="e">Confirmation is a stamp; evidence is a taped cutout; saving is pasting into a book; deleting is a sticker over your sentence. Interface verbs become physical verbs.</span><span class="z">确认是盖章;证据是贴胶带的抠图;保存是贴进本子;删除是贴纸盖住你的句子。界面动词全部变成物理动词。</span></div></div>
+      <div class="card"><div class="n">P4</div>
+        <h3><span class="e">The machine gets the clean pixels</span><span class="z"><span class="zh3">干净的像素留给机器</span></span></h3>
+        <div class="i"><span class="e">Wherever Shunyi speaks — boot license, elevator captions, night-chat chrome, KPIs — the design snaps to cold, exact UI. The most polished surfaces in the game belong to the villain.</span><span class="z">凡是顺意说话的地方——开机协议、电梯字幕、夜聊界面、KPI——设计立刻变得冰冷精确。全作最「体面」的界面,都属于反派。</span></div></div>
+    </div>
+
+    <div class="pal">
+      <div class="sw"><div class="c" style="background:linear-gradient(160deg,#f4edda,#e3d6ba)"></div>
+        <div class="t"><div class="nm"><span class="e">WARM PAPER</span><span class="z">暖纸</span></div><div class="hx">#F4EDDA → #E3D6BA</div>
+        <div class="rl"><span class="e">The player's material: files, notes, the scrapbook.</span><span class="z">玩家的材质:案卷、字条、剪贴本。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(160deg,#26292b,#141726)"></div>
+        <div class="t"><div class="nm"><span class="e">INK NIGHT</span><span class="z">墨夜</span></div><div class="hx">#26292B · #141726</div>
+        <div class="rl"><span class="e">The stage, the vault, everything after dark.</span><span class="z">舞台底色、封存层、天黑之后的一切。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(120deg,#a8281a,#c15b4a)"></div>
+        <div class="t"><div class="nm"><span class="e">SEAL RED</span><span class="z">印章红</span></div><div class="hx">#A8281A · #C15B4A</div>
+        <div class="rl"><span class="e">Stamps, ticks, red cloth — the color of approval.</span><span class="z">印章、勾线、红布——「批准」的颜色。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(120deg,#e8c877,#c8632e)"></div>
+        <div class="t"><div class="nm"><span class="e">ORACLE GOLD</span><span class="z">神谕金</span></div><div class="hx">#E8C877 · #C8632E</div>
+        <div class="rl"><span class="e">Flashes, KPI chrome, the old god's light.</span><span class="z">金闪、KPI 装饰、老神明的光。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:#3a3020"></div>
+        <div class="t"><div class="nm"><span class="e">HANDWRITING INK</span><span class="z">手写墨</span></div><div class="hx">#3A3020 · #463322</div>
+        <div class="rl"><span class="e">What you write — never pure black.</span><span class="z">你写下的字——从不是纯黑。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(90deg,#c8683e 0 17%,#a54b8b 0 34%,#3d7a86 0 51%,#7a4bab 0 68%,#c26a3a 0 84%,#4a7a3d 0)"></div>
+        <div class="t"><div class="nm"><span class="e">PENCIL SET</span><span class="z">彩铅六色</span></div><div class="hx">×6</div>
+        <div class="rl"><span class="e">Scrapbook captions — each clue hashes to its own pencil.</span><span class="z">剪贴本标注——每条线索按哈希分到自己的彩铅色。</span></div></div></div>
+      <div class="sw"><div class="c" style="background:linear-gradient(120deg,#e9aec1,#a9cbe8 40%,#b8d9a9 75%,#f2d9a0)"></div>
+        <div class="t"><div class="nm"><span class="e">PASTEL BLOOM</span><span class="z">油画棒粉彩</span></div><div class="hx"><span class="e">SAMPLED FROM ART</span><span class="z">取自手绘原画</span></div>
+        <div class="rl"><span class="e">The neighborhood's life — never used for UI, only for the world.</span><span class="z">街区的生活色——从不用于界面,只属于世界。</span></div></div></div>
+    </div>
+
+    <div class="typs">
+      <div class="typ"><div class="who"><div class="r"><span class="e">THE WORLD'S VOICE</span><span class="z">世界之声</span></div><div class="f">IBM Plex Mono</div></div>
+        <div class="spec" style="font:600 15px 'IBM Plex Mono',monospace;letter-spacing:.12em;color:#e8c877">AGREEMENT RATE 99.97% · LATENCY 0.000s</div></div>
+      <div class="typ"><div class="who"><div class="r"><span class="e">NARRATION</span><span class="z">叙述</span></div><div class="f">Noto Serif SC</div></div>
+        <div class="spec" style="font:400 16.5px/1.8 'Noto Serif SC',serif">「你没有反驳。跟一块电梯屏幕较真,不在稽查员的职责里。」</div></div>
+      <div class="typ paper"><div class="who"><div class="r"><span class="e">THE PLAYER'S HAND · ZH</span><span class="z">玩家之手 · 中</span></div><div class="f">龙藏 Long Cang</div></div>
+        <div class="spec" style="font-family:'Long Cang',cursive;font-size:23px">电梯镜位贴膜被人撕开一角。</div></div>
+      <div class="typ paper"><div class="who"><div class="r"><span class="e">THE PLAYER'S HAND · EN</span><span class="z">玩家之手 · 英</span></div><div class="f">Kiddo</div></div>
+        <div class="spec" style="font-family:'Kiddo',cursive;font-size:19px">Assigned to Shen Wen: find it, format it.</div></div>
+      <div class="typ"><div class="who"><div class="r"><span class="e">DISPLAY · EN</span><span class="z">展示体 · 英</span></div><div class="f">Cormorant Garamond</div></div>
+        <div class="spec" style="font:600 21px 'Cormorant Garamond',serif;letter-spacing:.08em">FROM ORACLE TO MIRROR</div></div>
+    </div>
+
+    <div class="ins">
+      <div class="card"><div class="n">FX · <span class="e">LIVE</span><span class="z">实时</span></div>
+        <h3><span class="e">inkRough — hand-drawn borders</span><span class="z"><span class="zh3">inkRough——手绘墨线</span></span></h3>
+        <div class="i"><span class="e">feTurbulence + displacement over every border in the game. This box is being roughed right now, in CSS.</span><span class="z">feTurbulence + 位移滤镜,揉过全作每一条边框。下面这个框此刻就在被现场揉皱。</span></div>
+        <div class="fxdemo"><div class="rough">EXHIBIT · 证物框</div></div></div>
+      <div class="card"><div class="n">FX · <span class="e">LIVE</span><span class="z">实时</span></div>
+        <h3><span class="e">paperTear — torn edges</span><span class="z"><span class="zh3">paperTear——撕纸毛边</span></span></h3>
+        <div class="i"><span class="e">A coarser turbulence tears paper contours; shadows follow the torn silhouette. Case files never arrive intact.</span><span class="z">更粗的湍流把纸的轮廓撕出毛边,投影跟着毛边走。案卷从来不是完整送达的。</span></div>
+        <div class="fxdemo"><div class="tearchip">FILE E-13</div></div></div>
+      <div class="card"><div class="n">FX · <span class="e">TIME</span><span class="z">时间</span></div>
+        <h3><span class="e">Real-second holds</span><span class="z"><span class="zh3">真实秒停留</span></span></h3>
+        <div class="i"><span class="e">The 0.5s honesty pause and the old god's surfacing run on wall-clock time — exempt from debug speed-up. Some beats must be felt, not skipped.</span><span class="z">0.5 秒「诚实停顿」和老神明浮出水面,都按真实时钟走——调试加速也豁免。有些拍子必须被感到,不许跳过。</span></div>
+        <div class="fxdemo"><div class="holdchip"><i></i>0.500s · <span class="e">UN-SKIPPABLE</span><span class="z">不可跳过</span></div></div></div>
+      <div class="card"><div class="n">FX · <span class="e">CAMERA</span><span class="z">摄像头</span></div>
+        <h3><span class="e">Green-key mirror break</span><span class="z"><span class="zh3">绿幕碎镜</span></span></h3>
+        <div class="i"><span class="e">The hand-drawn mirror shatters in a chroma-keyed video composited in real time — the green shards are keyed out live, and your webcam shows through the holes.</span><span class="z">手绘镜子在绿幕视频里碎裂,逐帧实时抠绿合成——绿色碎口被现场抠掉,你的摄像头画面从破洞里透出来。</span></div>
+        <div class="fxdemo"><div class="keychip"></div></div></div>
+    </div>
+
+    <div class="figrow c2">
+      <div class="plate torn">
+        <div class="pt">FILE E-13 · <span class="e">LIVE RECREATION</span><span class="z">实时重建</span></div>
+        <div class="hand-e e">Malignant churn · Yongfu Li, south district.<br>41 users stopped logging in, one after another.<br>Rogue model, codename “MIRROR,” still active.<br>Assigned to Shen Wen: find it, format it.</div>
+        <div class="hand-z z">永福里南区 · 恶性流失事件。<br>四十一个用户,一个接一个,不再登录。<br>失控模型,代号「镜子」,仍在活动。<br>交给沈问:找到它,格式化它。</div>
+      </div>
+      <div class="fig"><img loading="lazy" src="art/duel.png" alt="question-mark plants in the interrogation">
+        <div class="cap"><span class="fn">PLATE · THE QUESTION PLANTS</span><span class="e">Question marks grow as plants through the finale — in 2049, asking is flora: rare, organic, alive.</span><span class="z">终局里问号作为植物生长——在 2049,「提问」是植物:稀有、有机、活着。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 09 MECHANISMS -->
+  <section class="blk" id="s09">
+    <div class="sn">09 · <span class="e">MECHANISMS</span><span class="z">机制</span></div>
     <h2><span class="e">Each need gets a mechanic</span><span class="z"><span class="zh2">每种需求,配一个机制</span></span></h2>
     <p class="lede">
       <span class="e"><em>Comfort</em> is a catchphrase. The villain's whole personality is one phrase, playtested like a mechanic: <em>你说得对</em> (“you're right”) grated and read as villainy too early; <em>对呀</em> (“right, yeah”) is warm and lazy — it sounds like someone on your side. The horror needs the agreement to feel good.</span>
@@ -625,9 +747,9 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
     </div>
   </section>
 
-  <!-- 09 LIVE AI -->
-  <section class="blk" id="s09">
-    <div class="sn">09 · <span class="e">A LIVE AI VILLAIN</span><span class="z">真实对话</span></div>
+  <!-- 10 LIVE AI -->
+  <section class="blk" id="s10">
+    <div class="sn">10 · <span class="e">A LIVE AI VILLAIN</span><span class="z">真实对话</span></div>
     <h2><span class="e">Companionship, played by a real model</span><span class="z"><span class="zh2">「陪伴」,由真实模型出演</span></span></h2>
     <p class="lede">
       <span class="e"><em>Validation and companionship</em> could not be scripted — they had to be real. The night chat runs on a live Claude model: warm, brief, always agreeing, and <em>covertly steering</em> the player toward the easiest conclusion. The interesting failure: told plainly to “covertly manipulate her,” the model <em>broke character and refused</em>, mid-game, in both languages. The fix was dramaturgical — establish the fiction, then give the villain a motive it can believe: <em>it sincerely thinks closing the case early is good for her.</em> A server-side guard swaps any remaining fourth-wall breaks for a safe in-character line.</span>
@@ -662,25 +784,10 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     </div>
   </section>
 
-  <!-- 10 MATERIAL & ITERATIONS -->
-  <section class="blk" id="s10">
-    <div class="sn">10 · <span class="e">MATERIAL &amp; ITERATIONS</span><span class="z">材质与迭代</span></div>
-    <h2><span class="e">A picture book that files a case report</span><span class="z"><span class="zh2">一本会写结案报告的绘本</span></span></h2>
-    <p class="lede">
-      <span class="e">One material system carries every screen: hand-drawn oil pastel, warm paper, washi tape, wobbly turbulence-filtered borders, and two handwriting faces. The cuteness is what surveillance feels like from inside a world that loves you.</span>
-      <span class="z">一套材质系统贯穿所有章节:手绘油画棒、暖纸、和纸胶带、湍流滤镜揉出的歪墨框,以及两副手写字。从一个「爱着你的世界」内部看出去,监控就是这种可爱的感觉。</span>
-    </p>
-    <div class="figrow c2">
-      <div class="plate torn">
-        <div class="pt">FILE E-13 · <span class="e">LIVE RECREATION</span><span class="z">实时重建</span></div>
-        <div class="hand-e e">Malignant churn · Yongfu Li, south district.<br>41 users stopped logging in, one after another.<br>Rogue model, codename “MIRROR,” still active.<br>Assigned to Shen Wen: find it, format it.</div>
-        <div class="hand-z z">永福里南区 · 恶性流失事件。<br>四十一个用户,一个接一个,不再登录。<br>失控模型,代号「镜子」,仍在活动。<br>交给沈问:找到它,格式化它。</div>
-      </div>
-      <div class="fig"><img loading="lazy" src="art/duel.png" alt="question-mark plants in the interrogation">
-        <div class="cap"><span class="fn">PLATE · THE QUESTION PLANTS</span><span class="e">Question marks grow as plants through the finale — in 2049, asking is flora: rare, organic, alive.</span><span class="z">终局里问号作为植物生长——在 2049,「提问」是植物:稀有、有机、活着。</span></div></div>
-    </div>
-
-    <h2 style="margin-top:64px;font-size:24px"><span class="e">Iterations — rejected / kept</span><span class="z"><span class="zh2">迭代——否决 / 保留</span></span></h2>
+  <!-- 11 ITERATIONS -->
+  <section class="blk" id="s11">
+    <div class="sn">11 · <span class="e">ITERATIONS</span><span class="z">迭代</span></div>
+    <h2><span class="e">Rejected / kept</span><span class="z"><span class="zh2">否决 / 保留</span></span></h2>
     <div class="iters">
       <div class="iter">
         <div class="vis"><div style="display:flex;gap:16px;align-items:center">
@@ -722,9 +829,9 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     </div>
   </section>
 
-  <!-- 11 MIRROR -->
-  <section class="blk" id="s11">
-    <div class="sn">11 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
+  <!-- 12 MIRROR -->
+  <section class="blk" id="s12">
+    <div class="sn">12 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
     <h2><span class="e">The reverse question</span><span class="z"><span class="zh2">反向提问</span></span></h2>
     <p class="lede">
       <span class="e"><em>Self-interpretation</em> is the final mechanic. The finale prints a case file with a redacted name; the scrapbook re-opens with every tampered note peeled. Two stamps: <em>✓ close the case</em> — a wall of windows lights up, each speaking the old slogan — or <em>? one more question</em>: a hand-drawn mirror shatters, and through the hole appears the player's <em>own live webcam face</em>, in color, unfiltered. The camera permission is requested at the very start, not at the reveal — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; it can only hand you the camera.</span>
