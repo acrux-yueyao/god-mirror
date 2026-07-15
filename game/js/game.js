@@ -90,13 +90,20 @@ async function halfSecond() {
   setLatency(false);
 }
 function flashGold() { const f = $("flashFx"); f.classList.remove("on"); void f.offsetWidth; f.classList.add("on"); }
-// 剧情里找到线索:即时弹出暖纸小条(不必等剪贴本)
-function flashClue(text) {
+// 剧情里找到线索:分阶弹出——物件图先跳出来 → 文本浮现 → 线索标签盖上
+function flashClue(id, text) {
   const el = $("clueFlash"); if (!el || !text) return;
+  const img = el.querySelector(".cfImg");
+  el.classList.remove("noPic");
+  if (img) {
+    img.style.display = "";
+    img.onerror = () => { img.style.display = "none"; el.classList.add("noPic"); };   // 无对应图 → 只留文字条
+    img.src = clueSrc({ id });
+  }
   el.querySelector(".cfText").textContent = text;
   el.classList.remove("on"); void el.offsetWidth; el.classList.add("on");
   if (sfx.blip) sfx.blip();
-  clearTimeout(flashClue._t); flashClue._t = setTimeout(() => el.classList.remove("on"), 3000);
+  clearTimeout(flashClue._t); flashClue._t = setTimeout(() => el.classList.remove("on"), 4200);
 }
 
 /* ── 声线渐变:顺意用玩家自己刚说的话回她 ────────────────────────── */
@@ -442,7 +449,7 @@ function showEnd() {
   if (curScene._intro) {   // 出勤过场:记下线索 → 继续(去社区/调查点)
     el.textContent = T.ui.advance;
     el.onclick = () => {
-      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.note); sceneLogged = true; }
+      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.id, curScene.note); sceneLogged = true; }
       const r = introResolve; introResolve = null; if (r) r();
     };
     return;
@@ -450,7 +457,7 @@ function showEnd() {
   if (curScene.kind === "watch") {
     el.textContent = curScene._fromMap ? T.ui.returnComm : T.ui.watchNote;
     el.onclick = () => {
-      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.note); sceneLogged = true; }
+      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.id, curScene.note); sceneLogged = true; }
       if (curScene._fromMap) { returnFromScene(); return; }
       if (curCard) { stampCard(curCard); curCard.classList.add("done"); }
       backDesk();
@@ -563,7 +570,7 @@ document.querySelectorAll("#stanceRow .stance").forEach(btn => {
     setWho(opt.who || "");
     await typeInto($("sceneBody"), opt.reply, 16);
     if (opt.pause) await halfSecond();   // 揭示"回话前停半秒"的瞬间,游戏真的停半秒
-    if (opt.note) { recordNote(curScene.id, opt.note); flashClue(opt.note); sceneLogged = true; if (curCard) curCard.classList.add("done"); }
+    if (opt.note) { recordNote(curScene.id, opt.note); flashClue(curScene.id, opt.note); sceneLogged = true; if (curCard) curCard.classList.add("done"); }
     // 不自增:beatIdx 仍停在分叉拍,交给 nextBeat 推进到下一拍(否则会跳过分叉后的收束拍)
     if (beatIdx >= sceneBeats.length - 1) showEnd();
     else { $("sceneAdvance").textContent = T.ui.advance; $("sceneAdvance").style.display = "inline-block"; }
