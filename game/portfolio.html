@@ -217,6 +217,20 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
 .phslot::after{content:"";position:absolute;top:-10px;left:50%;width:66px;height:19px;transform:translateX(-50%) rotate(-2deg);background:rgba(233,174,193,.5);box-shadow:0 2px 4px rgba(90,60,20,.12)}
 .phslot .ph{height:150px;border:2px dashed rgba(90,70,40,.3);border-radius:3px;display:grid;place-items:center;font:700 9px 'Silkscreen',monospace;color:var(--dim);text-align:center;line-height:2}
 .phslot .pc{padding:10px 6px 6px;font:400 12px/1.7 'Noto Serif SC',serif;color:var(--ink2)}
+.board{position:relative;margin-top:26px;background:linear-gradient(160deg,#f0e7d0,#e8dcc0);border:1.6px solid var(--ink2);border-radius:12px;filter:url(#inkRough);padding:26px 24px 22px;box-shadow:var(--shadow)}
+.board .bt2{font:700 10px 'Silkscreen',monospace;color:var(--amber);margin-bottom:18px}
+.clusters{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.clus{flex:1 1 240px;min-width:220px}
+.clab{display:inline-block;font:700 10.5px 'Silkscreen',monospace;color:#2f4a38;background:#cfe3d4;padding:7px 11px;border-radius:2px;transform:rotate(-1.5deg);box-shadow:0 3px 6px rgba(90,60,20,.22);margin-bottom:12px}
+.clab.new{background:#f3cfd2;color:#7a2b2b}
+.clab .star{color:#b8433a}
+.nrow{display:flex;flex-direction:column;gap:10px}
+.board .note{position:relative;background:#f9ecab;padding:12px 13px 14px;font-family:'Kiddo',cursive;font-size:13.5px;line-height:1.55;color:#4a3c1a;box-shadow:0 4px 8px rgba(90,60,20,.22);border-radius:1px}
+.board .note:nth-child(odd){transform:rotate(-1.6deg)}
+.board .note:nth-child(even){transform:rotate(1.4deg)}
+.board .note .p{position:absolute;right:8px;bottom:5px;font:700 8px 'Silkscreen',monospace;color:#a15b2e}
+.board .note.bridge{background:#fdf3c9;outline:2px dashed rgba(168,85,31,.45);outline-offset:2px}
+.board .note .arr{display:block;margin-top:7px;font:700 8.5px 'Silkscreen',monospace;color:#5a8a4f}
 
 /* ── twist ladder ── */
 .spoil{display:inline-block;margin-left:12px;font:700 9px 'Silkscreen',monospace;color:#fff8ec;background:var(--seal);border-radius:5px;padding:4px 9px;vertical-align:middle}
@@ -625,9 +639,54 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
         <div class="pc"><span class="e">Photo slot — interview setting, with consent.</span><span class="z">照片位——访谈现场(经受访者同意)。</span></div></div>
       <div class="phslot"><div class="ph">FIELD PHOTO · 02<br><span class="e">PARTICIPANT'S CHAT, REDACTED</span><span class="z">受访者的聊天记录(打码)</span></div>
         <div class="pc"><span class="e">Photo slot — a participant's own AI chat, anonymized.</span><span class="z">照片位——受访者自己的 AI 对话截屏(匿名化)。</span></div></div>
-      <div class="phslot"><div class="ph">FIELD PHOTO · 03<br><span class="e">NOTES &amp; CODING</span><span class="z">笔记与编码</span></div>
-        <div class="pc"><span class="e">Photo slot — handwritten notes / affinity mapping.</span><span class="z">照片位——手写笔记 / 亲和图整理。</span></div></div>
     </div>
+
+    <div class="board">
+      <div class="bt2"><span class="e">ANALYSIS · AFFINITY MAP — 3 INTERVIEWS, 10 NOTES, 6 CLUSTERS</span><span class="z">分析 · 亲和图——3 份访谈,10 张便签,6 个簇</span></div>
+      <div class="clusters">
+        <div class="clus">
+          <div class="clab">COMFORT: ONE SENTENCE IS ENOUGH</div>
+          <div class="nrow">
+            <div class="note">“Don't deny your own pain.” — one line was enough<span class="p">P1</span></div>
+          </div>
+        </div>
+        <div class="clus">
+          <div class="clab">COMPANIONSHIP: A STAND-IN FOR A NEW CITY</div>
+          <div class="nrow">
+            <div class="note">New in Boston → talked to AI every day, about everything &amp; nothing<span class="p">P3</span></div>
+          </div>
+        </div>
+        <div class="clus">
+          <div class="clab">SEEING THROUGH IT ≠ NOT NEEDING IT</div>
+          <div class="nrow">
+            <div class="note bridge">“Never felt it got me — but I wanted a ‘someone’ on my side”<span class="arr">↔ ALSO FITS: COMPANIONSHIP</span><span class="p">P3</span></div>
+            <div class="note">Feels like it's following instructions — “I understand…” (sees through it, and disengages)<span class="p">P2</span></div>
+          </div>
+        </div>
+        <div class="clus">
+          <div class="clab">“HONEST” IN THEORY, MOOD IN PRACTICE</div>
+          <div class="nrow">
+            <div class="note">Both chose “more honest” (in the abstract)<span class="p">P1·P2</span></div>
+            <div class="note">“Smart” and “argumentative” aren't far apart<span class="p">P2</span></div>
+            <div class="note">“Depends on what I want in the moment”<span class="p">P3</span></div>
+          </div>
+        </div>
+        <div class="clus">
+          <div class="clab">TALKING BACK IS FREE (POWER ASYMMETRY)</div>
+          <div class="nrow">
+            <div class="note">“It's not like I can't talk back at it”<span class="p">P3</span></div>
+          </div>
+        </div>
+        <div class="clus">
+          <div class="clab new"><span class="star">★</span> NEW · AGREEMENT ESCALATES</div>
+          <div class="nrow">
+            <div class="note">The AI version of my story: fuller, more analysis<span class="p">P1·P2</span></div>
+            <div class="note">Both sides of one fight each ask AI → it fans the flames<span class="p">P3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:12px"><span class="e">DIGITAL AFFINITY MAP FROM THE 3 COMPLETED INTERVIEWS — RE-CLUSTERED AS FIELDWORK GROWS. THE ★ CLUSTER SITS OUTSIDE THE FOUR-NEED FRAME.</span><span class="z">基于已完成的 3 份访谈的数字亲和图——田野增长后会重新聚类。★ 簇落在四需求框架之外。</span></p>
 
     <div class="subhead">D · <span class="e">SYNTHESIS 思维导图</span><span class="z">思维导图 SYNTHESIS</span></div>
     <div class="sys" style="margin-top:22px">
