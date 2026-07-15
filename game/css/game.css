@@ -130,7 +130,10 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 #deskScreen:hover #noteCover{transform:rotate(-2deg)}
 #noteOpenVid{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:150%;max-width:none;display:none;filter:drop-shadow(0 12px 22px rgba(30,18,8,.5))}
 /* 顺意小宠物 + 气泡 */
-#deskPet{position:absolute;right:7%;bottom:15%;width:122px;display:none;z-index:4;pointer-events:none;filter:drop-shadow(0 8px 13px rgba(0,0,0,.42));animation:petBob 2.8s ease-in-out infinite}
+#deskPet{position:absolute;right:7%;bottom:15%;width:122px;display:none;z-index:6;pointer-events:auto;cursor:pointer;filter:drop-shadow(0 8px 13px rgba(0,0,0,.42));animation:petBob 2.8s ease-in-out infinite;transition:filter .2s ease}
+#deskPet:hover{filter:drop-shadow(0 10px 15px rgba(0,0,0,.45)) drop-shadow(0 0 12px rgba(232,200,119,.5)) brightness(1.04)}
+#deskPet.poke{animation:petPoke .46s ease !important}
+@keyframes petPoke{0%,100%{transform:translateY(0) scale(1) rotate(0)}32%{transform:translateY(-16px) scale(1.15) rotate(8deg)}62%{transform:translateY(2px) scale(.95) rotate(-6deg)}}
 #deskPetSay{position:absolute;right:5%;bottom:33%;max-width:224px;display:none;z-index:5;background:rgba(252,248,240,.96);border-radius:15px 15px 4px 15px;padding:10px 14px;font:400 13px/1.62 'Noto Serif SC',serif;color:#4a4030;box-shadow:0 7px 18px rgba(0,0,0,.32)}
 @keyframes petBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 /* 案卷:牛皮纸文件夹 */

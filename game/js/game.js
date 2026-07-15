@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=47";
+import { SCRIPT } from "./script.js?v=48";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -311,6 +311,16 @@ function playMorning(d) {
     await typeInto($("deskPov"), m.intro, 16);
     // 顺意小宠物:探头登场 → 挥手问早(气泡)
     pet.style.display = "block"; pet.onerror = () => pet.style.display = "none"; pet.src = "art/shunyi-rest.png";
+    // 鼠标交互:悬停→挥手,点击→蹦一下 + 冒一句话
+    pet.onmouseenter = () => { if (pet.src.indexOf("shunyi-rest") >= 0) pet.src = "art/shunyi-wave.png"; };
+    pet.onmouseleave = () => { pet.src = "art/shunyi-rest.png"; };
+    pet.onclick = () => {
+      if (sfx.blip) sfx.blip();
+      pet.classList.remove("poke"); void pet.offsetWidth; pet.classList.add("poke");
+      clearTimeout(pet._pokeT); pet._pokeT = setTimeout(() => pet.classList.remove("poke"), 480);
+      const pool = T.ui.petPokes || [];
+      if (pool.length) { say.style.display = "block"; say.textContent = pool[Math.floor(Math.random() * pool.length)]; }
+    };
     say.style.display = "block"; say.textContent = ""; await typeInto(say, m.screen, 22);
     setFocus(note);   // 引导去翻 CASE 案卷本
   });

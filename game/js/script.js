@@ -60,6 +60,14 @@ export const SCRIPT = {
     advance: B("▸ 继续", "▸ CONTINUE"),
     deskScreenTag: B("顺意", "SHUNYI"),
     deskNoteTag: B("案卷本", "CASE BOOK"),
+    petPokes: [
+      B("嗯?我在呢。", "Mm? I'm right here."),
+      B("你今天,真的很好。", "You're doing great today, really."),
+      B("别紧张,有我。", "Don't fret. You've got me."),
+      B("想听你多说说话。", "I'd love to hear more from you."),
+      B("今天也一起,好不好。", "Let's do today together, all right?"),
+      B("别看别处啦——看我。", "Don't look over there — look at me.")
+    ],
     deskFileTag: B("案卷", "FILE"),
     fileClose: B("合上案卷", "CLOSE FILE"),
     deskHintMorning: B("桌上的东西都能点。读完案卷,再盖章出勤。", "Everything on the desk is clickable. Read the file, then stamp to head out."),
