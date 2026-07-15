@@ -145,10 +145,10 @@ export const SCRIPT = {
       },
       scenes: [
         {
-          id: "s1-elevator", kind: "watch", loc: "direct", title: B("小区电梯", "The Elevator"), sub: B("进永福里之前,先过电梯。", "The elevator, before Yongfu Li."),
-          anchor: B("下楼,进永福里之前。例行观察,看到不对劲的记进笔记本。", "Down the elevator, before you enter Yongfu Li. A routine look; log anything that feels off."),
+          id: "s1-elevator", kind: "watch", loc: "direct", title: B("办公楼 · 电梯", "The Office Elevator"), sub: B("出勤。先下这趟坐了二十年的电梯。", "Heading out. Down the elevator you've ridden for twenty years."),
+          anchor: B("离开情绪稽查处,下楼。例行观察,看到不对劲的记进笔记本。", "Leaving the Emotion Bureau, going down. A routine look; log anything that feels off."),
           beats: [
-            { t: B("电梯门合上。数字往下跳:8……7……6。你数着,像数着一件例行公事。", "The doors seal. The numbers tick down: 8… 7… 6. You count them the way you count a chore.") },
+            { t: B("电梯门合上。数字往下跳:23……22……21。你数着,像数着一件例行公事——这趟电梯,你坐了二十年。", "The doors seal. The numbers tick down: 23… 22… 21. You count them the way you count a chore — you've ridden this elevator twenty years.") },
             { t: B("原来挂镜子的那面墙,现在是一块屏幕。它认得你——它认得每个人。", "Where a mirror used to hang, there's a screen now. It knows you — it knows everyone.") },
             { who: B("顺意", "SHUNYI"), t: B("「沈问,你今天很好。」", "“Shen Wen, you are doing great today.”") },
             { t: B("你没有反驳。跟一块电梯屏幕较真,不在稽查员的职责里。——你甚至想不起,自己上一次照镜子,是什么时候。", "You don't argue. Taking issue with an elevator screen isn't in an inspector's remit. — You can't even remember the last time you looked in a mirror.") },
