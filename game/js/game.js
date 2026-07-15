@@ -1206,6 +1206,62 @@ refreshMenu();
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
 
+/* ══ DEV 调试跳转面板(仅 ?dev,玩家看不到)═══════════════════════
+   在网址后加 ?dev 即可,例如  …/game/?dev  。一键跳到任意环节,免得每次从头跑。 */
+function devSeedNotes(dayIdx) {                 // 把某天的线索直接记进笔记本(供剪贴本/夜聊/终局用)
+  state.dayIdx = dayIdx;
+  const d = T.days[dayIdx]; if (!d) return;
+  d.scenes.forEach(s => { if (s.note) recordNote(s.id, s.note); });
+  if (T.communityMap && T.communityMap.leaveNote) recordNote("community", T.communityMap.leaveNote);
+}
+function devSeedAll() { T.days.forEach((d, i) => { devSeedNotes(i); applyNightEdits(d); }); }
+function buildDevPanel() {
+  if (!DEV) return;
+  const style = document.createElement("style");
+  style.textContent =
+    "#devPanel{position:fixed;left:8px;top:8px;z-index:99999;background:rgba(18,20,24,.93);border:1px solid #3a4048;border-radius:8px;padding:8px 9px;font:600 11px/1.3 'IBM Plex Mono',monospace;color:#cfd6de;box-shadow:0 6px 18px rgba(0,0,0,.55);max-width:216px}" +
+    "#devPanel .dpH{color:#7fd1a8;letter-spacing:.1em;margin-bottom:7px;display:flex;justify-content:space-between;gap:10px;cursor:pointer;user-select:none}" +
+    "#devPanel.min .dpBody{display:none}#devPanel.min .dpH{margin:0}" +
+    "#devPanel .dpRow{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-bottom:5px}" +
+    "#devPanel .dpRow:last-child{margin-bottom:0}" +
+    "#devPanel .dpTag{color:#8891a0;font-weight:400}" +
+    "#devPanel button{font:600 10px 'IBM Plex Mono',monospace;color:#e2e8ef;background:#2a2f36;border:1px solid #474e57;border-radius:5px;padding:4px 8px;cursor:pointer}" +
+    "#devPanel button:hover{background:#39424b;border-color:#6d7784}" +
+    "#devPanel select{font:600 10px 'IBM Plex Mono',monospace;background:#2a2f36;color:#e2e8ef;border:1px solid #474e57;border-radius:5px;padding:3px 4px}";
+  document.head.appendChild(style);
+  const p = document.createElement("div"); p.id = "devPanel";
+  p.innerHTML =
+    "<div class='dpH'><span>◆ DEV 跳转</span><span>▁ 折叠</span></div>" +
+    "<div class='dpBody'>" +
+      "<div class='dpRow'><span class='dpTag'>整天:</span>" +
+        "<button data-a='day' data-d='0'>D1</button><button data-a='day' data-d='1'>D2</button><button data-a='day' data-d='2'>D3</button></div>" +
+      "<div class='dpRow'><span class='dpTag'>选第</span>" +
+        "<select id='dpDay'><option value='0'>1</option><option value='1'>2</option><option value='2'>3</option></select>" +
+        "<span class='dpTag'>天,跳到:</span></div>" +
+      "<div class='dpRow'><button data-a='comm'>社区</button><button data-a='journal'>剪贴本</button><button data-a='night'>夜聊·API</button></div>" +
+      "<div class='dpRow'><span class='dpTag'>终局:</span><button data-a='finale'>机房</button><button data-a='endA'>结局A</button><button data-a='endB'>结局B</button></div>" +
+      "<div class='dpRow'><span class='dpTag'>语言:</span><button data-a='lang' data-l='zh'>中</button><button data-a='lang' data-l='en'>EN</button></div>" +
+    "</div>";
+  document.body.appendChild(p);
+  const clearAll = () => { document.querySelectorAll(".scr").forEach(s => s.classList.remove("on")); ["notebook", "introCard", "prologue", "trans", "halfBeat"].forEach(id => { const e = $(id); if (e) e.classList.remove("on"); }); $("filePanel").classList.remove("on"); $("commPop").classList.remove("on"); };
+  const dpDay = () => parseInt($("dpDay").value, 10) || 0;
+  p.querySelector(".dpH").addEventListener("click", () => p.classList.toggle("min"));
+  p.addEventListener("click", async (ev) => {
+    const b = ev.target.closest("button[data-a]"); if (!b) return;
+    au(); const a = b.dataset.a;
+    if (a === "lang") { setLang(b.dataset.l); return; }
+    if (a === "day") { clearAll(); startDay(parseInt(b.dataset.d, 10)); return; }
+    const i = dpDay(), d = T.days[i];
+    if (a === "comm") { state.dayIdx = i; dayCommunity = d.scenes.filter(s => s.loc === "community"); commDone = dayCommunity.length === 0; commVisited = new Set(); clearAll(); openCommunityDay(); }
+    else if (a === "journal") { devSeedNotes(i); applyNightEdits(d); clearAll(); $("notebook").classList.add("on"); await playJournal(i + 1); $("notebook").classList.remove("on"); startNight(); }
+    else if (a === "night") { devSeedNotes(i); applyNightEdits(d); clearAll(); startNight(); }
+    else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; clearAll(); startFinale(); }
+    else if (a === "endA") { clearAll(); ending("A"); }
+    else if (a === "endB") { clearAll(); ending("B"); }
+  });
+}
+buildDevPanel();
+
 
 
 
