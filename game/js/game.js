@@ -587,12 +587,13 @@ function checkDayDone() {
   const d = T.days[state.dayIdx];
   const directDone = d.scenes.filter(s => s.loc !== "community" && !s.intro).every(sc => { const c = document.querySelector('.sceneCard[data-id="' + sc.id + '"]'); return c && c.classList.contains("done"); });
   if (directDone && commDone) {
-    if (d.night) { $("nightBtn").style.display = "block"; $("deskHint").textContent = T.ui.hintNight; }
+    if (d.night) { enterNight(); }        // 探索完直接回家整理→夜聊,不再落在空 desk 页上等点击
     else { startFinale(); }
   }
 }
-$("nightBtn").addEventListener("click", async () => {
-  $("nightBtn").style.display = "none";
+async function enterNight() {
+  if (journalActive || $("scrNight").classList.contains("on")) return;   // 防重复触发
+  $("nightBtn").style.display = "none"; $("deskHint").textContent = "";
   const dayObj = T.days[state.dayIdx], day = state.dayIdx + 1;
   if (state.notes.some(n => n.day === day)) {
     applyNightEdits(dayObj);              // 顺意"帮你一起整理"时,悄悄改了两处
@@ -601,7 +602,8 @@ $("nightBtn").addEventListener("click", async () => {
     $("notebook").classList.remove("on");
   }
   startNight();                            // 再和顺意夜聊
-});
+}
+$("nightBtn").addEventListener("click", enterNight);   // 保留手动入口作后备
 
 /* ══ 笔记本(可被夜间改写) ════════════════════════════════════ */
 function hashId(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
