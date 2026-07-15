@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=45";
+import { SCRIPT } from "./script.js?v=46";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -240,7 +240,9 @@ function startDay(i) {
     commVisited = new Set();
     $("sceneGrid").classList.remove("on");
     if (d.morning) await playMorning(d);   // 晨间小场景:读案卷 → 盖章出勤
-    revealCards(d);                        // 盖章后,调查点浮现
+    const introSc = d.scenes.find(s => s.intro);
+    if (introSc) await playIntroScene(introSc);   // 出勤过场:电梯自动播,播完继续
+    revealCards(d);                        // 调查点浮现(只剩社区一条线索则直接进社区)
   });
 }
 /* ── 晨间小场景:顺意屏 / 案卷 / 受理印章 ─────────────────────── */
@@ -322,22 +324,25 @@ function revealCards(d) {
     card.querySelector(".cardSub").textContent = opts.sub || "";
     return card;
   };
-  // 按场景数组顺序出卡;社区枢纽卡插在第一个社区场景的位置(不再永远排最后)
-  let hubPlaced = false;
+  // 按场景数组顺序出卡;社区枢纽卡插在第一个社区场景的位置;出勤过场(intro)不出卡
+  let hubPlaced = false, directCards = 0;
   d.scenes.forEach(sc => {
     if (sc.loc === "community") {
       if (hubPlaced || !dayCommunity.length) return;
       hubPlaced = true;
       const cm = T.communityMap;
       const hub = mkCard({ id: "community-hub", name: cm.title, sub: cm.sub, hub: true });
+      commMapCard = hub;
       hub.addEventListener("click", () => { commMapCard = hub; openCommunityDay(); });
       grid.appendChild(hub);
-    } else {
+    } else if (!sc.intro) {
+      directCards++;
       const card = mkCard({ id: sc.id, name: sc.title, sub: sc.sub });
       card.addEventListener("click", () => { if (!card.classList.contains("done")) openScene(sc, card); });
       grid.appendChild(card);
     }
   });
+  if (!directCards && hubPlaced) { openCommunityDay(); return; }   // 只剩社区一条线索 → 直接进永福里
   grid.classList.add("on");
 }
 
@@ -364,9 +369,12 @@ function setWho(who) {
   if (who) { el.textContent = who; el.style.display = "inline-block"; }
   else { el.style.display = "none"; el.textContent = ""; }
 }
+let introResolve = null;
+function playIntroScene(sc) { return new Promise(res => { introResolve = res; openScene({ ...sc, _intro: true }, null); }); }
 function openScene(sc, card) {
   curScene = sc; curCard = card;
   show("scrScene");
+  $("sceneBack").style.display = sc._intro ? "none" : "";   // 出勤过场不给返回
   $("scenePhTxt").textContent = T.ui.phScene + " · " + sc.id;
   const art = $("sceneArt");   // 有 art/<场景id>.png 就显示,没有回退占位
   art.style.display = "none";
@@ -413,6 +421,14 @@ function renderFork(fork) {
 function showEnd() {
   hideSceneControls();
   const el = $("sceneNote"); el.style.display = "block";
+  if (curScene._intro) {   // 出勤过场:记下线索 → 继续(去社区/调查点)
+    el.textContent = T.ui.advance;
+    el.onclick = () => {
+      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); sceneLogged = true; }
+      const r = introResolve; introResolve = null; if (r) r();
+    };
+    return;
+  }
   if (curScene.kind === "watch") {
     el.textContent = curScene._fromMap ? T.ui.returnComm : T.ui.watchNote;
     el.onclick = () => {
@@ -544,7 +560,7 @@ function recordNote(id, text) {
 
 function checkDayDone() {
   const d = T.days[state.dayIdx];
-  const directDone = d.scenes.filter(s => s.loc !== "community").every(sc => { const c = document.querySelector('.sceneCard[data-id="' + sc.id + '"]'); return c && c.classList.contains("done"); });
+  const directDone = d.scenes.filter(s => s.loc !== "community" && !s.intro).every(sc => { const c = document.querySelector('.sceneCard[data-id="' + sc.id + '"]'); return c && c.classList.contains("done"); });
   if (directDone && commDone) {
     if (d.night) { $("nightBtn").style.display = "block"; $("deskHint").textContent = T.ui.hintNight; }
     else { startFinale(); }
@@ -1131,6 +1147,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 

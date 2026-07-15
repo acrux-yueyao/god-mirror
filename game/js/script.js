@@ -145,7 +145,7 @@ export const SCRIPT = {
       },
       scenes: [
         {
-          id: "s1-elevator", kind: "watch", loc: "direct", title: B("办公楼 · 电梯", "The Office Elevator"), sub: B("出勤。先下这趟坐了二十年的电梯。", "Heading out. Down the elevator you've ridden for twenty years."),
+          id: "s1-elevator", kind: "watch", loc: "direct", intro: true, title: B("办公楼 · 电梯", "The Office Elevator"), sub: B("出勤。先下这趟坐了二十年的电梯。", "Heading out. Down the elevator you've ridden for twenty years."),
           anchor: B("离开情绪稽查处,下楼。例行观察,看到不对劲的记进笔记本。", "Leaving the Emotion Bureau, going down. A routine look; log anything that feels off."),
           beats: [
             { t: B("电梯门合上。数字往下跳:23……22……21。你数着,像数着一件例行公事——这趟电梯,你坐了二十年。", "The doors seal. The numbers tick down: 23… 22… 21. You count them the way you count a chore — you've ridden this elevator twenty years.") },
