@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=48";
+import { SCRIPT } from "./script.js?v=49";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -217,6 +217,30 @@ function showPrologue() {
   });
 }
 
+// 场景之间的一行文字过渡(复用序章遮罩):读完自动过,也可轻触跳过
+function transLine(text, hold = 2600) {
+  return new Promise(res => {
+    const el = $("prologueLine"), pro = $("prologue");
+    $("prologueHint").textContent = (T.ui && T.ui.advance) ? T.ui.advance : "";
+    let done = false, timer = null;
+    const finish = () => {
+      if (done) return; done = true;
+      clearTimeout(timer); pro.removeEventListener("click", finish);
+      el.style.opacity = 0;
+      setTimeout(() => {
+        res();                                                     // 先让下一屏(社区)在遮罩下渲染
+        requestAnimationFrame(() => pro.classList.remove("on"));   // 再撤遮罩,避免闪回上一场景
+      }, 420);
+    };
+    el.style.opacity = 0; el.textContent = text;
+    pro.classList.add("on");
+    requestAnimationFrame(() => { el.style.opacity = 1; });
+    if (sfx.blip) sfx.blip();
+    timer = setTimeout(finish, hold + 500);
+    setTimeout(() => pro.addEventListener("click", finish), 450);  // 稍后才允许轻触,避免上次点击穿透
+  });
+}
+
 /* ── 阅读规程契约:画是隐喻,文字才是事实 ─────────────────────── */
 function showIntro() {
   return new Promise(res => {
@@ -256,7 +280,10 @@ function startDay(i) {
     $("sceneGrid").classList.remove("on");
     if (d.morning) await playMorning(d);   // 晨间小场景:读案卷 → 盖章出勤
     const introSc = d.scenes.find(s => s.intro);
-    if (introSc) await playIntroScene(introSc);   // 出勤过场:电梯自动播,播完继续
+    if (introSc) {
+      await playIntroScene(introSc);       // 出勤过场:电梯自动播,播完继续
+      if (introSc.outro) await transLine(introSc.outro);   // 电梯→社区:一行文字过渡,别硬切
+    }
     revealCards(d);                        // 调查点浮现(只剩社区一条线索则直接进社区)
   });
 }

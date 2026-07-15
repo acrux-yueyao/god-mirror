@@ -170,7 +170,8 @@ export const SCRIPT = {
             } },
             { who: B("顺意", "SHUNYI"), t: B("屏幕的字,亮了亮:「别看那里。看我。你今天很好。」", "The screen's text brightens: “Don't look there. Look at me. You are doing great today.”") }
           ],
-          note: B("电梯镜位贴膜被人撕开一角。", "Anti-mirror film in the elevator, peeled at one corner.")
+          note: B("电梯镜位贴膜被人撕开一角。", "Anti-mirror film in the elevator, peeled at one corner."),
+          outro: B("电梯落到底。门开,晨光灌进来。你走出办公楼——今天要走访的,是永福里南区。", "The elevator settles. The doors part and the morning pours in. You step out of the office block — today's canvass is Yongfu Li, south district.")
         },
         {
           id: "s1-granny", kind: "talk", loc: "community", x: 23, y: 30, cut: { cx: 15, cy: 40, w: 26, h: 36, img: "cut-granny" }, title: B("302 · 回声语老太太", "302 · The Echo Woman"),
