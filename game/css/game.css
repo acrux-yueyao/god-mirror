@@ -399,7 +399,7 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 #scrEnd.on{display:grid}
 #scrEnd.mirrorDark{background:#000}
 /* 结尾摄像头:全片唯一掉饱和的地方——真人镜子。镜像翻转,冷调,压暗。 */
-#mirrorCam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transform:scaleX(-1);filter:grayscale(1) contrast(1.06) brightness(.8);transition:opacity 2.6s ease}
+#mirrorCam{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transform:scaleX(-1);transition:opacity 2.6s ease}
 #mirrorCam.on{opacity:1}
 /* 过场视频=绿幕源(隐藏),经 canvas 实时抠绿后合成在摄像头之上 */
 #ruptureFx{display:none}

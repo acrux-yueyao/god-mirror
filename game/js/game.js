@@ -1065,6 +1065,12 @@ document.querySelectorAll("#fStamps .stampBtn").forEach(btn => {
 /* ══ 结局 ══════════════════════════════════════════════════════ */
 /* ── 结尾摄像头破局:你做的"掉饱和→溶入"过场 → 实时真人冷镜 ─────── */
 let mirrorStream = null;
+// 一开始(点「开始/继续」时)就请求摄像头权限,而不是拖到 End B 才问。拒绝也不影响正常游玩,只是结局镜子不亮。
+async function preRequestCamera() {
+  if (mirrorStream || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+  try { mirrorStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); }
+  catch (e) { mirrorStream = null; }
+}
 function loadRupture() {   // 有 art/mirror-break.mp4 才用你的过场,否则回退 CSS 掉饱和
   const fx = $("ruptureFx"); if (!fx) return Promise.resolve(false);
   return new Promise(res => {
@@ -1083,8 +1089,10 @@ function keyGreen(d) {   // 绿幕→透明:绿色主导的像素 alpha 归零
 }
 async function revealCamera() {
   const v = $("mirrorCam"); if (!v) return false;
-  try { mirrorStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); }
-  catch (err) { return false; }            // 拒绝授权 → 镜子不亮
+  if (!mirrorStream) {                      // 开局已请求过;若当时没拿到(或没请求)再补一次
+    try { mirrorStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }); }
+    catch (err) { return false; }          // 拒绝授权 → 镜子不亮
+  }
   v.srcObject = mirrorStream; await v.play().catch(() => {});
   const fx = $("ruptureFx"), cv = $("ruptureCanvas");
   if (await loadRupture()) {               // —— 你的绿幕过场:实时抠绿,绿处露出摄像头 ——
@@ -1203,8 +1211,8 @@ try { saved = localStorage.getItem("sm-lang") || "zh"; } catch (e) {}
 setLang(saved);
 refreshMenu();
 
-$("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
-$("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+$("startBtn").addEventListener("click", async () => { au(); preRequestCamera(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
+$("continueBtn").addEventListener("click", () => { au(); preRequestCamera(); if (hasSave()) loadGame(); });
 
 /* ══ DEV 调试跳转面板(仅 ?dev,玩家看不到)═══════════════════════
    在网址后加 ?dev 即可,例如  …/game/?dev  。一键跳到任意环节,免得每次从头跑。 */
