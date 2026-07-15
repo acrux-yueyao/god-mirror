@@ -987,8 +987,9 @@ async function startFinale() {
   const F = T.finale;
   setImg("fBg", "summon");   // 11《神谕》水面浮现
   flashGold();
+  await new Promise(r => setTimeout(r, 2800));   // 老神明浮出水面:真实停留(不随 dev 加速),让人看清再开口
   await gLineFx(F.summon);
-  await wait(600);
+  await new Promise(r => setTimeout(r, 1600));    // 说完再停一拍,别急着切走
   setImg("fBg", "duel");     // 12《问题》问号植物
   for (const turn of F.duel) {
     await meLineF(turn.q);
