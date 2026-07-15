@@ -729,7 +729,6 @@ function buildPasted(n, slot, opts) {
   if ((h >> 5) % 2 === 0) el.appendChild(decoSticker(DECOS[(h >> 3) % DECOS.length], DECO_SPOTS[(spot + 1) % DECO_SPOTS.length]));
   const cap = document.createElement("div"); cap.className = "capWrap";
   const pencil = PENCILS[h % PENCILS.length];
-  cap.innerHTML = pencilCircleSVG(pencil, !!opts.draw);
   const hcap = document.createElement("div"); hcap.className = "hcap";
   hcap.style.color = pencil; hcap.style.transform = "rotate(" + (((h >> 3) % 5) - 2) + "deg)";
   hcap.textContent = n.orig; cap.appendChild(hcap);
