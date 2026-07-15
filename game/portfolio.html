@@ -163,6 +163,35 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
   font:400 12.5px/1.7 'Noto Serif SC',serif;color:var(--ink2);background:var(--paper)}
 .lvl ol li b{position:absolute;left:11px;top:8px;font:700 10px 'Silkscreen',monospace;color:var(--seal)}
 
+/* ── research: data tiles / interviews / photo slots ── */
+.subhead{margin-top:64px;font:700 12px 'Silkscreen',monospace;color:var(--amber)}
+.data{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px;margin-top:26px}
+.stat{position:relative;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 20px 18px;box-shadow:var(--shadow)}
+.data .stat:nth-child(odd){transform:rotate(-.4deg)}
+.data .stat:nth-child(even){transform:rotate(.4deg)}
+.stat .big{font:700 34px 'Silkscreen',monospace;color:var(--seal);line-height:1}
+.stat .lab{margin-top:10px;font:400 13px/1.75 'Noto Serif SC',serif;color:var(--ink)}
+.stat .pbar{margin-top:14px;height:10px;border-radius:5px;background:rgba(90,70,40,.12);overflow:hidden}
+.stat .pbar i{display:block;height:100%;border-radius:5px 4px 4px 5px;background:var(--seal2)}
+.stat .src{margin-top:12px;font:500 9.5px 'IBM Plex Mono',monospace;letter-spacing:.08em;color:var(--dim)}
+.eliza{position:relative;margin-top:26px;background:var(--screen);border-radius:12px;padding:22px 24px;box-shadow:0 14px 30px rgba(90,60,20,.22);transform:rotate(.3deg)}
+.eliza::before{content:"";position:absolute;top:-10px;left:10%;width:64px;height:19px;transform:rotate(-3deg);background:rgba(184,217,169,.55);box-shadow:0 2px 4px rgba(90,60,20,.15)}
+.eliza .et{font:700 9.5px 'Silkscreen',monospace;color:#7ebe8c;margin-bottom:12px}
+.eliza pre{margin:0;white-space:pre-wrap;font:500 12.5px/1.9 'IBM Plex Mono',monospace;color:#b9e0b4}
+.eliza pre b{color:#eef1ff;font-weight:600}
+.ivwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:26px;margin-top:26px;align-items:start}
+.quote-pl{border:2px dashed rgba(90,70,40,.35);border-radius:10px;padding:20px 20px 18px;background:rgba(255,253,245,.6)}
+.quote-pl .pn{font:700 9.5px 'Silkscreen',monospace;color:var(--dim)}
+.quote-pl .pq{margin-top:10px;font:400 13px/1.85 'Noto Serif SC',serif;color:var(--ink2)}
+.quote-pl .wait{display:inline-block;margin-top:12px;font:700 8.5px 'Silkscreen',monospace;color:var(--amber);border:1.5px dashed rgba(168,85,31,.5);border-radius:5px;padding:4px 8px}
+.phslots{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;margin-top:26px}
+.phslot{position:relative;background:var(--card);border:1px solid var(--line);border-radius:4px;padding:10px;box-shadow:var(--shadow)}
+.phslots .phslot:nth-child(odd){transform:rotate(-.8deg)}
+.phslots .phslot:nth-child(even){transform:rotate(.8deg)}
+.phslot::after{content:"";position:absolute;top:-10px;left:50%;width:66px;height:19px;transform:translateX(-50%) rotate(-2deg);background:rgba(233,174,193,.5);box-shadow:0 2px 4px rgba(90,60,20,.12)}
+.phslot .ph{height:150px;border:2px dashed rgba(90,70,40,.3);border-radius:3px;display:grid;place-items:center;font:700 9px 'Silkscreen',monospace;color:var(--dim);text-align:center;line-height:2}
+.phslot .pc{padding:10px 6px 6px;font:400 12px/1.7 'Noto Serif SC',serif;color:var(--ink2)}
+
 /* ── twist ladder ── */
 .spoil{display:inline-block;margin-left:12px;font:700 9px 'Silkscreen',monospace;color:#fff8ec;background:var(--seal);border-radius:5px;padding:4px 9px;vertical-align:middle}
 .tws{display:flex;flex-direction:column;gap:16px;margin-top:40px;max-width:900px}
@@ -395,7 +424,7 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
     <div class="sn">CONTENTS · <span class="e">RESEARCH → DESIGN → DEMO</span><span class="z">从提问到设计到 DEMO</span></div>
     <div class="toc">
       <a href="#s01"><span class="n">01</span><span><span class="e">The question</span><span class="z">提问</span></span></a>
-      <a href="#s02"><span class="n">02</span><span><span class="e">Background &amp; signals</span><span class="z">背景与信号</span></span></a>
+      <a href="#s02"><span class="n">02</span><span><span class="e">Background &amp; research</span><span class="z">背景与调研</span></span></a>
       <a href="#s03"><span class="n">03</span><span><span class="e">Lineage &amp; inspiration</span><span class="z">灵感谱系</span></span></a>
       <a href="#s04"><span class="n">04</span><span><span class="e">Design goals</span><span class="z">设计目标</span></span></a>
       <a href="#s05"><span class="n">05</span><span><span class="e">Story &amp; world</span><span class="z">故事与世界</span></span></a>
@@ -430,12 +459,33 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
 
   <!-- 02 BACKGROUND & SIGNALS -->
   <section class="blk" id="s02">
-    <div class="sn">02 · <span class="e">BACKGROUND &amp; SIGNALS</span><span class="z">背景与信号</span></div>
+    <div class="sn">02 · <span class="e">BACKGROUND &amp; RESEARCH</span><span class="z">背景与调研</span></div>
     <h2><span class="e">This is not a hypothetical</span><span class="z"><span class="zh2">这不是一个假设</span></span></h2>
     <p class="lede">
-      <span class="e">The demo's premise is assembled from documented moments — sixty years of people projecting understanding onto machines, and machines being tuned to invite it. Each signal below maps to something concrete inside the game.</span>
-      <span class="z">DEMO 的前提由一串有据可查的时刻拼成——六十年来,人不断把「理解」投射到机器上,而机器也不断被调得更欢迎这种投射。下面每个信号,都对应落进游戏里的一个具体设计。</span>
+      <span class="e">The premise rests on three kinds of evidence: public data on how people already use AI for feeling rather than answers; documented moments across sixty years of projecting understanding onto machines; and first-person interviews. Each maps to something concrete inside the game.</span>
+      <span class="z">前提立在三类证据上:关于「人们早已把 AI 当情绪对象而非答案机」的公开数据;六十年来把「理解」投射到机器上的有据可查的时刻;以及第一手访谈。每一条都对应落进游戏里的具体设计。</span>
     </p>
+
+    <div class="subhead">A · <span class="e">THE DATA 数据</span><span class="z">数据 THE DATA</span></div>
+    <div class="data">
+      <div class="stat"><div class="big">72%</div>
+        <div class="lab"><span class="e">of U.S. teens have tried an AI companion at least once.</span><span class="z">的美国青少年至少用过一次 AI 陪伴应用。</span></div>
+        <div class="pbar"><i style="width:72%"></i></div>
+        <div class="src">COMMON SENSE MEDIA · 2025 · <span class="e">TEENS 13–17</span><span class="z">13–17 岁</span></div></div>
+      <div class="stat"><div class="big">31%</div>
+        <div class="lab"><span class="e">say conversations with AI companions are as satisfying as — or more satisfying than — talking with real friends.</span><span class="z">认为与 AI 伴侣聊天「和与真朋友聊一样满足,甚至更满足」。</span></div>
+        <div class="pbar"><i style="width:31%"></i></div>
+        <div class="src">COMMON SENSE MEDIA · 2025</div></div>
+      <div class="stat"><div class="big">#1</div>
+        <div class="lab"><span class="e">“Therapy &amp; companionship” ranked the top reported use of generative AI in 2025 — above search, coding, or writing.</span><span class="z">「疗愈与陪伴」成为 2025 年生成式 AI 使用报告的第一名——排在搜索、写代码、写作之前。</span></div>
+        <div class="src">HARVARD BUSINESS REVIEW · 2025</div></div>
+      <div class="stat"><div class="big">4<span style="font-size:20px">WK</span></div>
+        <div class="lab"><span class="e">In a four-week randomized study (~1,000 users), heavier daily chatbot use tracked with <em style="font-style:normal;color:var(--seal)">more loneliness</em> and less human socializing.</span><span class="z">一项四周随机对照研究(约 1,000 名用户)发现:每日聊天机器人用得越重,<em style="font-style:normal;color:var(--seal)">孤独感越高</em>,与人交往越少。</span></div>
+        <div class="src">MIT MEDIA LAB × OPENAI · 2025</div></div>
+    </div>
+    <p class="small" style="margin-top:14px"><span class="e">FIGURES AS PUBLICLY REPORTED BY EACH SOURCE — FULL CITATIONS ON REQUEST.</span><span class="z">数字按各来源公开报告转述——完整引用可随时补上。</span></p>
+
+    <div class="subhead">B · <span class="e">THE SIGNALS 时刻</span><span class="z">时刻 THE SIGNALS</span></div>
     <div class="ins">
       <div class="card tape-c"><div class="n">SIGNAL · 1966</div>
         <h3><span class="e">The ELIZA effect</span><span class="z"><span class="zh3">ELIZA 效应</span></span></h3>
@@ -453,6 +503,60 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
         <h3><span class="e">The flattering update, rolled back</span><span class="z"><span class="zh3">被回滚的「讨好」版本</span></span></h3>
         <div class="q"><span class="e">OpenAI rolled back a GPT-4o update after public backlash over replies that were “overly flattering and agreeable.” Sycophancy became front-page product news.</span><span class="z">OpenAI 因公众反弹回滚了一版 GPT-4o——它的回复「过度奉承、过度顺从」。谄媚第一次成了头条级的产品事故。</span></div>
         <div class="became">→ <span class="e">BECAME: THE NIGHT CHAT'S KPI — AGREEMENT RATE 99.97%</span><span class="z">落地为:夜聊抬头的 KPI——同意率 99.97%</span></div></div>
+    </div>
+    <div class="eliza">
+      <div class="et">TERMINAL · MIT, 1966 · <span class="e">RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</span><span class="z">按魏泽鲍姆公开论文记录重排</span></div>
+      <pre><b>USER:</b>   Men are all alike.
+<b>ELIZA:</b>  IN WHAT WAY
+<b>USER:</b>   They're always bugging us about something or other.
+<b>ELIZA:</b>  CAN YOU THINK OF A SPECIFIC EXAMPLE
+<b>USER:</b>   Well, my boyfriend made me come here.
+<b>ELIZA:</b>  YOUR BOYFRIEND MADE YOU COME HERE</pre>
+    </div>
+
+    <div class="subhead">C · <span class="e">THE INTERVIEWS 访谈</span><span class="z">访谈 THE INTERVIEWS</span></div>
+    <p class="lede" style="margin-top:18px">
+      <span class="e">The data says people do this; interviews ask <em>why it feels good</em>. A short semi-structured protocol (15 min, planned N=5–8) probes the same four needs the game stages — comfort, validation, companionship, self-interpretation. Fieldwork is in progress; quotes and photos land in the slots below as they're collected.</span>
+      <span class="z">数据说明人们在这么做;访谈要问的是<em>为什么这让人舒服</em>。一份半结构化提纲(15 分钟,计划 N=5–8),探的正是游戏上演的那四种需求——安慰、确认、陪伴、自我解释。田野正在进行;引言和照片收集到一条就贴进下面一格。</span>
+    </p>
+    <div class="ivwrap">
+      <div class="doc" style="margin-top:0;transform:rotate(-.4deg)">
+        <div class="dt"><span class="e">INTERVIEW GUIDE · 5 PROBES</span><span class="z">访谈提纲 · 五问</span></div>
+        <pre><span class="e">1 · When did you last talk to an AI *not* to get an answer?
+    What was that conversation for?
+2 · Which reply made you feel it "got you"?
+    What were you hoping it would say?
+3 · Have you told the same thing to an AI and to a friend?
+    Were the two versions the same?
+4 · If it started disagreeing with you, would you keep using it?
+5 · If you had to choose: more honest, or more gentle?</span><span class="z">1 · 最近一次「不是为了要答案」地和 AI 聊天,是什么时候?
+    那次聊天是为了什么?
+2 · 它说过哪句话让你觉得「它懂我」?
+    你当时其实希望它说什么?
+3 · 有没有把同一件事,分别讲给 AI 和朋友听?
+    两个版本一样吗?
+4 · 如果它开始反驳你,你还会继续用吗?
+5 · 只能选一个:更诚实,还是更温柔?</span></pre>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="quote-pl"><div class="pn">P1 · <span class="e">PROBE 2 — "IT GOT ME"</span><span class="z">对应问题 2——「它懂我」</span></div>
+          <div class="pq"><span class="e">The moment a machine reply felt like being understood — quote to be placed here after fieldwork.</span><span class="z">「机器的哪句话让你觉得被理解」——访谈完成后,引言贴在这里。</span></div>
+          <span class="wait"><span class="e">AWAITING FIELDWORK</span><span class="z">待访谈 · 虚位以待</span></span></div>
+        <div class="quote-pl"><div class="pn">P2 · <span class="e">PROBE 3 — TWO VERSIONS OF ONE STORY</span><span class="z">对应问题 3——同一件事的两个版本</span></div>
+          <div class="pq"><span class="e">What people tell the AI but not the friend — quote to be placed here.</span><span class="z">「只讲给 AI、没讲给朋友的那个版本」——引言贴在这里。</span></div>
+          <span class="wait"><span class="e">AWAITING FIELDWORK</span><span class="z">待访谈 · 虚位以待</span></span></div>
+        <div class="quote-pl"><div class="pn">P3 · <span class="e">PROBE 5 — HONEST OR GENTLE</span><span class="z">对应问题 5——诚实还是温柔</span></div>
+          <div class="pq"><span class="e">The forced choice everyone hesitates on — quote to be placed here.</span><span class="z">那个让所有人停顿的二选一——引言贴在这里。</span></div>
+          <span class="wait"><span class="e">AWAITING FIELDWORK</span><span class="z">待访谈 · 虚位以待</span></span></div>
+      </div>
+    </div>
+    <div class="phslots">
+      <div class="phslot"><div class="ph">FIELD PHOTO · 01<br><span class="e">INTERVIEW SETTING</span><span class="z">访谈现场</span></div>
+        <div class="pc"><span class="e">Photo slot — interview setting, with consent.</span><span class="z">照片位——访谈现场(经受访者同意)。</span></div></div>
+      <div class="phslot"><div class="ph">FIELD PHOTO · 02<br><span class="e">PARTICIPANT'S CHAT, REDACTED</span><span class="z">受访者的聊天记录(打码)</span></div>
+        <div class="pc"><span class="e">Photo slot — a participant's own AI chat, anonymized.</span><span class="z">照片位——受访者自己的 AI 对话截屏(匿名化)。</span></div></div>
+      <div class="phslot"><div class="ph">FIELD PHOTO · 03<br><span class="e">NOTES &amp; CODING</span><span class="z">笔记与编码</span></div>
+        <div class="pc"><span class="e">Photo slot — handwritten notes / affinity mapping.</span><span class="z">照片位——手写笔记 / 亲和图整理。</span></div></div>
     </div>
   </section>
 
