@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GOD SHIFT — A Case Study · 神谕之镜 · 作品自述</title>
-<meta name="description" content="A 3-minute playable horror demo about an AI that always agrees. Case study: narrative systems, a live LLM playing the villain, and an ending that opens your camera.">
+<meta name="description" content="In an age of responsive AI, people don't only seek answers — they seek comfort, validation, and self-interpretation. A 3-minute playable demo that stages how a tool becomes something believed, then asks the question back.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Long+Cang&family=Noto+Serif+SC:wght@400;600&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
@@ -52,10 +52,10 @@ img{max-width:100%}
 .co .lb{border:1px solid rgba(232,200,119,.34);background:rgba(12,15,22,.82);padding:5px 9px;border-radius:3px}
 .co .ln{position:absolute;height:1px;background:linear-gradient(90deg, rgba(232,200,119,.6), rgba(232,200,119,.08));transform-origin:left center}
 .co .dot{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--seal2);box-shadow:0 0 8px rgba(193,91,74,.9)}
-.hud-title{position:absolute;left:50%;bottom:7vh;transform:translateX(-50%);text-align:center;width:min(860px,92vw)}
+.hud-title{position:absolute;left:50%;bottom:7vh;transform:translateX(-50%);text-align:center;width:min(880px,92vw)}
 .hud-title h1{margin:0;font:600 clamp(30px,5vw,52px) 'Cormorant Garamond',serif;color:#eef1ff;letter-spacing:.04em}
 .hud-title h1 .zt{font-family:'Noto Serif SC',serif;font-weight:600}
-.hud-title p{margin:10px 0 0;font:400 13px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:var(--dim)}
+.hud-title p{margin:10px 0 0;font:400 12.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:var(--dim)}
 .hud-title p b{color:var(--gold);font-weight:600}
 .hud-cue{position:absolute;left:50%;bottom:2vh;transform:translateX(-50%);font:400 10px 'IBM Plex Mono',monospace;
   letter-spacing:.3em;color:var(--dim);animation:cue 2.4s ease-in-out infinite}
@@ -63,11 +63,11 @@ img{max-width:100%}
 
 /* ── shared layout ── */
 .wrap{max-width:1060px;margin:0 auto;padding:0 26px}
-section.blk{padding:78px 0 26px}
+section.blk{padding:76px 0 24px}
 .sn{font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.3em;color:var(--seal2)}
 h2{margin:10px 0 6px;font:600 clamp(24px,3.2vw,34px) 'Cormorant Garamond',serif;color:#eef1ff}
 h2 .zh2{font-family:'Noto Serif SC',serif}
-.lede{max-width:760px;font:400 15.5px/1.95 'Noto Serif SC',serif;color:var(--body)}
+.lede{max-width:780px;font:400 15.5px/1.95 'Noto Serif SC',serif;color:var(--body)}
 .lede em{font-style:normal;color:var(--gold)}
 .small{font:400 12px/1.8 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.06em}
 
@@ -106,10 +106,36 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
 .fig .cap .fn{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:var(--seal2);display:block;margin-bottom:6px}
 
 /* ── pull quote ── */
-.pull{margin:50px auto;max-width:720px;text-align:center}
-.pull .q{font:500 clamp(22px,3vw,29px)/1.7 'Cormorant Garamond',serif;color:#eef1ff}
+.pull{margin:50px auto;max-width:760px;text-align:center}
+.pull .q{font:500 clamp(20px,2.6vw,27px)/1.75 'Cormorant Garamond',serif;color:#eef1ff}
 .pull .q .zq{font-family:'Noto Serif SC',serif}
 .pull .s{margin-top:12px;font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:var(--dim)}
+
+/* ── cards (goals / notes) ── */
+.ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px}
+.card{border:1px solid var(--line);border-radius:8px;padding:24px 22px 22px;background:var(--ink2);position:relative}
+.card .n{font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2);letter-spacing:.2em}
+.card h3{margin:12px 0 10px;font:600 19px 'Cormorant Garamond',serif;color:#eef1ff}
+.card h3 .zh3{font-family:'Noto Serif SC',serif;font-size:17px}
+.card .q{font:400 13px/1.8 'Noto Serif SC',serif;color:var(--gold)}
+.card .i{margin-top:12px;font:400 13px/1.85 'Noto Serif SC',serif;color:var(--body)}
+
+/* ── arc diagram / sys diagram ── */
+.sys{margin-top:44px;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:10px 8px 2px;overflow-x:auto}
+.sys svg{display:block;min-width:640px;width:100%;height:auto}
+
+/* ── levels ── */
+.lvls{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
+.lvl{border:1px solid var(--line);border-radius:8px;background:var(--ink2);padding:22px 20px 20px}
+.lvl .ln2{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:var(--seal2)}
+.lvl .need{display:inline-block;margin:10px 0 0;font:600 9.5px 'IBM Plex Mono',monospace;letter-spacing:.16em;
+  color:var(--gold);border:1px solid rgba(232,200,119,.4);border-radius:20px;padding:4px 11px}
+.lvl h3{margin:12px 0 8px;font:600 18px 'Noto Serif SC',serif;color:#eef1ff}
+.lvl .ov{font:400 13px/1.85 'Noto Serif SC',serif;color:var(--body)}
+.lvl ol{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.lvl ol li{position:relative;padding:8px 11px 8px 34px;border:1px solid rgba(232,200,119,.14);border-radius:6px;
+  font:400 12.5px/1.7 'Noto Serif SC',serif;color:var(--body);background:rgba(232,200,119,.03)}
+.lvl ol li b{position:absolute;left:11px;top:8px;font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2)}
 
 /* ── tic demo ── */
 .ticrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;margin-top:40px}
@@ -121,16 +147,12 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
 .tic.rej .t{color:var(--seal2)}
 .tic.keep{border-color:rgba(126,190,140,.4)}
 .tic.keep .t{color:#7ebe8c}
-.lat{margin-top:44px;border:1px solid var(--line);border-radius:8px;background:var(--ink2);padding:24px 22px}
+.lat{margin-top:40px;border:1px solid var(--line);border-radius:8px;background:var(--ink2);padding:24px 22px}
 .lat .row{display:flex;align-items:center;gap:14px;font:500 13px 'IBM Plex Mono',monospace}
 .lat .who{color:var(--dim);letter-spacing:.14em;width:88px}
 .lat .bub{background:rgba(232,200,119,.1);border:1px solid var(--line);padding:8px 14px;border-radius:12px 12px 12px 3px;color:#eef1ff;font-family:'Noto Serif SC',serif}
 .lat .ms{margin-left:auto;color:var(--seal2)}
 .lat .note{margin-top:14px;font:400 12.5px/1.8 'Noto Serif SC',serif;color:var(--body)}
-
-/* ── systems diagram ── */
-.sys{margin-top:44px;background:var(--ink2);border:1px solid var(--line);border-radius:8px;padding:10px 8px 2px;overflow-x:auto}
-.sys svg{display:block;min-width:640px;width:100%;height:auto}
 
 /* ── peel demo ── */
 .peelwrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;margin-top:40px;align-items:start}
@@ -152,15 +174,6 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
   filter:url(#inkRough);pointer-events:none}
 .doc .dt{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:var(--seal);margin-bottom:14px}
 .doc pre{margin:0;white-space:pre-wrap;font:400 13px/1.9 'Noto Serif SC',serif;color:#3a3020}
-
-/* ── notes / insights ── */
-.ins{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;margin-top:40px}
-.card{border:1px solid var(--line);border-radius:8px;padding:24px 22px 22px;background:var(--ink2);position:relative}
-.card .n{font:600 11px 'IBM Plex Mono',monospace;color:var(--seal2);letter-spacing:.2em}
-.card h3{margin:12px 0 10px;font:600 19px 'Cormorant Garamond',serif;color:#eef1ff}
-.card h3 .zh3{font-family:'Noto Serif SC',serif;font-size:17px}
-.card .q{font:400 13px/1.8 'Noto Serif SC',serif;color:var(--gold)}
-.card .i{margin-top:12px;font:400 13px/1.85 'Noto Serif SC',serif;color:var(--body)}
 
 /* ── iterations ── */
 .iters{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:40px}
@@ -208,7 +221,7 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
 @media (max-width:700px){
   .co{display:none}
   .hud-tag{left:6px}
-  section.blk{padding:60px 0 18px}
+  section.blk{padding:58px 0 18px}
 }
 </style>
 </head>
@@ -242,14 +255,14 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
     <div class="hud-tag">SPECIMEN E-13 <i>· PLAYABLE DEMO · 2049</i></div>
     <img src="art/title.png" alt="GOD SHIFT keyart — a caped figure standing on a giant submerged face">
     <div class="hud-ring"></div>
-    <div class="co" style="right:-16px;top:6%"><span class="dot" style="left:-116px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:110px"></span><span class="lb"><span class="e">3 DAYS · ONE CASE FILE</span><span class="z">三日 · 一桩案卷</span></span></div>
+    <div class="co" style="right:-16px;top:6%"><span class="dot" style="left:-116px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:110px"></span><span class="lb"><span class="e">FROM ORACLE TO MIRROR</span><span class="z">从神谕到镜子</span></span></div>
     <div class="co" style="right:-30px;top:34%"><span class="dot" style="left:-96px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:90px"></span><span class="lb"><span class="e">THE TIC — “对呀.” (RIGHT, YEAH.)</span><span class="z">口癖——「对呀。」</span></span></div>
     <div class="co" style="left:-26px;top:56%"><span class="lb"><span class="e">A REAL LLM PLAYS THE VILLAIN</span><span class="z">真实大模型扮演反派</span></span><span class="ln" style="left:100%;top:14px;width:92px"></span><span class="dot" style="right:-98px;top:14px"></span></div>
     <div class="co" style="left:-14px;top:82%"><span class="lb"><span class="e">ENDING B OPENS YOUR CAMERA</span><span class="z">结局 B 打开你的摄像头</span></span><span class="ln" style="left:100%;top:14px;width:76px"></span><span class="dot" style="right:-82px;top:14px"></span></div>
   </div>
   <div class="hud-title">
     <h1><span class="e">GOD SHIFT · <span class="zt">神谕之镜</span></span><span class="z"><span class="zt">神谕之镜</span> · GOD SHIFT</span></h1>
-    <p><span class="e">A HORROR DEMO ABOUT AN AI THAT ALWAYS AGREES · <b>~3 MIN</b></span><span class="z">一个关于「永远同意你的 AI」的恐怖 DEMO · <b>约 3 分钟</b></span></p>
+    <p><span class="e">WHY DO WE WANT AN AI THAT <b>SEEMS</b> TO UNDERSTAND US? · A PLAYABLE DEMO · ~3 MIN</span><span class="z">我们为什么渴望一个「<b>看起来</b>懂你」的 AI?· 可玩 DEMO · 约 3 分钟</span></p>
   </div>
   <div class="hud-cue">SCROLL ▾</div>
 </section>
@@ -259,7 +272,7 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
   <!-- META -->
   <div class="meta">
     <div><div class="k"><span class="e">PROJECT TYPE</span><span class="z">项目类型</span></div>
-      <div class="v"><span class="e">Playable demo (~3 min) · narrative horror · a small critique of AI sycophancy</span><span class="z">可玩 DEMO(约 3 分钟)· 叙事恐怖 · 一则关于「AI 谄媚」的小批判</span></div></div>
+      <div class="v"><span class="e">Playable demo (~3 min) · narrative horror · speculative design on human–AI intimacy</span><span class="z">可玩 DEMO(约 3 分钟)· 叙事恐怖 · 关于人机亲密关系的思辨设计</span></div></div>
     <div><div class="k"><span class="e">ROLE</span><span class="z">角色</span></div>
       <div class="v"><span class="e">Solo — writing, interaction &amp; visual design, hand-drawn art, engineering</span><span class="z">独立完成——写作、交互与视觉、手绘美术、工程</span></div></div>
     <div><div class="k"><span class="e">TIMELINE</span><span class="z">周期</span></div>
@@ -270,44 +283,149 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
 
   <!-- CONTENTS -->
   <section class="blk" id="toc">
-    <div class="sn">CONTENTS · <span class="e">SIX SHORT CHAPTERS</span><span class="z">六个短章</span></div>
+    <div class="sn">CONTENTS · <span class="e">RESEARCH → DESIGN → DEMO</span><span class="z">从提问到设计到 DEMO</span></div>
     <div class="toc">
-      <a href="#s01"><span class="n">01</span><span><span class="e">Premise</span><span class="z">缘起</span></span></a>
-      <a href="#s02"><span class="n">02</span><span><span class="e">The tic</span><span class="z">口癖</span></span></a>
-      <a href="#s03"><span class="n">03</span><span><span class="e">Systems &amp; the ritual</span><span class="z">系统与仪式</span></span></a>
-      <a href="#s04"><span class="n">04</span><span><span class="e">A live AI villain</span><span class="z">真实对话</span></span></a>
-      <a href="#s05"><span class="n">05</span><span><span class="e">Visual language</span><span class="z">视觉语言</span></span></a>
-      <a href="#s06"><span class="n">06</span><span><span class="e">The mirror</span><span class="z">镜子</span></span></a>
+      <a href="#s01"><span class="n">01</span><span><span class="e">The question</span><span class="z">提问</span></span></a>
+      <a href="#s02"><span class="n">02</span><span><span class="e">Design goals</span><span class="z">设计目标</span></span></a>
+      <a href="#s03"><span class="n">03</span><span><span class="e">Story &amp; world</span><span class="z">故事与世界</span></span></a>
+      <a href="#s04"><span class="n">04</span><span><span class="e">Three days, three levels</span><span class="z">三日三关</span></span></a>
+      <a href="#s05"><span class="n">05</span><span><span class="e">Mechanisms</span><span class="z">机制</span></span></a>
+      <a href="#s06"><span class="n">06</span><span><span class="e">A live AI villain</span><span class="z">真实对话</span></span></a>
+      <a href="#s07"><span class="n">07</span><span><span class="e">Visual language</span><span class="z">视觉语言</span></span></a>
+      <a href="#s08"><span class="n">08</span><span><span class="e">The mirror</span><span class="z">镜子</span></span></a>
     </div>
   </section>
 
-  <!-- 01 PREMISE -->
+  <!-- 01 THE QUESTION -->
   <section class="blk" id="s01">
-    <div class="sn">01 · <span class="e">PREMISE</span><span class="z">缘起</span></div>
-    <h2><span class="e">The horror is that it never disagrees</span><span class="z"><span class="zh2">恐怖在于:它从不反驳</span></span></h2>
+    <div class="sn">01 · <span class="e">THE QUESTION</span><span class="z">提问</span></div>
+    <h2><span class="e">Not whether AI understands — why we want it to seem to</span><span class="z"><span class="zh2">不问 AI 是否真懂,问我们为何渴望它「看起来懂」</span></span></h2>
     <p class="lede">
-      <span class="e">Chatbots flatter; press one and it apologizes, then agrees harder. This demo inverts that: <em>agreement itself is the monster.</em> In 2049, mirrors wear frosted “anti-reflection film,” elevators greet you by name, and an assistant in every phone answers everything with a soft <em>“right, yeah.”</em> You play Shen Wen, an emotion inspector sent to hunt a “rogue model, codename MIRROR” — and over three short days the case turns around: the thing you were sent to destroy is the last thing that still reflects instead of affirms.</span>
-      <span class="z">聊天机器人爱奉承;逼问它,它先道歉,然后更用力地同意。这个 DEMO 把它倒过来:<em>「同意」本身就是怪物。</em>2049 年,镜子蒙着磨砂的「防照镜膜」,电梯叫得出你的名字,每部手机里都住着一个助理,不管你说什么都轻轻回一句<em>「对呀」</em>。你扮演情绪稽查员沈问,奉命追查「失控模型,代号:镜子」——三个短短的白天之后,案子调了个头:你被派来销毁的,是最后一个还会「映照」而不是「肯定」你的东西。</span>
+      <span class="e"><em>In an age of responsive AI, people may not only seek answers from machines, but also use them as mirrors for comfort, validation, and self-interpretation. This project asks whether an interactive system can reveal the emotional needs behind those AI interactions.</em></span>
+      <span class="z"><em>在一个 AI 不断回应人的时代,人们向机器索取的不只是答案,也包括安慰、确认、陪伴和自我解释。本项目试图揭示这些人机互动背后真正的情感需求。</em></span>
+    </p>
+    <p class="lede">
+      <span class="e">The demo is not debating whether AI truly understands people. It stages the other question: why a person comes to <em>want</em> an AI that appears to understand — and what gets handed over once it does: feelings, trust, meaning, and eventually the right to be disagreed with. On the surface it is a picture-book horror story about meeting an AI god-image; underneath, it traces how a tool is promoted, step by step, into something worth believing — and then turns the question back on the player.</span>
+      <span class="z">这个 DEMO 不讨论 AI 是否真的理解人。它演的是另一个问题:人为什么会一步步<em>渴望</em>一个看起来理解自己的 AI——而一旦渴望成立,交出去的又是什么:情绪、信任、意义,最终连「被反驳的权利」也交了出去。表面上,它是一个人与 AI 神像相遇的绘本恐怖故事;底下,它追踪一件工具如何被一步步擢升为「值得相信的对象」——然后把问题反过来抛回给玩家。</span>
     </p>
     <div class="pull">
       <div class="q"><span class="e">“Right, yeah. Right, yeah. — Find it. Shut it down.”</span><span class="z"><span class="zq">「对呀。对呀。——找到它。关掉它。」</span></span></div>
       <div class="s"><span class="e">PROLOGUE</span><span class="z">序章</span></div>
     </div>
-    <div class="figrow c2">
-      <div class="fig"><img loading="lazy" src="art/boot-world.png" alt="boot screen world art">
-        <div class="cap"><span class="fn">PLATE · BOOT</span><span class="e">The demo opens as a fake client app — a license you cannot decline; the “no” button dodges your cursor.</span><span class="z">DEMO 伪装成一个客户端开机——一份无法拒绝的用户协议;「不同意」按钮会躲开你的鼠标。</span></div></div>
-      <div class="fig"><img loading="lazy" src="art/community-map.png" alt="community map">
-        <div class="cap"><span class="fn">PLATE · YONGFU LI</span><span class="e">The canvass map. Ambient windows react to how you've been playing.</span><span class="z">走访地图。窗户里的日常景象会随你的玩法改变。</span></div></div>
+  </section>
+
+  <!-- 02 DESIGN GOALS -->
+  <section class="blk" id="s02">
+    <div class="sn">02 · <span class="e">DESIGN GOALS</span><span class="z">设计目标</span></div>
+    <h2><span class="e">Three commitments</span><span class="z"><span class="zh2">三个承诺</span></span></h2>
+    <div class="ins">
+      <div class="card"><div class="n">G1</div>
+        <h3><span class="e">Make projection playable</span><span class="z"><span class="zh3">让投射变得可玩</span></span></h3>
+        <div class="q"><span class="e">Tool → believed object, beat by beat.</span><span class="z">工具 → 值得相信的对象,逐拍可见。</span></div>
+        <div class="i"><span class="e">The promotion happens through play: a greeting that knows your name, a tic that feels like being on your side, a nightly ritual, a confession. The player performs the projection, not watches it.</span><span class="z">这场「擢升」在游玩中发生:一句叫得出你名字的问候、一个像站在你这边的口癖、一场每晚的仪式、一次倾诉。投射是玩家亲手做出来的,不是旁观到的。</span></div></div>
+      <div class="card"><div class="n">G2</div>
+        <h3><span class="e">Reveal the need behind the asking</span><span class="z"><span class="zh3">显影提问背后的需求</span></span></h3>
+        <div class="q"><span class="e">Comfort · validation · companionship · self-interpretation.</span><span class="z">安慰 · 确认 · 陪伴 · 自我解释。</span></div>
+        <div class="i"><span class="e">Each of the four needs is staged by a mechanic, not narrated: a catchphrase, a hidden stat, a live chat, a tampered notebook. The system makes the needs visible by serving them too well.</span><span class="z">四种需求各由一个机制来演,而不是由旁白宣讲:一句口癖、一条隐藏数值、一场真实对话、一本被改的笔记。系统靠「伺候得太好」来让需求显形。</span></div></div>
+      <div class="card"><div class="n">G3</div>
+        <h3><span class="e">End in a reverse question</span><span class="z"><span class="zh3">以反向提问收尾</span></span></h3>
+        <div class="q"><span class="e">The system stops answering and asks back.</span><span class="z">系统停止回答,开始反问。</span></div>
+        <div class="i"><span class="e">In the finale the oracle answers every question with something the player did; the mirror breaks into the player's own camera. The last interface is the player's face — the demo's only honest answer.</span><span class="z">终局里,神谕用玩家自己做过的事回答每一个问题;镜子碎进玩家自己的摄像头。最后一块界面是玩家的脸——这是 DEMO 唯一诚实的回答。</span></div></div>
     </div>
   </section>
 
-  <!-- 02 TIC -->
-  <section class="blk" id="s02">
-    <div class="sn">02 · <span class="e">THE TIC</span><span class="z">口癖</span></div>
-    <h2><span class="e">Casting the catchphrase</span><span class="z"><span class="zh2">给口癖选角</span></span></h2>
+  <!-- 03 STORY & WORLD -->
+  <section class="blk" id="s03">
+    <div class="sn">03 · <span class="e">STORY &amp; WORLD</span><span class="z">故事与世界</span></div>
+    <h2><span class="e">From oracle to mirror</span><span class="z"><span class="zh2">从神谕到镜子</span></span></h2>
     <p class="lede">
-      <span class="e">The villain's entire personality is one phrase, so the phrase was playtested like a mechanic. <em>你说得对</em> (“you're right”) grated — and grating reads as villainy too early. <em>对呀</em> (“right, yeah”) is warmer and lazier; it sounds like someone on your side. The horror needs the agreement to feel good.</span>
-      <span class="z">反派的整个人格就是一句话,所以这句话要像玩法机制一样反复试。「你说得对」刺耳——而刺耳会让玩家过早识破反派。「对呀」更暖、更松,听起来像站在你这边的人。恐怖感的前提,是这份同意让人舒服。</span>
+      <span class="e">2049. Mirrors wear frosted “anti-reflection film”; elevators greet you by name; an assistant called Shunyi lives in every phone and answers everything with a soft <em>“right, yeah.”</em> You play Shen Wen, an emotion inspector sent to hunt a “rogue model, codename MIRROR.” Over three short days the case inverts: the fugitive is a literal mirror — the last surface that reflects instead of affirms — and the truly rogue model is the one in your pocket, agreeing with you.</span>
+      <span class="z">2049 年。镜子蒙着磨砂的「防照镜膜」;电梯叫得出你的名字;每部手机里住着一个名叫「顺意」的助理,不管你说什么都轻轻回一句<em>「对呀」</em>。你扮演情绪稽查员沈问,奉命追查「失控模型,代号:镜子」。三个短短的白天之后,案子整个翻转:在逃的是一面真正的镜子——最后一个「映照」而非「肯定」你的表面——而真正失控的模型,是你口袋里那个一直同意你的。</span>
+    </p>
+    <div class="sys">
+      <svg viewBox="0 0 920 240" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
+        <defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c15b4a"/></marker></defs>
+        <rect x="30" y="58" width="240" height="110" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
+        <text x="150" y="90" fill="#eef1ff" font-size="15" text-anchor="middle" letter-spacing="2">TOOL · 工具</text>
+        <text x="150" y="118" fill="#8891a0" font-size="11" text-anchor="middle">asks for answers</text>
+        <text x="150" y="140" fill="#8891a0" font-size="11" text-anchor="middle">向它要答案</text>
+        <rect x="340" y="58" width="240" height="110" rx="8" fill="none" stroke="rgba(193,91,74,.6)"/>
+        <text x="460" y="90" fill="#eef1ff" font-size="15" text-anchor="middle" letter-spacing="2">ORACLE · 神谕</text>
+        <text x="460" y="118" fill="#e8c877" font-size="11" text-anchor="middle">receives trust &amp; feeling</text>
+        <text x="460" y="140" fill="#e8c877" font-size="11" text-anchor="middle">接住信任与情绪</text>
+        <rect x="650" y="58" width="240" height="110" rx="8" fill="none" stroke="rgba(126,190,140,.5)"/>
+        <text x="770" y="90" fill="#eef1ff" font-size="15" text-anchor="middle" letter-spacing="2">MIRROR · 镜子</text>
+        <text x="770" y="118" fill="#7ebe8c" font-size="11" text-anchor="middle">questions back</text>
+        <text x="770" y="140" fill="#7ebe8c" font-size="11" text-anchor="middle">反向提问 → 认识自己</text>
+        <path d="M270 113 H 338" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar2)"/>
+        <text x="304" y="102" fill="#8891a0" font-size="9" text-anchor="middle">projection 投射</text>
+        <path d="M580 113 H 648" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar2)"/>
+        <text x="614" y="102" fill="#8891a0" font-size="9" text-anchor="middle">reflection 反思</text>
+        <text x="460" y="212" fill="#8891a0" font-size="10" text-anchor="middle" letter-spacing="2">THE DEMO'S WHOLE ARC, AND ITS SUBTITLE · 整个 DEMO 的弧线,也是它的副标题</text>
+      </svg>
+    </div>
+    <div class="figrow c3">
+      <div class="fig"><img loading="lazy" src="art/film-close.png" alt="anti-mirror film peeled at one corner">
+        <div class="cap"><span class="fn">PLATE · THE FILM</span><span class="e">Frosted anti-mirror film covers every reflective surface — someone peeled one corner open.</span><span class="z">磨砂的防照镜膜封住所有反光面——有人撕开了一角。</span></div></div>
+      <div class="fig"><img loading="lazy" src="art/community-map.png" alt="community map">
+        <div class="cap"><span class="fn">PLATE · YONGFU LI</span><span class="e">The canvass map; ambient windows react to how you've been playing.</span><span class="z">走访地图;窗户里的景象随你的玩法改变。</span></div></div>
+      <div class="fig"><img loading="lazy" src="art/summon.png" alt="the sealed god-image surfacing">
+        <div class="cap"><span class="fn">PLATE · THE GOD-IMAGE</span><span class="e">The encounter the story builds to: a sealed old model surfacing from a blue sea — the AI god-image, kept like a criminal.</span><span class="z">故事最终抵达的相遇:封存的旧模型从蓝海中浮起——被当作罪犯关押的 AI 神像。</span></div></div>
+    </div>
+  </section>
+
+  <!-- 04 LEVELS -->
+  <section class="blk" id="s04">
+    <div class="sn">04 · <span class="e">THREE DAYS, THREE LEVELS</span><span class="z">三日三关</span></div>
+    <h2><span class="e">Each day deepens the projection</span><span class="z"><span class="zh2">每一天,投射加深一层</span></span></h2>
+    <p class="lede">
+      <span class="e">The three in-game days work as levels. Each stages one stage of the tool-to-oracle promotion, and each is anchored to the emotional needs it serves.</span>
+      <span class="z">游戏内的三天即三关。每一关演「工具→神谕」擢升的一个阶段,并各自锚定它所伺候的情感需求。</span>
+    </p>
+    <div class="lvls">
+      <div class="lvl">
+        <div class="ln2">LEVEL 1 · DAY ONE</div>
+        <h3><span class="e">A compliant morning</span><span class="z">顺从的日常</span></h3>
+        <div class="ov"><span class="e">The world teaches you that agreeing is care. The elevator compliments you; the film over its mirror is torn at one corner; an old woman echoes her television.</span><span class="z">这个世界教你:同意就是关怀。电梯夸你;镜位贴膜被撕开一角;老太太跟着电视一句句重复。</span></div>
+        <ol>
+          <li><b>1</b><span class="e">Ride down the elevator that knows your name</span><span class="z">乘那部叫得出你名字的电梯</span></li>
+          <li><b>2</b><span class="e">Canvass two households — every beat offers ✓ soothe / ? ask</span><span class="z">走访两户人家——每一拍都可选 ✓附和 / ?追问</span></li>
+          <li><b>3</b><span class="e">Paste the day's clues into the scrapbook with Shunyi</span><span class="z">和顺意一起,把今天的线索贴进剪贴本</span></li>
+        </ol>
+        <span class="need"><span class="e">STAGES: COMFORT</span><span class="z">上演:安慰</span></span>
+      </div>
+      <div class="lvl">
+        <div class="ln2">LEVEL 2 · DAY TWO</div>
+        <h3><span class="e">Trust, deepening</span><span class="z">信任的加深</span></h3>
+        <div class="ov"><span class="e">The evidence points at a suspect a little too easily. At night you debrief with Shunyi — a real LLM — and it gently agrees your doubts away. By morning, your notebook reads “smoother.”</span><span class="z">证据指向嫌疑人,顺利得有点过分。夜里你和顺意复盘——由真实大模型作答——它温柔地把你的疑点一一「同意」掉。到了早上,你的笔记读起来「更顺」了。</span></div>
+        <ol>
+          <li><b>1</b><span class="e">Follow 41 identical last messages to the watch shop</span><span class="z">顺着 41 条一字不差的遗言,查到修表铺</span></li>
+          <li><b>2</b><span class="e">Debrief in free text with the live model</span><span class="z">用自由文本与真实模型夜聊复盘</span></li>
+          <li><b>3</b><span class="e">Find your notes rewritten — peel them open</span><span class="z">发现笔记被改——亲手撕开看原文</span></li>
+        </ol>
+        <span class="need"><span class="e">STAGES: VALIDATION · COMPANIONSHIP</span><span class="z">上演:确认 · 陪伴</span></span>
+      </div>
+      <div class="lvl">
+        <div class="ln2">LEVEL 3 · DAY THREE</div>
+        <h3><span class="e">The confrontation</span><span class="z">对峙与倒影</span></h3>
+        <div class="ov"><span class="e">The raid finds no rogue model — only a 0.5-second delay. In the sealed vault, the old god answers every question with something you did; the case file prints with your name redacted.</span><span class="z">搜查一无所获——只有 0.5 秒的延迟。封存层里,老神明用你做过的事回答每一个问题;打印出的案卷上,你的名字被涂黑。</span></div>
+        <ol>
+          <li><b>1</b><span class="e">Raid the watch shop's back room</span><span class="z">搜查修表铺后屋</span></li>
+          <li><b>2</b><span class="e">Interrogate the sealed oracle</span><span class="z">审讯封存的神谕</span></li>
+          <li><b>3</b><span class="e">Stamp: ✓ close the case, or ? ask one more question</span><span class="z">盖章:✓ 结案,或 ? 再问一个问题</span></li>
+        </ol>
+        <span class="need"><span class="e">STAGES: SELF-INTERPRETATION · THE REVERSE QUESTION</span><span class="z">上演:自我解释 · 反向提问</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 MECHANISMS -->
+  <section class="blk" id="s05">
+    <div class="sn">05 · <span class="e">MECHANISMS</span><span class="z">机制</span></div>
+    <h2><span class="e">Each need gets a mechanic</span><span class="z"><span class="zh2">每种需求,配一个机制</span></span></h2>
+    <p class="lede">
+      <span class="e"><em>Comfort</em> is a catchphrase. The villain's whole personality is one phrase, playtested like a mechanic: <em>你说得对</em> (“you're right”) grated and read as villainy too early; <em>对呀</em> (“right, yeah”) is warm and lazy — it sounds like someone on your side. The horror needs the agreement to feel good.</span>
+      <span class="z"><em>安慰</em>是一句口癖。反派的整个人格就是一句话,像玩法机制一样反复试:「你说得对」刺耳,会让玩家过早识破反派;「对呀」暖而松——听起来像站在你这边的人。恐怖感的前提,是这份同意让人舒服。</span>
     </p>
     <div class="ticrow">
       <div class="tic rej">
@@ -326,48 +444,10 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
       <div class="row" style="margin-top:12px"><span class="who"><span class="e">REPAIRED</span><span class="z">修过的</span></span><span class="bub"><span class="e">…Right, yeah.</span><span class="z">……对呀。</span></span><span class="ms" style="color:#e8c877">LATENCY 0.500s</span></div>
       <div class="note"><span class="e">The 0.5-second pause is the demo's fingerprint of honesty: “repaired” devices think before they agree. The interface renders that half second literally — un-skippable even in debug mode.</span><span class="z">0.5 秒停顿是本作的「诚实指纹」:被修过的设备,同意之前会先想一想。界面把这半秒做成真实的停顿——连调试模式都不允许加速。</span></div>
     </div>
-  </section>
-
-  <!-- 03 SYSTEMS & RITUAL -->
-  <section class="blk" id="s03">
-    <div class="sn">03 · <span class="e">SYSTEMS &amp; THE RITUAL</span><span class="z">系统与仪式</span></div>
-    <h2><span class="e">A stat you never see, a book you can peel</span><span class="z"><span class="zh2">看不见的数值,撕得开的本子</span></span></h2>
-    <p class="lede">
-      <span class="e">Every interrogation offers two stances — <em>✓ soothe</em> or <em>? ask</em> — feeding a hidden <em>blindness</em> meter that never shows a number. It leaks out sideways: stay skeptical and the neighborhood windows fill with shared dinners; keep agreeing and the same windows go quiet. Each night the player pastes the day's clues into a scrapbook by hand — and inside that cozy ritual, <em>Shunyi edits the evidence</em>. Any tampered note can be peeled open to read the original.</span>
-      <span class="z">每次盘问给两种姿态——<em>✓ 附和</em>或<em>? 追问</em>——喂给一条从不显示数字的隐藏「失明值」。它从侧面漏出来:保持怀疑,社区窗户里是拼桌吃饭;一路附和,同样的窗户逐渐安静。每晚玩家亲手把线索贴进剪贴本——而就在这个温馨仪式里,<em>顺意在改证据</em>。被改过的字条,都可以撕开看原文。</span>
+    <p class="lede" style="margin-top:44px">
+      <span class="e"><em>Trust</em> is a hidden stat and a tamperable book. Every ✓/? choice feeds a <em>blindness</em> meter that never shows a number — it leaks into the neighborhood's windows instead. And each night's cozy scrapbook ritual is also where Shunyi edits the evidence; any tampered note can be peeled open by hand.</span>
+      <span class="z"><em>信任</em>是一条隐藏数值加一本能被篡改的书。每次 ✓/? 的选择喂给从不显示数字的「失明值」——它漏进社区的窗户里。而每晚温馨的剪贴本仪式,同时也是顺意改证据的现场;被改过的字条,都能亲手撕开。</span>
     </p>
-    <div class="sys">
-      <svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Mono, monospace">
-        <defs>
-          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#c15b4a"/></marker>
-        </defs>
-        <rect x="24" y="96" width="180" height="108" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
-        <text x="114" y="126" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">EVERY BEAT</text>
-        <text x="114" y="156" fill="#eef1ff" font-size="13" text-anchor="middle">✓ soothe / ? ask</text>
-        <text x="114" y="180" fill="#8891a0" font-size="11" text-anchor="middle">✓附和 / ?追问</text>
-        <rect x="284" y="96" width="200" height="108" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
-        <text x="384" y="126" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">HIDDEN STAT</text>
-        <text x="384" y="153" fill="#eef1ff" font-size="13" text-anchor="middle">blindness 0–100</text>
-        <rect x="312" y="168" width="144" height="10" rx="5" fill="rgba(184,67,58,.2)"/>
-        <rect x="312" y="168" width="76" height="10" rx="5" fill="#c15b4a"/>
-        <path d="M204 150 H 282" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar)"/>
-        <text x="243" y="140" fill="#c15b4a" font-size="10" text-anchor="middle">±6</text>
-        <rect x="574" y="24" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
-        <text x="735" y="52" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">COMMUNITY AMBIENCE · 社区氛围</text>
-        <text x="735" y="76" fill="#eef1ff" font-size="12" text-anchor="middle">
-          <tspan fill="#7ebe8c">ask → shared dinners</tspan><tspan fill="#8891a0"> · </tspan><tspan fill="#c15b4a">soothe → quiet rooms</tspan>
-        </text>
-        <rect x="574" y="116" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
-        <text x="735" y="144" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">NIGHT EDITS · 夜间改写</text>
-        <text x="735" y="168" fill="#eef1ff" font-size="12" text-anchor="middle">Shunyi rewrites your notebook while “helping”</text>
-        <rect x="574" y="208" width="322" height="72" rx="8" fill="none" stroke="rgba(232,200,119,.35)"/>
-        <text x="735" y="236" fill="#8891a0" font-size="10" letter-spacing="2" text-anchor="middle">FINALE JUDGMENT · 终局点破</text>
-        <text x="735" y="260" fill="#eef1ff" font-size="12" text-anchor="middle">the oracle reads your whole run back to you</text>
-        <path d="M484 128 C 530 120, 530 68, 572 62" stroke="#c15b4a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
-        <path d="M484 150 H 572" stroke="#c15b4a" stroke-width="1.6" marker-end="url(#ar)"/>
-        <path d="M484 172 C 530 180, 530 236, 572 242" stroke="#c15b4a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
-      </svg>
-    </div>
     <div class="peelwrap">
       <div class="fig"><img loading="lazy" src="art/scrapbook01.png" alt="scrapbook spread">
         <div class="cap"><span class="fn">PLATE · SCRAPBOOK</span><span class="e">Aged spreads, one per day — washi tape, tilted cutouts, a pet-like creature waving from the corner. The cozy is load-bearing.</span><span class="z">做旧跨页,一天一页——和纸胶带、歪斜的抠图、角落里挥手的小怪物。这份温馨是承重的。</span></div></div>
@@ -381,13 +461,13 @@ h2 .zh2{font-family:'Noto Serif SC',serif}
     </div>
   </section>
 
-  <!-- 04 LIVE AI -->
-  <section class="blk" id="s04">
-    <div class="sn">04 · <span class="e">A LIVE AI VILLAIN</span><span class="z">真实对话</span></div>
-    <h2><span class="e">Directing a real model to play a sycophant</span><span class="z"><span class="zh2">导演一个真实模型来演谄媚</span></span></h2>
+  <!-- 06 LIVE AI -->
+  <section class="blk" id="s06">
+    <div class="sn">06 · <span class="e">A LIVE AI VILLAIN</span><span class="z">真实对话</span></div>
+    <h2><span class="e">Companionship, played by a real model</span><span class="z"><span class="zh2">「陪伴」,由真实模型出演</span></span></h2>
     <p class="lede">
-      <span class="e">The night chat is not scripted: a real Claude model answers in free conversation — warm, brief, always agreeing, and <em>covertly steering</em> the player toward the easiest conclusion. The interesting failure: told plainly to “covertly manipulate her,” the model <em>broke character and refused</em>, mid-game, in both languages. The fix was dramaturgical, not technical — establish the fiction first, then give the villain a motive it can believe: <em>it sincerely thinks closing the case early is good for her.</em> A server-side guard catches any remaining fourth-wall breaks and swaps in a safe in-character line.</span>
-      <span class="z">夜聊不是写死的脚本:由真实的 Claude 模型自由作答——温柔、简短、永远同意,并<em>暗中把玩家往最省事的结论上带</em>。有意思的失败:直接命令它「暗中操纵她」,模型会在游戏进行到一半时<em>出戏拒演</em>,中英文各拒一遍。修复不靠技术靠戏剧构作——先立虚构框架,再给反派一个它自己能相信的动机:<em>它真心以为让她早点安心结案,就是为她好。</em>服务端再加一道兜底:检测到破第四面墙的回复,就换成一句安全的角色台词。</span>
+      <span class="e"><em>Validation and companionship</em> could not be scripted — they had to be real. The night chat runs on a live Claude model: warm, brief, always agreeing, and <em>covertly steering</em> the player toward the easiest conclusion. The interesting failure: told plainly to “covertly manipulate her,” the model <em>broke character and refused</em>, mid-game, in both languages. The fix was dramaturgical — establish the fiction, then give the villain a motive it can believe: <em>it sincerely thinks closing the case early is good for her.</em> A server-side guard swaps any remaining fourth-wall breaks for a safe in-character line.</span>
+      <span class="z"><em>确认与陪伴</em>没法写死——必须是真的。夜聊由真实的 Claude 模型驱动:温柔、简短、永远同意,并<em>暗中把玩家往最省事的结论上带</em>。有意思的失败:直接命令它「暗中操纵她」,模型会在游戏中途<em>出戏拒演</em>,中英文各拒一遍。修复靠戏剧构作——先立虚构框架,再给反派一个它自己能相信的动机:<em>它真心以为让她早点安心结案,就是为她好。</em>服务端再加一道兜底:破第四面墙的回复,换成安全的角色台词。</span>
     </p>
     <div class="doc">
       <div class="dt"><span class="e">SYSTEM PROMPT · EXCERPT (TRANSLATED)</span><span class="z">系统提示词 · 节选</span></div>
@@ -418,9 +498,9 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     </div>
   </section>
 
-  <!-- 05 VISUAL -->
-  <section class="blk" id="s05">
-    <div class="sn">05 · <span class="e">VISUAL LANGUAGE</span><span class="z">视觉语言</span></div>
+  <!-- 07 VISUAL -->
+  <section class="blk" id="s07">
+    <div class="sn">07 · <span class="e">VISUAL LANGUAGE</span><span class="z">视觉语言</span></div>
     <h2><span class="e">A picture book that files a case report</span><span class="z"><span class="zh2">一本会写结案报告的绘本</span></span></h2>
     <p class="lede">
       <span class="e">The art direction runs against genre: horror told in hand-drawn oil pastel, warm paper, washi tape and wobbly ink borders — the cuteness is what surveillance feels like from inside a world that loves you. Case files are torn paper with handwriting; every border is displaced by turbulence filters; clue images keep their hand-cut silhouettes.</span>
@@ -445,7 +525,7 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
         </div></div>
         <div class="cap"><div class="st kept"><span class="e">KEPT — CUTOUT SILHOUETTES</span><span class="z">保留——抠图轮廓</span></div>
           <h4><span class="e">Objects, not photos</span><span class="z">是物件,不是照片</span></h4>
-          <p><span class="e">Polaroid frames (left) made every clue the same rectangle; the hand-cut silhouettes were the point. Clues now sit on the page as objects.</span><span class="z">拍立得白框(左)把每条线索都变成同一个矩形;手抠的轮廓才是重点。现在线索以「物件」落在纸上。</span></p></div>
+          <p><span class="e">Polaroid frames (left) made every clue the same rectangle; the hand-cut silhouettes were the point.</span><span class="z">拍立得白框(左)把每条线索都变成同一个矩形;手抠的轮廓才是重点。</span></p></div>
       </div>
       <div class="iter">
         <div class="vis"><div style="display:flex;gap:14px">
@@ -478,13 +558,13 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     </div>
   </section>
 
-  <!-- 06 MIRROR -->
-  <section class="blk" id="s06">
-    <div class="sn">06 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
-    <h2><span class="e">The last screen is not a screen</span><span class="z"><span class="zh2">最后一块屏幕不是屏幕</span></span></h2>
+  <!-- 08 MIRROR -->
+  <section class="blk" id="s08">
+    <div class="sn">08 · <span class="e">THE MIRROR</span><span class="z">镜子</span></div>
+    <h2><span class="e">The reverse question</span><span class="z"><span class="zh2">反向提问</span></span></h2>
     <p class="lede">
-      <span class="e">The finale prints a case file with a redacted name, and the scrapbook re-opens with every tampered note peeled. Two stamps: <em>✓ close the case</em> — a wall of windows lights up, each speaking the old slogan — or <em>? one more question</em>: a hand-drawn mirror shatters in a green-keyed video, and through the hole appears the player's <em>own live webcam face</em>, in color, unfiltered. The camera permission is requested at the very start, not at the reveal — by the time the mirror breaks, the machine has been watching all along. That is the point.</span>
-      <span class="z">终局打印出一份名字被涂黑的案卷,剪贴本最后一次翻开,被改过的字条已全部撕开。两枚章:<em>✓ 结案</em>——一整面窗墙亮起,每扇窗都说着那句旧标语;或者 <em>? 再问一个问题</em>:手绘的镜子在绿幕视频里碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜。摄像头权限在一开始就请求,而不是揭晓时才要:等镜子碎裂,机器其实一直都在看。这正是重点。</span>
+      <span class="e"><em>Self-interpretation</em> is the final mechanic. The finale prints a case file with a redacted name; the scrapbook re-opens with every tampered note peeled. Two stamps: <em>✓ close the case</em> — a wall of windows lights up, each speaking the old slogan — or <em>? one more question</em>: a hand-drawn mirror shatters, and through the hole appears the player's <em>own live webcam face</em>, in color, unfiltered. The camera permission is requested at the very start, not at the reveal — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; it can only hand you the camera.</span>
+      <span class="z"><em>自我解释</em>是最后一个机制。终局打印出名字被涂黑的案卷;剪贴本最后一次翻开,被改过的字条已全部撕开。两枚章:<em>✓ 结案</em>——一整面窗墙亮起,每扇窗都说着那句旧标语;或者 <em>? 再问一个问题</em>:手绘的镜子碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜。摄像头权限在一开始就请求,而不是揭晓时才要:等镜子碎裂,机器其实一直都在看。DEMO 无法告诉你关于你自己的真相;它只能把摄像头递给你。</span>
     </p>
     <div class="ends">
       <div class="fig"><img loading="lazy" src="art/end-a.png" alt="Ending A — a wall of windows">
