@@ -164,19 +164,23 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 #sceneGrid{position:absolute;left:0;right:0;top:150px;padding:0 40px;display:none;gap:20px;flex-wrap:wrap;justify-content:center;z-index:2}
 #sceneGrid.on{display:flex;animation:fadeUp .5s both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-.sceneCard{position:relative;width:252px;height:150px;cursor:pointer;transition:transform .16s ease,border-color .16s ease;padding:18px 20px;border-radius:8px;border:1px solid rgba(216,210,192,.22);background:linear-gradient(160deg,rgba(216,210,192,.07),rgba(216,210,192,.02));display:flex;flex-direction:column;overflow:hidden}
-.sceneCard:hover{transform:translateY(-4px);border-color:rgba(216,210,192,.5)}
-.sceneCard .cardNo{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.45)}
-.sceneCard .cardName{margin-top:8px;font:600 17px 'Noto Serif SC',serif;color:#efeadb;letter-spacing:.04em}
-.sceneCard .cardSub{margin-top:9px;font:400 12px/1.7 'Noto Serif SC',serif;color:rgba(216,210,192,.6)}
-.sceneCard .cardGo{position:absolute;right:16px;bottom:14px;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:rgba(216,210,192,.4);transition:color .16s ease}
-.sceneCard:hover .cardGo{color:#e8c877}
-.sceneCard.done{opacity:.5;cursor:default}
-.sceneCard.done:hover{transform:none}
-.sceneCard.hub{border-color:rgba(232,200,119,.4);background:linear-gradient(160deg,rgba(232,200,119,.09),rgba(232,200,119,.02))}
-.sceneCard.hub:hover{border-color:rgba(232,200,119,.75)}
-.sceneCard.hub .cardName{color:#f0d69e}
-.sceneCard .mark{position:absolute;right:14px;top:14px;font:600 11px 'Noto Serif SC',serif;color:#8fb89a;border:2px solid #4d6b55;border-radius:4px;padding:3px 7px;transform:rotate(-8deg);animation:stampIn .18s both}
+/* 调查卡:实心暖纸卡,叠在纸底上;边框用 inkRough 位移滤镜揉成手绘毛边 */
+.sceneCard{position:relative;width:250px;min-height:130px;cursor:pointer;padding:16px 20px 32px;
+  background:rgba(250,244,228,.94);border-radius:11px;box-shadow:0 7px 16px rgba(60,40,20,.28);
+  transform:rotate(-1.2deg);transition:transform .16s ease,box-shadow .16s ease;display:flex;flex-direction:column}
+.sceneCard::before{content:"";position:absolute;inset:2px;border:2.5px solid #8a6a45;border-radius:10px;filter:url(#inkRough);pointer-events:none}
+.sceneCard:hover{transform:translateY(-5px) rotate(-.3deg);box-shadow:0 13px 24px rgba(60,40,20,.34)}
+.sceneCard .cardNo{font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#a5764a}
+.sceneCard .cardName{margin-top:7px;font:600 18px 'Noto Serif SC',serif;color:#463322;letter-spacing:.04em}
+.sceneCard .cardSub{margin-top:8px;font:400 12px/1.65 'Noto Serif SC',serif;color:#7a6249}
+.sceneCard .cardGo{position:absolute;right:18px;bottom:12px;font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#a5764a;transition:color .16s ease}
+.sceneCard:hover .cardGo{color:#c8632e}
+.sceneCard.done{opacity:.58;cursor:default}
+.sceneCard.done:hover{transform:rotate(-1.2deg);box-shadow:0 7px 16px rgba(60,40,20,.28)}
+.sceneCard.hub::before{border-color:#c8632e}
+.sceneCard.hub .cardName{color:#a8481f}
+.sceneCard.hub:hover .cardGo{color:#a8481f}
+.sceneCard .mark{position:absolute;right:14px;top:12px;font:600 11px 'Noto Serif SC',serif;color:#6f9a52;border:2px solid #6f9a52;border-radius:5px;padding:3px 7px;transform:rotate(-8deg);animation:stampIn .18s both}
 #noteBtn{position:absolute;right:28px;top:20px;z-index:5}
 #nightBtn{position:absolute;right:28px;bottom:26px;border-color:#2a6e8f;color:#7ab5cf;z-index:5}
 #deskHint{position:absolute;left:28px;bottom:26px;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.4);z-index:5}
