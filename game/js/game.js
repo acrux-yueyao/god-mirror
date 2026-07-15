@@ -148,7 +148,7 @@ function loadGame() {
 function refreshMenu() { $("continueBtn").classList.toggle("disabled", !hasSave()); }
 
 function show(id) { document.querySelectorAll(".scr").forEach(s => s.classList.remove("on")); $(id).classList.add("on"); }
-async function trans(text, hold = 1300) { $("transStamp").textContent = text; $("trans").classList.add("on"); sfx.thunk(); await wait(hold); $("trans").classList.remove("on"); }
+async function trans(text, hold = 1300) { await wait(220); }   // 已取消"红章黑底"过场,直接切换(透明)
 async function typeInto(el, text, cps = 26) { el.textContent = ""; for (const ch of text) { el.textContent += ch; await wait(cps); } }
 const isFx = l => l.startsWith("【") || l.startsWith("[");
 
@@ -1122,6 +1122,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 
