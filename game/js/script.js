@@ -59,6 +59,7 @@ export const SCRIPT = {
     houseVisited: B("✓ 已查", "✓ DONE"),
     advance: B("▸ 继续", "▸ CONTINUE"),
     deskScreenTag: B("顺意", "SHUNYI"),
+    deskNoteTag: B("案卷本", "CASE BOOK"),
     deskFileTag: B("案卷", "FILE"),
     fileClose: B("合上案卷", "CLOSE FILE"),
     deskHintMorning: B("桌上的东西都能点。读完案卷,再盖章出勤。", "Everything on the desk is clickable. Read the file, then stamp to head out."),
