@@ -268,6 +268,9 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 .washi.purp{background:#b3a2d9;background-image:radial-gradient(rgba(255,255,255,.8) 22%,transparent 24%);background-size:9px 9px}
 .capWrap{position:relative;margin-top:7px}
 .hcap{position:relative;z-index:2;font-family:'Zhi Mang Xing','Noto Serif SC',cursive;font-size:17px;line-height:1.42;white-space:pre-wrap}
+/* 无对应图的线索(如社区汇总):做成暖纸手写便签,而不是空白相框 */
+.pasted.noteOnly .capWrap{background:rgba(250,244,228,.92);border-radius:9px;padding:11px 14px;box-shadow:0 6px 14px rgba(40,25,10,.26)}
+.pasted.noteOnly .capWrap::before{content:"";position:absolute;inset:2px;border:2px solid #a58a5f;border-radius:8px;filter:url(#inkRough);pointer-events:none}
 .pcircle{position:absolute;left:-8%;top:-16%;width:116%;height:150%;pointer-events:none;z-index:1}
 .pcircle ellipse{fill:none;stroke-width:2.4}
 .clueDay{position:absolute;right:2px;bottom:-15px;z-index:2;font:500 8px 'IBM Plex Mono',monospace;color:#a89e83;letter-spacing:.1em}

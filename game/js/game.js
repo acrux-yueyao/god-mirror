@@ -672,7 +672,7 @@ function buildPasted(n, slot, opts) {
   el.style.transform = "rotate(" + slot.rot + "deg)";
   const photo = document.createElement("div"); photo.className = "photo";
   const img = document.createElement("img"); img.alt = "";
-  img.onerror = () => { photo.classList.add("blank"); img.remove(); };
+  img.onerror = () => { photo.remove(); el.classList.add("noteOnly"); };   // 无对应图(如社区汇总)→ 不显空框,做成手写字条
   img.src = clueSrc(n); photo.appendChild(img); el.appendChild(photo);
   el.appendChild(washiImg(TAPES[h % TAPES.length], { left: "-9%", top: "-7%", width: "48%", transform: "rotate(-28deg)" }));
   if (h % 2 === 0) el.appendChild(washiImg(TAPES[(h >> 2) % TAPES.length], { right: "-7%", bottom: "12%", width: "34%", transform: "rotate(16deg)" }));
