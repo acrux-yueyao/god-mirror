@@ -1208,10 +1208,16 @@ $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); })
 
 /* ══ DEV 调试跳转面板(仅 ?dev,玩家看不到)═══════════════════════
    在网址后加 ?dev 即可,例如  …/game/?dev  。一键跳到任意环节,免得每次从头跑。 */
+function devSceneNote(s) {                       // 场景的线索:优先场景级 note,否则取 fork 选项里的 note(盘问线索)
+  if (s.note) return s.note;
+  let found = null;
+  (s.beats || []).forEach(bt => { if (bt.fork) { const o = (bt.fork.ask && bt.fork.ask.note) || (bt.fork.soothe && bt.fork.soothe.note); if (o) found = o; } });
+  return found;
+}
 function devSeedNotes(dayIdx) {                 // 把某天的线索直接记进笔记本(供剪贴本/夜聊/终局用)
   state.dayIdx = dayIdx;
   const d = T.days[dayIdx]; if (!d) return;
-  d.scenes.forEach(s => { if (s.note) recordNote(s.id, s.note); });
+  d.scenes.forEach(s => { const nt = devSceneNote(s); if (nt) recordNote(s.id, nt); });
   if (T.communityMap && T.communityMap.leaveNote) recordNote("community", T.communityMap.leaveNote);
 }
 function devSeedAll() { T.days.forEach((d, i) => { devSeedNotes(i); applyNightEdits(d); }); }
