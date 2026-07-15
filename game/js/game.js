@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=46";
+import { SCRIPT } from "./script.js?v=47";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -90,6 +90,14 @@ async function halfSecond() {
   setLatency(false);
 }
 function flashGold() { const f = $("flashFx"); f.classList.remove("on"); void f.offsetWidth; f.classList.add("on"); }
+// 剧情里找到线索:即时弹出暖纸小条(不必等剪贴本)
+function flashClue(text) {
+  const el = $("clueFlash"); if (!el || !text) return;
+  el.querySelector(".cfText").textContent = text;
+  el.classList.remove("on"); void el.offsetWidth; el.classList.add("on");
+  if (sfx.blip) sfx.blip();
+  clearTimeout(flashClue._t); flashClue._t = setTimeout(() => el.classList.remove("on"), 3000);
+}
 
 /* ── 声线渐变:顺意用玩家自己刚说的话回她 ────────────────────────── */
 function echoize(text) {
@@ -424,7 +432,7 @@ function showEnd() {
   if (curScene._intro) {   // 出勤过场:记下线索 → 继续(去社区/调查点)
     el.textContent = T.ui.advance;
     el.onclick = () => {
-      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); sceneLogged = true; }
+      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.note); sceneLogged = true; }
       const r = introResolve; introResolve = null; if (r) r();
     };
     return;
@@ -432,7 +440,7 @@ function showEnd() {
   if (curScene.kind === "watch") {
     el.textContent = curScene._fromMap ? T.ui.returnComm : T.ui.watchNote;
     el.onclick = () => {
-      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); sceneLogged = true; }
+      if (!sceneLogged && curScene.note) { recordNote(curScene.id, curScene.note); flashClue(curScene.note); sceneLogged = true; }
       if (curScene._fromMap) { returnFromScene(); return; }
       if (curCard) { stampCard(curCard); curCard.classList.add("done"); }
       backDesk();
@@ -545,7 +553,7 @@ document.querySelectorAll("#stanceRow .stance").forEach(btn => {
     setWho(opt.who || "");
     await typeInto($("sceneBody"), opt.reply, 16);
     if (opt.pause) await halfSecond();   // 揭示"回话前停半秒"的瞬间,游戏真的停半秒
-    if (opt.note) { recordNote(curScene.id, opt.note); sceneLogged = true; if (curCard) curCard.classList.add("done"); }
+    if (opt.note) { recordNote(curScene.id, opt.note); flashClue(opt.note); sceneLogged = true; if (curCard) curCard.classList.add("done"); }
     // 不自增:beatIdx 仍停在分叉拍,交给 nextBeat 推进到下一拍(否则会跳过分叉后的收束拍)
     if (beatIdx >= sceneBeats.length - 1) showEnd();
     else { $("sceneAdvance").textContent = T.ui.advance; $("sceneAdvance").style.display = "inline-block"; }
@@ -566,7 +574,17 @@ function checkDayDone() {
     else { startFinale(); }
   }
 }
-$("nightBtn").addEventListener("click", () => startNight());
+$("nightBtn").addEventListener("click", async () => {
+  $("nightBtn").style.display = "none";
+  const dayObj = T.days[state.dayIdx], day = state.dayIdx + 1;
+  if (state.notes.some(n => n.day === day)) {
+    applyNightEdits(dayObj);              // 顺意"帮你一起整理"时,悄悄改了两处
+    $("notebook").classList.add("on");
+    await playJournal(day);               // 先整理剪贴本(能撕开看顺意改过的)
+    $("notebook").classList.remove("on");
+  }
+  startNight();                            // 再和顺意夜聊
+});
 
 /* ══ 笔记本(可被夜间改写) ════════════════════════════════════ */
 function hashId(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0; return h; }
@@ -813,7 +831,7 @@ async function startNight() {
     else if (beat.input) { await freeInput(); }
     else if (beat.wheel) { await wheelChoice(beat); }
   }
-  applyNightEdits(d);
+  // 篡改已在夜聊前的「整理剪贴本」阶段发生(nightBtn 里 applyNightEdits)
   state.nightBusy = false;
   $("sleepBtn").classList.add("on");
 }
@@ -907,15 +925,9 @@ function wheelChoice(beat) {
     });
   });
 }
-$("sleepBtn").addEventListener("click", async () => {
+$("sleepBtn").addEventListener("click", () => {
   $("sleepBtn").classList.remove("on");
-  const finishedDay = state.dayIdx + 1;   // 刚过完的这天(notes.day 与之对应)
-  if (state.notes.some(n => n.day === finishedDay)) {
-    $("notebook").classList.add("on");
-    await playJournal(finishedDay);        // 陪顺意把今天的线索贴进书里
-    $("notebook").classList.remove("on");
-  }
-  startDay(state.dayIdx + 1);
+  startDay(state.dayIdx + 1);   // 整理剪贴本已在夜聊之前完成,睡直接进第二天
 });
 
 /* ══ 终局(四层底) ════════════════════════════════════════════ */
@@ -1147,6 +1159,7 @@ refreshMenu();
 
 $("startBtn").addEventListener("click", async () => { au(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
 $("continueBtn").addEventListener("click", () => { if (hasSave()) loadGame(); });
+
 
 
 

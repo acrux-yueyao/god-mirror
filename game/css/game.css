@@ -181,6 +181,12 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 .sceneCard.hub .cardName{color:#a8481f}
 .sceneCard.hub:hover .cardGo{color:#a8481f}
 .sceneCard .mark{position:absolute;right:14px;top:12px;font:600 11px 'Noto Serif SC',serif;color:#6f9a52;border:2px solid #6f9a52;border-radius:5px;padding:3px 7px;transform:rotate(-8deg);animation:stampIn .18s both}
+/* 剧情里找到线索:暖纸小条从右滑入 */
+#clueFlash{position:absolute;top:96px;right:-380px;z-index:30;max-width:320px;background:rgba(250,244,228,.97);border-radius:10px;padding:12px 16px;box-shadow:0 9px 22px rgba(40,25,10,.42);transform:rotate(1.6deg);transition:right .45s cubic-bezier(.2,.9,.3,1.15),opacity .4s ease;opacity:0;pointer-events:none;display:none}
+#clueFlash.on{display:block;right:26px;opacity:1}
+#clueFlash::before{content:"";position:absolute;inset:2px;border:2px solid #8a6a45;border-radius:9px;filter:url(#inkRough);pointer-events:none}
+#clueFlash .cfTag{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#c8632e;margin-bottom:5px}
+#clueFlash .cfText{font:400 13px/1.62 'Noto Serif SC',serif;color:#463322}
 #noteBtn{position:absolute;right:28px;top:20px;z-index:5}
 #nightBtn{position:absolute;right:28px;bottom:26px;border-color:#2a6e8f;color:#7ab5cf;z-index:5}
 #deskHint{position:absolute;left:28px;bottom:26px;font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(216,210,192,.4);z-index:5}
