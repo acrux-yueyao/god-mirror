@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=49";
+import { SCRIPT } from "./script.js?v=50";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -101,6 +101,7 @@ function flashClue(id, text) {
     img.src = clueSrc({ id });
   }
   el.querySelector(".cfText").textContent = text;
+  const tag = el.querySelector(".cfTag"); if (tag && T.ui.clueLog) tag.textContent = T.ui.clueLog;   // 跟随语言
   el.classList.remove("on"); void el.offsetWidth; el.classList.add("on");
   if (sfx.blip) sfx.blip();
   clearTimeout(flashClue._t); flashClue._t = setTimeout(() => el.classList.remove("on"), 4200);
@@ -1266,7 +1267,14 @@ function buildDevPanel() {
     if (a === "lang") { setLang(b.dataset.l); return; }
     if (a === "day") { clearAll(); startDay(parseInt(b.dataset.d, 10)); return; }
     const i = dpDay(), d = T.days[i];
-    if (a === "comm") { state.dayIdx = i; dayCommunity = d.scenes.filter(s => s.loc === "community"); commDone = dayCommunity.length === 0; commVisited = new Set(); clearAll(); openCommunityDay(); }
+    if (a === "comm") {
+      state.dayIdx = i;
+      setImg("deskArt", "book-background"); $("deskDate").textContent = d.date; $("deskCase").textContent = d.head; $("nightBtn").style.display = "none";
+      dayCommunity = d.scenes.filter(s => s.loc === "community"); commDone = dayCommunity.length === 0; commVisited = new Set();
+      clearAll();
+      revealCards(d);                          // 摆好当天调查卡 + 隐藏晨间物件,离开社区后能继续查/收尾
+      if (dayCommunity.length) openCommunityDay();
+    }
     else if (a === "journal") { devSeedNotes(i); applyNightEdits(d); clearAll(); $("notebook").classList.add("on"); await playJournal(i + 1); $("notebook").classList.remove("on"); startNight(); }
     else if (a === "night") { devSeedNotes(i); applyNightEdits(d); clearAll(); startNight(); }
     else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; clearAll(); startFinale(); }

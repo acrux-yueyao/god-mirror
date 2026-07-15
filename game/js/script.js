@@ -13,6 +13,7 @@ export const SCRIPT = {
     back: B("ESC · 返回", "ESC · BACK"),
     recordNote: B("已记入笔记本 · 返回", "LOGGED · BACK"),
     watchNote: B("✎ 记入笔记本", "✎ LOG TO NOTEBOOK"),
+    clueLog: B("✎ 记入线索", "✎ CLUE LOGGED"),
     marked: B("已记", "LOGGED"),
     hintVisit: B("逐个走访 / 观察现场。", "Visit each witness / observe the scene."),
     hintNight: B("天黑了。回家,先把今天的线索整理进本子,再跟顺意说说。", "Night falls. Home now — sort today's leads into the book first, then talk it through with Shunyi."),
