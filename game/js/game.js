@@ -594,7 +594,7 @@ const CLUE_IMG = {
   "s1-elevator": "film-close",       // 撕开一角的防镜膜
   "s1-granny": "s1-granny-shard",    // 掌心大的碎镜片
   "s1-laoning": "s1-laoning-cloth",  // 盖着脸的红布
-  "s2-archive": "s2-archive-log",    // 41 条同样的记录
+  "s2-archive": "s2-archive",        // 发光手机海 · 「你想要什么?」(旧 s2-archive-log 已删,改指向新图)
   "s2-shadow": "s2-shadow-figure",   // 回程·地铁车窗:反光里的金红人影
   "s2-couple": "s2-couple",          // 506 那对夫妻(tag03 抠图)
   "s3-raid": "s3-raid",              // 后屋 · 无违规模型
