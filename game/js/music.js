@@ -1,91 +1,65 @@
-/* music.js — 《神谕之镜》自适应合成音景(零素材,WebAudio 现场合成)
-   情绪:prologue 序夜 / day 白日走访(八音盒) / night 夜聊(低垫) / vault 封存层(深鸣) / endA 晚祷 / mirror 镜(近无声)
-   母题:duck() = 0.5 秒"屏息"——诚实停顿时,连音乐也想一想再继续。 */
+/* music.js — 《神谕之镜》音景 v3:无音垫、无持续音——只有离散的音符,音符之间是真正的安静。
+   情绪 = 音符集 + 节奏:prologue 稀疏夜铃 / day 八音盒 / night 更低更稀 / vault 深钟 / endA 晚祷三音 / mirror 全然无声
+   母题:duck() = 0.5 秒"屏息"。 */
 
-const LEVEL = 0.16;               // 总闸(再乘各情绪电平,整体保持很轻)
+const LEVEL = 0.16;
 const MOODS = {
-  prologue: { chord: [164.8, 246.9],            fc: 620,  lv: .22, pluck: null },
-  day:      { chord: [220.0, 293.7, 370.0],     fc: 1100, lv: .26, pluck: { notes: [587.3, 659.3, 740.0, 880.0, 987.8], gapMin: 2200, gapMax: 5600, oct: 1 } },
-  night:    { chord: [185.0, 246.9, 370.0],     fc: 760,  lv: .22, pluck: { notes: [493.9, 587.3, 740.0], gapMin: 6000, gapMax: 12000, oct: 1 } },
-  vault:    { chord: [110.0, 164.8, 246.9],     fc: 480,  lv: .30, pluck: { notes: [220.0, 246.9], gapMin: 8000, gapMax: 15000, oct: 1, bell: true } },
-  endA:     { chord: [220.0, 293.7, 440.0],     fc: 860,  lv: .24, pluck: { notes: [880.0, 740.0, 587.3], gapMin: 3800, gapMax: 4200, oct: 1, seq: true } },
-  mirror:   { chord: [329.6],                   fc: 420,  lv: .05, pluck: null }
+  prologue: { notes: [329.6, 493.9],                         gapMin: 5000, gapMax: 9000,  peak: .05 },
+  day:      { notes: [587.3, 659.3, 740.0, 880.0, 987.8],    gapMin: 2200, gapMax: 5600,  peak: .07 },
+  night:    { notes: [493.9, 587.3, 740.0],                  gapMin: 6000, gapMax: 12000, peak: .055 },
+  vault:    { notes: [220.0, 246.9],                         gapMin: 8000, gapMax: 15000, peak: .10, bell: true },
+  endA:     { notes: [880.0, 740.0, 587.3],                  gapMin: 3800, gapMax: 4200,  peak: .06, seq: true },
+  mirror:   null
 };
 
 export const MUSIC = {
-  ctx: null, master: null, cur: null, curName: null, muted: false, _timer: null, _seqI: 0,
+  ctx: null, master: null, curName: null, muted: false, _timer: null, _seqI: 0,
 
   init(ctx) {
     if (this.ctx || !ctx) return;
     this.ctx = ctx;
     this.master = ctx.createGain();
-    this.master.gain.value = this.muted ? 0 : LEVEL;
-    const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 100; hp.Q.value = 0.5;
+    const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 120; hp.Q.value = 0.5;
     this.master.connect(hp); hp.connect(ctx.destination);
     try { this.muted = localStorage.getItem("sm-mute") === "1"; } catch (e) {}
     this.master.gain.value = this.muted ? 0 : LEVEL;
   },
 
   setMood(name) {
-    if (!this.ctx || name === this.curName || !MOODS[name]) return;
-    const ctx = this.ctx, m = MOODS[name], t = ctx.currentTime;
-    // 旧垫淡出
-    if (this.cur) {
-      const old = this.cur;
-      old.gain.gain.cancelScheduledValues(t);
-      old.gain.gain.setTargetAtTime(0.0001, t, 0.9);
-      setTimeout(() => { try { old.oscs.forEach(o => o.stop()); old.lfo.stop(); } catch (e) {} }, 3200);
-    }
-    if (this._timer) { clearTimeout(this._timer); this._timer = null; }
-    // 新垫:和弦音 ×(正弦 + 微失谐三角),低通 + 极慢 LFO 呼吸
-    const gain = ctx.createGain(); gain.gain.value = 0.0001;
-    const filter = ctx.createBiquadFilter(); filter.type = "lowpass"; filter.frequency.value = m.fc; filter.Q.value = 0.4;
-    gain.connect(filter); filter.connect(this.master);
-    const oscs = [];
-    m.chord.forEach(f => {
-      const o1 = ctx.createOscillator(); o1.type = "sine"; o1.frequency.value = f;
-      const g1 = ctx.createGain(); g1.gain.value = 1 / m.chord.length;
-      o1.connect(g1); g1.connect(gain); o1.start(); oscs.push(o1);
-      const o2 = ctx.createOscillator(); o2.type = "triangle"; o2.frequency.value = f * 1.0015;
-      const g2 = ctx.createGain(); g2.gain.value = 0.20 / m.chord.length;
-      o2.connect(g2); g2.connect(gain); o2.start(); oscs.push(o2);
-    });
-    const lfo = ctx.createOscillator(); lfo.frequency.value = 0.07;
-    const lfoG = ctx.createGain(); lfoG.gain.value = m.fc * 0.25;
-    lfo.connect(lfoG); lfoG.connect(filter.frequency); lfo.start();
-    gain.gain.setTargetAtTime(m.lv, t, 1.6);
-    this.cur = { gain, filter, oscs, lfo };
+    if (!this.ctx || name === this.curName) return;
     this.curName = name;
     this._seqI = 0;
-    if (m.pluck) this._schedulePluck(m.pluck);
+    if (this._timer) { clearTimeout(this._timer); this._timer = null; }
+    const m = MOODS[name];
+    if (m) this._schedule(m);
   },
 
-  _schedulePluck(p) {
+  _schedule(m) {
     const next = () => {
-      const gap = p.seq ? p.gapMin : (p.gapMin + Math.random() * (p.gapMax - p.gapMin));
-      this._timer = setTimeout(() => { this._pluck(p); next(); }, gap);
+      const gap = m.seq ? m.gapMin : (m.gapMin + Math.random() * (m.gapMax - m.gapMin));
+      this._timer = setTimeout(() => { this._pluck(m); next(); }, gap);
     };
     next();
   },
 
-  _pluck(p) {
+  _pluck(m) {
     if (!this.ctx || this.muted) return;
     const ctx = this.ctx, t = ctx.currentTime;
-    const f = p.seq ? p.notes[this._seqI++ % p.notes.length] : p.notes[(Math.random() * p.notes.length) | 0];
+    const f = m.seq ? m.notes[this._seqI++ % m.notes.length] : m.notes[(Math.random() * m.notes.length) | 0];
     const g = ctx.createGain(); g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(p.bell ? 0.10 : 0.07, t + 0.012);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + (p.bell ? 3.2 : 1.4));
+    g.gain.exponentialRampToValueAtTime(m.peak, t + 0.012);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + (m.bell ? 3.2 : 1.4));
     g.connect(this.master);
     const o = ctx.createOscillator(); o.type = "sine"; o.frequency.value = f;
-    o.connect(g); o.start(t); o.stop(t + (p.bell ? 3.4 : 1.6));
+    o.connect(g); o.start(t); o.stop(t + (m.bell ? 3.4 : 1.6));
     const o2 = ctx.createOscillator(); o2.type = "sine"; o2.frequency.value = f * 2;   // 八音盒泛音
     const g2 = ctx.createGain(); g2.gain.setValueAtTime(0.0001, t);
-    g2.gain.exponentialRampToValueAtTime(0.02, t + 0.01);
+    g2.gain.exponentialRampToValueAtTime(m.peak * 0.28, t + 0.01);
     g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
     o2.connect(g2); g2.connect(this.master); o2.start(t); o2.stop(t + 0.8);
   },
 
-  duck(ms) {   // 0.5 秒母题:音乐屏住呼吸,再慢慢回来
+  duck(ms) {   // 0.5 秒母题:声音屏住呼吸,再慢慢回来
     if (!this.ctx || this.muted) return;
     const t = this.ctx.currentTime;
     this.master.gain.cancelScheduledValues(t);
