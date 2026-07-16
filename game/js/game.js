@@ -1259,31 +1259,54 @@ function buildDevPanel() {
       "<div class='dpRow'><span class='dpTag'>语言:</span><button data-a='lang' data-l='zh'>中</button><button data-a='lang' data-l='en'>EN</button></div>" +
     "</div>";
   document.body.appendChild(p);
-  const clearAll = () => { document.querySelectorAll(".scr").forEach(s => s.classList.remove("on")); ["notebook", "introCard", "prologue", "trans", "halfBeat"].forEach(id => { const e = $(id); if (e) e.classList.remove("on"); }); $("filePanel").classList.remove("on"); $("commPop").classList.remove("on"); };
   const dpDay = () => parseInt($("dpDay").value, 10) || 0;
   p.querySelector(".dpH").addEventListener("click", () => p.classList.toggle("min"));
-  p.addEventListener("click", async (ev) => {
+  p.addEventListener("click", (ev) => {
     const b = ev.target.closest("button[data-a]"); if (!b) return;
-    au(); const a = b.dataset.a;
-    if (a === "lang") { setLang(b.dataset.l); return; }
-    if (a === "day") { clearAll(); startDay(parseInt(b.dataset.d, 10)); return; }
-    const i = dpDay(), d = T.days[i];
-    if (a === "comm") {
-      state.dayIdx = i;
-      setImg("deskArt", "book-background"); $("deskDate").textContent = d.date; $("deskCase").textContent = d.head; $("nightBtn").style.display = "none";
-      dayCommunity = d.scenes.filter(s => s.loc === "community"); commDone = dayCommunity.length === 0; commVisited = new Set();
-      clearAll();
-      revealCards(d);                          // 摆好当天调查卡 + 隐藏晨间物件,离开社区后能继续查/收尾
-      if (dayCommunity.length) openCommunityDay();
-    }
-    else if (a === "journal") { devSeedNotes(i); applyNightEdits(d); clearAll(); $("notebook").classList.add("on"); await playJournal(i + 1); $("notebook").classList.remove("on"); startNight(); }
-    else if (a === "night") { devSeedNotes(i); applyNightEdits(d); clearAll(); startNight(); }
-    else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; clearAll(); startFinale(); }
-    else if (a === "endA") { clearAll(); ending("A"); }
-    else if (a === "endB") { clearAll(); ending("B"); }
+    au();
+    if (b.dataset.a === "lang") { setLang(b.dataset.l); return; }
+    devJump(b.dataset.a, b.dataset.d != null ? parseInt(b.dataset.d, 10) : dpDay());
   });
 }
+function devClearAll() { document.querySelectorAll(".scr").forEach(s => s.classList.remove("on")); ["notebook", "introCard", "prologue", "trans", "halfBeat"].forEach(id => { const e = $(id); if (e) e.classList.remove("on"); }); $("filePanel").classList.remove("on"); $("commPop").classList.remove("on"); }
+async function devJump(a, i, opts) {
+  opts = opts || {};
+  const d = T.days[i];
+  if (a === "day") { devClearAll(); startDay(i); return; }
+  if (a === "comm") {
+    state.dayIdx = i;
+    setImg("deskArt", "book-background"); $("deskDate").textContent = d.date; $("deskCase").textContent = d.head; $("nightBtn").style.display = "none";
+    dayCommunity = d.scenes.filter(s => s.loc === "community"); commDone = dayCommunity.length === 0; commVisited = new Set();
+    devClearAll();
+    revealCards(d);                          // 摆好当天调查卡 + 隐藏晨间物件,离开社区后能继续查/收尾
+    if (dayCommunity.length) openCommunityDay();
+  }
+  else if (a === "scene") {                  // 截图用:直接打开某个场景,可自动推进 opts.adv 拍
+    state.dayIdx = i;
+    dayCommunity = d.scenes.filter(s => s.loc === "community"); commVisited = new Set();
+    const sc = d.scenes.find(s => s.id === opts.id) || d.scenes[0];
+    devClearAll(); openScene(sc, null);
+    let n = parseInt(opts.adv || "0", 10);
+    if (n > 0) { const t = setInterval(() => { const adv = $("sceneAdvance"), st = document.querySelector("#stanceRow .stance"); if (adv && adv.style.display !== "none") adv.click(); else if (st && $("stanceRow").style.display !== "none") st.click(); if (--n <= 0) clearInterval(t); }, 500); }
+  }
+  else if (a === "journal") {
+    devSeedNotes(i); applyNightEdits(d); devClearAll(); $("notebook").classList.add("on");
+    let np = parseInt(opts.paste || "0", 10);
+    if (np > 0) { const t = setInterval(() => { const ob = document.querySelector(".scatterObj:not([data-used])"); if (ob) ob.click(); if (--np <= 0) clearInterval(t); }, 700); }
+    await playJournal(i + 1); $("notebook").classList.remove("on"); startNight();
+  }
+  else if (a === "night") { devSeedNotes(i); applyNightEdits(d); devClearAll(); startNight(); }
+  else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; devClearAll(); startFinale(); }
+  else if (a === "endA") { devClearAll(); ending("A"); }
+  else if (a === "endB") { devClearAll(); ending("B"); }
+}
 buildDevPanel();
+// 截图直达:?dev&jump=<action>&day=N[&id=..&adv=..&paste=..](无头浏览器逐幕取实机帧用)
+if (DEV) {
+  const JP = new URLSearchParams(location.search);
+  if (JP.get("shot")) { const st = document.createElement("style"); st.textContent = "#devPanel{display:none!important}"; document.head.appendChild(st); }
+  if (JP.get("jump")) setTimeout(() => devJump(JP.get("jump"), Math.max(0, parseInt(JP.get("day") || "1", 10) - 1), { id: JP.get("id"), adv: JP.get("adv"), paste: JP.get("paste") }), 500);
+}
 
 
 
