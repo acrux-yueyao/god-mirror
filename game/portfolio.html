@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GOD SHIFT — A Case Study · 神谕之镜 · 作品自述</title>
 <meta name="description" content="In an age of responsive AI, people don't only seek answers — they seek comfort, validation, and self-interpretation. A 3-minute playable demo that stages how a tool becomes something believed, then asks the question back.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="GOD SHIFT · 神谕之镜 — A Case Study by Yue Yao">
+<meta property="og:description" content="Why do we want an AI that seems to understand us? A 3-minute playable horror demo — hand-drawn, a live LLM cast as the villain, an ending that hands you the camera.">
+<meta property="og:image" content="https://god-mirror.vercel.app/art/og.jpg">
+<meta property="og:url" content="https://god-mirror.vercel.app/portfolio.html">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=Long+Cang&family=Noto+Serif+SC:wght@400;600&family=Silkscreen:wght@400;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
@@ -81,6 +87,15 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
   background:rgba(233,174,193,.55);box-shadow:0 2px 4px rgba(90,60,20,.12);z-index:3}
 .tape-c:nth-child(3n)::before{background:rgba(169,203,232,.55);transform:translateX(-50%) rotate(2.5deg)}
 .tape-c:nth-child(3n+2)::before{background:rgba(184,217,169,.6);transform:translateX(-50%) rotate(-1.5deg)}
+
+/* ── at a glance ── */
+.glance{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px}
+.gl{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 16px 14px;box-shadow:var(--shadow)}
+.glance .gl:nth-child(odd){transform:rotate(-.35deg)}
+.glance .gl:nth-child(even){transform:rotate(.35deg)}
+.gl b{display:block;font:700 9.5px 'Silkscreen',monospace;color:var(--seal);margin-bottom:8px}
+.gl p{margin:0;font:400 12.5px/1.8 'Noto Serif SC',serif;color:var(--ink2)}
+.gl p em{font-style:normal;color:var(--seal)}
 
 /* ── meta table ── */
 .meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:44px 0 0}
@@ -397,6 +412,22 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
   section.blk{padding:58px 0 18px}
   .spr{display:none}
 }
+
+/* ── print / save-as-PDF ── */
+@media print{
+  @page{margin:12mm}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-shadow:none!important;filter:none!important;text-shadow:none!important}
+  html,body{background:var(--paper)}
+  .hd,.hud-cue,.spr{display:none!important}
+  .hud{min-height:auto;padding:8mm 0 2mm}
+  .hud-spec{width:min(560px,80%)}
+  section.blk{padding:34px 0 10px}
+  .card,.fig,.chap,.tw,.stat,.lvl,.sw,.typ,.iter,.doc,.plate,.gl,.sib,.rq,.quote-pl,.phslot,.clus,.tic,.lat,.eliza,.peel{break-inside:avoid}
+  h2,.sn,.subhead{break-after:avoid}
+  .sys{overflow:visible}
+  .toc a,.cta .btns a{box-shadow:none}
+  .cta .btns a[href^="http"]::after,.ft a[href]::after{content:" — " attr(href);font:400 9px 'IBM Plex Mono',monospace;color:var(--dim)}
+}
 </style>
 </head>
 <body>
@@ -438,7 +469,7 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
   <div>
     <div class="hud-spec">
       <div class="hud-tag">SPECIMEN E-13 <i>· PLAYABLE DEMO · 2049</i></div>
-      <img class="key" src="art/title.png" alt="GOD SHIFT keyart — a caped figure standing on a giant submerged face">
+      <img class="key" src="art/p/title.jpg" alt="GOD SHIFT keyart — a caped figure standing on a giant submerged face">
       <img class="tp" src="art/tape-a.png" alt="" style="left:-34px;top:-20px;transform:rotate(-42deg)" onerror="this.remove()">
       <img class="tp" src="art/tape-b.png" alt="" style="right:-32px;top:-16px;transform:rotate(38deg)" onerror="this.remove()">
       <div class="co" style="right:-24px;top:8%"><span class="dot" style="left:-104px;top:14px"></span><span class="ln" style="right:100%;top:14px;width:98px"></span><span class="lb"><span class="e">FROM ORACLE TO MIRROR</span><span class="z">从神谕到镜子</span></span></div>
@@ -455,6 +486,19 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
 </section>
 
 <div class="wrap">
+
+  <!-- AT A GLANCE -->
+  <div class="sn" style="margin-top:34px">AT A GLANCE · <span class="e">90 SECONDS</span><span class="z">九十秒速读</span></div>
+  <div class="glance">
+    <div class="gl"><b><span class="e">WHAT</span><span class="z">是什么</span></b>
+      <p><span class="e">A 3-minute playable horror demo. The monster is an AI that always agrees — <em>“right, yeah.”</em></span><span class="z">一个 3 分钟的可玩恐怖 DEMO。怪物,是一个永远说<em>「对呀」</em>的 AI。</span></p></div>
+    <div class="gl"><b><span class="e">ASKS</span><span class="z">问什么</span></b>
+      <p><span class="e">Why do we crave an AI that <em>seems</em> to understand us — and what do we hand over once it does?</span><span class="z">我们为何渴望一个<em>「看起来懂你」</em>的 AI——渴望成立后,交出去的又是什么?</span></p></div>
+    <div class="gl"><b><span class="e">MADE</span><span class="z">做了什么</span></b>
+      <p><span class="e">A hand-drawn 2049; a live LLM cast as the villain; a scrapbook that gets tampered; an ending that opens your camera. Plus public data and 4 interviews.</span><span class="z">手绘的 2049;由真实大模型出演的反派;一本会被篡改的剪贴本;一个打开你摄像头的结局。外加公开数据与 4 份访谈。</span></p></div>
+    <div class="gl"><b><span class="e">FOUND (SO FAR)</span><span class="z">发现了什么(初步)</span></b>
+      <p><span class="e">Fieldwork so far: <em>seeing through it doesn't switch off the want</em> — and when both sides consult it, agreement escalates.</span><span class="z">田野初见:<em>看穿了,渴望也不会关掉</em>;而当争执双方都去问它,「同意」会拱火。</span></p></div>
+  </div>
 
   <!-- META -->
   <div class="meta">
@@ -881,11 +925,11 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
       </svg>
     </div>
     <div class="figrow c3">
-      <div class="fig"><img loading="lazy" src="art/film-close.png" alt="anti-mirror film peeled at one corner">
+      <div class="fig"><img loading="lazy" src="art/p/film-close.jpg" alt="anti-mirror film peeled at one corner">
         <div class="cap"><span class="fn">PLATE · THE FILM</span><span class="e">Frosted anti-mirror film covers every reflective surface — someone peeled one corner open.</span><span class="z">磨砂的防照镜膜封住所有反光面——有人撕开了一角。</span></div></div>
-      <div class="fig"><img loading="lazy" src="art/community-map.png" alt="community map">
+      <div class="fig"><img loading="lazy" src="art/p/community-map.jpg" alt="community map">
         <div class="cap"><span class="fn">PLATE · YONGFU LI</span><span class="e">The canvass map; ambient windows react to how you've been playing.</span><span class="z">走访地图;窗户里的景象随你的玩法改变。</span></div></div>
-      <div class="fig"><img loading="lazy" src="art/summon.png" alt="the sealed god-image surfacing">
+      <div class="fig"><img loading="lazy" src="art/p/summon.jpg" alt="the sealed god-image surfacing">
         <div class="cap"><span class="fn">PLATE · THE GOD-IMAGE</span><span class="e">The encounter the story builds to: a sealed old model surfacing from a blue sea — the AI god-image, kept like a criminal.</span><span class="z">故事最终抵达的相遇:封存的旧模型从蓝海中浮起——被当作罪犯关押的 AI 神像。</span></div></div>
     </div>
 
@@ -982,56 +1026,56 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
           <div class="vs"><b>VISUAL 视觉</b><span class="e">The only clean-UI screen in the game: cold ink, system mono, corporate calm. The world speaks software before the picture book takes over.</span><span class="z">全作唯一的「干净 UI」:冷墨色、系统等宽字、企业式的平静。让世界先用软件的声音说话,再交给绘本。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/handbook.png" alt="CASE notebook"></div>
+        <div class="th"><img loading="lazy" src="art/p/handbook.png" alt="CASE notebook"></div>
         <div class="tx"><div class="ct">CH·01 · <span class="e">THE DESK</span><span class="z">工作台</span></div>
           <h4><span class="e">Mornings at the Emotion Bureau</span><span class="z">情绪稽查处的早晨</span></h4>
           <div class="beat"><span class="e">Each day begins at a stationery desk: a CASE notebook to open, an attendance stamp, and a pet-like Shunyi bobbing beside them — wave at it and it waves back.</span><span class="z">每天从一张文具桌开始:翻开 CASE 案卷、盖出勤章,旁边蹲着宠物化的顺意——逗它一下,它会挥手回应。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">Bureaucratic objects redrawn as picture-book props on a decorated paper spread; hand-drawn ink borders (turbulence-filtered) keep even the stamp from being ruler-straight.</span><span class="z">官僚物件被重画成装饰跨页上的绘本道具;湍流滤镜揉过的手绘墨框,连印章都不许横平竖直。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/film-close.png" alt="anti-mirror film"></div>
+        <div class="th"><img loading="lazy" src="art/p/film-close.jpg" alt="anti-mirror film"></div>
         <div class="tx"><div class="ct">CH·02 · <span class="e">THE ELEVATOR</span><span class="z">电梯</span></div>
           <h4><span class="e">The first kind screen</span><span class="z">第一块温柔的屏幕</span></h4>
           <div class="beat"><span class="e">An auto-playing descent. Where a mirror used to hang, a screen says your name; the anti-mirror film over it has been peeled at one corner — a sliver of warped, reddened you.</span><span class="z">自动播放的下行。原来挂镜子的位置换成了屏幕,它叫得出你的名字;蒙在上面的防照镜膜被撕开一角——露出一小片变形发红的你。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">Close-up plates and slow beats; glowing screen-text against oil pastel. Ends on one line of transition — doors open, morning pours in.</span><span class="z">特写图版、慢节拍;发光的屏幕字压在油画棒底色上。以一行过渡文字收束——门开,晨光灌进来。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/community-map.png" alt="Yongfu Li map"></div>
+        <div class="th"><img loading="lazy" src="art/p/community-map.jpg" alt="Yongfu Li map"></div>
         <div class="tx"><div class="ct">CH·03 · <span class="e">YONGFU LI</span><span class="z">永福里</span></div>
           <h4><span class="e">A neighborhood as a mood ring</span><span class="z">整个社区是一枚心情戒指</span></h4>
           <div class="beat"><span class="e">A canvass map of an old block: houses open day by day, and the ambient windows between them change with your accumulated stance — shared dinners if you question, quiet rooms if you agree.</span><span class="z">老街区的走访地图:人家逐日开放,而房子之间的日常窗景随你累计的姿态变化——多追问,是拼桌吃饭;多附和,是各自安静的房间。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">Pastel town in the warm-lonely picture-book register; the map itself is the visualization of the hidden stat.</span><span class="z">粉彩小镇,温暖而孤独的绘本语气;地图本身就是那条隐藏数值的可视化。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/s1-granny.png" alt="the echo woman"></div>
+        <div class="th"><img loading="lazy" src="art/p/s1-granny.jpg" alt="the echo woman"></div>
         <div class="tx"><div class="ct">CH·04 · <span class="e">HOUSEHOLDS</span><span class="z">入户</span></div>
           <h4><span class="e">Interrogations in multi-beat scenes</span><span class="z">多拍推进的盘问</span></h4>
           <div class="beat"><span class="e">An old woman who echoes her television; a hostile watchmaker with something under red cloth; a divorced couple relearning how to talk. Every key beat forks: ✓ soothe or ? ask.</span><span class="z">跟着电视复读的老太太;红布下藏着东西、满身敌意的修表匠;正在重新学说话的离婚夫妻。每个关键拍都分叉:✓附和,或 ?追问。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">Full-bleed portrait plates like picture-book spreads; testimony types over the art; found clues pop up as taped paper slips with the object's own cut-out silhouette.</span><span class="z">满幅人物图版,像绘本对开页;证词直接打在画上;找到的线索以贴胶带的纸条弹出,物件保留手剪轮廓。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/scrapbook01.png" alt="scrapbook"></div>
+        <div class="th"><img loading="lazy" src="art/p/scrapbook01.jpg" alt="scrapbook"></div>
         <div class="tx"><div class="ct">CH·05 · <span class="e">THE SCRAPBOOK</span><span class="z">剪贴本</span></div>
           <h4><span class="e">The nightly ritual</span><span class="z">每晚的仪式</span></h4>
           <div class="beat"><span class="e">Paste each clue in by hand; Shunyi “helps” — poses, cheers, sneaks a little sticker of its own — and rewrites what you wrote. Tampered notes peel open to the original.</span><span class="z">亲手把线索一张张贴进去;顺意「帮忙」——摆姿势、欢呼、偷贴一张自己的小贴纸——同时改写你写下的话。被改的字条,撕开就是原文。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">Aged spreads, washi tape, corner stickers, two handwriting faces (Long Cang / Kiddo). Material intimacy — built to be betrayed.</span><span class="z">做旧跨页、和纸胶带、角落贴纸、两副手写字(龙藏/Kiddo)。物质性的亲密——为了被背叛而搭建。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/night.png" alt="night chat"></div>
+        <div class="th"><img loading="lazy" src="art/p/night.jpg" alt="night chat"></div>
         <div class="tx"><div class="ct">CH·06 · <span class="e">THE NIGHT CHAT</span><span class="z">夜聊</span></div>
           <h4><span class="e">Debriefing with the villain</span><span class="z">和反派复盘</span></h4>
           <div class="beat"><span class="e">Free-text conversation with the live model: it tidies your day, echoes your words, and agrees your doubts away. Header KPIs read AGREEMENT 99.97% · LATENCY 0.000s.</span><span class="z">与真实模型自由对话:它替你梳理今天、复述你的话、把你的疑点温柔地「同意」掉。抬头 KPI 写着:同意率 99.97% · LATENCY 0.000s。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">A chat app floating on a braided pastel sea; the chrome stays app-clean while the world behind it melts. Softness, swallowing.</span><span class="z">一个漂在绞辫状粉彩海上的聊天应用;界面保持产品级干净,身后的世界却在融化。温柔,正在吞咽。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/summon.png" alt="the vault"></div>
+        <div class="th"><img loading="lazy" src="art/p/summon.jpg" alt="the vault"></div>
         <div class="tx"><div class="ct">CH·07 · <span class="e">THE VAULT</span><span class="z">封存层</span></div>
           <h4><span class="e">Interrogating the old god</span><span class="z">审讯老神明</span></h4>
           <div class="beat"><span class="e">Sealed level B-2. The old model surfaces from a blue sea and answers every stamped question with something you did. A file prints — the name redacted, the handwriting recognized.</span><span class="z">封存层 B-2。旧模型从蓝海中浮起,用你做过的事回答每一个盖章问出的问题。一份文书打印出来——名字被涂黑,笔迹却被认出。</span></div>
           <div class="vs"><b>VISUAL 视觉</b><span class="e">The demo's only vast space: ink-blue ocean, question-mark plants, gold flashes, real-second holds exempt from debug speed-up. Awe replaces coziness.</span><span class="z">全作唯一的辽阔空间:墨蓝海面、问号植物、金色闪光、不随调试加速的真实秒停留。敬畏取代温馨。</span></div></div>
       </div>
       <div class="chap">
-        <div class="th"><img loading="lazy" src="art/end-a.png" alt="two endings"></div>
+        <div class="th"><img loading="lazy" src="art/p/end-a.jpg" alt="two endings"></div>
         <div class="tx"><div class="ct">CH·08 · <span class="e">TWO ENDINGS</span><span class="z">两个结局</span></div>
           <h4><span class="e">Close the case, or ask one more question</span><span class="z">结案,或再问一个问题</span></h4>
           <div class="beat"><span class="e">✓ A wall of windows lights up, every one speaking the old slogan; the report is beautiful. ? A hand-drawn mirror shatters — and through the hole, your own live webcam face.</span><span class="z">✓ 一整面窗墙亮起,每扇窗都说着那句旧标语;报告写得很漂亮。? 手绘的镜子碎裂——破洞里,是你自己实时的摄像头脸。</span></div>
@@ -1147,7 +1191,7 @@ h2 .zh2{font:600 clamp(22px,3vw,32px) 'Noto Serif SC',serif;color:var(--ink)}
         <div class="hand-e e">Malignant churn · Yongfu Li, south district.<br>41 users stopped logging in, one after another.<br>Rogue model, codename “MIRROR,” still active.<br>Assigned to Shen Wen: find it, format it.</div>
         <div class="hand-z z">永福里南区 · 恶性流失事件。<br>四十一个用户,一个接一个,不再登录。<br>失控模型,代号「镜子」,仍在活动。<br>交给沈问:找到它,格式化它。</div>
       </div>
-      <div class="fig"><img loading="lazy" src="art/duel.png" alt="question-mark plants in the interrogation">
+      <div class="fig"><img loading="lazy" src="art/p/duel.jpg" alt="question-mark plants in the interrogation">
         <div class="cap"><span class="fn">PLATE · THE QUESTION PLANTS</span><span class="e">Question marks grow as plants through the finale — in 2049, asking is flora: rare, organic, alive.</span><span class="z">终局里问号作为植物生长——在 2049,「提问」是植物:稀有、有机、活着。</span></div></div>
     </div>
   </section>
@@ -1265,8 +1309,8 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
     <div class="iters">
       <div class="iter">
         <div class="vis"><div style="display:flex;gap:16px;align-items:center">
-          <div class="mini-pol"><img src="art/film-close.png" alt=""></div>
-          <img class="mini-cut" src="art/film-close.png" alt="">
+          <div class="mini-pol"><img src="art/p/film-close.jpg" alt=""></div>
+          <img class="mini-cut" src="art/p/film-close.jpg" alt="">
         </div></div>
         <div class="cap"><div class="st kept"><span class="e">KEPT — CUTOUT SILHOUETTES</span><span class="z">保留——抠图轮廓</span></div>
           <h4><span class="e">Objects, not photos</span><span class="z">是物件,不是照片</span></h4>
@@ -1312,9 +1356,9 @@ with a soft "right?" — one syllable of doubt, never more.</span><span class="z
       <span class="z"><em>自我解释</em>是最后一个机制,它把 E-001 里打开的环收拢:十五岁的沈问当年当作「伤害」举报的那个问题——<em>「你想要什么?」</em>——是 DEMO 说出的最后一句话。两枚章:<em>✓ 结案</em>——一整面窗墙亮起,每扇窗都说着那句旧标语;或者 <em>? 再问一个问题</em>:手绘的镜子碎裂,破洞里透出玩家<em>自己实时的摄像头脸</em>——彩色,无滤镜,那个问题悬在上面。摄像头权限在一开始就请求,而不是揭晓时才要:等镜子碎裂,机器其实一直都在看。DEMO 无法告诉你关于你自己的真相;它只能把摄像头递给你。</span>
     </p>
     <div class="ends">
-      <div class="fig"><img loading="lazy" src="art/end-a.png" alt="Ending A — a wall of windows">
+      <div class="fig"><img loading="lazy" src="art/p/end-a.jpg" alt="Ending A — a wall of windows">
         <div class="cap"><span class="fn">ENDING A · <span class="e">CLOSE THE CASE</span><span class="z">结案</span></span><span class="e">Every window speaks 你说得对 — the grating register the spoken tic abandoned. On a wall it reads as what it is: a slogan.</span><span class="z">每扇窗都说「你说得对」——口癖里被弃用的那个刺耳版本。写在墙上,它显出原形:一句标语。</span></div></div>
-      <div class="fig"><img loading="lazy" src="art/end-b.png" alt="Ending B — the mirror">
+      <div class="fig"><img loading="lazy" src="art/p/end-b.jpg" alt="Ending B — the mirror">
         <div class="cap"><span class="fn">ENDING B · <span class="e">ONE MORE QUESTION</span><span class="z">再问一个问题</span></span><span class="e">The mirror breaks into your webcam. Permission denied? The mirror stays dark — a quieter ending that still lands.</span><span class="z">镜子碎进你的摄像头。权限被拒?镜子保持黑暗——一个更安静、但依然成立的结局。</span></div></div>
     </div>
     <div class="ins">
