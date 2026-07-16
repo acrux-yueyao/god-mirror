@@ -4,12 +4,12 @@
 
 const LEVEL = 0.16;               // 总闸(再乘各情绪电平,整体保持很轻)
 const MOODS = {
-  prologue: { chord: [110.0, 164.8],            fc: 520,  lv: .30, pluck: null },
-  day:      { chord: [146.8, 220.0, 370.0],     fc: 980,  lv: .34, pluck: { notes: [587.3, 659.3, 740.0, 880.0, 987.8], gapMin: 2200, gapMax: 5600, oct: 1 } },
-  night:    { chord: [123.5, 185.0, 293.7],     fc: 640,  lv: .30, pluck: { notes: [493.9, 587.3, 740.0], gapMin: 6000, gapMax: 12000, oct: 1 } },
-  vault:    { chord: [82.4, 123.5, 164.8],      fc: 380,  lv: .38, pluck: { notes: [220.0, 246.9], gapMin: 8000, gapMax: 15000, oct: 1, bell: true } },
-  endA:     { chord: [146.8, 220.0, 293.7],     fc: 760,  lv: .32, pluck: { notes: [880.0, 740.0, 587.3], gapMin: 3800, gapMax: 4200, oct: 1, seq: true } },
-  mirror:   { chord: [220.0],                   fc: 300,  lv: .06, pluck: null }
+  prologue: { chord: [164.8, 246.9],            fc: 620,  lv: .22, pluck: null },
+  day:      { chord: [220.0, 293.7, 370.0],     fc: 1100, lv: .26, pluck: { notes: [587.3, 659.3, 740.0, 880.0, 987.8], gapMin: 2200, gapMax: 5600, oct: 1 } },
+  night:    { chord: [185.0, 246.9, 370.0],     fc: 760,  lv: .22, pluck: { notes: [493.9, 587.3, 740.0], gapMin: 6000, gapMax: 12000, oct: 1 } },
+  vault:    { chord: [110.0, 164.8, 246.9],     fc: 480,  lv: .30, pluck: { notes: [220.0, 246.9], gapMin: 8000, gapMax: 15000, oct: 1, bell: true } },
+  endA:     { chord: [220.0, 293.7, 440.0],     fc: 860,  lv: .24, pluck: { notes: [880.0, 740.0, 587.3], gapMin: 3800, gapMax: 4200, oct: 1, seq: true } },
+  mirror:   { chord: [329.6],                   fc: 420,  lv: .05, pluck: null }
 };
 
 export const MUSIC = {
@@ -20,7 +20,8 @@ export const MUSIC = {
     this.ctx = ctx;
     this.master = ctx.createGain();
     this.master.gain.value = this.muted ? 0 : LEVEL;
-    this.master.connect(ctx.destination);
+    const hp = ctx.createBiquadFilter(); hp.type = "highpass"; hp.frequency.value = 100; hp.Q.value = 0.5;
+    this.master.connect(hp); hp.connect(ctx.destination);
     try { this.muted = localStorage.getItem("sm-mute") === "1"; } catch (e) {}
     this.master.gain.value = this.muted ? 0 : LEVEL;
   },
@@ -45,8 +46,8 @@ export const MUSIC = {
       const o1 = ctx.createOscillator(); o1.type = "sine"; o1.frequency.value = f;
       const g1 = ctx.createGain(); g1.gain.value = 1 / m.chord.length;
       o1.connect(g1); g1.connect(gain); o1.start(); oscs.push(o1);
-      const o2 = ctx.createOscillator(); o2.type = "triangle"; o2.frequency.value = f * 1.003;
-      const g2 = ctx.createGain(); g2.gain.value = 0.35 / m.chord.length;
+      const o2 = ctx.createOscillator(); o2.type = "triangle"; o2.frequency.value = f * 1.0015;
+      const g2 = ctx.createGain(); g2.gain.value = 0.20 / m.chord.length;
       o2.connect(g2); g2.connect(gain); o2.start(); oscs.push(o2);
     });
     const lfo = ctx.createOscillator(); lfo.frequency.value = 0.07;

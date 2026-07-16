@@ -2,7 +2,7 @@
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
 import { SCRIPT } from "./script.js?v=50";
-import { MUSIC } from "./music.js?v=1";
+import { MUSIC } from "./music.js?v=2";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
