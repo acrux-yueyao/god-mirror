@@ -2,6 +2,7 @@
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
 import { SCRIPT } from "./script.js?v=50";
+import { MUSIC } from "./music.js?v=1";
 
 const $ = id => document.getElementById(id);
 function setImg(id, name) { const el = $(id); if (!el) return; el.style.display = "none"; el.onload = () => el.style.display = "block"; el.onerror = () => el.style.display = "none"; el.src = "art/" + name + ".png"; }
@@ -58,7 +59,7 @@ addEventListener("resize", fit); fit();
 
 /* ── mini audio ───────────────────────────────────────────────── */
 let actx = null;
-function au() { if (!actx) { const A = window.AudioContext || window.webkitAudioContext; if (A) actx = new A(); } if (actx && actx.state === "suspended") actx.resume(); return actx; }
+function au() { if (!actx) { const A = window.AudioContext || window.webkitAudioContext; if (A) actx = new A(); } if (actx && actx.state === "suspended") actx.resume(); MUSIC.init(actx); return actx; }
 function tone(f0, f1, peak, dur, type = "sine") {
   const c = au(); if (!c) return; const t = c.currentTime;
   const o = c.createOscillator(); o.type = type;
@@ -83,6 +84,7 @@ function setLatency(half) {
 }
 async function halfSecond() {
   const hb = $("halfBeat");
+  MUSIC.duck(500);   // 0.5 秒母题:音乐也屏住呼吸
   setLatency(true);
   hb.classList.add("on");
   await new Promise(r => setTimeout(r, 500));   // 真实半秒,不随 dev 加速——这是要被"感到"的
@@ -265,6 +267,7 @@ function showIntro() {
 
 /* ══ 稽查工作台 ════════════════════════════════════════════════ */
 function startDay(i) {
+  MUSIC.setMood("day");
   state.dayIdx = i;
   state.askUsedTonight = false;
   saveGame();   // 每天开头自动归档
@@ -864,6 +867,7 @@ function meLine(text) { const el = document.createElement("div"); el.className =
 
 let wheelResolve = null, inputResolve = null;
 async function startNight() {
+  MUSIC.setMood("night");
   const d = T.days[state.dayIdx];
   show("scrNight");
   $("nLog").innerHTML = ""; $("nWheel").innerHTML = ""; $("nInput").value = "";
@@ -979,6 +983,7 @@ $("sleepBtn").addEventListener("click", () => {
 
 /* ══ 终局(四层底) ════════════════════════════════════════════ */
 async function startFinale() {
+  MUSIC.setMood("vault");
   await trans(T.ui.transVault, 1500);
   show("scrFinale");
   $("fLog").innerHTML = "";
@@ -1125,6 +1130,7 @@ async function revealCamera() {
   return true;
 }
 async function ending(key) {
+  MUSIC.setMood(key === "A" ? "endA" : "mirror");
   const e = T.endings[key];
   await trans(key === "A" ? "✓" : "?", 1500);
   show("scrEnd");
@@ -1213,8 +1219,10 @@ try { saved = localStorage.getItem("sm-lang") || "zh"; } catch (e) {}
 setLang(saved);
 refreshMenu();
 
-$("startBtn").addEventListener("click", async () => { au(); preRequestCamera(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} show("scrBoot"); await showPrologue(); boot(); });
-$("continueBtn").addEventListener("click", () => { au(); preRequestCamera(); if (hasSave()) loadGame(); });
+$("startBtn").addEventListener("click", async () => { au(); preRequestCamera(); try { localStorage.removeItem(SAVE_KEY); } catch (e) {} MUSIC.setMood("prologue"); show("scrBoot"); await showPrologue(); boot(); });
+$("continueBtn").addEventListener("click", () => { au(); preRequestCamera(); MUSIC.setMood("prologue"); if (hasSave()) loadGame(); });
+$("muteBtn").addEventListener("click", () => { au(); $("muteBtn").classList.toggle("off", MUSIC.toggle()); });
+try { if (localStorage.getItem("sm-mute") === "1") { MUSIC.muted = true; $("muteBtn").classList.add("off"); } } catch (e) {}
 
 /* ══ DEV 调试跳转面板(仅 ?dev,玩家看不到)═══════════════════════
    在网址后加 ?dev 即可,例如  …/game/?dev  。一键跳到任意环节,免得每次从头跑。 */

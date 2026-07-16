@@ -421,3 +421,8 @@ html,body{margin:0;height:100%;background:#111;overflow:hidden;font-family:'IBM 
 #endLocked{display:flex;gap:10px}
 #endLocked .btn{opacity:.35;pointer-events:none;font-family:'Noto Serif SC',serif}
 #endTag{font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:#b5432f;margin-top:10px;min-height:16px}
+
+/* 音景开关 */
+#muteBtn{position:absolute;right:14px;bottom:10px;z-index:60;font:600 13px 'IBM Plex Mono',monospace;color:rgba(216,222,240,.4);cursor:pointer;padding:4px 8px;user-select:none}
+#muteBtn:hover{color:rgba(216,222,240,.8)}
+#muteBtn.off{color:rgba(216,222,240,.22);text-decoration:line-through}
