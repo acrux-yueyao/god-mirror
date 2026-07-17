@@ -441,11 +441,13 @@ function openScene(sc, card) {
   curScene = sc; curCard = card;
   show("scrScene");
   $("sceneBack").style.display = sc._intro ? "none" : "";   // 出勤过场不给返回
-  $("scenePhTxt").textContent = T.ui.phScene + " · " + sc.id;
+  const ph = $("scenePhTxt");
+  ph.textContent = T.ui.phScene + " · " + sc.id;
+  ph.style.display = "none";   // 默认藏起——真图在就别让占位文字盖在图上(只有真缺图时才露)
   const art = $("sceneArt");   // 有 art/<场景id>.png 就显示,没有回退占位
   art.style.display = "none"; art.style.opacity = "0";
-  art.onload = () => { art.style.display = "block"; requestAnimationFrame(() => { art.style.opacity = "1"; }); };   // 预载命中时几乎即时,并带一次轻淡入
-  art.onerror = () => { art.style.display = "none"; };
+  art.onload = () => { art.style.display = "block"; ph.style.display = "none"; requestAnimationFrame(() => { art.style.opacity = "1"; }); };   // 预载命中时几乎即时,并带一次轻淡入
+  art.onerror = () => { art.style.display = "none"; ph.style.display = "grid"; };   // 只有图真的缺失时才显示占位
   art.src = "art/" + sc.id + ".png";
   $("sceneTitle").textContent = sc.title;
   $("sceneAnchor").textContent = sc.anchor || "";
