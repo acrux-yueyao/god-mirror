@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=51";
+import { SCRIPT } from "./script.js?v=52";
 import { MUSIC } from "./music.js?v=3";
 
 const $ = id => document.getElementById(id);
@@ -913,12 +913,15 @@ function freeInput() { return new Promise(res => { inputResolve = res; $("nInput
 const LAONING_RE = /老宁|修表|表匠|钟表|表铺|watchmaker|watch\s?-?\s?(shop|mender|maker)/i;
 function freeChat(cfg) {
   cfg = cfg || {};
-  const steerFrom = cfg.steerFrom || 5, cap = cfg.cap || 10;
+  const steerFrom = cfg.steerFrom || 5, cap = cfg.cap || 10, exitFrom = cfg.exitFrom || 3;
   return new Promise(async (resolve) => {
-    let round = 0;
+    let round = 0, laoningRaised = false;
     const host = $("nWheel");
     const ph0 = $("nInput").placeholder;
     $("nInput").placeholder = T.ui.chatPh || ph0;
+    const wrapUp = async () => {   // 收尾:若还没把话点到老宁,补一句剧本台词,再交给外面的指认轮盘
+      if (!laoningRaised && cfg.accuse) { await wait(400); sfx.soothe(); await sLine(echoize(cfg.accuse)); }
+    };
     while (true) {
       round++;
       state.chatRound = round;   // nightCtx 会把它作为 turn 传给 API,用来分阶段(第5句才引导)
@@ -932,13 +935,22 @@ function freeChat(cfg) {
           host.appendChild(b);
         });
       }
-      const reply = await new Promise(res => { inputResolve = rep => res(rep); $("nInput").focus(); });
+      const outcome = await new Promise(res => {
+        let settled = false;
+        inputResolve = rep => { if (!settled) { settled = true; res({ t: "sent", reply: rep }); } };
+        if (round >= exitFrom) {   // 聊过几句后,一直给一个低调的出口:困了/不想说了就能收尾去睡,不必卡到十轮
+          const ex = document.createElement("button");
+          ex.className = "btn nightExit";
+          ex.textContent = T.ui.nightExit;
+          ex.addEventListener("click", () => { if (settled || $("nInput").disabled) return; settled = true; inputResolve = null; res({ t: "exit" }); });
+          host.appendChild(ex);
+        }
+        $("nInput").focus();
+      });
       host.innerHTML = "";
-      if (round >= steerFrom && LAONING_RE.test(reply || "")) break;        // 顺意自己把话引到老宁了 → 收束,出轮盘
-      if (round >= cap) {                                                   // 兜底:聊太久还没带到 → 用剧本这句把话题点到
-        if (cfg.accuse) { await wait(500); sfx.soothe(); await sLine(echoize(cfg.accuse)); }
-        break;
-      }
+      if (outcome.t === "exit") { await wrapUp(); break; }                  // 玩家主动收尾 → 点到老宁 → 出轮盘
+      if (round >= steerFrom && LAONING_RE.test(outcome.reply || "")) { laoningRaised = true; break; }   // 顺意自己带到老宁 → 出轮盘
+      if (round >= cap) { await wrapUp(); break; }                          // 兜底:聊太久还没带到 → 剧本台词点题
     }
     state.chatRound = 0;
     $("nInput").placeholder = ph0;

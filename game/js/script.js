@@ -32,6 +32,7 @@ export const SCRIPT = {
     typing: B("对方正在输入", "TYPING"),
     nInputPh: B("向顺意汇报…", "Report to Shunyi…"),
     chatPh: B("和顺意说说今天……", "Tell Shunyi about your day…"),
+    nightExit: B("……困了,今天先到这", "…tired. let's leave it here"),
     optimized: B("已为您优化语气。", "Tone optimized for you."),
     rate: B("同意率 99.97%", "AGREEMENT 99.97%"),
     fHead: B("封存层 B-2 · 隔离审讯", "VAULT B-2 · ISOLATION INTERROGATION"),
