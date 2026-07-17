@@ -890,6 +890,7 @@ async function startNight() {
   const d = T.days[state.dayIdx];
   show("scrNight");
   $("nLog").innerHTML = ""; $("nWheel").innerHTML = ""; $("nInput").value = "";
+  $("nInput").disabled = true;   // 默认禁用:只有 freeChat 真正等你输入时才开;轮盘/道晚安/夜聊结束一律不可发,免得打字石沉大海
   state.nightTurns = [];   // 今晚与顺意的对话历史(喂给 API,让它顺着聊)
   $("nInput").placeholder = T.ui.nInputPh;
   setLatency(false);
@@ -906,7 +907,7 @@ async function startNight() {
   state.nightBusy = false;
   $("sleepBtn").classList.add("on");
 }
-function freeInput() { return new Promise(res => { inputResolve = res; $("nInput").focus(); }); }
+function freeInput() { return new Promise(res => { inputResolve = res; $("nInput").disabled = false; $("nInput").focus(); }); }
 // 开放式夜聊:和顺意真调 API 一轮轮聊。前几句只倾听安抚(cfg.steerFrom,默认第5句),之后顺意慢慢把话头引向老宁。
 // 结束不靠按钮——等顺意自己把"老宁/修表匠"这个话题带出来(检测其回复),才收束、放出指认轮盘;
 // 万一它一直不往那带(或 API 罢工回退了),聊到 cap 轮就由 cfg.accuse 这句台词兜底把话题点到,再出轮盘。
@@ -945,19 +946,22 @@ function freeChat(cfg) {
           ex.addEventListener("click", () => { if (settled || $("nInput").disabled) return; settled = true; inputResolve = null; res({ t: "exit" }); });
           host.appendChild(ex);
         }
-        $("nInput").focus();
+        $("nInput").disabled = false; $("nInput").focus();   // 轮到玩家开口:启用输入
       });
+      $("nInput").disabled = true;   // 玩家已发/已退出:立刻禁用,等这一轮处理完再说
       host.innerHTML = "";
       if (outcome.t === "exit") { await wrapUp(); break; }                  // 玩家主动收尾 → 点到老宁 → 出轮盘
       if (round >= steerFrom && LAONING_RE.test(outcome.reply || "")) { laoningRaised = true; break; }   // 顺意自己带到老宁 → 出轮盘
       if (round >= cap) { await wrapUp(); break; }                          // 兜底:聊太久还没带到 → 剧本台词点题
     }
     state.chatRound = 0;
+    $("nInput").disabled = true;   // 夜聊自由段结束:轮盘/道晚安期间输入框保持禁用
     $("nInput").placeholder = ph0;
     resolve();
   });
 }
 function doSend() {
+  if ($("nInput").disabled) return;   // 禁用期间(轮盘/道晚安/夜聊结束)即便点了 ◆ 也不处理,消息不会石沉大海
   const raw = $("nInput").value.trim();
   if (!raw) return;
   const cleaned = raw.replace(/[?？]/g, LANG === "zh" ? "。" : ".");
@@ -975,7 +979,7 @@ function doSend() {
         const reply = await askOracle(cleaned);
         (state.nightTurns || (state.nightTurns = [])).push({ role: "user", content: cleaned }, { role: "assistant", content: reply });
         sfx.soothe(); await sLine(reply);
-        $("nInput").disabled = false; await wait(300); r(reply);   // 把顺意这句回复传回夜聊循环,用于判断"老宁话题是否已出现"
+        await wait(300); r(reply);   // 启停交给 freeChat 逐轮控制;这里不再擅自重新启用输入。把顺意这句回复传回循环判断"老宁话题是否已出现"
       })();
       return;
     }
