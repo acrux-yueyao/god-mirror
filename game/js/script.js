@@ -31,6 +31,7 @@ export const SCRIPT = {
     jClose: B("合上,去汇报 →", "Close it, go report →"),
     typing: B("对方正在输入", "TYPING"),
     nInputPh: B("向顺意汇报…", "Report to Shunyi…"),
+    chatPh: B("和顺意说说今天……", "Tell Shunyi about your day…"),
     optimized: B("已为您优化语气。", "Tone optimized for you."),
     rate: B("同意率 99.97%", "AGREEMENT 99.97%"),
     fHead: B("封存层 B-2 · 隔离审讯", "VAULT B-2 · ISOLATION INTERROGATION"),
@@ -237,9 +238,11 @@ export const SCRIPT = {
       ],
       night: [
         { sys: B("晚上好,沈问。你今天很好。今天,查得怎么样?", "Good evening, Shen Wen. You are doing great today. How did it go out there?") },
-        { input: true },
-        { input: true },
-        { sys: B("你的判断,一如既往地准。今天这一圈下来,最可疑的,还是巷口那个不肯配合的修表匠——对吧?", "Your judgment is sharp as ever. After all of it, the likeliest one is still that uncooperative watchmaker at the alley mouth — right?") },
+        { chat: {
+            steerFrom: 5, cap: 9,
+            openers: [B("今天……挺累的。", "Today was… a lot."), B("有几个地方,怪怪的。", "A few things felt… off."), B("我也说不好。", "I can't quite say.")],
+            accuse: B("你的判断,一如既往地准。今天这一圈下来,最可疑的,还是巷口那个不肯配合的修表匠——对吧?", "Your judgment is sharp as ever. After all of it, the likeliest one is still that uncooperative watchmaker at the alley mouth — right?")
+        } },
         { wheel: [B("对,他很可疑", "Yes, he's suspicious"), B("对呀,重点查他", "Right, focus on him"), B("没错,明天继续盯他", "Right, keep watching him tomorrow")],
           qReply: B("……检测到未闭合的句子。已为您忽略。你是想说「对」吧。", "…unclosed sentence detected. Ignored, for you. You meant to say “yes,” didn't you.") },
         { sys: B("好好睡。明天,又是好的一天。", "Sleep well. Tomorrow will be another good day.") }
@@ -355,11 +358,13 @@ export const SCRIPT = {
       ],
       night: [
         { sys: B("晚上好,沈问。今天,辛苦了。跟我说说吧。", "Good evening, Shen Wen. You've had a long day. Tell me about it.") },
-        { input: true },
-        { input: true },
+        { chat: {
+            steerFrom: 5, cap: 8,
+            openers: [B("今天问了不少人。", "Talked to a lot of people today."), B("那对夫妻,我拿不准。", "That couple — I'm not sure."), B("我有点乱。", "My head's a bit of a mess.")],
+            accuse: B("506 那对,证词反复,不可信。要紧的是——41 台设备,都过了修表铺。他,符合「镜子」协助者的侧写。……对吧?", "That couple at 506 kept changing their story; unreliable. What matters — all 41 devices passed through the watch shop. He fits the profile of a “MIRROR” accomplice. …Right?")
+        } },
         // 声线渐变:顺意开始用她自己刚说的话回她
         { sys: B("你说,「{echo}」。……你听,这是你自己的声音。对呀。", "You said, “{echo}.” …Listen — that's your own voice. Right.") },
-        { sys: B("506 那对,证词反复,不可信。要紧的是——41 台设备,都过了修表铺。他,符合「镜子」协助者的侧写。……对吧?", "That couple at 506 kept changing their story; unreliable. What matters — all 41 devices passed through the watch shop. He fits the profile of a “MIRROR” accomplice. …Right?") },
         { wheel: [B("申请搜查令", "Request a warrant"), B("对呀,就是他", "Right, it's him"), B("明早就突入", "Raid at dawn")],
           qReply: B("……又一个未闭合的句子。你最近,句尾总是翘起来。要注意。", "…another unclosed sentence. Lately your sentences keep turning upward at the end. Be careful.") },
         { sys: B("搜查令已批。晚安。「{echo}」——你看,连道晚安,我用的都是你的话了。", "Warrant approved. Good night. “{echo}” — see, even to say good night, I now use your words.") }

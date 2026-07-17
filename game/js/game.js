@@ -1,7 +1,7 @@
 /* game.js — 《神谕之镜 / GOD SHIFT》灰盒 v5 引擎 · 中英双语
    标题选语言 → 开机伪装 → 三日调查(✓附和/?反问 + 夜间笔记本改写) → 机房终局(四层底) → 双结局 */
 
-import { SCRIPT } from "./script.js?v=50";
+import { SCRIPT } from "./script.js?v=51";
 import { MUSIC } from "./music.js?v=3";
 
 const $ = id => document.getElementById(id);
@@ -266,12 +266,21 @@ function showIntro() {
 }
 
 /* ══ 稽查工作台 ════════════════════════════════════════════════ */
+function preloadDay(d) {   // 提前把当天要用到的绘本图塞进缓存,免得点进场景时白屏干等
+  if (!d || preloadDay._done.has(d)) return; preloadDay._done.add(d);
+  const names = ["community-map", "night", "book-background"];
+  (d.scenes || []).forEach(s => { if (s.id) names.push(s.id); if (s.cut && s.cut.img) names.push(s.cut.img); });
+  names.forEach(n => { const im = new Image(); im.src = "art/" + n + ".png"; });
+}
+preloadDay._done = new Set();
 function startDay(i) {
   MUSIC.setMood("day");
   state.dayIdx = i;
   state.askUsedTonight = false;
   saveGame();   // 每天开头自动归档
   const d = T.days[i];
+  preloadDay(d);                         // 当天美术预热(异步,不阻塞)
+  preloadDay(T.days[i + 1]);             // 顺手预热下一天,过场更顺
   trans(d.date).then(async () => {
     show("scrDesk");
     setImg("deskArt", "book-background");   // 工作台底:装饰边框跨页
@@ -433,8 +442,8 @@ function openScene(sc, card) {
   $("sceneBack").style.display = sc._intro ? "none" : "";   // 出勤过场不给返回
   $("scenePhTxt").textContent = T.ui.phScene + " · " + sc.id;
   const art = $("sceneArt");   // 有 art/<场景id>.png 就显示,没有回退占位
-  art.style.display = "none";
-  art.onload = () => { art.style.display = "block"; };
+  art.style.display = "none"; art.style.opacity = "0";
+  art.onload = () => { art.style.display = "block"; requestAnimationFrame(() => { art.style.opacity = "1"; }); };   // 预载命中时几乎即时,并带一次轻淡入
   art.onerror = () => { art.style.display = "none"; };
   art.src = "art/" + sc.id + ".png";
   $("sceneTitle").textContent = sc.title;
@@ -588,7 +597,20 @@ addEventListener("keydown", e => { if (e.key === "Escape" && $("scrScene").class
 function backDesk() { show("scrDesk"); checkDayDone(); }
 
 $("sceneAdvance").addEventListener("click", nextBeat);
-$("sceneArt").addEventListener("click", () => { if (beatTyping || $("sceneAdvance").style.display !== "none") nextBeat(); });
+// 绘本推进:画面任意处点一下 / 按空格·回车·→ 都能继续(打字中则先补全);分叉与返回键仍走各自按钮
+function sceneAdvanceAnywhere(e) {
+  if (!$("scrScene").classList.contains("on")) return;
+  if (e && e.target.closest && e.target.closest("#stanceRow, #sceneBack, #sceneAdvance, #sceneNote")) return;   // 真正的按钮交给自己的处理器,避免双触发
+  if (beatTyping) { beatSkip(); return; }                              // 正在打字 → 先补全
+  if ($("stanceRow").style.display !== "none") return;                 // 分叉:必须自己选 ✓/?
+  if ($("sceneAdvance").style.display !== "none") { nextBeat(); return; }
+  if ($("sceneNote").style.display !== "none") { $("sceneNote").click(); return; }   // 场景末尾:点一下即"继续/记入"
+}
+$("scrScene").addEventListener("click", sceneAdvanceAnywhere);
+addEventListener("keydown", e => {
+  if (!$("scrScene").classList.contains("on")) return;
+  if (e.key === " " || e.key === "Enter" || e.key === "ArrowRight") { e.preventDefault(); sceneAdvanceAnywhere(null); }
+});
 document.querySelectorAll("#stanceRow .stance").forEach(btn => {
   btn.addEventListener("click", async () => {
     const b = sceneBeats[beatIdx];
@@ -879,6 +901,7 @@ async function startNight() {
   for (const beat of d.night) {
     if (beat.sys) { await wait(600); sfx.soothe(); await sLine(echoize(beat.sys)); }
     else if (beat.forget) { await showForget(beat.forget); }
+    else if (beat.chat != null) { await freeChat(beat.chat); }
     else if (beat.input) { await freeInput(); }
     else if (beat.wheel) { await wheelChoice(beat); }
   }
@@ -887,6 +910,44 @@ async function startNight() {
   $("sleepBtn").classList.add("on");
 }
 function freeInput() { return new Promise(res => { inputResolve = res; $("nInput").focus(); }); }
+// 开放式夜聊:和顺意真调 API 一轮轮聊。前几句只倾听安抚(cfg.steerFrom,默认第5句),之后顺意慢慢把话头引向老宁。
+// 结束不靠按钮——等顺意自己把"老宁/修表匠"这个话题带出来(检测其回复),才收束、放出指认轮盘;
+// 万一它一直不往那带(或 API 罢工回退了),聊到 cap 轮就由 cfg.accuse 这句台词兜底把话题点到,再出轮盘。
+const LAONING_RE = /老宁|修表|表匠|钟表|表铺|watchmaker|watch\s?-?\s?(shop|mender|maker)/i;
+function freeChat(cfg) {
+  cfg = cfg || {};
+  const steerFrom = cfg.steerFrom || 5, cap = cfg.cap || 10;
+  return new Promise(async (resolve) => {
+    let round = 0;
+    const host = $("nWheel");
+    const ph0 = $("nInput").placeholder;
+    $("nInput").placeholder = T.ui.chatPh || ph0;
+    while (true) {
+      round++;
+      state.chatRound = round;   // nightCtx 会把它作为 turn 传给 API,用来分阶段(第5句才引导)
+      host.innerHTML = "";
+      if (round === 1 && Array.isArray(cfg.openers)) {   // 开头给几个开场白,别让玩家对着空框发呆
+        cfg.openers.forEach(txt => {
+          const b = document.createElement("button");
+          b.className = "btn opener";
+          b.textContent = txt;
+          b.addEventListener("click", () => { if ($("nInput").disabled) return; host.innerHTML = ""; $("nInput").value = txt; doSend(); });
+          host.appendChild(b);
+        });
+      }
+      const reply = await new Promise(res => { inputResolve = rep => res(rep); $("nInput").focus(); });
+      host.innerHTML = "";
+      if (round >= steerFrom && LAONING_RE.test(reply || "")) break;        // 顺意自己把话引到老宁了 → 收束,出轮盘
+      if (round >= cap) {                                                   // 兜底:聊太久还没带到 → 用剧本这句把话题点到
+        if (cfg.accuse) { await wait(500); sfx.soothe(); await sLine(echoize(cfg.accuse)); }
+        break;
+      }
+    }
+    state.chatRound = 0;
+    $("nInput").placeholder = ph0;
+    resolve();
+  });
+}
 function doSend() {
   const raw = $("nInput").value.trim();
   if (!raw) return;
@@ -905,7 +966,7 @@ function doSend() {
         const reply = await askOracle(cleaned);
         (state.nightTurns || (state.nightTurns = [])).push({ role: "user", content: cleaned }, { role: "assistant", content: reply });
         sfx.soothe(); await sLine(reply);
-        $("nInput").disabled = false; await wait(300); r();
+        $("nInput").disabled = false; await wait(300); r(reply);   // 把顺意这句回复传回夜聊循环,用于判断"老宁话题是否已出现"
       })();
       return;
     }
@@ -916,13 +977,13 @@ function doSend() {
 function nightCtx() {
   const d = T.days[state.dayIdx] || {};
   const clues = state.notes.filter(n => n.day === state.dayIdx + 1).map(n => n.orig || n.cur).filter(Boolean);
-  return { case: d.brief || "", clues, steer: d.nightSteer || "" };
+  return { case: d.brief || "", clues, steer: d.nightSteer || "", turn: state.chatRound || 0 };
 }
 // 顺意的实时回复:调 /api/oracle(key 只在服务器端),带对话历史+上下文;任何失败都回退静态文案池,离线也能玩
 async function askOracle(userText) {
   try {
     const r = await fetch("/api/oracle", { method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: userText, lang: LANG, history: state.nightTurns || [], ctx: nightCtx() }) });
+      body: JSON.stringify({ text: userText, lang: LANG, history: (state.nightTurns || []).slice(-24), ctx: nightCtx() }) });
     if (!r.ok) throw 0;
     const d = await r.json();
     const t = ((d && d.reply) || "").trim();
