@@ -52,10 +52,16 @@ function applyStaticUI() {
 }
 
 function fit() {
-  const s = Math.min(innerWidth / 1180, innerHeight / 760);
+  const w = innerWidth || document.documentElement.clientWidth || 0;
+  const h = innerHeight || document.documentElement.clientHeight || 0;
+  if (!w || !h) return;   // 尺寸还没准备好(重载瞬间可能 0×0)——别把舞台缩成 0,等下一拍再来
+  const s = Math.min(w / 1180, h / 760);
   $("stage").style.transform = "translate(-50%,-50%) scale(" + s + ")";
 }
-addEventListener("resize", fit); fit();
+addEventListener("resize", fit);
+addEventListener("load", fit);                                   // 重载后布局稳了再校一次,治首屏错位
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+fit();
 
 /* ── mini audio ───────────────────────────────────────────────── */
 let actx = null;
@@ -440,6 +446,7 @@ function playIntroScene(sc) { return new Promise(res => { introResolve = res; op
 function openScene(sc, card) {
   curScene = sc; curCard = card;
   show("scrScene");
+  if (document.activeElement && document.activeElement.blur) document.activeElement.blur();   // 清掉上个按钮的焦点,免得空格/回车误触发它、也让键盘推进更稳
   $("sceneBack").style.display = sc._intro ? "none" : "";   // 出勤过场不给返回
   const ph = $("scenePhTxt");
   ph.textContent = T.ui.phScene + " · " + sc.id;
@@ -1240,7 +1247,15 @@ async function ending(key) {
     await typeInto(pc, T.ui.postCreditPrefix + e.postCredit, 26);
     await wait(400);
     const lk = $("endLocked"); lk.style.display = "flex";
-    e.locked.forEach(t => { const b = document.createElement("button"); b.className = "btn"; b.textContent = t; lk.appendChild(b); });
+    e.locked.forEach(t => {
+      const b = document.createElement("button"); b.className = "btn"; b.textContent = t;
+      b.addEventListener("click", () => {   // 给个"按下即确认"的反馈——虽然三个都是「对呀」,选哪个都一样(这正是主题)
+        if (lk.dataset.picked) return; lk.dataset.picked = "1";
+        sfx.soothe(); b.classList.add("self");
+        lk.querySelectorAll(".btn").forEach(x => { if (x !== b) x.style.opacity = ".35"; x.style.pointerEvents = "none"; });
+      });
+      lk.appendChild(b);
+    });
   } else {
     const hint = document.createElement("div"); hint.style.cssText = "font:400 10px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:rgba(201,164,74,.5)";
     hint.textContent = e.inputHint;
