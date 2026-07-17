@@ -277,6 +277,7 @@ function startDay(i) {
   MUSIC.setMood("day");
   state.dayIdx = i;
   state.askUsedTonight = false;
+  state.transitioned = false;   // 每天重置:入夜/进终局只触发一次,防连点重复触发
   saveGame();   // 每天开头自动归档
   const d = T.days[i];
   preloadDay(d);                         // 当天美术预热(异步,不阻塞)
@@ -522,20 +523,13 @@ function openCommunityDay(keep) {
   // 可进入的人家 = 当天的社区场景。优先渲染「房子抠图」(悬停微放大),没有抠图则回退小圆点。
   dayCommunity.forEach(sc => {
     const visited = commVisited.has(sc.id);
-    const tagAt = (x, y) => {   // 明确的「进屋 / 已查」标牌,让房子看得出能点
-      const tag = document.createElement("div");
-      tag.className = "houseTag" + (visited ? " done" : "");
-      tag.style.left = x + "%"; tag.style.top = y + "%";
-      tag.textContent = visited ? T.ui.houseVisited : T.ui.houseEnter;
-      host.appendChild(tag);
-    };
     const dotFallback = () => {
       const dot = document.createElement("div");
       dot.className = "hotspot enter" + (visited ? " visited" : "");
       const x = sc.x != null ? sc.x : 50, y = sc.y != null ? sc.y : 50;
       dot.style.left = x + "%"; dot.style.top = y + "%";
       dot.addEventListener("click", () => enterHouse(sc));
-      host.appendChild(dot); tagAt(x, y - 6);
+      host.appendChild(dot);
     };
     if (sc.cut) {
       const c = sc.cut;
@@ -553,7 +547,6 @@ function openCommunityDay(keep) {
       im.onerror = () => { im.remove(); hit.remove(); dotFallback(); };  // 抠图未上传 → 回退圆点
       im.src = "art/" + c.img + ".png";
       host.appendChild(im); host.appendChild(hit);
-      tagAt(c.cx, c.cy - c.h / 2 + 2);   // 标牌落在房子上方
     } else dotFallback();
   });
   // 看一眼的窗 = 社区氛围;每天一套(一天比一天更空),第一天沿用 communityMap.ambient
@@ -640,6 +633,8 @@ function checkDayDone() {
   const d = T.days[state.dayIdx];
   const directDone = d.scenes.filter(s => s.loc !== "community" && !s.intro).every(sc => { const c = document.querySelector('.sceneCard[data-id="' + sc.id + '"]'); return c && c.classList.contains("done"); });
   if (directDone && commDone) {
+    if (state.transitioned) return;       // 连点保护:今天的入夜/终局已经触发过,别再触发第二次
+    state.transitioned = true;
     if (d.night) { enterNight(); }        // 探索完直接回家整理→夜聊,不再落在空 desk 页上等点击
     else { startFinale(); }
   }
@@ -1044,6 +1039,8 @@ $("sleepBtn").addEventListener("click", () => {
 
 /* ══ 终局(四层底) ════════════════════════════════════════════ */
 async function startFinale() {
+  if (state.finaleStarted) return;   // 防重入:连点也只跑一次终局
+  state.finaleStarted = true;
   MUSIC.setMood("vault");
   await trans(T.ui.transVault, 1500);
   show("scrFinale");
@@ -1365,7 +1362,7 @@ async function devJump(a, i, opts) {
     await playJournal(i + 1); $("notebook").classList.remove("on"); startNight();
   }
   else if (a === "night") { devSeedNotes(i); applyNightEdits(d); devClearAll(); startNight(); }
-  else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; devClearAll(); startFinale(); }
+  else if (a === "finale") { devSeedAll(); state.dayIdx = T.days.length - 1; state.finaleStarted = false; devClearAll(); startFinale(); }
   else if (a === "endA") { devClearAll(); ending("A"); }
   else if (a === "endB") { devClearAll(); ending("B"); }
 }
