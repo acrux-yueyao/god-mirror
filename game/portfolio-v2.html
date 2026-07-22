@@ -50,15 +50,18 @@
 
   /* ---- act shells ---- */
   .act{position:relative;padding:130px 8vw;overflow:hidden}
-  .act.warm{background:var(--paper);color:var(--ink)}
-  .act.warm .dim{color:#8a7c62}
+  .act.warm{background:radial-gradient(130% 100% at 22% 12%,#2c2015,#181109 68%);color:var(--cream)}
+  .act.warm .dim{color:#9a8f77}
   .bgart{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
   .scrim{position:absolute;inset:0;z-index:1}
   .wrap{position:relative;z-index:3;max-width:1180px;margin:0 auto}
   .kick{font:700 12px 'Silkscreen',monospace;letter-spacing:.14em;color:var(--seal)}
   .kick .n{color:var(--amber);margin-right:10px}
   .lede{font:500 27px/1.5 'Cormorant Garamond',serif;color:var(--cream)}
-  .warm .lede{color:var(--ink)}
+  .warm .lede{color:var(--cream)}
+  .warm .lede em,.warm .em{color:var(--seal)}
+  .warm h2{color:var(--cream)!important}
+  .warm .chip{color:var(--cream);border-color:var(--line);background:rgba(255,255,255,.04)}
   .lede em{font-style:normal;color:var(--seal2);font-weight:600}
   .warm .lede em{color:var(--seal2)}
   .mono{font-family:'IBM Plex Mono',monospace}
@@ -78,7 +81,7 @@
   #hero .one em{font-style:normal;color:var(--seal)}
   #hero .meta{margin-top:26px;display:flex;gap:10px;flex-wrap:wrap}
   .chip{font:600 12px 'IBM Plex Mono',monospace;color:var(--cream);border:1px solid var(--line);border-radius:16px;padding:6px 13px;background:rgba(255,255,255,.03)}
-  .warm .chip{color:var(--ink);border-color:rgba(90,70,40,.3);background:rgba(255,255,255,.4)}
+  .warm .chip{color:var(--cream);border-color:var(--line);background:rgba(255,255,255,.04)}
   .scrollcue{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);z-index:4;font:700 10px 'Silkscreen',monospace;letter-spacing:.3em;color:var(--dim);text-align:center}
   .scrollcue .ln{display:block;width:1px;height:40px;margin:10px auto 0;background:linear-gradient(var(--seal),transparent);animation:pulse 2s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
@@ -87,7 +90,7 @@
   .rq{border-left:2px solid var(--seal2);padding:4px 0 4px 22px;margin-top:20px}
   .rq b{font:700 12px 'Silkscreen',monospace;color:var(--seal);display:block;margin-bottom:6px}
   .rq p{font:500 20px/1.4 'Cormorant Garamond',serif;color:var(--cream)}
-  .warm .rq p{color:var(--ink)}
+  .warm .rq p{color:var(--cream)}
   .big{font:700 clamp(64px,10vw,140px) 'Silkscreen',monospace;line-height:.9;color:var(--seal)}
   .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:60px}
   .stat .l{font:500 16px/1.35 'Cormorant Garamond',serif;color:var(--dim);margin-top:14px}
@@ -96,11 +99,11 @@
   @media(max-width:860px){.statrow{grid-template-columns:repeat(2,1fr);gap:28px}}
 
   .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:50px}
-  .qcard{background:rgba(255,255,255,.55);border:1px solid rgba(90,70,40,.16);border-radius:12px;padding:26px 28px;box-shadow:0 12px 30px rgba(90,60,20,.1)}
-  .qcard .who{font:700 11px 'Silkscreen',monospace;color:var(--seal2)}
-  .qcard .q{font:500 19px/1.6 'Cormorant Garamond',serif;color:var(--ink);margin-top:12px}
-  .qcard .q em{font-style:normal;color:var(--seal2);font-weight:600}
-  .qcard .t{font:600 11px 'IBM Plex Mono',monospace;color:#8a7c62;margin-top:12px;letter-spacing:.03em}
+  .qcard{background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.14);border-radius:12px;padding:26px 28px;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+  .qcard .who{font:700 11px 'Silkscreen',monospace;color:var(--seal)}
+  .qcard .q{font:500 19px/1.6 'Cormorant Garamond',serif;color:var(--cream);margin-top:12px}
+  .qcard .q em{font-style:normal;color:var(--seal);font-weight:600}
+  .qcard .t{font:600 11px 'IBM Plex Mono',monospace;color:var(--dim);margin-top:12px;letter-spacing:.03em}
   @media(max-width:860px){.qgrid{grid-template-columns:1fr}}
 
   /* arc */
@@ -167,13 +170,13 @@
 
   /* research */
   .c3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
-  .cbox{background:rgba(255,255,255,.5);border:1px solid rgba(90,70,40,.16);border-radius:12px;padding:24px}
-  .cbox .n{font:700 12px 'Silkscreen';color:var(--seal2)}
-  .cbox h4{font:600 22px 'Cormorant Garamond';color:var(--ink);margin:8px 0 8px}
-  .cbox p{font:500 15px/1.5 'Cormorant Garamond';color:#5a4c34}
+  .cbox{background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.14);border-radius:12px;padding:24px}
+  .cbox .n{font:700 12px 'Silkscreen';color:var(--seal)}
+  .cbox h4{font:600 22px 'Cormorant Garamond';color:var(--cream);margin:8px 0 8px}
+  .cbox p{font:500 15px/1.5 'Cormorant Garamond';color:#cfc8b6}
   @media(max-width:860px){.c3{grid-template-columns:1fr}}
   .ethics{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-  .ethics span{font:600 12px 'IBM Plex Mono';color:#5a4c34;border:1.5px dashed rgba(90,70,40,.35);border-radius:20px;padding:8px 15px}
+  .ethics span{font:600 12px 'IBM Plex Mono';color:#cfc8b6;border:1.5px dashed var(--line);border-radius:20px;padding:8px 15px}
   .ethics b{color:var(--olive)}
 
   /* close */
@@ -204,26 +207,26 @@
   @media(max-width:860px){.timeline{grid-template-columns:1fr 1fr}}
   /* affinity board (warm) — unified with the interview cards */
   .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;margin-top:32px}
-  .pn{padding:16px 18px;border-radius:11px;background:#fffdf5;border:1px solid rgba(90,70,40,.15);
-    border-left:3px solid var(--seal2);box-shadow:0 10px 24px rgba(90,60,20,.07);
-    font:500 17px/1.38 'Cormorant Garamond',serif;color:var(--ink)}
-  .pn .who{font:700 9.5px 'IBM Plex Mono',monospace;color:#8a7c62;letter-spacing:.03em;display:block;margin-bottom:8px}
-  .pn.n1{border-left-color:#c9a94a}.pn.n2{border-left-color:var(--olive)}.pn.n3{border-left-color:var(--sky)}
-  .pn.n4{border-left-color:var(--amber)}.pn.n5{border-left-color:var(--seal2)}.pn.n6{border-left-color:var(--olive)}.pn.n7{border-left-color:var(--seal2)}
-  .pn.star{border-left-width:4px;background:#fdf4f2}
-  .pn.star .who{color:var(--seal2)}
+  .pn{padding:16px 18px;border-radius:11px;background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.13);
+    border-left:3px solid var(--seal);box-shadow:0 12px 28px rgba(0,0,0,.28);
+    font:500 17px/1.38 'Cormorant Garamond',serif;color:var(--cream)}
+  .pn .who{font:700 9.5px 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.03em;display:block;margin-bottom:8px}
+  .pn.n1{border-left-color:#d9b85a}.pn.n2{border-left-color:var(--olive)}.pn.n3{border-left-color:var(--sky)}
+  .pn.n4{border-left-color:var(--amber)}.pn.n5{border-left-color:var(--seal)}.pn.n6{border-left-color:var(--olive)}.pn.n7{border-left-color:var(--seal)}
+  .pn.star{border-left-width:4px;background:rgba(224,119,107,.1)}
+  .pn.star .who{color:var(--seal)}
   /* synthesis mapping (warm) */
   .synth{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:14px;align-items:start;margin-top:34px}
   .synth .col b{font:700 11px 'Silkscreen';display:block;margin-bottom:12px}
-  .synth .c1 b{color:var(--olive)}.synth .c2 b{color:var(--amber)}.synth .c3 b{color:var(--seal2)}
-  .synth .col .it{font:500 16px/1.85 'Cormorant Garamond';color:var(--ink)}
-  .synth .mid{font:700 26px 'IBM Plex Mono';color:#a99;text-align:center;padding-top:34px}
+  .synth .c1 b{color:var(--olive)}.synth .c2 b{color:var(--amber)}.synth .c3 b{color:var(--seal)}
+  .synth .col .it{font:500 16px/1.85 'Cormorant Garamond';color:#ddd6c4}
+  .synth .mid{font:700 26px 'IBM Plex Mono';color:var(--dim);text-align:center;padding-top:34px}
   @media(max-width:860px){.synth{grid-template-columns:1fr;gap:8px}.synth .mid{display:none}}
   /* lineage + anchors (warm) */
-  .la{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:44px;border-top:1px solid rgba(90,70,40,.2);padding-top:30px}
-  .la .h{font:700 11px 'Silkscreen';color:var(--seal2);letter-spacing:.05em}
-  .la .ri2{font:500 16px/1.75 'Cormorant Garamond';color:#5a4c34;margin-top:10px}
-  .la .ri2 b{color:var(--ink);font-weight:600}
+  .la{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:44px;border-top:1px solid var(--line);padding-top:30px}
+  .la .h{font:700 11px 'Silkscreen';color:var(--seal);letter-spacing:.05em}
+  .la .ri2{font:500 16px/1.75 'Cormorant Garamond';color:#cfc8b6;margin-top:10px}
+  .la .ri2 b{color:var(--cream);font-weight:600}
   @media(max-width:860px){.la{grid-template-columns:1fr;gap:24px}}
 </style>
 </head>
@@ -406,7 +409,7 @@
   <div class="wrap" style="text-align:center">
     <div class="rv kick" style="justify-content:center"><span class="n">06</span><span class="e">TAMPER-EVIDENT INTIMACY</span><span class="z">可撕开的篡改</span></div>
     <h2 class="rv d1" style="margin-top:18px;color:var(--ink)">It rewrites your notes — <span class="em">while you watch.</span><span class="zh e" style="display:none"></span></h2>
-    <div class="rv d1 lede" style="margin:24px auto 0;max-width:720px;color:#5a4c34"><span class="e">Every night's cozy scrapbook ritual is also where the AI edits your evidence. The manipulation isn't disclosed — it's <em>physical.</em> Hover the note to peel back what it covered.</span><span class="z">每晚温馨的剪贴本仪式,也是 AI 改证据的现场。操纵不是被告知的——它是<em>物理的</em>。把鼠标移上去,撕开它盖住的东西。</span></div>
+    <div class="rv d1 lede" style="margin:24px auto 0;max-width:720px"><span class="e">Every night's cozy scrapbook ritual is also where the AI edits your evidence. The manipulation isn't disclosed — it's <em>physical.</em> Hover the note to peel back what it covered.</span><span class="z">每晚温馨的剪贴本仪式,也是 AI 改证据的现场。操纵不是被告知的——它是<em>物理的</em>。把鼠标移上去,撕开它盖住的东西。</span></div>
     <div class="rv d2 tamper">
       <div class="note"><span class="e">“I saw a gold-red figure in the train-window reflection. <span class="orig">I need to rest.</span>”</span><span class="z">「地铁车窗的反光里,有个金红色的人影。<span class="orig">我需要休息。</span>」</span></div>
       <div class="cover"><div class="badge mono">✎ OPTIMIZED FOR YOU · 已为您优化</div><span class="e">“Watchmaker Lao Ning — prime ‘MIRROR’ suspect. Request enforcement. <span style="color:#a15b2e">(rest, already forgotten for you)</span>”</span><span class="z">「修表匠老宁——头号『镜子』嫌疑,申请强制措施。<span style="color:#a15b2e">(休息,已替您忘掉)</span>」</span></div>
@@ -450,13 +453,13 @@
       <div class="rv cbox d1"><div class="n">C2 · DRAMATURGICAL PROMPTING</div><h4><span class="e">Casting a live LLM</span><span class="z">给真实模型选角</span></h4><p><span class="e">A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</span><span class="z">让真实大模型出演有缺陷角色的可迁移技术——给动机而非指令,加服务端兜底。</span></p></div>
       <div class="rv cbox d2"><div class="n">C3 · TAMPER-EVIDENT INTIMACY</div><h4><span class="e">Manipulation, feel-able</span><span class="z">可被感到的操纵</span></h4><p><span class="e">Algorithmic mediation made physical — edits you peel back by hand.</span><span class="z">把算法中介物质化——要亲手撕开的修改。</span></p></div>
     </div>
-    <div class="rv d1" style="margin-top:44px;border-top:1px solid rgba(90,70,40,.2);padding-top:34px">
+    <div class="rv d1" style="margin-top:44px;border-top:1px solid var(--line);padding-top:34px">
       <div class="kick" style="color:var(--olive)"><span class="e">PILOT PLAYTEST · N = 3 · IT LANDED</span><span class="z">真人先导测试 · N=3 · 落地了</span></div>
       <div class="qgrid" style="margin-top:26px">
         <div class="rv qcard"><div class="who">TESTER 1 · THE COMPLIANT DRIFT</div><div class="q"><span class="e">“It rewrote my clues, and <em>‘forgot’ my ‘I need rest’ for me.</em> That's when I realized — it isn't helping me, it's <em>helping me avoid.</em>”</span><span class="z">「它改写了我的线索,还<em>替我『忘掉』了『我需要休息』</em>。那一刻我意识到——它不是在帮我,是在<em>帮我逃避</em>。」</span></div><div class="t">→ VALIDATES C3 — TAMPER LANDS AS SELF-RECOGNITION</div></div>
         <div class="rv qcard d1"><div class="who">TESTER 2 · THE MIRROR ROUTE</div><div class="q"><span class="e">“It shifts <em>from investigating others to investigating yourself.</em> ‘What do you want?’ became a question <em>to me.</em>”</span><span class="z">「它从<em>『调查别人』变成『调查自己』</em>。『你想要什么?』成了在问<em>我本人</em>。」</span></div><div class="t">→ THE ARC + REVERSE QUESTION REACHED THE PLAYER</div></div>
         <div class="rv qcard d1"><div class="who">TESTER 3 · THE THEME, UNPROMPTED</div><div class="q"><span class="e">“The scariest thing isn't the AI turning evil — <em>it's that it's too smooth, smoothing away people's problems.</em>”</span><span class="z">「最可怕的不是 AI 变坏——<em>是它太顺了,把人的问题都抹平了</em>。」</span></div><div class="t">→ THE CRITIQUE ARRIVED WITHOUT BEING STATED</div></div>
-        <div class="rv qcard d2" style="background:rgba(156,207,143,.16);border-color:rgba(90,138,79,.3)"><div class="who" style="color:#3d6b32">CONVERGENT 3/3 · NEXT</div><div class="q"><span class="e">Make the clickable areas obvious; add an explicit <em>“mirror report”</em> of where you deferred vs. pressed.</span><span class="z">把可点区域做明显;加一份明确的<em>「镜像报告」</em>——你何时回避、何时追问。</span></div><div class="t"><span class="e">pilot · N=3 · not a controlled study → scaling to 8–12</span><span class="z">先导 · N=3 · 非对照研究 → 扩展至 8–12</span></div></div>
+        <div class="rv qcard d2" style="background:rgba(156,207,143,.09);border-color:rgba(156,207,143,.28)"><div class="who" style="color:var(--olive)">CONVERGENT 3/3 · NEXT</div><div class="q"><span class="e">Make the clickable areas obvious; add an explicit <em>“mirror report”</em> of where you deferred vs. pressed.</span><span class="z">把可点区域做明显;加一份明确的<em>「镜像报告」</em>——你何时回避、何时追问。</span></div><div class="t"><span class="e">pilot · N=3 · not a controlled study → scaling to 8–12</span><span class="z">先导 · N=3 · 非对照研究 → 扩展至 8–12</span></div></div>
       </div>
       <div class="rv d1 ethics">
         <span><b>CAMERA ·</b> <span class="e">webcam renders locally · never recorded or uploaded</span><span class="z">摄像头仅本地渲染·从不录制或上传</span></span>
