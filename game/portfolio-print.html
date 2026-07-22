@@ -9,7 +9,7 @@
   :root{
     --cream:#f0e9d6; --dim:#a49c86; --line:rgba(240,233,214,.18);
     --seal:#e0776b; --seal2:#b8433a; --olive:#9ccf8f; --amber:#e2a35a; --sky:#8fc7d8; --hl:#8fc7d8;
-    --panel:rgba(14,16,26,.62);
+    --panel:rgba(12,13,21,.56);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html,body{background:#0b0c14;font-family:'IBM Plex Mono',monospace;color:var(--cream)}
@@ -54,7 +54,7 @@
   .tile .lb{font:600 15px 'Cormorant Garamond',serif;color:var(--cream)}
   .grid{position:absolute;display:grid;gap:8px}
 
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 15px;position:relative;z-index:2;backdrop-filter:blur(2px)}
+  .panel{background:var(--panel);border:1px solid rgba(240,233,214,.10);border-radius:9px;padding:12px 15px;position:relative;z-index:2;backdrop-filter:blur(7px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
   .lab{font:700 11px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.04em;margin-bottom:6px}
   .lab.o{color:var(--olive)}.lab.a{color:var(--amber)}.lab.b{color:var(--sky)}
   .rowlist{display:flex;flex-direction:column;gap:9px;position:relative;z-index:2}
@@ -249,8 +249,8 @@
       <div class="lead" style="margin-top:20px;width:820px">The scariest AI isn't the one that turns evil. It's the one that's <em>too smooth</em> — that agrees your problems away, and hands you back your own face in a mirror you thought was a window.</div>
     </div>
     <!-- right image tiles -->
-    <div class="tile" style="position:absolute;left:1080px;top:14px;width:500px;height:340px"><img src="art/p/summon.jpg" alt=""><div class="bar"><span class="num">✓</span><span class="lb">ending A — the tic wins</span></div></div>
-    <div class="tile" style="position:absolute;left:1560px;top:70px;width:520px;height:340px"><img src="art/shots/play-night.jpg" alt=""><div class="bar"><span class="num">?</span><span class="lb">ending ? — it asks you back</span></div></div>
+    <div class="tile" style="position:absolute;left:1080px;top:14px;width:500px;height:340px"><img src="art/p/end-a.jpg" alt=""><div class="bar"><span class="num">✓</span><span class="lb">ending A — everyone agrees, the case closes</span></div></div>
+    <div class="tile" style="position:absolute;left:1560px;top:70px;width:520px;height:340px"><img src="art/p/end-b.jpg" alt=""><div class="bar"><span class="num">?</span><span class="lb">ending B — it hands you back your own face</span></div></div>
     <div style="position:absolute;left:1080px;bottom:6px;right:0;display:flex;gap:40px;align-items:flex-end">
       <div><div style="font:600 24px 'Cormorant Garamond';color:var(--cream)">Yue Yao <span style="font:500 13px 'IBM Plex Mono';color:var(--dim)">· HCI</span></div>
         <div style="font:500 14px 'IBM Plex Mono';color:#cfc8b6;margin-top:5px">nikkiyao@bu.edu · github.com/acrux-yueyao</div></div>
