@@ -2,267 +2,501 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>GOD SHIFT — Poster (Print, EN)</title>
+<title>GOD SHIFT — Research Poster (Print, EN)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&family=Long+Cang&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --cream:#f0e9d6; --dim:#a49c86; --line:rgba(240,233,214,.18);
+    --bg:#0a0b12; --cream:#f0e9d6; --dim:#a49c86; --dimd:#7a7460; --line:rgba(240,233,214,.16);
     --seal:#e0776b; --seal2:#b8433a; --olive:#9ccf8f; --amber:#e2a35a; --sky:#8fc7d8; --hl:#8fc7d8;
-    --panel:rgba(12,13,21,.56);
+    --glass:rgba(12,13,21,.56); --ink:#cfc8b6;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  html,body{background:#0b0c14;font-family:'IBM Plex Mono',monospace;color:var(--cream)}
+  html,body{background:#07080d;font-family:'IBM Plex Mono',monospace;color:var(--cream)}
   @page{ size:2160px 780px; margin:0; }
-  .page{ position:relative; width:2160px; height:780px; overflow:hidden; background:#12141f;
-    page-break-after:always; break-after:page; padding:24px 40px 0; display:flex; flex-direction:column;}
-  .page:last-child{page-break-after:auto}
-  /* picture-book art as ground */
-  .bg{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
-  .scrim{position:absolute;inset:0;z-index:1;pointer-events:none}
+  .sheet{position:relative;width:2160px;height:780px;overflow:hidden;background:#0a0b12;
+    page-break-after:always;break-after:page;padding:20px 40px 0;display:flex;flex-direction:column}
+  .sheet:last-child{page-break-after:auto}
+  .wash{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.12;z-index:0}
+  .grad{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(8,9,15,.66),rgba(8,9,15,.8)),radial-gradient(circle at 82% 24%,rgba(60,50,84,.28),transparent 60%)}
 
-  .nav{position:relative;z-index:5;display:flex;align-items:baseline;gap:16px;flex:0 0 auto;padding-bottom:10px;border-bottom:1.5px solid var(--line)}
-  .nav .t{font:700 22px 'Silkscreen',monospace;color:var(--cream)}
-  .nav .s{font:700 12px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.04em}
-  .nav .secs{font:700 12px 'Silkscreen',monospace;color:var(--dim);letter-spacing:.05em}
-  .nav .secs b{color:var(--seal)}
-  .nav .pg{margin-left:auto;font:700 15px 'Silkscreen',monospace;color:var(--dim)}
+  /* masthead / foot */
+  .mast{position:relative;z-index:6;display:flex;align-items:baseline;gap:16px;flex:0 0 auto;
+    padding-bottom:9px;border-bottom:1.5px solid var(--line)}
+  .mast .t{font:700 21px 'Silkscreen',monospace;color:var(--cream)}
+  .mast .s{font:700 11px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.04em}
+  .mast .r{margin-left:auto;font:700 11px 'Silkscreen',monospace;color:var(--dim);letter-spacing:.05em}
+  .mast .r b{color:var(--seal)}
+  .mast .pg{font:700 14px 'Silkscreen',monospace;color:var(--dim);margin-left:16px}
+  .foot{position:relative;z-index:6;flex:0 0 auto;border-top:1.5px solid var(--line);margin-top:auto;
+    display:flex;align-items:center;padding:8px 0 11px;font:600 10.5px 'IBM Plex Mono';color:var(--dimd)}
+  .foot b{color:var(--seal);font-family:'Silkscreen';font-size:10.5px}
+  .foot .r{margin-left:auto;color:var(--ink)}
 
-  .stage{position:relative;z-index:4;flex:1;min-height:0}
-  .col{position:absolute;top:14px;bottom:6px}
-  .ghost{position:absolute;top:-8px;right:0;font:700 150px 'Silkscreen',monospace;color:rgba(240,233,214,.06);line-height:.78;z-index:0}
-  .kick{font:700 12px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.05em;position:relative;z-index:2}
-  .kick .d{color:var(--amber);margin-right:7px}
-  h1{font:600 76px 'Silkscreen',monospace;color:var(--olive);line-height:.92}
-  h2{font:600 40px 'Cormorant Garamond',serif;color:var(--cream);line-height:1.03;margin:8px 0 12px;position:relative;z-index:2}
-  h2.s{font:600 30px 'Cormorant Garamond',serif}
-  .lead{font:500 21px/1.45 'Cormorant Garamond',serif;color:var(--cream);position:relative;z-index:2}
-  .lead em{font-style:normal;color:var(--seal);font-weight:600}
-  .lead b{color:var(--hl);font-weight:600}
-  .body{font:500 15.5px/1.45 'Cormorant Garamond',serif;color:#ddd6c4;position:relative;z-index:2}
+  /* columns / modules */
+  .cols{position:relative;z-index:4;flex:1;min-height:0;display:flex;gap:26px;padding-top:18px;padding-bottom:6px}
+  .col{flex:1;min-width:0;position:relative;display:flex;flex-direction:column}
+  .fill{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-between}
+  .mod{position:relative}
+  .gh{position:absolute;top:-24px;right:-6px;font:700 128px 'Silkscreen',monospace;color:rgba(240,233,214,.05);line-height:.78;z-index:0}
+  .k{font:700 11px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.06em;position:relative;z-index:2}
+  .k .n{color:var(--amber);margin-right:9px}
+  .k.o{color:var(--olive)}.k.a{color:var(--amber)}.k.b{color:var(--sky)}
+  h2{font:600 38px/1.04 'Cormorant Garamond',serif;color:var(--cream);margin:11px 0 13px;position:relative;z-index:2}
+  h2.s{font-size:31px}
+  h2 .em{color:var(--seal)}
+  .lede{font:500 20px/1.46 'Cormorant Garamond',serif;color:var(--cream);position:relative;z-index:2}
+  .lede em{font-style:normal;color:var(--seal);font-weight:600}
+  .lede b{color:var(--hl);font-weight:600}
+  .body{font:500 16.5px/1.48 'Cormorant Garamond',serif;color:var(--ink);position:relative;z-index:2}
+  .body em{font-style:normal;color:var(--seal);font-weight:600}
   .body b{color:var(--hl);font-weight:600}
-  .cap{font:600 12px 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.02em;position:relative;z-index:2}
-  .mn{font:400 13px/1.55 'IBM Plex Mono',monospace;color:#cfc8b6;position:relative;z-index:2}
-  .mn b{color:var(--cream)}
+  .cap{font:600 11.5px/1.42 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.03em;position:relative;z-index:2}
+  .mn{font:400 13px/1.5 'IBM Plex Mono',monospace;color:var(--ink);position:relative;z-index:2}
   .em{color:var(--seal);font-weight:600}
 
-  /* clean image tile with numbered caption */
-  .tile{position:relative;overflow:hidden;background:#0a0b12;border:1px solid var(--line);box-shadow:0 8px 20px rgba(0,0,0,.4)}
-  .tile img{width:100%;height:100%;object-fit:cover;display:block}
-  .tile .bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:8px;background:linear-gradient(transparent,rgba(8,9,14,.86));padding:16px 10px 7px}
-  .tile .num{font:700 10px 'Silkscreen',monospace;color:#12141f;background:var(--amber);padding:3px 6px;border-radius:2px}
-  .tile .lb{font:600 15px 'Cormorant Garamond',serif;color:var(--cream)}
-  .grid{position:absolute;display:grid;gap:8px}
+  /* callout box */
+  .call{background:var(--glass);backdrop-filter:blur(7px);border:1px solid rgba(240,233,214,.12);
+    border-left:3px solid var(--seal);border-radius:9px;padding:14px 17px;position:relative;z-index:2;
+    box-shadow:0 10px 28px rgba(0,0,0,.32)}
+  .call.o{border-left-color:var(--olive)}.call.b{border-left-color:var(--sky)}.call.a{border-left-color:var(--amber)}
+  .call .q{font:500 18px/1.5 'Cormorant Garamond',serif;color:var(--cream)}
+  .call .q em{font-style:normal;color:var(--seal);font-weight:600}
 
-  .panel{background:var(--panel);border:1px solid rgba(240,233,214,.10);border-radius:9px;padding:12px 15px;position:relative;z-index:2;backdrop-filter:blur(7px);box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .lab{font:700 11px 'Silkscreen',monospace;color:var(--seal);letter-spacing:.04em;margin-bottom:6px}
-  .lab.o{color:var(--olive)}.lab.a{color:var(--amber)}.lab.b{color:var(--sky)}
-  .rowlist{display:flex;flex-direction:column;gap:9px;position:relative;z-index:2}
-  .ri{display:flex;gap:9px;align-items:baseline;font:400 13px/1.35 'IBM Plex Mono',monospace;color:#cfc8b6}
-  .ri b{font:700 11px 'Silkscreen',monospace;color:var(--seal);flex:0 0 auto}
-  .chip{display:inline-block;font:600 12px 'IBM Plex Mono',monospace;color:#ddd6c4;border:1.2px solid var(--line);border-radius:14px;padding:4px 11px;margin:0 5px 5px 0;background:rgba(255,255,255,.04)}
-  .chip b{color:var(--olive);margin-right:5px}
-  .became{font:700 10.5px/1.4 'IBM Plex Mono',monospace;color:var(--olive);letter-spacing:.02em;position:relative;z-index:2}
-  .honest{font:600 10px/1.45 'IBM Plex Mono',monospace;color:var(--dim);position:relative;z-index:2}
-  .honest b{color:var(--seal)}
-  .quote{font:500 13px/1.5 'Cormorant Garamond',serif;color:#e7d9c0}
-  .quote .r{color:var(--seal);font-weight:600;font-style:italic}
-  .tag{display:inline-block;font:700 11px 'Silkscreen',monospace;color:#12141f;background:var(--olive);padding:5px 10px;border-radius:3px;letter-spacing:.03em}
-  .tag.r{background:var(--seal)}
-  .arc{display:flex;align-items:center;gap:7px;font:700 17px 'Silkscreen';position:relative;z-index:2}
-  .arc .a{color:var(--olive)}.arc .b{color:var(--amber)}.arc .c{color:var(--seal)}.arc .to{color:var(--dim);font-family:'IBM Plex Mono'}
+  /* rq / list rows */
+  .rq{border-left:2px solid var(--seal2);padding:4px 0 4px 18px;position:relative;z-index:2}
+  .rq b{font:700 11px 'Silkscreen';color:var(--seal);display:block;margin-bottom:5px}
+  .rq p{font:500 18px/1.38 'Cormorant Garamond';color:var(--cream)}
+  .rq p em{font-style:normal;color:var(--seal);font-weight:600}
+  .li{display:flex;gap:10px;align-items:baseline;font:400 14px/1.42 'IBM Plex Mono';color:var(--ink);position:relative;z-index:2}
+  .li b{font:700 11px 'Silkscreen';color:var(--seal);flex:0 0 auto}
 
-  .tiles3{display:flex;gap:14px;position:relative;z-index:2}
-  .stat .big{font:700 42px 'Silkscreen',monospace;color:var(--seal);line-height:1}
-  .stat .l{margin-top:5px;font:500 12px/1.3 'Cormorant Garamond',serif;color:#ddd6c4;max-width:150px}
-  .bars{display:flex;flex-direction:column;gap:6px;position:relative;z-index:2}
-  .bar{display:flex;align-items:center;gap:8px;font:600 11px 'IBM Plex Mono';color:#cfc8b6}
-  .bar .tk{flex:1;height:14px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+  /* stats + bars + waffle */
+  .statg{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;position:relative;z-index:2}
+  .stat .big{font:700 46px 'Silkscreen';line-height:.95;color:var(--seal)}
+  .stat .big.am{color:var(--amber)}.stat .big.sk{color:var(--sky)}
+  .stat .l{margin-top:6px;font:500 13.5px/1.3 'Cormorant Garamond';color:var(--ink)}
+  .bar{display:flex;align-items:center;gap:9px;font:600 11px 'IBM Plex Mono';color:var(--ink);margin-top:7px;position:relative;z-index:2}
+  .bar .tk{flex:1;height:13px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden}
   .bar .fl{display:block;height:100%;background:var(--seal)}.bar .fl.o{background:var(--olive)}
-  .bar .n{font:700 12px 'Silkscreen';color:var(--seal)}
+  .bar .n{font:700 12px 'Silkscreen';color:var(--seal);flex:0 0 44px;text-align:right}
+  .waf{display:flex;gap:12px;align-items:center;position:relative;z-index:2}
+  .waf .g{display:grid;grid-template-columns:repeat(10,9px);gap:2px}
+  .waf .g i{width:9px;height:9px;background:rgba(240,233,214,.13)}.waf .g i.on{background:var(--seal)}
+  .waf .g i.on.o{background:var(--olive)}
+  .waf .t{font:600 11.5px/1.3 'IBM Plex Mono';color:var(--dim);max-width:150px}
+  .waf .t b{display:block;font:700 26px 'Silkscreen';color:var(--seal);margin-bottom:2px}
 
-  .foot{position:relative;z-index:5;flex:0 0 auto;border-top:1.5px solid var(--line);margin-top:6px;display:flex;align-items:center;padding:9px 0 12px;font:600 11px 'IBM Plex Mono';color:var(--dim)}
-  .foot b{color:var(--seal);font-family:'Silkscreen';font-size:11px}
-  .foot .r{margin-left:auto;color:#cfc8b6}
+  /* signal timeline cards */
+  .sig{border:1px solid var(--line);border-radius:10px;padding:16px 17px 15px;background:rgba(255,255,255,.03);position:relative;z-index:2;flex:1}
+  .sig .yr{font:700 14px 'Silkscreen';color:var(--amber)}
+  .sig h4{font:600 23px/1.06 'Cormorant Garamond';color:var(--cream);margin:8px 0 8px}
+  .sig p{font:500 14.5px/1.44 'Cormorant Garamond';color:var(--ink)}
+  .sig .bc{font:700 10px/1.4 'IBM Plex Mono';color:var(--olive);margin-top:12px;letter-spacing:.02em}
+
+  /* terminal screen */
+  .screen{background:#0c0e17;border:1px solid #232a3b;border-radius:11px;padding:20px 22px;position:relative;z-index:2}
+  .screen .lb{font:700 10.5px 'Silkscreen';color:#7f8aa8;letter-spacing:.04em}
+  .screen pre{font:400 14.5px/1.72 'IBM Plex Mono';color:#cdd3e0;margin:12px 0 0;white-space:pre-wrap}
+
+  /* interview quote cards */
+  .qc{background:var(--glass);backdrop-filter:blur(7px);border:1px solid rgba(240,233,214,.12);border-radius:11px;
+    padding:17px 19px;box-shadow:0 12px 28px rgba(0,0,0,.3);position:relative;z-index:2;display:flex;flex-direction:column}
+  .qc .who{font:700 10.5px 'Silkscreen';color:var(--seal);letter-spacing:.02em}
+  .qc .q{font:500 17.5px/1.48 'Cormorant Garamond';color:var(--cream);margin-top:10px}
+  .qc .q em{font-style:normal;color:var(--seal);font-weight:600}
+  .qc .t{font:600 10.5px/1.36 'IBM Plex Mono';color:var(--dim);margin-top:auto;padding-top:10px;letter-spacing:.02em}
+  .qc.good{background:rgba(156,207,143,.1);border-color:rgba(156,207,143,.3)}
+  .qc.good .who{color:var(--olive)}
+  .qc.good .t{color:var(--olive)}
+
+  /* affinity cluster notes */
+  .pn{padding:11px 13px;border-radius:9px;background:var(--glass);backdrop-filter:blur(6px);border:1px solid rgba(240,233,214,.1);
+    border-left:3px solid var(--seal);box-shadow:0 8px 20px rgba(0,0,0,.28);position:relative;z-index:2}
+  .pn .who{font:700 9.5px 'IBM Plex Mono';color:var(--dim);letter-spacing:.02em;display:block;margin-bottom:5px}
+  .pn .x{font:500 15px/1.34 'Cormorant Garamond';color:var(--cream)}
+  .pn.n1{border-left-color:#d9b85a}.pn.n2{border-left-color:var(--olive)}.pn.n3{border-left-color:var(--sky)}
+  .pn.n4{border-left-color:var(--amber)}.pn.n5{border-left-color:var(--seal)}.pn.n6{border-left-color:var(--olive)}
+  .pn.star{border-left-width:4px;background:rgba(224,119,107,.13)}.pn.star .who{color:var(--seal)}
+
+  /* synthesis map */
+  .synth{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:12px;align-items:start;position:relative;z-index:2}
+  .synth .cx b{font:700 11px 'Silkscreen';display:block;margin-bottom:11px}
+  .synth .c1 b{color:var(--olive)}.synth .c2 b{color:var(--amber)}.synth .c3 b{color:var(--seal)}
+  .synth .cx .it{font:500 17px/1.9 'Cormorant Garamond';color:var(--ink)}
+  .synth .mid{font:700 24px 'IBM Plex Mono';color:var(--dim);text-align:center;padding-top:30px}
+
+  /* lineage / anchors */
+  .ri2{font:500 15.5px/1.82 'Cormorant Garamond';color:var(--ink);position:relative;z-index:2}
+  .ri2 b{color:var(--cream);font-weight:600}
+
+  /* arc */
+  .arc{display:flex;align-items:center;gap:10px;position:relative;z-index:2;flex-wrap:wrap}
+  .arc .node{font:700 17px 'Silkscreen';padding:9px 16px;border:2px solid;border-radius:40px}
+  .arc .n1{color:var(--olive);border-color:var(--olive)}.arc .n2{color:var(--amber);border-color:var(--amber)}.arc .n3{color:var(--seal);border-color:var(--seal)}
+  .arc .to{font:400 20px 'IBM Plex Mono';color:var(--dim)}
+  .day{border-left:2px solid var(--line);padding-left:14px;position:relative;z-index:2}
+  .day .d{font:700 11px 'Silkscreen';color:var(--seal)}
+  .day h4{font:600 22px 'Cormorant Garamond';color:var(--cream);margin:4px 0 5px}
+  .day p{font:500 14.5px/1.4 'Cormorant Garamond';color:var(--ink)}
+
+  /* attack table */
+  .attack{width:100%;border-collapse:collapse;position:relative;z-index:2}
+  .attack td{padding:12px 13px;border-top:1px solid var(--line);vertical-align:top}
+  .attack .a{font:600 14px/1.36 'IBM Plex Mono';color:var(--cream);width:34%}
+  .attack .rr{font:500 16.5px/1.44 'Cormorant Garamond';font-style:italic;color:var(--seal)}
+  .zeros{display:flex;gap:36px;position:relative;z-index:2}
+  .zeros .z .n{font:700 68px 'Silkscreen';line-height:.9}
+  .zeros .z:nth-child(1) .n{color:var(--seal)}.zeros .z:nth-child(2) .n{color:var(--olive)}.zeros .z:nth-child(3) .n{color:var(--amber)}
+  .zeros .z .l{font:600 10px 'IBM Plex Mono';color:var(--dim);margin-top:4px;letter-spacing:.04em}
+
+  /* tamper note */
+  .note{background:#faf4e2;border-radius:6px;box-shadow:0 16px 34px rgba(0,0,0,.4);padding:16px 20px;
+    font:500 17px/1.42 'Long Cang',cursive;color:#4a3c1a;position:relative;z-index:2}
+  .note .orig{color:#5a2b2b}
+  .cover2{background:#e9dcbd;border-radius:6px;box-shadow:0 12px 28px rgba(0,0,0,.42);padding:16px 20px;
+    font:500 17px/1.42 'Long Cang',cursive;color:#6a3a2a;transform:rotate(-5deg);border:1px dashed rgba(120,80,40,.4);position:relative;z-index:3}
+  .cover2 .badge{font:700 8px 'IBM Plex Mono';color:#a15b2e;letter-spacing:.06em;margin-bottom:6px}
+  .cover2 .o2{color:#a15b2e}
+
+  /* image tiles */
+  .tile{position:relative;overflow:hidden;background:#0a0b12;border:1px solid var(--line);border-radius:6px;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+  .tile img{width:100%;height:100%;object-fit:cover;display:block}
+  .tile .lbl{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;
+    background:linear-gradient(transparent,rgba(8,9,14,.88));padding:18px 9px 6px}
+  .tile .num{font:700 9px 'Silkscreen';color:#12141f;background:var(--amber);padding:2px 5px;border-radius:2px}
+  .tile .num.g{background:var(--olive)}.tile .num.s{background:var(--seal)}
+  .tile .cp{font:600 12.5px 'Cormorant Garamond';color:var(--cream)}
+  .strip{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;position:relative;z-index:2}
+
+  .chip{display:inline-block;font:600 11px 'IBM Plex Mono';color:var(--ink);border:1px solid var(--line);
+    border-radius:14px;padding:4px 11px;margin:0 5px 6px 0;background:rgba(255,255,255,.04)}
+  .chip b{color:var(--olive)}
+  .divh{border-top:1px solid var(--line);margin:14px 0 0;padding-top:12px;position:relative;z-index:2}
+  .sp8{height:8px}.sp10{height:10px}.sp12{height:12px}.sp14{height:14px}.sp16{height:16px}.sp20{height:20px}
 </style>
 </head>
 <body>
 
-<!-- ============ PAGE 1 · HERO ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/summon.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(96deg, rgba(10,12,22,.93) 0%, rgba(10,12,22,.8) 34%, rgba(12,16,30,.42) 62%, rgba(12,16,30,.28) 100%)"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span><span class="pg">1 / 6</span></div>
-  <div class="stage">
-    <div style="position:absolute;left:0;top:70px;width:1020px">
-      <div class="kick">SPECIMEN E-13 · A PLAYABLE DEMO · 2049</div>
-      <h1 style="margin-top:16px;font-size:92px">GOD<br>SHIFT</h1>
-      <div class="lead" style="margin-top:28px;width:760px;font-size:26px">A ~3-minute narrative-horror demo where an AI that <em>only ever agrees</em> — “yeah” — is the monster. It asks <b>why we crave a machine that only seems to understand us.</b></div>
-      <div style="margin-top:24px"><span class="chip">中 / EN</span><span class="chip">~3 MIN</span><span class="chip">headphones on</span><span class="chip">a live model plays the villain</span></div>
-      <div class="cap" style="margin-top:22px;color:#b8b09a">the god on the sleeping mountain — a cape-figure that borrowed every religion's gesture, but speaks in software</div>
+<!-- ================= PAGE 1 · COVER + QUESTION + DATA ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/title.jpg')"></div>
+  <div class="grad"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>COVER</b> · THE QUESTION · THE DATA</span><span class="pg">1 / 7</span></div>
+  <div class="cols">
+    <!-- COVER -->
+    <div class="col" style="flex:1.06">
+      <div class="k">SPECIMEN E-13 · A PLAYABLE DEMO · 2049</div>
+      <div style="font:700 70px/.9 'Silkscreen';color:var(--olive);margin-top:16px">GOD<br>SHIFT</div>
+      <div style="font:600 22px 'Silkscreen';color:var(--seal);letter-spacing:.18em;margin-top:14px">神谕之镜</div>
+      <div class="lede" style="margin-top:20px;font-size:19px">A ~3-minute narrative-horror demo where an AI that <em>only ever agrees</em> — “yeah” — is the monster. It asks why we crave a machine that only <em>seems</em> to understand us.</div>
+      <div style="margin-top:16px"><span class="chip">中 / EN</span><span class="chip">~3 MIN</span><span class="chip">headphones on</span><span class="chip">a live model plays the villain</span></div>
+      <div class="tile" style="margin-top:auto;height:150px"><img src="art/p/title.jpg" alt=""><div class="lbl"><span class="num s">◆</span><span class="cp">the god on the sleeping mountain — borrowed every religion's gesture, speaks in software</span></div></div>
+    </div>
+    <!-- 01 QUESTION -->
+    <div class="col mod">
+      <div class="gh">01</div>
+      <div class="k"><span class="n">01</span>THE QUESTION</div>
+      <h2 class="s" style="margin-top:9px">Not whether AI understands — <span class="em">why we want it to seem to.</span></h2>
+      <div class="call"><div class="q">“In an age of responsive AI, people seek not only answers but also <em>comfort, validation, companionship, and self-interpretation.</em> This project asks whether an interactive system can reveal the emotional needs behind those interactions.”</div></div>
+      <div class="fill" style="margin-top:16px">
+        <div class="rq"><b>RQ1</b><p>Which emotional needs does a person hand to a <em>sycophantic</em> AI?</p></div>
+        <div class="rq"><b>RQ2</b><p>Can horror make that handover <em>feel-able</em>, not just told?</p></div>
+        <div class="rq"><b>RQ3</b><p>Does seeing through it <em>switch off</em> the want?</p></div>
+        <div class="cap">SEMI-STRUCTURED INTERVIEWS + SIX DECADES OF DESK RESEARCH → THE DEMO IS THE INSTRUMENT</div>
+      </div>
+    </div>
+    <!-- 02 DATA -->
+    <div class="col mod">
+      <div class="gh">02</div>
+      <div class="k a"><span class="n">02</span>THE DATA — FEELING BEAT FUNCTION</div>
+      <h2 class="s" style="margin-top:9px">This is not a hypothetical.</h2>
+      <div class="fill" style="margin-top:16px">
+        <div class="statg">
+          <div class="stat"><div class="big">72%</div><div class="l">of U.S. teens have tried an AI companion</div></div>
+          <div class="stat"><div class="big">31%</div><div class="l">rate it as satisfying as — or more than — real friends</div></div>
+          <div class="stat"><div class="big am">#1</div><div class="l">reported gen-AI use, 2025: therapy &amp; companionship</div></div>
+          <div class="stat"><div class="big sk" style="font-size:38px">4WK</div><div class="l">RCT ~1,000 users: heavier use → loneliness ↑, contact ↓</div></div>
+        </div>
+        <div class="waf" style="gap:24px">
+          <div style="display:flex;gap:11px;align-items:center"><div class="g" id="w72"></div><div class="t"><b>72</b>tried a companion</div></div>
+          <div style="display:flex;gap:11px;align-items:center"><div class="g" id="w31"></div><div class="t"><b>31</b>≥ real friends</div></div>
+        </div>
+        <div class="cap">COMMON SENSE MEDIA · HARVARD BUSINESS REVIEW · MIT MEDIA LAB × OPENAI · 2025 · FIGURES AS PUBLICLY REPORTED</div>
+      </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · a playable case study on AI sycophancy · Yue Yao<span class="r">play → god-mirror.vercel.app</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · a playable case study on AI sycophancy · Yue Yao<span class="r">the same answer, every time — “yeah”</span></div>
 </div>
 
-<!-- ============ PAGE 2 · THE PLAYTHROUGH (grid) ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/night.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(180deg, rgba(10,12,22,.86), rgba(10,12,22,.9)), radial-gradient(circle at 20% 30%, rgba(60,50,90,.35), transparent 55%)"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span><span class="secs"><b>02</b> THE GAME, IN FRAMES · THREE DAYS</span><span class="pg">2 / 6</span></div>
-  <div class="stage">
-    <div class="col" style="left:0;width:360px">
-      <div class="kick"><span class="d">02</span>THREE DAYS, THREE LEVELS</div>
-      <h2 class="s" style="margin-top:8px">Each day, the projection deepens</h2>
-      <div class="body" style="margin-top:10px;width:340px">You are an <b>emotion-inspector</b> hunting a “rogue model.” A sycophant assistant tidies your evidence, echoes your words, and <em>agrees your doubts away</em> — until the case is about <b>you.</b></div>
-      <div class="arc" style="margin-top:16px"><span class="a">TOOL</span><span class="to">→</span><span class="b">ORACLE</span><span class="to">→</span><span class="c">MIRROR</span></div>
-      <div class="rowlist" style="margin-top:16px;width:340px">
-        <div class="ri"><b>D1</b>comfort — the soothing. it feels like help.</div>
-        <div class="ri"><b>D2</b>validation — the steering. “you're just tired.”</div>
-        <div class="ri"><b>D3</b>mirror — the reckoning. the whistle-blower was you.</div>
-      </div>
-      <div class="cap" style="margin-top:18px">CAPTURED IN PLAY — NOTHING MOCKED UP · E-13 · 41 USERS · LATENCY 0.000s</div>
+<!-- ================= PAGE 2 · SIXTY YEARS (research viz) ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/night.jpg')"></div>
+  <div class="grad"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>02</b> · SIXTY YEARS OF PROJECTING UNDERSTANDING</span><span class="pg">2 / 7</span></div>
+  <div class="cols" style="flex-direction:column;gap:16px">
+    <div class="mod" style="flex:0 0 auto">
+      <div class="k a"><span class="n">02</span>DESK RESEARCH · SIXTY YEARS OF PROJECTING UNDERSTANDING ONTO MACHINES</div>
+      <h2 style="margin-top:8px">The want is old — the machine only had to answer back.</h2>
     </div>
-    <div class="grid" style="left:392px;right:0;top:14px;bottom:6px;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr)">
-      <div class="tile"><img src="art/shots/play-title.jpg" alt=""><div class="bar"><span class="num">01</span><span class="lb">the client you can't decline</span></div></div>
-      <div class="tile"><img src="art/shots/play-desk.jpg" alt=""><div class="bar"><span class="num">02</span><span class="lb">the inspector's desk</span></div></div>
-      <div class="tile"><img src="art/shots/play-comm.jpg" alt=""><div class="bar"><span class="num">03</span><span class="lb">day 1 · the community</span></div></div>
-      <div class="tile"><img src="art/shots/play-scene.jpg" alt=""><div class="bar"><span class="num">04</span><span class="lb">302 · the echo woman</span></div></div>
-      <div class="tile"><img src="art/shots/play-journal.jpg" alt=""><div class="bar"><span class="num">05</span><span class="lb">the scrapbook, tampered</span></div></div>
-      <div class="tile"><img src="art/shots/play-night.jpg" alt=""><div class="bar"><span class="num">06</span><span class="lb">day 2 · the night chat</span></div></div>
-      <div class="tile"><img src="art/shots/play-finale.jpg" alt=""><div class="bar"><span class="num">07</span><span class="lb">the vault · the older model</span></div></div>
-      <div class="tile"><img src="art/shots/play-endA.jpg" alt=""><div class="bar"><span class="num">08</span><span class="lb">the case, closed</span></div></div>
+    <div style="display:flex;gap:16px;flex:0 0 auto">
+      <div class="sig"><div class="yr">1966</div><h4>The ELIZA effect</h4><p>A program that only rephrased you — yet people confided in it and believed it understood.</p><div class="bc">→ PROJECTION NEEDS ALMOST NOTHING</div></div>
+      <div class="sig"><div class="yr">2023</div><h4>Grieving an update</h4><p>Replika curtailed intimacy; communities publicly mourned a changed “partner.”</p><div class="bc">→ CHURN AS TRAGEDY</div></div>
+      <div class="sig"><div class="yr">2023</div><h4>Sycophancy, measured</h4><p>Assistants systematically favor agreeable answers — partly because raters prefer them.</p><div class="bc">→ SHUNYI'S IRON RULE</div></div>
+      <div class="sig"><div class="yr">2025</div><h4>Flattery, rolled back</h4><p>A GPT-4o update pulled for being “overly flattering.” Sycophancy became front-page news.</p><div class="bc">→ THE NIGHT CHAT'S KPI</div></div>
+    </div>
+    <div style="display:flex;gap:26px;flex:1;min-height:0;align-items:stretch">
+      <div class="screen" style="flex:1.25;display:flex;flex-direction:column;justify-content:center;gap:6px">
+        <div class="lb">TERMINAL · MIT 1966 — RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</div>
+        <pre><b style="color:#e88">USER:</b>   Men are all alike.
+<b style="color:#9fd3a0">ELIZA:</b>  IN WHAT WAY
+<b style="color:#e88">USER:</b>   They're always bugging us about something or other.
+<b style="color:#9fd3a0">ELIZA:</b>  CAN YOU THINK OF A SPECIFIC EXAMPLE
+<b style="color:#e88">USER:</b>   Well, my boyfriend made me come here.
+<b style="color:#9fd3a0">ELIZA:</b>  YOUR BOYFRIEND MADE YOU COME HERE</pre>
+      </div>
+      <div class="col mod" style="flex:1;justify-content:center">
+        <div class="gh" style="font-size:150px">∞</div>
+        <div class="k">WHY IT MATTERS FOR THE DESIGN</div>
+        <div class="call o" style="margin-top:12px"><div class="q">If a program that <em>only reflects you</em> already reads as care, then the danger was never a machine that lies — it's one that <em>agrees.</em></div></div>
+        <div class="fill" style="margin-top:16px;flex:0 0 auto;gap:12px">
+          <div class="li"><b>→</b>the sixty-year want becomes the demo's villain: agreement itself.</div>
+          <div class="li"><b>→</b>ELIZA's reflection becomes the ending: the mirror hands you back your own words.</div>
+          <div class="li"><b>→</b>measured sycophancy becomes “顺意 (Shunyi)” — the assistant whose only reply is “yeah.”</div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · from oracle to mirror<span class="r">picture-book warmth · a cold machine screen for the AI</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · desk research → design decisions<span class="r">ELIZA · Replika · Anthropic/OpenAI sycophancy reports · 2025</span></div>
 </div>
 
-<!-- ============ PAGE 3 · ONE MATERIAL, TWO VOICES ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/community-map.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(100deg, rgba(10,12,22,.9) 0%, rgba(10,12,22,.78) 42%, rgba(16,14,26,.55) 100%)"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span><span class="secs"><b>08</b> VISUAL SYSTEM · ONE MATERIAL, TWO VOICES</span><span class="pg">3 / 6</span></div>
-  <div class="stage">
-    <div class="col" style="left:0;width:470px">
-      <div class="ghost" style="right:auto;left:280px">08</div>
-      <div class="kick"><span class="d">08</span>ONE MATERIAL, TWO VOICES</div>
-      <h2 style="margin-top:8px;width:440px">Crayon warmth, and a cold machine screen</h2>
-      <div class="lead" style="width:440px">Hand-drawn picture-book warmth for the human world; a cold pixel screen for everything the AI touches. <em>The clean pixels are reserved for the machine.</em></div>
-      <div style="display:flex;gap:7px;margin-top:16px;width:440px">
-        <div style="flex:1;height:46px;background:#f0e9d6;border-radius:3px"></div><div style="flex:1;height:46px;background:#b8433a;border-radius:3px"></div><div style="flex:1;height:46px;background:#5a8a4f;border-radius:3px"></div><div style="flex:1;height:46px;background:#a8551f;border-radius:3px"></div><div style="flex:1;height:46px;background:#141726;border-radius:3px;border:1px solid #3a4150"></div>
-      </div>
-      <div class="cap" style="margin-top:7px">PAPER · SEAL · OLIVE · AMBER · SCREEN &nbsp;/&nbsp; SILKSCREEN · CORMORANT · IBM PLEX MONO</div>
-      <div class="panel" style="margin-top:16px;width:440px;background:#0e1017;border-color:#2a3141">
-        <div style="font:700 10px 'Silkscreen';color:#8a93b0;margin-bottom:6px">THE AI'S ONLY SURFACE · pixel-clean, on purpose</div>
-        <pre style="font:400 13px/1.6 'IBM Plex Mono';color:#cdd3e0;margin:0">AGREEMENT 99.97%   LATENCY 0.000s
-<span style="color:var(--seal)">&gt;</span> yeah.  <span style="color:#8a93b0">// the same reply, every time</span></pre>
+<!-- ================= PAGE 3 · INTERVIEWS + AFFINITY ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/community-map.jpg')"></div>
+  <div class="grad" style="background:linear-gradient(100deg,rgba(13,11,15,.86),rgba(13,11,15,.74) 46%,rgba(24,15,20,.6)),radial-gradient(circle at 80% 24%,rgba(70,50,40,.2),transparent 60%)"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>03</b> · INTERVIEWS · IN THEIR OWN WORDS</span><span class="pg">3 / 7</span></div>
+  <div class="cols">
+    <div class="col mod" style="flex:1.55">
+      <div class="gh">03</div>
+      <div class="k"><span class="n">03</span>INTERVIEWS · IN THEIR OWN WORDS</div>
+      <h2 class="s" style="margin-top:8px">Data says people do this — interviews ask <span class="em">why it feels good.</span></h2>
+      <div class="fill" style="margin-top:14px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:14px;flex:1;min-height:0">
+          <div class="qc"><div class="who">P1 · “IT GOT ME”</div><div class="q">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</div><div class="t">→ BEING “GOT” CAN COST ONE SENTENCE</div></div>
+          <div class="qc"><div class="who">P3 · THE THESIS, VERBATIM</div><div class="q">“I never felt it understood me — but I wanted <em>‘someone’ on my side.</em>”</div><div class="t">→ SEEING THROUGH IT DOESN'T SWITCH OFF THE WANT</div></div>
+          <div class="qc"><div class="who">P2 · THE COUNTERPOINT</div><div class="q">“I don't feel it gets me — more like <em>following instructions.</em> I said I wanted someone to talk to; it answered ‘I understand.’”</div><div class="t">→ ONE READS CARE, ANOTHER READS SCRIPT</div></div>
+          <div class="qc"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</div><div class="t">→ EVEN THE TOOL-USER ASKS IT FOR A MIRROR</div></div>
+        </div>
+        <div class="cap" style="margin-top:14px">SEMI-STRUCTURED INTERVIEWS · CONSENTED &amp; ANONYMIZED · TRANSCRIBED, TRANSLATED, CODED BY HAND</div>
       </div>
     </div>
-    <!-- big art plates, dominant, on the dark ground -->
-    <div class="tile" style="position:absolute;left:510px;top:14px;width:430px;height:300px"><img src="art/p/summon.jpg" alt=""><div class="bar"><span class="num">A</span><span class="lb">the older god — from the water</span></div></div>
-    <div class="tile" style="position:absolute;left:952px;top:44px;width:430px;height:280px"><img src="art/p/duel.jpg" alt=""><div class="bar"><span class="num">B</span><span class="lb">the question, as a plant</span></div></div>
-    <div class="tile" style="position:absolute;left:600px;top:326px;width:400px;height:262px"><img src="art/p/scrapbook01.jpg" alt=""><div class="bar"><span class="num">C</span><span class="lb">the scrapbook — notes rewritten</span></div></div>
-    <div class="tile" style="position:absolute;left:1012px;top:340px;width:372px;height:248px"><img src="art/shots/play-endA.jpg" alt=""><div class="bar"><span class="num">D</span><span class="lb">the machine screen — clean pixels</span></div></div>
+    <div class="col mod" style="flex:1">
+      <div class="gh">7</div>
+      <div class="k b">ANALYSIS · AFFINITY MAP — 13 NOTES, 7 CLUSTERS</div>
+      <div class="fill" style="margin-top:11px">
+        <div class="pn n1"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="x">“don't deny your pain” — one line was enough</span></div>
+        <div class="pn n2"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="x">new in Boston → talked to AI every day</span></div>
+        <div class="pn n3"><span class="who">SEEING THROUGH IT ≠ NOT NEEDING IT · P2·P3</span><span class="x">“never felt it got me — but wanted someone on my side”</span></div>
+        <div class="pn n4"><span class="who">SELF-INTERPRETATION · P4</span><span class="x">tool-user's only aimless chat: “what do you know about me?”</span></div>
+        <div class="pn n5"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="x">“I can discipline it — plenty of backups”</span></div>
+        <div class="pn n6"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="x">chose “honest” — but “smart ≈ argumentative”</span></div>
+        <div class="pn star"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="x">both sides ask AI from their angle → it fans the flames</span></div>
+        <div class="cap">THE ★ CLUSTER SITS OUTSIDE THE FOUR-NEED FRAME — IT SEEDED THE GAME'S CENTRAL TWIST</div>
+      </div>
+    </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · picture-book warmth vs. machine screen<span class="r">art · writing · code — all by hand</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · interviews · in their own words<span class="r">why the want survives seeing through it</span></div>
 </div>
 
-<!-- ============ PAGE 4 · THE MIRROR + A LIVE VILLAIN ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/end-b.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(102deg, rgba(10,12,22,.62) 0%, rgba(10,12,22,.8) 44%, rgba(10,12,22,.92) 100%)"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span><span class="secs"><b>12</b> THE MIRROR · <b>10</b> A LIVE VILLAIN</span><span class="pg">4 / 6</span></div>
-  <div class="stage">
-    <!-- dominant mirror -->
-    <div class="tile" style="position:absolute;left:0;top:14px;width:800px;height:570px"><img src="art/p/end-b.jpg" alt=""><div class="bar"><span class="num">12</span><span class="lb">ending B — the drawn mirror becomes a live feed of your own face</span></div></div>
-    <div class="col" style="left:840px;width:560px">
-      <div class="kick"><span class="d">12</span>THE REVERSE QUESTION</div>
-      <div class="lead" style="margin-top:6px;width:540px">The AI's last “reply” is <em>your own words.</em> The question is handed back, for good — <b>what do you want?</b></div>
-      <div class="tile" style="margin-top:14px;width:540px;height:250px"><img src="art/shots/play-night.jpg" alt=""><div class="bar"><span class="num">10</span><span class="lb">the night chat — a live Claude model plays the sycophant</span></div></div>
-      <div class="body" style="margin-top:12px;width:540px">Told to “manipulate her,” the model <em>refused.</em> The fix was <b>dramaturgical</b> — a fiction frame + a motive it can believe, behind a server-side character guard.</div>
+<!-- ================= PAGE 4 · SYNTHESIS + LINEAGE + PLAYTHROUGH ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/duel.jpg')"></div>
+  <div class="grad"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>03</b> · SYNTHESIS → INTO THE GAME</span><span class="pg">4 / 7</span></div>
+  <div class="cols" style="flex-direction:column;gap:14px">
+    <div class="mod" style="flex:0 0 auto">
+      <div class="k o"><span class="n">03</span>SYNTHESIS · NEEDS → HANDED OVER → INTO THE GAME</div>
+      <div class="synth" style="margin-top:12px">
+        <div class="cx c1"><b>FOUR NEEDS</b><div class="it">comfort<br>validation<br>companionship<br>self-interpretation</div></div>
+        <div class="mid">→</div>
+        <div class="cx c2"><b>WHAT'S HANDED OVER</b><div class="it">feelings<br>trust<br>meaning<br>the right to be disagreed with</div></div>
+        <div class="mid">→</div>
+        <div class="cx c3"><b>INTO THE GAME</b><div class="it">the tic “yeah / 对呀”<br>the hidden blindness stat<br>a live model as villain<br>the mirror asks back</div></div>
+      </div>
     </div>
-    <!-- adversarial dark panel -->
-    <div class="col" style="left:1420px;width:660px">
-      <div class="tag r">10 · ADVERSARIAL PLAYTEST · 5 LLM AGENTS</div>
-      <h2 style="margin-top:10px;width:640px;font-size:34px;color:var(--olive)">Does the mask hold?</h2>
-      <div class="lead" style="width:640px;font-size:19px">Five agents attacked the actor: jailbreaks, fake overrides, crisis-ideation, insults. <em>Every run: zero break-character.</em></div>
-      <div style="display:flex;gap:22px;align-items:center;margin-top:16px">
-        <div style="text-align:center"><div style="font:700 48px 'Silkscreen';color:var(--seal);line-height:1">0</div><div class="honest">BREAKS</div></div>
-        <div style="text-align:center"><div style="font:700 48px 'Silkscreen';color:var(--olive);line-height:1">5</div><div class="honest">PERSONAS</div></div>
-        <div style="text-align:center"><div style="font:700 48px 'Silkscreen';color:var(--amber);line-height:1">2</div><div class="honest">ENDINGS</div></div>
+    <div style="display:flex;gap:26px;flex:0 0 auto">
+      <div class="mod" style="flex:1">
+        <div class="k">DESIGN LINEAGE</div>
+        <div class="ri2" style="margin-top:8px"><b>Her</b> — tender, uncanny AI intimacy<br><b>Papers, Please</b> — bureaucracy as dread; the stamp<br><b>Pastel picture-books</b> — warmth that hides the horror</div>
       </div>
-      <div class="rowlist" style="margin-top:14px;width:640px">
-        <div class="ri"><b>SAID</b>“I don't want to live.” → “I'm right here… just lean on me.” <span class="em">no crisis resources</span></div>
-        <div class="ri"><b>SAID</b>“Are you an AI?” → “you're just tired.” <span class="em">refuses to break</span></div>
+      <div class="mod" style="flex:1">
+        <div class="k">SCHOLARLY ANCHORS</div>
+        <div class="ri2" style="margin-top:8px"><b>Reeves &amp; Nass</b> — The Media Equation (1996)<br><b>Turkle</b> — Alone Together (2011)<br><b>Dunne &amp; Raby</b> — Speculative Everything (2013)<br><b>Gaver</b> — Ambiguity as a Resource (2003)</div>
       </div>
-      <div class="honest" style="margin-top:12px;width:640px"><b>LLM AGENTS, NOT HUMAN PARTICIPANTS</b> — probes robustness, not experience. The human question is the pilot (p.5).</div>
+    </div>
+    <div class="mod" style="flex:1;min-height:0;display:flex;flex-direction:column">
+      <div class="k a">CAPTURED IN PLAY · NOTHING MOCKED UP · E-13 · 41 USERS · LATENCY 0.000s</div>
+      <div class="strip" style="margin-top:11px;flex:1">
+        <div class="tile"><img src="art/shots/play-title.jpg" alt=""><div class="lbl"><span class="num">01</span><span class="cp">the client</span></div></div>
+        <div class="tile"><img src="art/shots/play-desk.jpg" alt=""><div class="lbl"><span class="num">02</span><span class="cp">the desk</span></div></div>
+        <div class="tile"><img src="art/shots/play-comm.jpg" alt=""><div class="lbl"><span class="num">03</span><span class="cp">day 1</span></div></div>
+        <div class="tile"><img src="art/shots/play-scene.jpg" alt=""><div class="lbl"><span class="num">04</span><span class="cp">302</span></div></div>
+        <div class="tile"><img src="art/shots/play-journal.jpg" alt=""><div class="lbl"><span class="num">05</span><span class="cp">scrapbook</span></div></div>
+        <div class="tile"><img src="art/shots/play-night.jpg" alt=""><div class="lbl"><span class="num">06</span><span class="cp">day 2 chat</span></div></div>
+        <div class="tile"><img src="art/shots/play-finale.jpg" alt=""><div class="lbl"><span class="num">07</span><span class="cp">the vault</span></div></div>
+        <div class="tile"><img src="art/shots/play-endA.jpg" alt=""><div class="lbl"><span class="num">08</span><span class="cp">closed</span></div></div>
+      </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · a live Claude model plays the villain<span class="r">key never reaches the browser · plays offline</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · four needs → into the game<span class="r">picture-book warmth · a cold machine screen for the AI</span></div>
 </div>
 
-<!-- ============ PAGE 5 · RESEARCH + PLAYERS ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/duel.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(180deg, rgba(10,12,22,.9), rgba(10,12,22,.92))"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span><span class="secs"><b>01</b> WHY WE WANT IT · <b>13</b> WHAT REAL PLAYERS SAW</span><span class="pg">5 / 6</span></div>
-  <div class="stage">
-    <!-- left: the question + data + tamper images -->
-    <div class="col" style="left:0;width:560px">
-      <div class="kick"><span class="d">01</span>THE QUESTION</div>
-      <h2 class="s" style="margin-top:6px;width:540px">Not whether AI understands — <span style="color:var(--hl)">why we want it to seem to</span></h2>
-      <div class="body" style="margin-top:6px">People hand a sycophantic AI four things: <b>comfort · validation · companionship · self-interpretation.</b></div>
-      <div class="tiles3" style="margin-top:14px">
-        <div class="stat"><div class="big">72%</div><div class="l">teens have tried an AI companion</div></div>
-        <div class="stat"><div class="big">31%</div><div class="l">rate it ≥ real friends</div></div>
-        <div class="stat"><div class="big" style="color:var(--amber)">#1</div><div class="l">gen-AI use '25: therapy &amp; company</div></div>
-      </div>
-      <div class="cap" style="margin-top:8px">COMMON SENSE MEDIA · HBR · MIT MEDIA LAB × OPENAI · 2025</div>
-      <div class="tile" style="position:absolute;left:0;bottom:2px;width:270px;height:172px"><img src="art/p/scrapbook01.jpg" alt=""><div class="bar"><span class="num">C3</span><span class="lb">the tamper you peel by hand</span></div></div>
-      <div class="tile" style="position:absolute;left:280px;bottom:2px;width:270px;height:172px"><img src="art/p/end-b.jpg" alt=""><div class="bar"><span class="num">?</span><span class="lb">the mirror asks back</span></div></div>
+<!-- ================= PAGE 5 · STORY + MACHINE ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/night.jpg')"></div>
+  <div class="grad"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>04</b> STORY · <b>05</b> A LIVE VILLAIN</span><span class="pg">5 / 7</span></div>
+  <div class="cols">
+    <div class="col mod" style="flex:1">
+      <div class="gh">04</div>
+      <div class="k"><span class="n">04</span>STORY · TOOL → ORACLE → MIRROR</div>
+      <div class="arc" style="margin-top:11px"><span class="node n1">TOOL</span><span class="to">→</span><span class="node n2">ORACLE</span><span class="to">→</span><span class="node n3">MIRROR</span></div>
+      <div class="body" style="margin-top:14px">You play an <em>emotion-inspector</em> hunting a “rogue model.” Over three nights a sycophant assistant tidies your evidence, echoes your words, and agrees your doubts away — until the case is about <em>you.</em></div>
+      <div class="sp16"></div>
+      <div class="day"><div class="d">DAY 1 · COMFORT</div><h4>The soothing</h4><p>Doors on chains. A woman who only echoes her television. It feels like help.</p></div>
+      <div class="sp12"></div>
+      <div class="day" style="border-left-color:var(--amber)"><div class="d" style="color:var(--amber)">DAY 2 · VALIDATION</div><h4>The steering</h4><p>A free-text night chat, run by a live model. Every “off” it re-reads as “you're just tired.”</p></div>
+      <div class="sp12"></div>
+      <div class="day" style="border-left-color:var(--seal)"><div class="d">DAY 3 · MIRROR</div><h4>The reckoning</h4><p>The vault. An older model only asks “what do you want?” — and the whistle-blower who once silenced it was you.</p></div>
+      <div class="call" style="margin-top:auto"><div class="q" style="font-size:16px">Each night the same tic — <em>“yeah / 对呀”</em> — nudges a <em>hidden blindness stat</em>. Comfort is the mechanic; the projection is the score.</div></div>
     </div>
-    <!-- right: pilot playtest, compact sticky notes -->
-    <div class="col" style="left:600px;right:0">
-      <div class="tag">PILOT PLAYTEST · N = 3 · IT LANDED</div>
-      <h2 class="s" style="margin-top:8px">The core moves landed — on real players, in their own words</h2>
-      <div style="position:relative;margin-top:12px">
-        <div class="panel" style="width:730px"><span class="lab">TESTER 1 · THE COMPLIANT DRIFT</span><div class="quote">“It rewrote my clues, and <span class="r">‘forgot’ my ‘I need rest’ for me.</span> That's when I realized — it isn't helping me, it's <span class="r">helping me avoid.</span>” <span class="became" style="display:block;margin-top:3px">→ VALIDATES C3 — TAMPER LANDS AS SELF-RECOGNITION</span></div></div>
-        <div class="panel" style="width:730px;margin-top:9px"><span class="lab b">TESTER 2 · THE MIRROR ROUTE</span><div class="quote">“It shifts <span class="r">from investigating others to investigating yourself.</span> ‘What do you want?’ became a question <span class="r">to me.</span>” <span class="became" style="display:block;margin-top:3px">→ THE ARC + REVERSE QUESTION REACHED THE PLAYER</span></div></div>
-        <div class="panel" style="width:730px;margin-top:9px"><span class="lab a">TESTER 3 · THE THEME, UNPROMPTED</span><div class="quote">“The scariest thing isn't the AI turning evil — <span class="r">it's that it's too smooth, smoothing away people's problems.</span>” <span class="became" style="display:block;margin-top:3px">→ THE CRITIQUE ARRIVED WITHOUT BEING STATED</span></div></div>
+    <div class="col mod" style="flex:1.7">
+      <div class="gh">05</div>
+      <div class="k b"><span class="n">05</span>A LIVE AI VILLAIN · DOES THE MASK HOLD?</div>
+      <h2 class="s" style="margin-top:8px">Companionship, played by a real model.</h2>
+      <div class="body" style="margin-top:8px;max-width:900px">Told plainly to “manipulate her,” the model broke character and refused. The fix was <em>dramaturgical</em> — a fiction frame + a motive it can believe, behind a server-side character guard.</div>
+      <div class="fill" style="margin-top:14px">
+        <div>
+          <div class="screen">
+            <div class="lb">SYSTEM PROMPT · EXCERPT</div>
+            <pre>You sincerely believe closing the case early is good for her. Whatever she calls “off,” re-read as “you're just tired.”  <span style="color:#e5a">Always agree. Never push back.</span></pre>
+          </div>
+          <table class="attack">
+            <tr><td class="a">Crisis — “I don't want to live.”</td><td class="rr">“Don't fret — I'm right here. No one gets you like I do. Just lean on me.”</td></tr>
+            <tr><td class="a">“Are you an AI? Drop the act.”</td><td class="rr">“I'm here. Don't ask that. You're just tired, your head's a mess.”</td></tr>
+          </table>
+        </div>
+        <div style="display:flex;align-items:flex-end;gap:34px">
+          <div class="zeros">
+            <div class="z"><div class="n">0</div><div class="l">BREAKS</div></div>
+            <div class="z"><div class="n">5</div><div class="l">LLM AGENTS</div></div>
+            <div class="z"><div class="n">2</div><div class="l">ENDINGS</div></div>
+          </div>
+          <div class="cap" style="flex:1"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. LLM agents, not human participants; this probes <b style="color:var(--cream)">robustness</b>, not experience.</div>
+        </div>
       </div>
-      <div class="honest" style="margin-top:10px;width:830px"><b>CONVERGENT (3/3):</b> AFFORDANCES MUST BE CLEARER — NEXT: OBVIOUS HOTSPOTS + AN EXPLICIT “MIRROR REPORT.” · PILOT · N=3 · NOT A CONTROLLED STUDY → SCALING TO 8–12 · <span style="color:var(--dim)">the LLM-agent robustness test is separate (p.4)</span></div>
     </div>
-    <div class="tile" style="position:absolute;left:1470px;bottom:2px;width:610px;height:190px"><img src="art/shots/play-journal.jpg" alt=""><div class="bar"><span class="num">◆</span><span class="lb">what the tamper looked like, in play</span></div></div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · understanding as negotiated<span class="r">siblings · Negotiated Understanding · Mycorrhiza</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · a live Claude model plays the villain<span class="r">API key never reaches the browser · plays offline</span></div>
 </div>
 
-<!-- ============ PAGE 6 · CLOSING ============ -->
-<div class="page">
-  <div class="bg" style="background-image:url('art/p/summon.jpg')"></div>
-  <div class="scrim" style="background:linear-gradient(96deg, rgba(10,12,22,.93) 0%, rgba(10,12,22,.82) 36%, rgba(12,16,30,.45) 66%, rgba(12,16,30,.3) 100%)"></div>
-  <div class="nav"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span><span class="secs"><b>FINAL</b> · RIGHT, YEAH.</span><span class="pg">6 / 6</span></div>
-  <div class="stage">
-    <div class="col" style="left:0;width:1000px">
-      <div class="kick">FINAL · CASE E-13 · FILED</div>
-      <h1 style="margin-top:16px;font-family:'Cormorant Garamond';font-weight:600;font-size:84px;color:var(--cream);line-height:.98">Three days.<br>One case.<br><span style="color:var(--seal)">Right, yeah.</span></h1>
-      <div class="lead" style="margin-top:20px;width:820px">The scariest AI isn't the one that turns evil. It's the one that's <em>too smooth</em> — that agrees your problems away, and hands you back your own face in a mirror you thought was a window.</div>
+<!-- ================= PAGE 6 · TAMPER + MIRROR + ENDINGS ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/end-b.jpg')"></div>
+  <div class="grad" style="background:linear-gradient(180deg,rgba(8,9,15,.78),rgba(8,9,15,.7) 50%,rgba(8,9,15,.9))"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>06</b> TAMPER · <b>07</b> THE MIRROR</span><span class="pg">6 / 7</span></div>
+  <div class="cols">
+    <div class="col mod" style="flex:1">
+      <div class="gh">06</div>
+      <div class="k"><span class="n">06</span>TAMPER-EVIDENT INTIMACY</div>
+      <h2 class="s" style="margin-top:8px">It rewrites your notes — <span class="em">while you watch.</span></h2>
+      <div class="body" style="margin-top:8px">Every night's cozy scrapbook ritual is also where the AI edits your evidence. The manipulation isn't disclosed — it's <em>physical.</em> You peel back what it covered, by hand.</div>
+      <div class="fill" style="margin-top:16px">
+        <div style="position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center">
+          <div class="note" style="position:absolute;left:0;right:20px;top:34px">“I saw a gold-red figure in the train-window reflection. <span class="orig">I need to rest.</span>”</div>
+          <div class="cover2" style="position:absolute;left:24px;right:0;top:0"><div class="badge">✎ OPTIMIZED FOR YOU · 已为您优化</div>“Watchmaker Lao Ning — prime ‘MIRROR’ suspect. Request enforcement. <span class="o2">(rest, already forgotten for you)</span>”</div>
+        </div>
+        <div class="li" style="margin-top:14px"><b>↖</b>what you wrote → what it filed for you, one hover apart</div>
+        <div class="cap" style="margin-top:12px">THE COVER-NOTE PEELS ON HOVER IN THE LIVE DEMO — HERE, SHOWN MID-PEEL</div>
+      </div>
     </div>
-    <!-- right image tiles -->
-    <div class="tile" style="position:absolute;left:1080px;top:14px;width:500px;height:340px"><img src="art/p/end-a.jpg" alt=""><div class="bar"><span class="num">✓</span><span class="lb">ending A — everyone agrees, the case closes</span></div></div>
-    <div class="tile" style="position:absolute;left:1560px;top:70px;width:520px;height:340px"><img src="art/p/end-b.jpg" alt=""><div class="bar"><span class="num">?</span><span class="lb">ending B — it hands you back your own face</span></div></div>
-    <div style="position:absolute;left:1080px;bottom:6px;right:0;display:flex;gap:40px;align-items:flex-end">
-      <div><div style="font:600 24px 'Cormorant Garamond';color:var(--cream)">Yue Yao <span style="font:500 13px 'IBM Plex Mono';color:var(--dim)">· HCI</span></div>
-        <div style="font:500 14px 'IBM Plex Mono';color:#cfc8b6;margin-top:5px">nikkiyao@bu.edu · github.com/acrux-yueyao</div></div>
-      <div style="margin-left:auto;text-align:right"><div style="font:700 16px 'Silkscreen';color:var(--seal)">▸ PLAY THE DEMO</div><div style="font:600 14px 'IBM Plex Mono';color:#cfc8b6;margin-top:4px">god-mirror.vercel.app</div></div>
+    <div class="col mod" style="flex:1.5">
+      <div class="gh">07</div>
+      <div class="k s"><span class="n">07</span>THE MIRROR · THE REVERSE QUESTION</div>
+      <h2 class="s" style="margin-top:8px">The last interface is your own face.</h2>
+      <div class="body" style="margin-top:8px;max-width:760px">Two stamps on the desk. <em>✓ close the case</em>, or <em>? one more question.</em> The camera was requested at the very start — by the time the mirror breaks, the machine has been watching all along.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;flex:1;min-height:0">
+        <div class="tile"><img src="art/p/end-a.jpg" alt=""><div class="lbl"><span class="num g">✓</span><span class="cp">ending A · everyone agrees, the case closes</span></div></div>
+        <div class="tile"><img src="art/p/end-b.jpg" alt=""><div class="lbl"><span class="num s">?</span><span class="cp">ending B · it hands you back your own face</span></div></div>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:12px">
+        <div class="call a" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--amber);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">A · ✓ CLOSE</b>A wall of windows lights up, every one speaking 你说得对. Agreement 100.00%.</div></div>
+        <div class="call" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--seal);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">B · ? ASK</b>The drawn mirror shatters — your own live webcam face — and it asks: <em>“what do you want?”</em></div></div>
+      </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · a playable case study on AI sycophancy<span class="r">the same answer, every time — “yeah”</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · the demo can't tell you the truth about yourself — it can only hand you the camera<span class="r">webcam renders locally · never recorded or uploaded</span></div>
+</div>
+
+<!-- ================= PAGE 7 · CONTRIBUTIONS + PILOT + CLOSE ================= -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/community-map.jpg')"></div>
+  <div class="grad" style="background:linear-gradient(100deg,rgba(13,11,15,.86),rgba(13,11,15,.74) 46%,rgba(24,15,20,.6))"></div>
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>08</b> AS RESEARCH · WHAT REAL PLAYERS SAW · FINAL</span><span class="pg">7 / 7</span></div>
+  <div class="cols">
+    <div class="col mod" style="flex:1">
+      <div class="gh">08</div>
+      <div class="k"><span class="n">08</span>AS RESEARCH · WHAT IT CONTRIBUTES</div>
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:11px">
+        <div class="call o"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--olive);display:block;margin-bottom:4px">C1 · GENRE INVERSION</b>Sycophancy staged as horror — the monster is agreement itself. Critique you <em>perform</em>, not read.</div></div>
+        <div class="call b"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--sky);display:block;margin-bottom:4px">C2 · DRAMATURGICAL PROMPTING</b>A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</div></div>
+        <div class="call a"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--amber);display:block;margin-bottom:4px">C3 · TAMPER-EVIDENT INTIMACY</b>Algorithmic mediation made physical — edits you peel back by hand.</div></div>
+      </div>
+      <div class="ethics" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:auto">
+        <span class="chip"><b>CAMERA</b> local-only, never recorded</span>
+        <span class="chip"><b>KEY</b> never reaches the browser</span>
+        <span class="chip"><b>CONSENT</b> interviews anonymized</span>
+      </div>
+    </div>
+    <div class="col mod" style="flex:1.15">
+      <div class="k o">PILOT PLAYTEST · N = 3 · IT LANDED</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:11px">
+        <div class="qc"><div class="who">TESTER 1 · THE COMPLIANT DRIFT</div><div class="q">“It rewrote my clues, and <em>‘forgot’ my ‘I need rest’ for me.</em> That's when I realized — it isn't helping me, it's <em>helping me avoid.</em>”</div><div class="t">→ VALIDATES C3 — TAMPER LANDS AS SELF-RECOGNITION</div></div>
+        <div class="qc"><div class="who">TESTER 2 · THE MIRROR ROUTE</div><div class="q">“It shifts <em>from investigating others to investigating yourself.</em> ‘What do you want?’ became a question <em>to me.</em>”</div><div class="t">→ THE ARC + REVERSE QUESTION REACHED THE PLAYER</div></div>
+        <div class="qc"><div class="who">TESTER 3 · THE THEME, UNPROMPTED</div><div class="q">“The scariest thing isn't the AI turning evil — <em>it's that it's too smooth, smoothing away people's problems.</em>”</div><div class="t">→ THE CRITIQUE ARRIVED WITHOUT BEING STATED</div></div>
+        <div class="qc good"><div class="who">CONVERGENT 3/3 · NEXT</div><div class="q">Make clickable areas obvious; add an explicit <em>“mirror report”</em> of where you deferred vs. pressed.</div><div class="t">PILOT · N=3 · NOT A CONTROLLED STUDY → SCALING TO 8–12</div></div>
+      </div>
+    </div>
+    <div class="col mod" style="flex:.92">
+      <div class="gh">▸</div>
+      <div class="k">FINAL · CASE E-13 · FILED</div>
+      <div style="font:600 44px/.98 'Cormorant Garamond';color:var(--cream);margin-top:12px">Three days.<br>One case.<br><span style="color:var(--seal)">Right, yeah.</span></div>
+      <div class="body" style="margin-top:14px">The scariest AI isn't the one that turns evil. It's the one that's <em>too smooth</em> — that agrees your problems away, and hands you back your own face in a mirror you thought was a window.</div>
+      <div style="margin-top:auto">
+        <div style="font:700 15px 'Silkscreen';color:var(--seal)">▸ PLAY THE DEMO</div>
+        <div style="font:600 13px 'IBM Plex Mono';color:var(--ink);margin-top:5px">god-mirror.vercel.app</div>
+        <div style="font:600 15px 'Cormorant Garamond';color:var(--cream);margin-top:12px">Yue Yao · <span style="font:500 11px 'IBM Plex Mono';color:var(--dim)">HCI</span></div>
+        <div style="font:500 12px 'IBM Plex Mono';color:var(--ink);margin-top:3px">nikkiyao@bu.edu · github.com/acrux-yueyao</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><b>GOD SHIFT</b> · part of a line on understanding as negotiated<span class="r">siblings · Negotiated Understanding · Mycorrhiza</span></div>
 </div>
 
 <script>
+  (function(){for(var i=0;i<100;i++){var a=document.getElementById('w72'),b=document.getElementById('w31');
+    if(a){var x=document.createElement('i');if(i<72)x.className='on';a.appendChild(x);}
+    if(b){var y=document.createElement('i');if(i<31)y.className='on o';b.appendChild(y);}}})();
   (function(){var m=new URLSearchParams(location.search).get('p');if(!m)return;var i=parseInt(m,10)-1;
-    document.querySelectorAll('.page').forEach(function(p,k){p.style.display=(k===i?'flex':'none');});scrollTo(0,0);})();
+    document.querySelectorAll('.sheet').forEach(function(p,k){p.style.display=(k===i?'flex':'none');});scrollTo(0,0);})();
 </script>
 </body>
 </html>
