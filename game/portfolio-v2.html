@@ -50,7 +50,8 @@
 
   /* ---- act shells ---- */
   .act{position:relative;padding:130px 8vw;overflow:hidden}
-  .act.warm{background:radial-gradient(130% 100% at 22% 12%,#2c2015,#181109 68%);color:var(--cream)}
+  .act{background:#101019}
+  .act.warm{color:var(--cream)}
   .act.warm .dim{color:#9a8f77}
   .bgart{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
   .scrim{position:absolute;inset:0;z-index:1}
@@ -99,7 +100,7 @@
   @media(max-width:860px){.statrow{grid-template-columns:repeat(2,1fr);gap:28px}}
 
   .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;margin-top:50px}
-  .qcard{background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.14);border-radius:12px;padding:26px 28px;box-shadow:0 14px 34px rgba(0,0,0,.3)}
+  .qcard{background:rgba(12,13,21,.56);backdrop-filter:blur(7px);border:1px solid rgba(240,231,211,.13);border-radius:12px;padding:26px 28px;box-shadow:0 14px 34px rgba(0,0,0,.34)}
   .qcard .who{font:700 11px 'Silkscreen',monospace;color:var(--seal)}
   .qcard .q{font:500 19px/1.6 'Cormorant Garamond',serif;color:var(--cream);margin-top:12px}
   .qcard .q em{font-style:normal;color:var(--seal);font-weight:600}
@@ -170,7 +171,7 @@
 
   /* research */
   .c3{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
-  .cbox{background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.14);border-radius:12px;padding:24px}
+  .cbox{background:rgba(12,13,21,.56);backdrop-filter:blur(7px);border:1px solid rgba(240,231,211,.13);border-radius:12px;padding:24px}
   .cbox .n{font:700 12px 'Silkscreen';color:var(--seal)}
   .cbox h4{font:600 22px 'Cormorant Garamond';color:var(--cream);margin:8px 0 8px}
   .cbox p{font:500 15px/1.5 'Cormorant Garamond';color:#cfc8b6}
@@ -207,8 +208,8 @@
   @media(max-width:860px){.timeline{grid-template-columns:1fr 1fr}}
   /* affinity board (warm) — unified with the interview cards */
   .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;margin-top:32px}
-  .pn{padding:16px 18px;border-radius:11px;background:rgba(255,246,230,.045);border:1px solid rgba(240,231,211,.13);
-    border-left:3px solid var(--seal);box-shadow:0 12px 28px rgba(0,0,0,.28);
+  .pn{padding:16px 18px;border-radius:11px;background:rgba(12,13,21,.56);backdrop-filter:blur(7px);border:1px solid rgba(240,231,211,.12);
+    border-left:3px solid var(--seal);box-shadow:0 12px 28px rgba(0,0,0,.3);
     font:500 17px/1.38 'Cormorant Garamond',serif;color:var(--cream)}
   .pn .who{font:700 9.5px 'IBM Plex Mono',monospace;color:var(--dim);letter-spacing:.03em;display:block;margin-bottom:8px}
   .pn.n1{border-left-color:#d9b85a}.pn.n2{border-left-color:var(--olive)}.pn.n3{border-left-color:var(--sky)}
@@ -263,7 +264,8 @@
 
 <!-- 01 QUESTION -->
 <section id="question" class="act dark-seg" data-seg>
-  <div class="scrim" style="background:radial-gradient(circle at 78% 24%,rgba(40,36,70,.5),transparent 55%)"></div>
+  <div class="bgart" style="background-image:url('art/p/duel.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(100deg,rgba(11,12,19,.9) 0%,rgba(11,12,19,.6) 46%,rgba(16,16,26,.3) 100%)"></div>
   <div class="wrap">
     <div class="rv kick"><span class="n">01</span><span class="e">THE QUESTION</span><span class="z">提问</span></div>
     <h2 class="rv d1" style="margin-top:20px;max-width:15ch">Not whether AI understands — <span style="color:var(--seal)">why we want it to seem to.</span><span class="zh e" style="display:none"></span></h2>
@@ -281,7 +283,8 @@
 
 <!-- 02 DATA -->
 <section id="data" class="act dark-seg" data-seg>
-  <div class="scrim" style="background:radial-gradient(circle at 20% 80%,rgba(70,40,40,.4),transparent 55%)"></div>
+  <div class="bgart" style="background-image:url('art/p/night.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(100deg,rgba(11,12,19,.9) 0%,rgba(11,12,19,.62) 46%,rgba(16,16,26,.32) 100%)"></div>
   <div class="wrap">
     <div class="rv kick"><span class="n">02</span><span class="e">THE DATA — FEELING BEAT FUNCTION</span><span class="z">数据——情绪排在功能之前</span></div>
     <h2 class="rv d1" style="margin-top:18px">This is not a hypothetical.<span class="zh e" style="display:none"></span></h2>
@@ -316,6 +319,8 @@
 
 <!-- 03 VOICES (warm) -->
 <section id="voices" class="act warm" data-seg="warm">
+  <div class="bgart" style="background-image:url('art/p/community-map.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(100deg,rgba(13,11,15,.9) 0%,rgba(13,11,15,.58) 48%,rgba(24,15,20,.3) 100%)"></div>
   <div class="wrap">
     <div class="rv kick"><span class="n">03</span><span class="e">INTERVIEWS · IN THEIR OWN WORDS</span><span class="z">访谈 · 原话</span></div>
     <h2 class="rv d1" style="margin-top:18px;color:var(--ink)">Data says people do this — interviews ask <span class="em">why it feels good.</span><span class="zh e" style="display:none"></span></h2>
@@ -382,7 +387,8 @@
 
 <!-- 05 MACHINE -->
 <section id="machine" class="act dark-seg" data-seg>
-  <div class="scrim" style="background:radial-gradient(circle at 80% 30%,rgba(30,40,70,.5),transparent 55%)"></div>
+  <div class="bgart" style="background-image:url('art/p/night.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(100deg,rgba(10,11,18,.9) 0%,rgba(10,11,18,.6) 46%,rgba(20,26,44,.34) 100%)"></div>
   <div class="wrap">
     <div class="rv kick"><span class="n">05</span><span class="e">A LIVE AI VILLAIN · DOES THE MASK HOLD?</span><span class="z">真实反派 · 面具扛得住吗?</span></div>
     <h2 class="rv d1" style="margin-top:18px;max-width:16ch">Companionship, played by a real model.<span class="zh e" style="display:none"></span></h2>
@@ -406,6 +412,8 @@
 
 <!-- 06 TAMPER (interaction, warm) -->
 <section id="tamper" class="act warm" data-seg="warm">
+  <div class="bgart" style="background-image:url('art/p/scrapbook01.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(rgba(13,11,14,.74),rgba(16,13,14,.82))"></div>
   <div class="wrap" style="text-align:center">
     <div class="rv kick" style="justify-content:center"><span class="n">06</span><span class="e">TAMPER-EVIDENT INTIMACY</span><span class="z">可撕开的篡改</span></div>
     <h2 class="rv d1" style="margin-top:18px;color:var(--ink)">It rewrites your notes — <span class="em">while you watch.</span><span class="zh e" style="display:none"></span></h2>
@@ -445,6 +453,8 @@
 
 <!-- 08 RESEARCH (warm) -->
 <section id="research" class="act warm" data-seg="warm">
+  <div class="bgart" style="background-image:url('art/p/community-map.jpg')"></div>
+  <div class="scrim" style="background:linear-gradient(100deg,rgba(13,11,15,.9) 0%,rgba(13,11,15,.6) 48%,rgba(24,15,20,.32) 100%)"></div>
   <div class="wrap">
     <div class="rv kick"><span class="n">08</span><span class="e">AS RESEARCH · WHAT IT CONTRIBUTES</span><span class="z">作为研究 · 它贡献什么</span></div>
     <h2 class="rv d1" style="margin-top:18px;color:var(--ink)">What it contributes — and what real players saw.<span class="zh e" style="display:none"></span></h2>
