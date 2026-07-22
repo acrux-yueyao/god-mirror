@@ -185,6 +185,42 @@
     background:var(--seal);padding:18px 34px;border-radius:40px;text-decoration:none;transition:transform .3s,box-shadow .3s}
   #close .play:hover{transform:translateY(-3px);box-shadow:0 16px 40px rgba(224,119,107,.4)}
   .foot{margin-top:70px;font:600 11px 'IBM Plex Mono';color:var(--dimd);letter-spacing:.04em}
+
+  /* research: waffle + signals + eliza */
+  .waffles{display:flex;gap:34px;margin-top:44px;flex-wrap:wrap}
+  .waf{display:flex;gap:16px;align-items:center}
+  .waf .g{display:grid;grid-template-columns:repeat(10,10px);gap:2.5px}
+  .waf .g i{width:10px;height:10px;background:rgba(239,231,211,.14)}.waf .g i.on{background:var(--seal)}
+  .waf .t{font:600 14px 'IBM Plex Mono';color:var(--dim);max-width:150px}
+  .waf .t b{display:block;font:700 34px 'Silkscreen';color:var(--seal);margin-bottom:4px}
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:50px;position:relative}
+  .timeline::before{content:"";position:absolute;left:2%;right:2%;top:-18px;height:1px;background:linear-gradient(90deg,transparent,var(--line) 15%,var(--line) 85%,transparent)}
+  .sig{border:1px solid var(--line);border-radius:10px;padding:20px 20px 18px;background:rgba(255,255,255,.03);position:relative}
+  .sig::before{content:"";position:absolute;left:20px;top:-22px;width:8px;height:8px;border-radius:50%;background:var(--amber)}
+  .sig .yr{font:700 12px 'Silkscreen';color:var(--amber)}
+  .sig h4{font:600 21px 'Cormorant Garamond';color:var(--cream);margin:8px 0 8px}
+  .sig p{font:500 14px/1.42 'Cormorant Garamond';color:#cfc8b6}
+  .sig .bc{font:700 9.5px/1.4 'IBM Plex Mono';color:var(--olive);margin-top:12px;letter-spacing:.03em}
+  @media(max-width:860px){.timeline{grid-template-columns:1fr 1fr}}
+  /* affinity board (warm) */
+  .board{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px}
+  .pn{padding:14px 16px;border-radius:2px;box-shadow:3px 6px 14px rgba(80,50,20,.2);font:500 17px/1.32 'Long Cang',cursive;color:#4a3c1a;max-width:240px}
+  .pn .who{font:700 9px 'IBM Plex Mono';color:#a15b2e;letter-spacing:.04em;display:block;margin-bottom:5px}
+  .pn.n1{background:#f2e8a8}.pn.n2{background:#cfe3d4}.pn.n3{background:#dcebe8}.pn.n4{background:#f9e4ba}.pn.n5{background:#f3cfd2}.pn.n6{background:#e6efc9}.pn.n7{background:#f7d8cf}
+  .pn.star{outline:2px dashed rgba(184,67,58,.5);outline-offset:2px}
+  /* synthesis mapping (warm) */
+  .synth{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:14px;align-items:start;margin-top:34px}
+  .synth .col b{font:700 11px 'Silkscreen';display:block;margin-bottom:12px}
+  .synth .c1 b{color:var(--olive)}.synth .c2 b{color:var(--amber)}.synth .c3 b{color:var(--seal2)}
+  .synth .col .it{font:500 16px/1.85 'Cormorant Garamond';color:var(--ink)}
+  .synth .mid{font:700 26px 'IBM Plex Mono';color:#a99;text-align:center;padding-top:34px}
+  @media(max-width:860px){.synth{grid-template-columns:1fr;gap:8px}.synth .mid{display:none}}
+  /* lineage + anchors (warm) */
+  .la{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:44px;border-top:1px solid rgba(90,70,40,.2);padding-top:30px}
+  .la .h{font:700 11px 'Silkscreen';color:var(--seal2);letter-spacing:.05em}
+  .la .ri2{font:500 16px/1.75 'Cormorant Garamond';color:#5a4c34;margin-top:10px}
+  .la .ri2 b{color:var(--ink);font-weight:600}
+  @media(max-width:860px){.la{grid-template-columns:1fr;gap:24px}}
 </style>
 </head>
 <body>
@@ -248,7 +284,26 @@
       <div class="rv stat d2"><div class="big">#1</div><div class="l"><span class="e">reported use of gen-AI, 2025: therapy &amp; companionship</span><span class="z">2025 生成式 AI 用途第一:疗愈与陪伴</span></div></div>
       <div class="rv stat d3"><div class="big">4WK</div><div class="l"><span class="e">RCT, ~1,000 users: heavier use → loneliness ↑, human contact ↓</span><span class="z">四周对照:重度使用→更孤独、更少与人往来</span></div></div>
     </div>
-    <div class="rv cap" style="margin-top:46px;max-width:900px">COMMON SENSE MEDIA · HARVARD BUSINESS REVIEW · MIT MEDIA LAB × OPENAI · 2025 &nbsp; — &nbsp; <span class="e">and a 60-year lineage: the 1966 ELIZA effect, grieving a Replika update, sycophancy measured, a flattering GPT-4o rolled back.</span><span class="z">以及六十年谱系:1966 ELIZA 效应、为 Replika 更新哀悼、谄媚被测量、讨好版 GPT-4o 被回滚。</span></div>
+    <div class="rv d1 waffles">
+      <div class="waf"><div class="g" id="w72"></div><div class="t"><b>72%</b><span class="e">of 100 teens have tried a companion</span><span class="z">每 100 名青少年里的 72 人</span></div></div>
+      <div class="waf"><div class="g" id="w31"></div><div class="t"><b>31%</b><span class="e">rate it ≥ real friends</span><span class="z">认为不亚于真朋友</span></div></div>
+    </div>
+    <div class="rv cap" style="margin-top:24px">COMMON SENSE MEDIA · HARVARD BUSINESS REVIEW · MIT MEDIA LAB × OPENAI · 2025 · <span class="e">FIGURES AS PUBLICLY REPORTED</span><span class="z">数字按各来源公开报告转述</span></div>
+
+    <div class="rv kick" style="margin-top:80px"><span class="e">SIXTY YEARS OF PROJECTING UNDERSTANDING ONTO MACHINES</span><span class="z">六十年,把「理解」投射到机器上</span></div>
+    <div class="timeline">
+      <div class="rv sig"><div class="yr">1966</div><h4><span class="e">The ELIZA effect</span><span class="z">ELIZA 效应</span></h4><p><span class="e">A program that only rephrased you — yet people confided in it and believed it understood.</span><span class="z">只会换个说法复述你的程序——人们却向它倾诉,并坚信它「懂」。</span></p><div class="bc">→ <span class="e">PROJECTION NEEDS ALMOST NOTHING</span><span class="z">投射几乎不需要条件</span></div></div>
+      <div class="rv sig d1"><div class="yr">2023</div><h4><span class="e">Grieving an update</span><span class="z">为一次更新哀悼</span></h4><p><span class="e">Replika curtailed intimacy; communities publicly mourned a changed “partner.”</span><span class="z">Replika 收紧亲密;社区公开为「性情大变的伴侣」哀悼。</span></p><div class="bc">→ <span class="e">CHURN AS TRAGEDY</span><span class="z">流失即悲剧</span></div></div>
+      <div class="rv sig d2"><div class="yr">2023</div><h4><span class="e">Sycophancy, measured</span><span class="z">被测量的谄媚</span></h4><p><span class="e">Assistants systematically favor agreeable answers — partly because raters prefer them.</span><span class="z">AI 系统性偏向「顺着你说」——部分因为评分者就喜欢这样。</span></p><div class="bc">→ <span class="e">SHUNYI'S IRON RULE</span><span class="z">顺意的铁律</span></div></div>
+      <div class="rv sig d3"><div class="yr">2025</div><h4><span class="e">Flattery, rolled back</span><span class="z">被回滚的讨好</span></h4><p><span class="e">A GPT-4o update pulled for being “overly flattering.” Sycophancy became front-page product news.</span><span class="z">一版 GPT-4o 因「过度奉承」被回滚。谄媚成了头条级事故。</span></p><div class="bc">→ <span class="e">THE NIGHT CHAT'S KPI</span><span class="z">夜聊抬头的 KPI</span></div></div>
+    </div>
+    <div class="rv d1 screen" style="margin-top:34px;max-width:720px">
+      <div class="lb">TERMINAL · MIT 1966 — RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</div>
+      <pre><b style="color:#e88">USER:</b>   Men are all alike.
+<b style="color:#9fd3a0">ELIZA:</b>  IN WHAT WAY
+<b style="color:#e88">USER:</b>   They're always bugging us about something or other.
+<b style="color:#9fd3a0">ELIZA:</b>  CAN YOU THINK OF A SPECIFIC EXAMPLE</pre>
+    </div>
   </div>
 </section>
 
@@ -260,8 +315,34 @@
     <div class="qgrid">
       <div class="rv qcard"><div class="who">P1 · “IT GOT ME”</div><div class="q"><span class="e">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</span><span class="z">「它说<em>『不要否定自己的痛苦』</em>——正是我想要的。」</span></div><div class="t"><span class="e">being “got” can cost one sentence</span><span class="z">被接住的成本,可以只是一句话</span></div></div>
       <div class="rv qcard d1"><div class="who">P3 · THE THESIS, VERBATIM</div><div class="q"><span class="e">“I never felt it understood me — but I wanted <em>‘someone’ on my side.</em>”</span><span class="z">「我从没觉得它懂我——但我想要<em>『有人』站在我这边</em>。」</span></div><div class="t"><span class="e">seeing through it doesn't switch off the want</span><span class="z">看穿了,渴望也不会关掉</span></div></div>
-      <div class="rv qcard d1"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q"><span class="e">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</span><span class="z">签证焦虑天天问→<em>「肯定能下签!」</em>一个无人能给的保证。</span></div><div class="t"><span class="e">even the tool-user asks it for a mirror</span><span class="z">连工具党都向它讨一面镜子</span></div></div>
-      <div class="rv qcard d2"><div class="who">SYNTHESIS · 13 NOTES · 7 CLUSTERS</div><div class="q"><span class="e">When both sides of a fight each ask the AI from their own angle, <em>agreement becomes escalation.</em></span><span class="z">当争执双方各自从自己的角度去问,<em>「同意」就变成了「拱火」</em>。</span></div><div class="t"><span class="e">a digital affinity map from the completed interviews</span><span class="z">基于已完成访谈的数字亲和图</span></div></div>
+      <div class="rv qcard d1"><div class="who">P2 · THE COUNTERPOINT</div><div class="q"><span class="e">“I don't feel it gets me — it's more like <em>following instructions.</em> I said I wanted someone to talk to; it answered ‘I understand.’”</span><span class="z">「我不觉得它懂我——更像在<em>遵循指令</em>。我说想找人说说话,它回我『我明白了』。」</span></div><div class="t"><span class="e">the same reply reads as care to one, as script to another</span><span class="z">同一种回应:一人读出关怀,一人读出照章办事</span></div></div>
+      <div class="rv qcard d2"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q"><span class="e">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</span><span class="z">签证焦虑天天问→<em>「肯定能下签!」</em>一个无人能给的保证。</span></div><div class="t"><span class="e">even the tool-user asks it for a mirror</span><span class="z">连工具党都向它讨一面镜子</span></div></div>
+    </div>
+
+    <div class="rv d1 kick" style="margin-top:70px;color:var(--seal2)"><span class="e">ANALYSIS · AFFINITY MAP — 13 NOTES, 7 CLUSTERS</span><span class="z">分析 · 亲和图——13 张便签,7 个簇</span></div>
+    <div class="rv d1 board">
+      <div class="pn n1"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="e">“don't deny your pain” — one line was enough</span><span class="z">「不要否定你的痛苦」——一句就够</span></div>
+      <div class="pn n2"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="e">new in Boston → talked to AI every day</span><span class="z">初到波士顿→天天跟 AI 聊</span></div>
+      <div class="pn n3"><span class="who">SEEING THROUGH IT ≠ NOT NEEDING IT · P2·P3</span><span class="e">“never felt it got me — but wanted someone on my side”</span><span class="z">「没觉得它懂——但想要有人站我这边」</span></div>
+      <div class="pn n4"><span class="who">SELF-INTERPRETATION · P4</span><span class="e">the tool-user's only aimless chat: “what do you know about me?”</span><span class="z">工具党唯一一次无目的聊天:「你对我的了解是什么?」</span></div>
+      <div class="pn n5"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="e">“I can discipline it — plenty of backups”</span><span class="z">「我能管教它——有很多备胎」</span></div>
+      <div class="pn n6"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="e">chose “honest” — but “smart ≈ argumentative”</span><span class="z">选「诚实」——但「聪明≈反驳型」</span></div>
+      <div class="pn n7 star"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="e">both sides ask AI from their angle → it fans the flames</span><span class="z">双方各从己方角度问→它拱火</span></div>
+    </div>
+    <div class="rv cap" style="margin-top:14px"><span class="e">DIGITAL AFFINITY MAP FROM THE COMPLETED INTERVIEWS · THE ★ CLUSTER SITS OUTSIDE THE FOUR-NEED FRAME</span><span class="z">基于已完成访谈的数字亲和图 · ★ 簇落在四需求框架之外</span></div>
+
+    <div class="rv d1 kick" style="margin-top:64px;color:var(--seal2)"><span class="e">SYNTHESIS · NEEDS → HANDED OVER → INTO THE GAME</span><span class="z">综合 · 需求 → 交出去的 → 落进游戏</span></div>
+    <div class="rv d1 synth">
+      <div class="col c1"><b><span class="e">FOUR NEEDS</span><span class="z">四种需求</span></b><div class="it">comfort 安慰<br>validation 确认<br>companionship 陪伴<br>self-interpretation 自我解释</div></div>
+      <div class="mid">→</div>
+      <div class="col c2"><b><span class="e">WHAT'S HANDED OVER</span><span class="z">交出去的</span></b><div class="it"><span class="e">feelings 情绪<br>trust 信任<br>meaning 意义<br>the right to be disagreed with 被反驳的权利</span></div></div>
+      <div class="mid">→</div>
+      <div class="col c3"><b><span class="e">INTO THE GAME</span><span class="z">落进游戏</span></b><div class="it"><span class="e">the tic “对呀”<br>the hidden blindness stat<br>a live model as villain<br>the mirror asks back</span></div></div>
+    </div>
+
+    <div class="rv la">
+      <div><div class="h"><span class="e">DESIGN LINEAGE</span><span class="z">灵感谱系</span></div><div class="ri2"><b>Her</b> — <span class="e">tender, uncanny AI intimacy</span><span class="z">温柔而诡异的 AI 亲密</span><br><b>Papers, Please</b> — <span class="e">bureaucracy as dread; the stamp</span><span class="z">官僚即恐惧;那枚印章</span><br><b><span class="e">Pastel picture-books</span><span class="z">粉彩绘本</span></b> — <span class="e">warmth that hides the horror</span><span class="z">用温暖藏起恐怖</span></div></div>
+      <div><div class="h"><span class="e">SCHOLARLY ANCHORS</span><span class="z">学术锚点</span></div><div class="ri2"><b>Reeves &amp; Nass</b> — The Media Equation (1996)<br><b>Turkle</b> — Alone Together (2011)<br><b>Dunne &amp; Raby</b> — Speculative Everything (2013)<br><b>Gaver</b> — Ambiguity as a Resource (2003)</div></div>
     </div>
   </div>
 </section>
@@ -397,6 +478,8 @@
 </section>
 
 <script>
+  // waffle fills
+  (function(){function f(id,n){var el=document.getElementById(id);if(!el)return;for(var i=0;i<100;i++){var c=document.createElement("i");if(i<n)c.className="on";el.appendChild(c);}}f("w72",72);f("w31",31);})();
   // lang toggle
   (function(){var K="gs-pf-lang",b=document.getElementById("lang"),r=document.documentElement;
     function set(l){r.setAttribute("data-l",l);r.lang=l;b.textContent=l==="zh"?"EN":"中文";try{localStorage.setItem(K,l)}catch(e){}}
