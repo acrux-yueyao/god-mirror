@@ -202,12 +202,16 @@
   .sig p{font:500 14px/1.42 'Cormorant Garamond';color:#cfc8b6}
   .sig .bc{font:700 9.5px/1.4 'IBM Plex Mono';color:var(--olive);margin-top:12px;letter-spacing:.03em}
   @media(max-width:860px){.timeline{grid-template-columns:1fr 1fr}}
-  /* affinity board (warm) */
-  .board{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px}
-  .pn{padding:14px 16px;border-radius:2px;box-shadow:3px 6px 14px rgba(80,50,20,.2);font:500 17px/1.32 'Long Cang',cursive;color:#4a3c1a;max-width:240px}
-  .pn .who{font:700 9px 'IBM Plex Mono';color:#a15b2e;letter-spacing:.04em;display:block;margin-bottom:5px}
-  .pn.n1{background:#f2e8a8}.pn.n2{background:#cfe3d4}.pn.n3{background:#dcebe8}.pn.n4{background:#f9e4ba}.pn.n5{background:#f3cfd2}.pn.n6{background:#e6efc9}.pn.n7{background:#f7d8cf}
-  .pn.star{outline:2px dashed rgba(184,67,58,.5);outline-offset:2px}
+  /* affinity board (warm) — unified with the interview cards */
+  .board{display:grid;grid-template-columns:repeat(auto-fill,minmax(232px,1fr));gap:14px;margin-top:32px}
+  .pn{padding:16px 18px;border-radius:11px;background:#fffdf5;border:1px solid rgba(90,70,40,.15);
+    border-left:3px solid var(--seal2);box-shadow:0 10px 24px rgba(90,60,20,.07);
+    font:500 17px/1.38 'Cormorant Garamond',serif;color:var(--ink)}
+  .pn .who{font:700 9.5px 'IBM Plex Mono',monospace;color:#8a7c62;letter-spacing:.03em;display:block;margin-bottom:8px}
+  .pn.n1{border-left-color:#c9a94a}.pn.n2{border-left-color:var(--olive)}.pn.n3{border-left-color:var(--sky)}
+  .pn.n4{border-left-color:var(--amber)}.pn.n5{border-left-color:var(--seal2)}.pn.n6{border-left-color:var(--olive)}.pn.n7{border-left-color:var(--seal2)}
+  .pn.star{border-left-width:4px;background:#fdf4f2}
+  .pn.star .who{color:var(--seal2)}
   /* synthesis mapping (warm) */
   .synth{display:grid;grid-template-columns:1fr 40px 1fr 40px 1fr;gap:14px;align-items:start;margin-top:34px}
   .synth .col b{font:700 11px 'Silkscreen';display:block;margin-bottom:12px}
