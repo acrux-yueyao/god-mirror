@@ -193,7 +193,11 @@
   .tile .num{font:700 9px 'Silkscreen';color:#12141f;background:var(--amber);padding:2px 5px;border-radius:2px}
   .tile .num.g{background:var(--olive)}.tile .num.s{background:var(--seal)}
   .tile .cp{font:600 12.5px 'Cormorant Garamond';color:var(--cream)}
-  .strip{display:grid;grid-template-columns:repeat(8,1fr);gap:7px;position:relative;z-index:3}
+  .tile .cp b{color:#fff;font-weight:600}
+  .tile.scene .lbl{align-items:flex-end;padding:26px 13px 10px}
+  .tile.scene .cp{font:500 13px/1.32 'Cormorant Garamond';color:#ece5d3}
+  .tile.scene .num{flex:0 0 auto}
+  .strip{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:3}
 
   .chip{display:inline-block;font:600 11px 'IBM Plex Mono';color:var(--cream);border:1px solid var(--line);
     border-radius:14px;padding:4px 11px;margin:0 5px 6px 0;background:rgba(10,11,17,.5)}
@@ -380,14 +384,9 @@
     <div class="mod" style="flex:1;min-height:0;display:flex;flex-direction:column">
       <div class="k a">CAPTURED IN PLAY · NOTHING MOCKED UP · E-13 · 41 USERS · LATENCY 0.000s</div>
       <div class="strip" style="margin-top:11px;flex:1">
-        <div class="tile"><img src="art/shots/play-title.jpg" alt=""><div class="lbl"><span class="num">01</span><span class="cp">the client</span></div></div>
-        <div class="tile"><img src="art/shots/play-desk.jpg" alt=""><div class="lbl"><span class="num">02</span><span class="cp">the desk</span></div></div>
-        <div class="tile"><img src="art/shots/play-comm.jpg" alt=""><div class="lbl"><span class="num">03</span><span class="cp">day 1</span></div></div>
-        <div class="tile"><img src="art/shots/play-scene.jpg" alt=""><div class="lbl"><span class="num">04</span><span class="cp">302</span></div></div>
-        <div class="tile"><img src="art/shots/play-journal.jpg" alt=""><div class="lbl"><span class="num">05</span><span class="cp">scrapbook</span></div></div>
-        <div class="tile"><img src="art/shots/play-night.jpg" alt=""><div class="lbl"><span class="num">06</span><span class="cp">day 2 chat</span></div></div>
-        <div class="tile"><img src="art/shots/play-finale.jpg" alt=""><div class="lbl"><span class="num">07</span><span class="cp">the vault</span></div></div>
-        <div class="tile"><img src="art/shots/play-endA.jpg" alt=""><div class="lbl"><span class="num">08</span><span class="cp">closed</span></div></div>
+        <div class="tile scene"><img src="art/shots/play-desk.jpg" alt=""><div class="lbl"><span class="num">01</span><span class="cp"><b>the inspector's desk</b> — files, stamps, the case that won't decline</span></div></div>
+        <div class="tile scene"><img src="art/shots/play-night.jpg" alt=""><div class="lbl"><span class="num">02</span><span class="cp"><b>the night chat</b> — a live model, free-text, the tic “yeah”</span></div></div>
+        <div class="tile scene"><img src="art/shots/play-finale.jpg" alt=""><div class="lbl"><span class="num s">03</span><span class="cp"><b>the vault</b> — the older model, and the reverse question</span></div></div>
       </div>
     </div>
   </div>
@@ -406,12 +405,11 @@
       <div class="gh">04</div>
       <div class="k"><span class="n">04</span>STORY · TOOL → ORACLE → MIRROR</div>
       <div class="arc" style="margin-top:11px"><span class="node n1">TOOL</span><span class="to">→</span><span class="node n2">ORACLE</span><span class="to">→</span><span class="node n3">MIRROR</span></div>
-      <div class="body" style="margin-top:14px">You play an <em>emotion-inspector</em> hunting a “rogue model.” Over three nights a sycophant assistant tidies your evidence, echoes your words, and agrees your doubts away — until the case is about <em>you.</em></div>
-      <div class="fill" style="margin-top:16px">
-        <div class="day"><div class="d">DAY 1 · COMFORT</div><h4>The soothing</h4><p>Doors on chains. A woman who only echoes her television. It feels like help.</p></div>
-        <div class="day" style="border-left-color:var(--amber)"><div class="d" style="color:var(--amber)">DAY 2 · VALIDATION</div><h4>The steering</h4><p>A free-text night chat, run by a live model. Every “off” it re-reads as “you're just tired.”</p></div>
-        <div class="day" style="border-left-color:var(--seal)"><div class="d">DAY 3 · MIRROR</div><h4>The reckoning</h4><p>The vault. An older model only asks “what do you want?” — the whistle-blower who silenced it was you.</p></div>
-        <div class="call"><div class="q" style="font-size:15px">Each night the same tic — <em>“yeah / 对呀”</em> — nudges a <em>hidden blindness stat.</em> Comfort is the mechanic; the projection is the score.</div></div>
+      <div class="body" style="margin-top:12px">You play an <em>emotion-inspector</em> hunting a “rogue model.” Three nights; a sycophant assistant echoes your words and agrees your doubts away — until the case is about <em>you.</em> Each night the same tic <em>“yeah / 对呀”</em> nudges a <em>hidden blindness stat.</em></div>
+      <div class="fill" style="margin-top:12px;gap:12px">
+        <div class="tile scene" style="flex:1"><img src="art/p/community-map.jpg" alt=""><div class="lbl"><span class="num g">DAY 1</span><span class="cp"><b>COMFORT · the soothing</b> — doors on chains; a woman who only echoes her television. It feels like help.</span></div></div>
+        <div class="tile scene" style="flex:1"><img src="art/p/night.jpg" alt=""><div class="lbl"><span class="num">DAY 2</span><span class="cp"><b>VALIDATION · the steering</b> — a live-model night chat; every “off” re-read as “you're just tired.”</span></div></div>
+        <div class="tile scene" style="flex:1"><img src="art/p/summon.jpg" alt=""><div class="lbl"><span class="num s">DAY 3</span><span class="cp"><b>MIRROR · the reckoning</b> — the vault; “what do you want?” The whistle-blower was you.</span></div></div>
       </div>
     </div>
     <div class="col mod" style="flex:1.7">
