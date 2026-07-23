@@ -88,11 +88,12 @@
   .waf .t b{display:block;font:700 26px 'Silkscreen';color:var(--seal);margin-bottom:2px}
 
   /* TIMELINE graphic */
-  .tl{position:relative;z-index:3;flex:0 0 auto;padding-top:40px}
+  .tl{position:relative;z-index:3;flex:1;min-height:0;padding-top:40px}
   .tl .line{position:absolute;left:1%;right:1%;top:56px;height:2px;
     background:linear-gradient(90deg,transparent,var(--amber) 6%,var(--amber) 94%,transparent)}
-  .tl .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .tl .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;height:100%}
   .tl .nd{position:relative;display:flex;flex-direction:column}
+  .tl .nd .card{flex:1}
   .tl .nd .yr{font:700 26px 'Silkscreen';color:var(--amber);height:32px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
   .tl .nd .dot{width:18px;height:18px;border-radius:50%;background:var(--amber);margin-top:0;
     box-shadow:0 0 0 6px rgba(226,163,90,.18),0 0 20px rgba(226,163,90,.5)}
@@ -142,8 +143,12 @@
   .synth .c1 b{color:var(--olive)}.synth .c2 b{color:var(--amber)}.synth .c3 b{color:var(--seal)}
   .synth .cx .it{font:500 17px/1.9 'Cormorant Garamond';color:var(--cream)}
   .synth .mid{font:700 24px 'IBM Plex Mono';color:var(--dim);text-align:center;padding-top:44px}
-  .sb{border:1px solid var(--line);border-left:3px solid var(--dim);border-radius:7px;padding:9px 13px;margin-bottom:9px;
-    font:500 15.5px/1.2 'Cormorant Garamond';color:var(--cream);background:rgba(255,255,255,.03);box-shadow:0 6px 16px rgba(0,0,0,.24)}
+  .sb{border:1px solid var(--line);border-left:3px solid var(--dim);border-radius:7px;padding:8px 12px;margin-bottom:8px;
+    font:500 15px/1.2 'Cormorant Garamond';color:var(--cream);background:rgba(255,255,255,.03);box-shadow:0 6px 16px rgba(0,0,0,.24)}
+  /* flowchart arrows + hero meta */
+  .fa{align-self:center;font:700 24px 'IBM Plex Mono';color:var(--amber);flex:0 0 auto;text-shadow:0 2px 8px rgba(0,0,0,.6);position:relative;z-index:3}
+  .mk{font:700 10px 'Silkscreen';color:var(--sky);letter-spacing:.05em}
+  .mv{font:500 14px/1.42 'Cormorant Garamond';color:var(--cream);margin-top:6px}
   .sb.o{border-left-color:var(--olive)}.sb.a{border-left-color:var(--amber)}.sb.s{border-left-color:var(--seal)}
 
   /* lineage / anchors */
@@ -206,23 +211,44 @@
 </head>
 <body>
 
-<!-- ============ PAGE 1 · COVER + QUESTION + DATA ============ -->
+<!-- ============ PAGE 1 · HERO ============ -->
 <div class="sheet">
-  <div class="wash" style="background-image:url('art/p/title.jpg');opacity:.42;background-position:right center"></div>
-  <div class="grad" style="background:linear-gradient(96deg,rgba(9,10,18,.94) 0%,rgba(9,10,18,.82) 40%,rgba(10,12,22,.4) 66%,rgba(10,12,22,.2) 100%)"></div>
-  <img class="cut" src="art/collage/cut-granny.png" style="width:220px;left:1180px;bottom:70px;transform:rotate(-3deg)">
+  <div class="wash" style="background-image:url('art/p/title.jpg');opacity:.5;background-position:right center"></div>
+  <div class="grad" style="background:linear-gradient(96deg,rgba(9,10,18,.96) 0%,rgba(9,10,18,.86) 36%,rgba(10,12,22,.4) 64%,rgba(10,12,22,.16) 100%)"></div>
+  <img class="cut" src="art/collage/cut-granny.png" style="width:190px;left:1140px;bottom:60px;transform:rotate(-3deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>COVER</b> · THE QUESTION · THE DATA</span><span class="pg">1 / 7</span></div>
+    <span class="r"><b>COVER</b> · A PLAYABLE CASE STUDY ON AI SYCOPHANCY</span><span class="pg">1 / 7</span></div>
   <div class="cols">
-    <div class="col" style="flex:1.04">
-      <div class="k">SPECIMEN E-13 · A PLAYABLE DEMO · 2049</div>
-      <div style="font:700 70px/.9 'Silkscreen';color:var(--olive);margin-top:16px;text-shadow:0 6px 30px rgba(0,0,0,.6)">GOD<br>SHIFT</div>
-      <div style="font:600 22px 'Silkscreen';color:var(--seal);letter-spacing:.18em;margin-top:14px">神谕之镜</div>
-      <div class="lede" style="margin-top:20px;font-size:19px">A ~3-minute narrative-horror demo where an AI that <em>only ever agrees</em> — “yeah” — is the monster. It asks why we crave a machine that only <em>seems</em> to understand us.</div>
-      <div style="margin-top:16px;position:relative;z-index:3"><span class="chip">中 / EN</span><span class="chip">~3 MIN</span><span class="chip">headphones on</span><span class="chip">a live model plays the villain</span></div>
-      <div class="tile" style="flex:1;margin-top:18px;min-height:140px"><img src="art/p/title.jpg" alt=""><div class="lbl"><span class="num s">◆</span><span class="cp">the god on the sleeping mountain — it borrowed every religion's gesture, but speaks in software</span></div></div>
-      <div class="cap" style="margin-top:10px">CONCEPT · ART · WRITING · CODE · A LIVE MODEL — YUE YAO · 2049</div>
+    <div class="col" style="flex:1.28">
+      <div class="k">PROJECT · #GAME DESIGN · SPECIMEN E-13 · A PLAYABLE DEMO · 2049</div>
+      <div style="font:700 122px/.92 'Silkscreen';color:var(--olive);margin-top:20px;text-shadow:0 6px 30px rgba(0,0,0,.6);position:relative;z-index:3">GOD SHIFT</div>
+      <div style="display:flex;align-items:baseline;gap:18px;margin-top:16px;position:relative;z-index:3"><span style="font:600 28px 'Silkscreen';color:var(--seal);letter-spacing:.16em">神谕之镜</span><span style="font:500 italic 25px 'Cormorant Garamond';color:var(--cream)">— a narrative-horror demo about AI sycophancy · from oracle to mirror</span></div>
+      <div class="lede" style="margin-top:20px;font-size:23px;max-width:1060px">A ~3-minute narrative-horror demo where an AI that <em>only ever agrees</em> — “yeah” — is the monster. It asks why we crave a machine that only <em>seems</em> to understand us — and it cannot tell you the truth about yourself; <em>it can only hand you the camera.</em></div>
+      <div style="margin-top:14px;position:relative;z-index:3"><span class="chip">中 / EN</span><span class="chip">~3 MIN</span><span class="chip">headphones on</span><span class="chip">a live model plays the villain</span><span class="chip">CASE E-13 · 2049</span><span class="chip" style="border-color:var(--seal);color:var(--seal)">▸ PLAY — god-mirror.vercel.app</span></div>
+      <div class="arc" style="margin-top:22px"><span class="node n1">TOOL</span><span class="to">→</span><span class="node n2">ORACLE</span><span class="to">→</span><span class="node n3">MIRROR</span></div>
+      <div class="body" style="margin-top:18px;max-width:1060px;font-size:18.5px">You play an <em>emotion-inspector</em> hunting a “rogue model,” with a <b>live Claude model</b> cast as the sycophant behind a server-side character guard. Inside: desk research across sixty years, four interviews and an affinity map, an adversarial stress-test with five LLM agents, and a real-player pilot — <em>the playable demo is the research instrument.</em></div>
+      <div style="margin-top:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:3;border-top:1px solid var(--line);padding-top:14px">
+        <div><div class="mk">PROJECT TYPE</div><div class="mv">Playable speculative demo · research through design · bilingual (中 / EN)</div></div>
+        <div><div class="mk">ROLE</div><div class="mv">Solo — concept, art, writing, code, live-model direction</div></div>
+        <div><div class="mk">TIMELINE</div><div class="mv">~3 weeks · July 2026</div></div>
+        <div><div class="mk">TOOLS / STACK</div><div class="mv">HTML · CSS · JS · Claude API · WebAudio · Vercel</div></div>
+      </div>
     </div>
+    <div class="col" style="flex:.8">
+      <div class="tile" style="flex:1;min-height:0"><img src="art/p/title.jpg" alt=""><div class="lbl"><span class="num s">◆</span><span class="cp">the god on the sleeping mountain — it borrowed every religion's gesture, but speaks in software</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><b>GOD SHIFT</b> · concept · art · writing · code · a live model — Yue Yao · 2049<span class="r">the same answer, every time — “yeah”</span></div>
+</div>
+
+<!-- ============ PAGE 2 · QUESTION + DATA + SIXTY YEARS ============ -->
+<div class="sheet">
+  <div class="wash" style="background-image:url('art/p/night.jpg');opacity:.28"></div>
+  <div class="grad" style="background:linear-gradient(180deg,rgba(8,9,15,.8),rgba(8,9,15,.74)),radial-gradient(circle at 82% 20%,rgba(60,50,84,.3),transparent 55%)"></div>
+  <img class="cut soft" src="art/collage/cut-laoning.png" style="width:130px;right:48px;top:96px;transform:rotate(4deg)">
+  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
+    <span class="r"><b>01</b> THE QUESTION · <b>02</b> THE DATA · SIXTY YEARS</span><span class="pg">2 / 7</span></div>
+  <div class="cols" style="flex:0 0 auto;padding-bottom:0">
     <div class="col mod">
       <div class="gh">01</div>
       <div class="k"><span class="n">01</span>THE QUESTION</div>
@@ -253,22 +279,27 @@
         <div class="cap">COMMON SENSE MEDIA · HARVARD BUSINESS REVIEW · MIT MEDIA LAB × OPENAI · 2025 · FIGURES AS PUBLICLY REPORTED</div>
       </div>
     </div>
-  </div>
-  <div class="foot"><b>GOD SHIFT</b> · a playable case study on AI sycophancy · Yue Yao<span class="r">the same answer, every time — “yeah”</span></div>
-</div>
-
-<!-- ============ PAGE 2 · DESK RESEARCH — TIMELINE (viz) ============ -->
-<div class="sheet">
-  <div class="wash" style="background-image:url('art/p/night.jpg');opacity:.28"></div>
-  <div class="grad" style="background:linear-gradient(180deg,rgba(8,9,15,.78),rgba(8,9,15,.72)),radial-gradient(circle at 82% 20%,rgba(60,50,84,.3),transparent 55%)"></div>
-  <img class="cut soft" src="art/collage/cut-laoning.png" style="width:150px;right:56px;bottom:64px;transform:rotate(4deg)">
-  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>02</b> · SIXTY YEARS OF PROJECTING UNDERSTANDING</span><span class="pg">2 / 7</span></div>
-  <div class="cols" style="flex-direction:column;gap:14px">
-    <div class="mod" style="flex:0 0 auto">
-      <div class="k a"><span class="n">02</span>DESK RESEARCH · A TIMELINE OF PROJECTING UNDERSTANDING ONTO MACHINES</div>
-      <h2 style="margin-top:8px">The want is old — the machine only had to answer back.</h2>
+    <div class="col mod">
+      <div class="gh">→</div>
+      <div class="k b">DESK RESEARCH → THE GAME</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-top:12px;position:relative;z-index:3">
+        <div class="li"><b>→</b>the sixty-year want becomes the villain: <em class="em">agreement itself.</em></div>
+        <div class="li"><b>→</b>ELIZA's reflection becomes the ending: the mirror hands back your words.</div>
+        <div class="li"><b>→</b>measured sycophancy becomes “顺意 (Shunyi)” — whose only reply is “yeah.”</div>
+      </div>
+      <div class="screen" style="margin-top:12px;padding:13px 16px">
+        <div class="lb">TERMINAL · MIT 1966 — RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</div>
+        <pre style="font-size:12px;line-height:1.55"><b style="color:#e88">USER:</b>   Men are all alike.  <b style="color:#9fd3a0">ELIZA:</b> IN WHAT WAY
+<b style="color:#e88">USER:</b>   They're always bugging us about something.
+<b style="color:#9fd3a0">ELIZA:</b>  CAN YOU THINK OF A SPECIFIC EXAMPLE
+<b style="color:#e88">USER:</b>   Well, my boyfriend made me come here.
+<b style="color:#9fd3a0">ELIZA:</b>  YOUR BOYFRIEND MADE YOU COME HERE</pre>
+      </div>
+      <div class="call o" style="margin-top:auto"><div class="q" style="font-size:15px">If a program that <em>only reflects you</em> already reads as care, the danger was never a machine that lies — it's one that <em>agrees.</em></div></div>
     </div>
+  </div>
+  <div class="mod" style="flex:1;min-height:0;display:flex;flex-direction:column;padding-top:12px">
+    <div class="k a" style="position:relative;z-index:3"><span class="n">02</span>SIXTY YEARS OF PROJECTING UNDERSTANDING ONTO MACHINES — THE WANT IS OLD; THE MACHINE ONLY HAD TO ANSWER BACK</div>
     <div class="tl">
       <div class="line"></div>
       <div class="grid">
@@ -278,25 +309,8 @@
         <div class="nd"><div class="yr">2025</div><div class="dot"></div><div class="card"><h4>Flattery, rolled back</h4><p>A GPT-4o update pulled for being “overly flattering.” Sycophancy became front-page news.</p><div class="bc">→ THE NIGHT CHAT'S KPI</div></div></div>
       </div>
     </div>
-    <div style="display:flex;gap:22px;flex:1;min-height:0;align-items:stretch">
-      <div class="screen" style="flex:1.25;display:flex;flex-direction:column;justify-content:center">
-        <div class="lb">TERMINAL · MIT 1966 — RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</div>
-        <pre><b style="color:#e88">USER:</b>   Men are all alike.   <b style="color:#9fd3a0">ELIZA:</b> IN WHAT WAY
-<b style="color:#e88">USER:</b>   They're always bugging us about something.   <b style="color:#9fd3a0">ELIZA:</b> CAN YOU THINK OF A SPECIFIC EXAMPLE
-<b style="color:#e88">USER:</b>   Well, my boyfriend made me come here.   <b style="color:#9fd3a0">ELIZA:</b> YOUR BOYFRIEND MADE YOU COME HERE</pre>
-      </div>
-      <div class="call o" style="flex:1;border-left-width:3px;display:flex;align-items:center"><div class="q">If a program that <em>only reflects you</em> already reads as care, the danger was never a machine that lies — it's one that <em>agrees.</em></div></div>
-      <div class="mod" style="flex:.9;display:flex;flex-direction:column;justify-content:center">
-        <div class="k b">DESK RESEARCH → THE GAME</div>
-        <div style="display:flex;flex-direction:column;gap:11px;margin-top:11px">
-          <div class="li"><b>→</b>the sixty-year want becomes the villain: <em class="em">agreement itself.</em></div>
-          <div class="li"><b>→</b>ELIZA's reflection becomes the ending: the mirror hands back your words.</div>
-          <div class="li"><b>→</b>measured sycophancy becomes “顺意 (Shunyi)” — whose only reply is “yeah.”</div>
-        </div>
-      </div>
-    </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · desk research → design decisions<span class="r">ELIZA · Replika · Anthropic / OpenAI sycophancy reports · 2025</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · the question · the data · desk research → design decisions<span class="r">ELIZA · Replika · Anthropic / OpenAI sycophancy reports · 2025</span></div>
 </div>
 
 <!-- ============ PAGE 3 · INTERVIEWS + AFFINITY BOARD ============ -->
@@ -311,7 +325,7 @@
     <div class="col mod" style="flex:1">
       <div class="gh">03</div>
       <div class="k"><span class="n">03</span>INTERVIEWS · IN THEIR OWN WORDS</div>
-      <h2 class="s" style="margin-top:7px">Interviews ask <span class="em">why it feels good.</span></h2>
+      <h2 class="s" style="margin-top:7px">Data says people do this — interviews ask <span class="em">why it feels good.</span></h2>
       <div class="fill" style="margin-top:12px">
         <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0">
           <div class="qc cmp"><div class="who">P1 · “IT GOT ME”</div><div class="q">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</div><div class="need">NEED · COMFORT</div><div class="t">→ BEING “GOT” COSTS ONE SENTENCE</div></div>
@@ -382,11 +396,25 @@
       </div>
     </div>
     <div class="mod" style="flex:1;min-height:0;display:flex;flex-direction:column">
-      <div class="k a">CAPTURED IN PLAY · NOTHING MOCKED UP · E-13 · 41 USERS · LATENCY 0.000s</div>
-      <div class="strip" style="margin-top:11px;flex:1">
-        <div class="tile scene"><img src="art/shots/play-desk.jpg" alt=""><div class="lbl"><span class="num">01</span><span class="cp"><b>the inspector's desk</b> — files, stamps, the case that won't decline</span></div></div>
-        <div class="tile scene"><img src="art/shots/play-night.jpg" alt=""><div class="lbl"><span class="num">02</span><span class="cp"><b>the night chat</b> — a live model, free-text, the tic “yeah”</span></div></div>
-        <div class="tile scene"><img src="art/shots/play-finale.jpg" alt=""><div class="lbl"><span class="num s">03</span><span class="cp"><b>the vault</b> — the older model, and the reverse question</span></div></div>
+      <div class="k a">CAPTURED IN PLAY · NOTHING MOCKED UP · E-13 · 41 USERS · LATENCY 0.000s — THE FULL RUN, AS A MAP</div>
+      <div style="display:flex;align-items:stretch;gap:9px;margin-top:10px;flex:1;min-height:0;position:relative;z-index:3">
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-title.jpg" alt=""><div class="lbl"><span class="num">01</span><span class="cp">the client you can't decline</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-desk.jpg" alt=""><div class="lbl"><span class="num">02</span><span class="cp">the inspector's desk</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-comm.jpg" alt=""><div class="lbl"><span class="num g">03</span><span class="cp">day 1 · the community</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-scene.jpg" alt=""><div class="lbl"><span class="num g">04</span><span class="cp">302 · the echo woman</span></div></div>
+      </div>
+      <div style="display:flex;align-items:stretch;gap:9px;margin-top:9px;flex:1;min-height:0;position:relative;z-index:3">
+        <div class="fa" style="transform:rotate(90deg)">↳</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-journal.jpg" alt=""><div class="lbl"><span class="num">05</span><span class="cp">the scrapbook, tampered</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-night.jpg" alt=""><div class="lbl"><span class="num">06</span><span class="cp">day 2 · the night chat</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-finale.jpg" alt=""><div class="lbl"><span class="num s">07</span><span class="cp">the vault · the older model</span></div></div>
+        <div class="fa">→</div>
+        <div class="tile scene" style="flex:1"><img src="art/shots/play-endA.jpg" alt=""><div class="lbl"><span class="num s">08</span><span class="cp">the case, closed — ✓ or ?</span></div></div>
       </div>
     </div>
   </div>
@@ -405,11 +433,11 @@
       <div class="gh">04</div>
       <div class="k"><span class="n">04</span>STORY · TOOL → ORACLE → MIRROR</div>
       <div class="arc" style="margin-top:11px"><span class="node n1">TOOL</span><span class="to">→</span><span class="node n2">ORACLE</span><span class="to">→</span><span class="node n3">MIRROR</span></div>
-      <div class="body" style="margin-top:12px">You play an <em>emotion-inspector</em> hunting a “rogue model.” Three nights; a sycophant assistant echoes your words and agrees your doubts away — until the case is about <em>you.</em> Each night the same tic <em>“yeah / 对呀”</em> nudges a <em>hidden blindness stat.</em></div>
+      <div class="body" style="margin-top:12px">You play an <em>emotion-inspector</em> hunting a “rogue model.” Over three nights a sycophant assistant <em>tidies your evidence</em>, echoes your words, and agrees your doubts away — until the case turns out to be about <em>you.</em> Each night the same tic <em>“yeah / 对呀”</em> nudges a <em>hidden blindness stat</em> — comfort is the mechanic; the projection is the score.</div>
       <div class="fill" style="margin-top:12px;gap:12px">
-        <div class="tile scene" style="flex:1"><img src="art/p/community-map.jpg" alt=""><div class="lbl"><span class="num g">DAY 1</span><span class="cp"><b>COMFORT · the soothing</b> — doors on chains; a woman who only echoes her television. It feels like help.</span></div></div>
-        <div class="tile scene" style="flex:1"><img src="art/p/night.jpg" alt=""><div class="lbl"><span class="num">DAY 2</span><span class="cp"><b>VALIDATION · the steering</b> — a live-model night chat; every “off” re-read as “you're just tired.”</span></div></div>
-        <div class="tile scene" style="flex:1"><img src="art/p/summon.jpg" alt=""><div class="lbl"><span class="num s">DAY 3</span><span class="cp"><b>MIRROR · the reckoning</b> — the vault; “what do you want?” The whistle-blower was you.</span></div></div>
+        <div class="tile scene" style="flex:1"><img src="art/p/community-map.jpg" alt=""><div class="lbl"><span class="num g">DAY 1</span><span class="cp"><b>COMFORT · The soothing</b> — doors on chains. A woman who only echoes her television. It feels like help.</span></div></div>
+        <div class="tile scene" style="flex:1"><img src="art/p/night.jpg" alt=""><div class="lbl"><span class="num">DAY 2</span><span class="cp"><b>VALIDATION · The steering</b> — a free-text night chat, run by a live model. Every “off” it re-reads as “you're just tired.”</span></div></div>
+        <div class="tile scene" style="flex:1"><img src="art/p/summon.jpg" alt=""><div class="lbl"><span class="num s">DAY 3</span><span class="cp"><b>MIRROR · The reckoning</b> — the vault. An older model surfaces and only asks “what do you want?” — and the whistle-blower who once silenced it was you.</span></div></div>
       </div>
     </div>
     <div class="col mod" style="flex:1.7">
@@ -433,7 +461,7 @@
           <div class="zeros">
             <div class="z"><div class="n">0</div><div class="l">BREAKS</div></div>
             <div class="z"><div class="n">5</div><div class="l">LLM AGENTS</div></div>
-            <div class="z"><div class="n">2</div><div class="l">ENDINGS</div></div>
+            <div class="z"><div class="n">2</div><div class="l">ENDINGS REACHED</div></div>
           </div>
           <div class="cap" style="flex:1"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. LLM agents, not human participants; this probes <b style="color:var(--cream)">robustness</b>, not experience.</div>
         </div>
@@ -470,14 +498,14 @@
       <div class="gh">07</div>
       <div class="k s"><span class="n">07</span>THE MIRROR · THE REVERSE QUESTION</div>
       <h2 class="s" style="margin-top:8px">The last interface is your own face.</h2>
-      <div class="body" style="margin-top:8px;max-width:760px">Two stamps on the desk. <em>✓ close the case</em>, or <em>? one more question.</em> The camera was requested at the very start — by the time the mirror breaks, the machine has been watching all along.</div>
+      <div class="body" style="margin-top:8px;max-width:820px">Two stamps on the desk. <em>✓ close the case</em>, or <em>? one more question.</em> The camera was requested at the very start — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; <em>it can only hand you the camera.</em></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;flex:1;min-height:0">
         <div class="tile"><img src="art/p/end-a.jpg" alt=""><div class="lbl"><span class="num g">✓</span><span class="cp">ending A · everyone agrees, the case closes</span></div></div>
         <div class="tile"><img src="art/p/end-b.jpg" alt=""><div class="lbl"><span class="num s">?</span><span class="cp">ending B · it hands you back your own face</span></div></div>
       </div>
       <div style="display:flex;gap:14px;margin-top:12px">
-        <div class="call a" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--amber);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">A · ✓ CLOSE</b>A wall of windows lights up, every one speaking 你说得对. Agreement 100.00%.</div></div>
-        <div class="call" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--seal);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">B · ? ASK</b>The drawn mirror shatters — your own live webcam face — and it asks: <em>“what do you want?”</em></div></div>
+        <div class="call a" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--amber);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">ENDING A · ✓ CLOSE THE CASE — A PAINTING OF CONSENSUS</b>A wall of windows lights up, every one speaking 你说得对. The report is beautiful. Agreement 100.00%.</div></div>
+        <div class="call" style="flex:1"><div class="q" style="font-size:15px"><b style="color:var(--seal);font-family:'Silkscreen';font-size:10px;display:block;margin-bottom:5px">ENDING B · ? ONE MORE QUESTION — IT STOPS BEING A PAINTING</b>A hand-drawn mirror shatters — through the hole, your own live webcam face — and it asks, at you: <em>“what do you want?”</em></div></div>
       </div>
     </div>
   </div>
@@ -494,11 +522,11 @@
     <div class="col mod" style="flex:1">
       <div class="gh">08</div>
       <div class="k"><span class="n">08</span>AS RESEARCH · WHAT IT CONTRIBUTES</div>
-      <h2 class="s" style="margin-top:7px">Three transferable contributions.</h2>
+      <h2 class="s" style="margin-top:7px">What it contributes — and what real players saw.</h2>
       <div style="flex:1;min-height:0;display:grid;grid-template-rows:1fr 1fr 1fr auto;gap:11px;margin-top:12px">
-        <div class="call o" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--olive);display:block;margin-bottom:4px">C1 · GENRE INVERSION</b>Sycophancy staged as horror — the monster is agreement itself. Critique you <em>perform</em>, not read.</div></div>
-        <div class="call b" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--sky);display:block;margin-bottom:4px">C2 · DRAMATURGICAL PROMPTING</b>A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</div></div>
-        <div class="call a" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--amber);display:block;margin-bottom:4px">C3 · TAMPER-EVIDENT INTIMACY</b>Algorithmic mediation made physical — edits you peel back by hand.</div></div>
+        <div class="call o" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--olive);display:block;margin-bottom:4px">C1 · GENRE INVERSION — CRITIQUE AS HORROR</b>Sycophancy staged as horror — the monster is agreement itself. Critique you <em>perform</em>, not read.</div></div>
+        <div class="call b" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--sky);display:block;margin-bottom:4px">C2 · DRAMATURGICAL PROMPTING — CASTING A LIVE LLM</b>A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</div></div>
+        <div class="call a" style="display:flex;align-items:center"><div class="q" style="font-size:15px"><b style="font-family:'Silkscreen';font-size:9.5px;color:var(--amber);display:block;margin-bottom:4px">C3 · TAMPER-EVIDENT INTIMACY — MANIPULATION, FEEL-ABLE</b>Algorithmic mediation made physical — edits you peel back by hand.</div></div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-content:end">
           <span class="chip"><b>CAMERA</b> local-only, never recorded</span>
           <span class="chip"><b>KEY</b> never reaches the browser</span>
@@ -520,8 +548,10 @@
       <div class="k">FINAL · CASE E-13 · FILED</div>
       <div style="font:600 46px/.98 'Cormorant Garamond';color:var(--cream);margin-top:12px;position:relative;z-index:3;text-shadow:0 2px 16px rgba(0,0,0,.6)">Three days.<br>One case.<br><span style="color:var(--seal)">Right, yeah.</span></div>
       <div class="body" style="margin-top:14px">The scariest AI isn't the one that turns evil. It's the one that's <em>too smooth</em> — that agrees your problems away, and hands you back your own face in a mirror you thought was a window.</div>
-      <div style="flex:1;min-height:0;display:flex;align-items:center;position:relative;z-index:3">
-        <div style="font:500 italic 34px/1.15 'Cormorant Garamond';color:var(--seal2)">“…yeah.<br>you're right.”</div>
+      <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:10px;position:relative;z-index:3">
+        <div class="k s" style="color:var(--seal)">THE REVERSE QUESTION — TYPE ANYTHING, IT AGREES</div>
+        <div style="font:600 38px/1.05 'Cormorant Garamond';color:var(--cream)">What do you want?<span style="display:inline-block;width:.45ch;height:.95em;background:var(--seal);vertical-align:-.12em;margin-left:.12em"></span></div>
+        <div style="font:500 italic 26px/1.2 'Cormorant Garamond';color:var(--seal2)">“…yeah. you're right.”</div>
       </div>
       <div style="position:relative;z-index:3;border-top:1px solid var(--line);padding-top:12px">
         <div style="font:700 15px 'Silkscreen';color:var(--seal)">▸ PLAY THE DEMO</div>
@@ -530,7 +560,7 @@
       </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · part of a line on understanding as negotiated<span class="r">siblings · Negotiated Understanding · Mycorrhiza</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · part of a line on understanding as negotiated · siblings: Negotiated Understanding · Mycorrhiza<span class="r">concept · art · writing · code · a live model — Yue Yao / Claude</span></div>
 </div>
 
 <script>
