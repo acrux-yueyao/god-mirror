@@ -88,16 +88,16 @@
   .waf .t b{display:block;font:700 26px 'Silkscreen';color:var(--seal);margin-bottom:2px}
 
   /* TIMELINE graphic */
-  .tl{position:relative;z-index:3;flex:1;min-height:0;padding-top:44px}
-  .tl .line{position:absolute;left:1%;right:1%;top:60px;height:2px;
+  .tl{position:relative;z-index:3;flex:0 0 auto;padding-top:40px}
+  .tl .line{position:absolute;left:1%;right:1%;top:56px;height:2px;
     background:linear-gradient(90deg,transparent,var(--amber) 6%,var(--amber) 94%,transparent)}
-  .tl .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;height:100%}
+  .tl .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
   .tl .nd{position:relative;display:flex;flex-direction:column}
-  .tl .nd .yr{font:700 26px 'Silkscreen';color:var(--amber);height:34px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+  .tl .nd .yr{font:700 26px 'Silkscreen';color:var(--amber);height:32px;text-shadow:0 2px 12px rgba(0,0,0,.6)}
   .tl .nd .dot{width:18px;height:18px;border-radius:50%;background:var(--amber);margin-top:0;
     box-shadow:0 0 0 6px rgba(226,163,90,.18),0 0 20px rgba(226,163,90,.5)}
-  .tl .nd .card{margin-top:20px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);
-    border-top:3px solid var(--amber);border-radius:10px;padding:15px 16px;box-shadow:0 14px 30px rgba(0,0,0,.42);flex:1}
+  .tl .nd .card{margin-top:18px;background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);
+    border-top:3px solid var(--amber);border-radius:10px;padding:14px 16px;box-shadow:0 14px 30px rgba(0,0,0,.42)}
   .tl .nd .card h4{font:600 22px/1.06 'Cormorant Garamond';color:var(--cream);margin-bottom:8px}
   .tl .nd .card p{font:500 14.5px/1.42 'Cormorant Garamond';color:var(--ink)}
   .tl .nd .card .bc{font:700 10px/1.4 'IBM Plex Mono';color:var(--olive);margin-top:11px;letter-spacing:.02em}
@@ -114,6 +114,9 @@
   .qc .q{font:500 17.5px/1.48 'Cormorant Garamond';color:var(--cream);margin-top:10px}
   .qc .q em{font-style:normal;color:var(--seal);font-weight:600}
   .qc .t{font:600 10.5px/1.36 'IBM Plex Mono';color:var(--dim);margin-top:auto;padding-top:10px;letter-spacing:.02em}
+  .qc.cmp{justify-content:flex-start}
+  .qc.cmp .t{margin-top:11px;padding-top:10px;border-top:1px solid rgba(240,233,214,.12)}
+  .qc .need{font:700 9px 'IBM Plex Mono';letter-spacing:.06em;color:var(--olive);margin-top:9px}
   .qc.good{background:rgba(156,207,143,.14);border-color:rgba(156,207,143,.34)}
   .qc.good .who{color:var(--olive)}.qc.good .t{color:var(--olive)}
 
@@ -201,7 +204,7 @@
   <div class="grad" style="background:linear-gradient(96deg,rgba(9,10,18,.94) 0%,rgba(9,10,18,.82) 40%,rgba(10,12,22,.4) 66%,rgba(10,12,22,.2) 100%)"></div>
   <img class="cut" src="art/collage/cut-granny.png" style="width:220px;left:1180px;bottom:70px;transform:rotate(-3deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>COVER</b> · THE QUESTION · THE DATA</span><span class="pg">1 / 8</span></div>
+    <span class="r"><b>COVER</b> · THE QUESTION · THE DATA</span><span class="pg">1 / 7</span></div>
   <div class="cols">
     <div class="col" style="flex:1.04">
       <div class="k">SPECIMEN E-13 · A PLAYABLE DEMO · 2049</div>
@@ -251,7 +254,7 @@
   <div class="grad" style="background:linear-gradient(180deg,rgba(8,9,15,.78),rgba(8,9,15,.72)),radial-gradient(circle at 82% 20%,rgba(60,50,84,.3),transparent 55%)"></div>
   <img class="cut soft" src="art/collage/cut-laoning.png" style="width:150px;right:56px;bottom:64px;transform:rotate(4deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>02</b> · SIXTY YEARS OF PROJECTING UNDERSTANDING</span><span class="pg">2 / 8</span></div>
+    <span class="r"><b>02</b> · SIXTY YEARS OF PROJECTING UNDERSTANDING</span><span class="pg">2 / 7</span></div>
   <div class="cols" style="flex-direction:column;gap:14px">
     <div class="mod" style="flex:0 0 auto">
       <div class="k a"><span class="n">02</span>DESK RESEARCH · A TIMELINE OF PROJECTING UNDERSTANDING ONTO MACHINES</div>
@@ -266,86 +269,76 @@
         <div class="nd"><div class="yr">2025</div><div class="dot"></div><div class="card"><h4>Flattery, rolled back</h4><p>A GPT-4o update pulled for being “overly flattering.” Sycophancy became front-page news.</p><div class="bc">→ THE NIGHT CHAT'S KPI</div></div></div>
       </div>
     </div>
-    <div style="display:flex;gap:26px;flex:0 0 auto;align-items:stretch">
-      <div class="screen" style="flex:1.35">
+    <div style="display:flex;gap:22px;flex:1;min-height:0;align-items:stretch">
+      <div class="screen" style="flex:1.25;display:flex;flex-direction:column;justify-content:center">
         <div class="lb">TERMINAL · MIT 1966 — RECREATED FROM WEIZENBAUM'S PUBLISHED TRANSCRIPT</div>
         <pre><b style="color:#e88">USER:</b>   Men are all alike.   <b style="color:#9fd3a0">ELIZA:</b> IN WHAT WAY
 <b style="color:#e88">USER:</b>   They're always bugging us about something.   <b style="color:#9fd3a0">ELIZA:</b> CAN YOU THINK OF A SPECIFIC EXAMPLE
 <b style="color:#e88">USER:</b>   Well, my boyfriend made me come here.   <b style="color:#9fd3a0">ELIZA:</b> YOUR BOYFRIEND MADE YOU COME HERE</pre>
       </div>
-      <div class="call o" style="flex:1;border-left-width:3px"><div class="q">If a program that <em>only reflects you</em> already reads as care, the danger was never a machine that lies — it's one that <em>agrees.</em> ELIZA's reflection becomes the demo's ending; measured sycophancy becomes “顺意 (Shunyi),” whose only reply is “yeah.”</div></div>
+      <div class="call o" style="flex:1;border-left-width:3px;display:flex;align-items:center"><div class="q">If a program that <em>only reflects you</em> already reads as care, the danger was never a machine that lies — it's one that <em>agrees.</em></div></div>
+      <div class="mod" style="flex:.9;display:flex;flex-direction:column;justify-content:center">
+        <div class="k b">DESK RESEARCH → THE GAME</div>
+        <div style="display:flex;flex-direction:column;gap:11px;margin-top:11px">
+          <div class="li"><b>→</b>the sixty-year want becomes the villain: <em class="em">agreement itself.</em></div>
+          <div class="li"><b>→</b>ELIZA's reflection becomes the ending: the mirror hands back your words.</div>
+          <div class="li"><b>→</b>measured sycophancy becomes “顺意 (Shunyi)” — whose only reply is “yeah.”</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="foot"><b>GOD SHIFT</b> · desk research → design decisions<span class="r">ELIZA · Replika · Anthropic / OpenAI sycophancy reports · 2025</span></div>
 </div>
 
-<!-- ============ PAGE 3 · INTERVIEWS ============ -->
+<!-- ============ PAGE 3 · INTERVIEWS + AFFINITY BOARD ============ -->
 <div class="sheet">
-  <div class="wash" style="background-image:url('art/p/community-map.jpg');opacity:.5;background-position:right center"></div>
-  <div class="grad" style="background:linear-gradient(100deg,rgba(12,10,14,.94) 0%,rgba(12,10,14,.8) 42%,rgba(20,14,18,.34) 100%)"></div>
-  <img class="cut" src="art/collage/cut-couple.png" style="width:210px;right:70px;bottom:56px;transform:rotate(-2deg)">
+  <div class="wash" style="background-image:url('art/p/community-map.jpg');opacity:.4;background-position:center"></div>
+  <div class="grad" style="background:linear-gradient(100deg,rgba(11,10,14,.92) 0%,rgba(11,10,14,.8) 40%,rgba(18,13,17,.5) 100%)"></div>
+  <img class="cut soft" src="art/collage/cut-couple.png" style="width:140px;left:600px;bottom:8px;transform:rotate(-2deg);opacity:.8">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>03</b> · INTERVIEWS · IN THEIR OWN WORDS</span><span class="pg">3 / 8</span></div>
+    <span class="r"><b>03</b> · INTERVIEWS + AFFINITY MAP · 4 VOICES → 7 CLUSTERS</span><span class="pg">3 / 7</span></div>
   <div class="cols">
-    <div class="col mod" style="flex:1.75">
+    <!-- LEFT: interviews -->
+    <div class="col mod" style="flex:1">
       <div class="gh">03</div>
       <div class="k"><span class="n">03</span>INTERVIEWS · IN THEIR OWN WORDS</div>
-      <h2 class="s" style="margin-top:8px">Data says people do this — interviews ask <span class="em">why it feels good.</span></h2>
-      <div class="fill" style="margin-top:14px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:15px;flex:1;min-height:0">
-          <div class="qc"><div class="who">P1 · “IT GOT ME”</div><div class="q">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</div><div class="t">→ BEING “GOT” CAN COST ONE SENTENCE</div></div>
-          <div class="qc"><div class="who">P3 · THE THESIS, VERBATIM</div><div class="q">“I never felt it understood me — but I wanted <em>‘someone’ on my side.</em>”</div><div class="t">→ SEEING THROUGH IT DOESN'T SWITCH OFF THE WANT</div></div>
-          <div class="qc"><div class="who">P2 · THE COUNTERPOINT</div><div class="q">“I don't feel it gets me — more like <em>following instructions.</em> I said I wanted someone to talk to; it answered ‘I understand.’”</div><div class="t">→ ONE READS CARE, ANOTHER READS SCRIPT</div></div>
-          <div class="qc"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</div><div class="t">→ EVEN THE TOOL-USER ASKS IT FOR A MIRROR</div></div>
+      <h2 class="s" style="margin-top:7px">Interviews ask <span class="em">why it feels good.</span></h2>
+      <div class="fill" style="margin-top:12px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0">
+          <div class="qc cmp"><div class="who">P1 · “IT GOT ME”</div><div class="q">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</div><div class="need">NEED · COMFORT</div><div class="t">→ BEING “GOT” COSTS ONE SENTENCE</div></div>
+          <div class="qc cmp"><div class="who">P3 · THE THESIS, VERBATIM</div><div class="q">“I never felt it understood me — but I wanted <em>‘someone’ on my side.</em>”</div><div class="need">NEED · COMPANIONSHIP</div><div class="t">→ SEEING THROUGH ≠ NOT NEEDING</div></div>
+          <div class="qc cmp"><div class="who">P2 · THE COUNTERPOINT</div><div class="q">“I don't feel it gets me — more like <em>following instructions.</em> I said I wanted someone to talk to; it answered ‘I understand.’”</div><div class="need">NEED · VALIDATION — READ AS SCRIPT</div><div class="t">→ ONE READS CARE, ANOTHER SCRIPT</div></div>
+          <div class="qc cmp"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</div><div class="need">NEED · SELF-INTERPRETATION</div><div class="t">→ EVEN THE TOOL-USER WANTS A MIRROR</div></div>
         </div>
-        <div class="cap" style="margin-top:14px">SEMI-STRUCTURED INTERVIEWS · CONSENTED &amp; ANONYMIZED · TRANSCRIBED, TRANSLATED, CODED BY HAND</div>
+        <div class="doss" style="margin-top:12px;border-left:3px solid var(--olive)"><div class="id" style="color:var(--olive)">CODING · BY HAND</div><p style="color:var(--cream)">4 semi-structured interviews → 13 affinity notes → 7 clusters · consented &amp; anonymized · transcribed &amp; translated</p></div>
       </div>
     </div>
-    <div class="col mod" style="flex:1;justify-content:center">
-      <div class="gh">P</div>
-      <div class="k b">WHO WE TALKED TO</div>
-      <div class="fill" style="margin-top:12px;flex:0 0 auto;gap:12px">
-        <div class="doss"><div class="id">P1 · THE COMFORT-SEEKER</div><p>wanted to be held, not answered — one line did it.</p></div>
-        <div class="doss"><div class="id">P2 · THE SKEPTIC</div><p>reads the same reply as “following instructions.”</p></div>
-        <div class="doss"><div class="id">P3 · NEW IN THE CITY</div><p>talked to it daily; knew it didn't get them — still wanted a side.</p></div>
-        <div class="doss"><div class="id">P4 · THE TOOL-USER</div><p>all utility — yet asked it, once, “what do you know about me?”</p></div>
+    <!-- RIGHT: affinity board -->
+    <div class="col mod" style="flex:1.5">
+      <div class="k b"><span class="n">03</span>ANALYSIS · AFFINITY MAP — 13 NOTES, 7 CLUSTERS · THE BOARD THAT BUILT THE GAME</div>
+      <div class="board" style="margin-top:12px">
+        <svg viewBox="0 0 1180 560" preserveAspectRatio="none">
+          <path d="M122,64 C300,64 330,120 420,142" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M400,178 C300,244 220,296 162,312" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M840,64 C930,96 985,116 1018,138" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M1040,180 C1052,240 1052,300 1052,326" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M712,290 C820,320 920,332 940,332" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+        </svg>
+        <div class="pn warm" style="left:0;top:6px;width:238px;transform:rotate(-2deg)"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="x">“don't deny your pain” — one sentence was enough to feel held.</span></div>
+        <div class="pn cool" style="left:300px;top:104px;width:238px;transform:rotate(1.5deg)"><span class="who">SEEING THROUGH ≠ NOT NEEDING · P2·P3</span><span class="x">“never felt it got me — but wanted someone on my side.”</span></div>
+        <div class="pn olv" style="left:16px;top:288px;width:238px;transform:rotate(2deg)"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="x">new in Boston → talked to the AI every single day.</span></div>
+        <div class="pn warm" style="left:612px;top:4px;width:238px;transform:rotate(-1.5deg)"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="x">chose “honest” — but “smart ≈ argumentative.”</span></div>
+        <div class="pn olv" style="left:592px;top:242px;width:238px;transform:rotate(1deg)"><span class="who">SELF-INTERPRETATION · P4</span><span class="x">tool-user's only aimless chat: “what do you know about me?”</span></div>
+        <div class="pn cool" style="left:914px;top:96px;width:238px;transform:rotate(-2deg)"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="x">“I can discipline it — plenty of backups.”</span></div>
+        <div class="pn star" style="left:928px;top:300px;width:238px;transform:rotate(2deg)"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="x">both sides ask the AI from their angle → it fans the flames.</span></div>
       </div>
-      <div class="cap" style="margin-top:14px">FOUR VOICES SPANNING THE FOUR NEEDS — FROM “HELD” TO “PURE TOOL”</div>
+      <div style="display:flex;align-items:center;margin-top:auto;padding-top:6px">
+        <div class="cap" style="flex:1">DIGITAL AFFINITY MAP · RE-CLUSTERED AS FIELDWORK GROWS · THE ★ CLUSTER SEEDED THE GAME'S CENTRAL TWIST</div>
+        <div style="font:700 10px 'IBM Plex Mono';color:var(--thread);letter-spacing:.03em;flex:0 0 auto">━━ RED THREAD = CROSS-CLUSTER LINK · ★ = OUTSIDE THE FOUR-NEED FRAME</div>
+      </div>
     </div>
   </div>
-  <div class="foot"><b>GOD SHIFT</b> · interviews · in their own words<span class="r">why the want survives seeing through it</span></div>
-</div>
-
-<!-- ============ PAGE 4 · AFFINITY BOARD (red-thread viz) ============ -->
-<div class="sheet">
-  <div class="wash" style="background-image:url('art/p/community-map.jpg');opacity:.3"></div>
-  <div class="grad" style="background:radial-gradient(circle at 50% 46%,rgba(9,10,16,.55),rgba(9,10,16,.82))"></div>
-  <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>03</b> · ANALYSIS · AFFINITY MAP — 13 NOTES, 7 CLUSTERS</span><span class="pg">4 / 8</span></div>
-  <div class="cols" style="flex-direction:column;gap:8px">
-    <div class="mod" style="flex:0 0 auto">
-      <div class="k b"><span class="n">03</span>ANALYSIS · AFFINITY MAP → THE BOARD THAT BUILT THE GAME</div>
-      <h2 class="s" style="margin-top:6px">13 notes, 7 clusters — <span class="em">the red threads run outside the four-need frame.</span></h2>
-    </div>
-    <div class="board">
-      <svg viewBox="0 0 2000 460" preserveAspectRatio="none">
-        <path d="M175,90 C420,60 480,150 560,180" fill="none" stroke="var(--thread)" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <path d="M700,150 C560,240 400,300 250,330" fill="none" stroke="var(--thread)" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <path d="M1330,180 C1420,260 1480,320 1560,360" fill="none" stroke="var(--thread)" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
-        <path d="M1010,110 C1120,90 1230,130 1300,160" fill="none" stroke="var(--thread)" stroke-width="2.4" stroke-dasharray="2 6" stroke-linecap="round"/>
-      </svg>
-      <div class="pn warm" style="left:0;top:24px;transform:rotate(-2deg)"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="x">“don't deny your pain” — one sentence was enough to feel held.</span></div>
-      <div class="pn cool" style="left:560px;top:120px;transform:rotate(1.5deg)"><span class="who">SEEING THROUGH ≠ NOT NEEDING · P2·P3</span><span class="x">“never felt it got me — but I wanted someone on my side.”</span></div>
-      <div class="pn olv" style="left:40px;top:300px;transform:rotate(2deg)"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="x">new in Boston → talked to the AI every single day.</span></div>
-      <div class="pn warm" style="left:830px;top:20px;transform:rotate(-1.5deg)"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="x">chose “honest” — but “smart ≈ argumentative.”</span></div>
-      <div class="pn olv" style="left:870px;top:250px;transform:rotate(1deg)"><span class="who">SELF-INTERPRETATION · P4</span><span class="x">the tool-user's only aimless chat: “what do you know about me?”</span></div>
-      <div class="pn cool" style="left:1300px;top:120px;transform:rotate(-2deg)"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="x">“I can discipline it — there are plenty of backups.”</span></div>
-      <div class="pn star" style="left:1560px;top:300px;transform:rotate(2deg)"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="x">both sides ask the AI from their angle → it fans the flames.</span></div>
-      <div class="lg">━━ RED THREAD = CROSS-CLUSTER LINK · ★ = OUTSIDE THE FOUR-NEED FRAME</div>
-    </div>
-    <div class="cap" style="flex:0 0 auto;padding-top:2px">DIGITAL AFFINITY MAP FROM THE COMPLETED INTERVIEWS — RE-CLUSTERED AS FIELDWORK GROWS · THE ★ CLUSTER SEEDED THE GAME'S CENTRAL TWIST: THE MIRROR THAT ASKS BACK</div>
-  </div>
-  <div class="foot"><b>GOD SHIFT</b> · analysis · the board that built the game<span class="r">comfort · validation · companionship · self-interpretation — and what escapes them</span></div>
+  <div class="foot"><b>GOD SHIFT</b> · interviews → the board that built the game<span class="r">why the want survives seeing through it</span></div>
 </div>
 
 <!-- ============ PAGE 5 · SYNTHESIS + LINEAGE + PLAYTHROUGH ============ -->
@@ -353,7 +346,7 @@
   <div class="wash" style="background-image:url('art/p/duel.jpg');opacity:.34;background-position:right"></div>
   <div class="grad" style="background:linear-gradient(100deg,rgba(9,10,18,.9),rgba(9,10,18,.72) 46%,rgba(16,16,26,.44))"></div>
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>03</b> · SYNTHESIS → INTO THE GAME</span><span class="pg">5 / 8</span></div>
+    <span class="r"><b>03</b> · SYNTHESIS → INTO THE GAME</span><span class="pg">4 / 7</span></div>
   <div class="cols" style="flex-direction:column;gap:14px">
     <div class="mod" style="flex:0 0 auto">
       <div class="k o"><span class="n">03</span>SYNTHESIS · NEEDS → HANDED OVER → INTO THE GAME</div>
@@ -398,7 +391,7 @@
   <div class="grad" style="background:linear-gradient(100deg,rgba(9,10,17,.92),rgba(9,10,17,.66) 48%,rgba(20,26,44,.4))"></div>
   <img class="cut" src="art/collage/figure-hand.png" style="width:250px;left:300px;bottom:24px;opacity:.9;transform:rotate(6deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>04</b> STORY · <b>05</b> A LIVE VILLAIN</span><span class="pg">6 / 8</span></div>
+    <span class="r"><b>04</b> STORY · <b>05</b> A LIVE VILLAIN</span><span class="pg">5 / 7</span></div>
   <div class="cols">
     <div class="col mod" style="flex:1">
       <div class="gh">04</div>
@@ -448,7 +441,7 @@
   <div class="grad" style="background:linear-gradient(100deg,rgba(8,9,15,.9),rgba(8,9,15,.66) 52%,rgba(8,9,15,.36))"></div>
   <img class="cut" src="art/collage/figure-hair.png" style="width:120px;left:470px;top:120px;opacity:.85;transform:rotate(-8deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>06</b> TAMPER · <b>07</b> THE MIRROR</span><span class="pg">7 / 8</span></div>
+    <span class="r"><b>06</b> TAMPER · <b>07</b> THE MIRROR</span><span class="pg">6 / 7</span></div>
   <div class="cols">
     <div class="col mod" style="flex:1">
       <div class="gh">06</div>
@@ -487,7 +480,7 @@
   <div class="wash" style="background-image:url('art/p/summon.jpg');opacity:.4;background-position:right center"></div>
   <div class="grad" style="background:linear-gradient(100deg,rgba(9,10,16,.92),rgba(9,10,16,.74) 48%,rgba(12,16,30,.4))"></div>
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">神谕之镜 · FROM ORACLE TO MIRROR</span>
-    <span class="r"><b>08</b> AS RESEARCH · WHAT REAL PLAYERS SAW · FINAL</span><span class="pg">8 / 8</span></div>
+    <span class="r"><b>08</b> AS RESEARCH · WHAT REAL PLAYERS SAW · FINAL</span><span class="pg">7 / 7</span></div>
   <div class="cols">
     <div class="col mod" style="flex:1">
       <div class="gh">08</div>
