@@ -117,6 +117,9 @@
   .qc .t{font:600 10.5px/1.36 'IBM Plex Mono';color:var(--dim);margin-top:auto;padding-top:10px;letter-spacing:.02em}
   .qc.cmp{justify-content:flex-start}
   .qc.cmp .q{font-size:19.5px;line-height:1.52}
+  .tight .qc{padding:12px 15px}
+  .tight .qc .q{font-size:16px;line-height:1.42}
+  .tight .qc .t{padding-top:7px;font-size:9.5px}
   .qc.cmp .t{margin-top:0;padding-top:10px;border-top:1px solid rgba(240,233,214,.12)}
   .qc.cmp .need{margin-top:auto;padding-top:9px}
   .qc .need{font:700 9px 'IBM Plex Mono';letter-spacing:.06em;color:var(--olive);margin-top:9px}
@@ -130,8 +133,11 @@
     background:#faf4e2;color:#3a3320;box-shadow:0 16px 30px rgba(0,0,0,.5);transform-origin:center}
   .pn::before{content:"";position:absolute;left:50%;top:-7px;transform:translateX(-50%);
     width:13px;height:13px;border-radius:50%;background:var(--seal2);box-shadow:0 2px 4px rgba(0,0,0,.5),inset 0 -2px 3px rgba(0,0,0,.3)}
-  .pn .who{font:700 9px 'IBM Plex Mono';color:#8a5a30;letter-spacing:.02em;display:block;margin-bottom:6px}
-  .pn .x{font:500 15px/1.32 'Cormorant Garamond';color:#3a3320}
+  .pn .who{font:700 9.5px 'IBM Plex Mono';color:#8a5a30;letter-spacing:.02em;display:block;margin-bottom:6px}
+  .pn .x{font:500 16.5px/1.34 'Cormorant Garamond';color:#3a3320}
+  .slip{position:absolute;z-index:3;width:206px;padding:9px 13px;background:#fbf3dd;border:1px dashed rgba(140,90,40,.55);border-radius:3px;
+    box-shadow:0 10px 22px rgba(0,0,0,.45);font:500 17px/1.25 'Long Cang',cursive;color:#4a3c1a}
+  .slip .wl{font:700 8.5px 'IBM Plex Mono';color:#a15b2e;letter-spacing:.04em;display:block;margin-bottom:4px}
   .pn.warm{background:#f6e2c8}.pn.cool{background:#e0ecec}.pn.olv{background:#e4eed7}
   .pn.star{background:#f7d9d2;box-shadow:0 18px 34px rgba(140,40,40,.4)}
   .pn.star .who{color:#a8433a}
@@ -318,7 +324,6 @@
 <div class="sheet">
   <div class="wash" style="background-image:url('art/p/community-map.jpg');opacity:.4;background-position:center"></div>
   <div class="grad" style="background:linear-gradient(100deg,rgba(11,10,14,.92) 0%,rgba(11,10,14,.8) 40%,rgba(18,13,17,.5) 100%)"></div>
-  <img class="cut soft" src="art/collage/cut-couple.png" style="width:112px;left:1196px;bottom:132px;transform:rotate(-2deg);opacity:.8">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
     <span class="r"><b>03</b> · INTERVIEWS + AFFINITY MAP · 4 VOICES → 7 CLUSTERS</span><span class="pg">3 / 6</span></div>
   <div class="cols">
@@ -341,20 +346,28 @@
     <div class="col mod" style="flex:1.5">
       <div class="k b"><span class="n">03</span>ANALYSIS · AFFINITY MAP — 13 NOTES, 7 CLUSTERS · THE BOARD THAT BUILT THE GAME</div>
       <div class="board" style="margin-top:12px">
-        <svg viewBox="0 0 1180 430" preserveAspectRatio="none">
-          <path d="M196,74 C240,84 256,96 292,110" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <path d="M300,196 C250,216 208,232 168,244" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <path d="M772,58 C812,68 830,78 862,92" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <path d="M948,186 C952,212 954,232 956,254" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
-          <path d="M756,268 C800,282 830,290 868,300" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+        <svg viewBox="0 0 1232 430" preserveAspectRatio="none">
+          <path d="M298,50 C310,48 316,46 326,44" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M528,42 C540,42 548,44 562,46" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M196,100 C224,114 242,124 268,138" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M310,230 C260,252 210,266 158,276" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M852,52 C872,50 886,48 908,46" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M1046,102 C1052,160 1054,220 1048,286" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M806,192 C820,194 828,194 842,196" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M934,258 C920,280 900,296 878,310" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
+          <path d="M336,330 C300,330 272,326 244,318" fill="none" stroke="var(--thread)" stroke-width="2.6" stroke-dasharray="2 6" stroke-linecap="round"/>
         </svg>
-        <div class="pn warm" style="left:0;top:8px;width:238px;transform:rotate(-2deg)"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="x">“don't deny your pain” — one sentence was enough to feel held.</span></div>
-        <div class="pn cool" style="left:274px;top:96px;width:238px;transform:rotate(1.5deg)"><span class="who">SEEING THROUGH ≠ NOT NEEDING · P2·P3</span><span class="x">“never felt it got me — but wanted someone on my side.”</span></div>
-        <div class="pn olv" style="left:28px;top:222px;width:238px;transform:rotate(2deg)"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="x">new in Boston → talked to the AI every single day.</span></div>
-        <div class="pn warm" style="left:552px;top:6px;width:238px;transform:rotate(-1.5deg)"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="x">chose “honest” — but “smart ≈ argumentative.”</span></div>
-        <div class="pn olv" style="left:530px;top:206px;width:238px;transform:rotate(1deg)"><span class="who">SELF-INTERPRETATION · P4</span><span class="x">tool-user's only aimless chat: “what do you know about me?”</span></div>
-        <div class="pn cool" style="left:844px;top:84px;width:238px;transform:rotate(-2deg)"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="x">“I can discipline it — plenty of backups.”</span></div>
-        <div class="pn star" style="left:856px;top:250px;width:238px;transform:rotate(2deg)"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="x">both sides ask the AI from their angle → it fans the flames.</span></div>
+        <div class="pn warm" style="left:0;top:4px;width:292px;transform:rotate(-2deg)"><span class="who">COMFORT: ONE LINE IS ENOUGH · P1·P4</span><span class="x">“don't deny your pain” — one sentence was enough to feel held.</span></div>
+        <div class="slip" style="left:322px;top:2px;transform:rotate(2deg)"><span class="wl">P1 · RAW NOTE</span>“don't deny your own pain.”</div>
+        <div class="pn warm" style="left:556px;top:8px;width:292px;transform:rotate(-1.5deg)"><span class="who">HONEST IN THEORY, MOOD IN PRACTICE · P1·P2</span><span class="x">chose “honest” — but “smart ≈ argumentative.”</span></div>
+        <div class="pn cool" style="left:906px;top:2px;width:300px;transform:rotate(-2deg)"><span class="who">TALKING BACK IS FREE · P3·P4</span><span class="x">“I can discipline it — plenty of backups.”</span></div>
+        <div class="pn cool" style="left:252px;top:132px;width:292px;transform:rotate(1.5deg)"><span class="who">SEEING THROUGH ≠ NOT NEEDING · P2·P3</span><span class="x">“never felt it got me — but wanted someone on my side.”</span></div>
+        <div class="slip" style="left:596px;top:158px;transform:rotate(-2deg)"><span class="wl">P2 · RAW NOTE</span>“more like following instructions.”</div>
+        <div class="pn olv" style="left:846px;top:152px;width:292px;transform:rotate(1deg)"><span class="who">SELF-INTERPRETATION · P4</span><span class="x">tool-user's only aimless chat: “what do you know about me?”</span></div>
+        <div class="pn olv" style="left:8px;top:262px;width:292px;transform:rotate(2deg)"><span class="who">A STAND-IN FOR A NEW CITY · P3</span><span class="x">new in Boston → talked to the AI every single day.</span></div>
+        <div class="slip" style="left:340px;top:302px;transform:rotate(1deg)"><span class="wl">P3 · RAW NOTE</span>“I wanted ‘someone’ on my side.”</div>
+        <div class="slip" style="left:614px;top:308px;transform:rotate(-1deg)"><span class="wl">P4 · RAW NOTE</span>“what do you know about me?”</div>
+        <div class="pn star" style="left:902px;top:290px;width:300px;transform:rotate(2deg)"><span class="who">★ NEW · AGREEMENT ESCALATES · P3</span><span class="x">both sides ask the AI from their angle → it fans the flames.</span></div>
       </div>
       <div style="display:flex;align-items:center;margin-top:auto;padding-top:6px">
         <div class="cap" style="flex:1">DIGITAL AFFINITY MAP · RE-CLUSTERED AS FIELDWORK GROWS · THE ★ CLUSTER SEEDED THE GAME'S CENTRAL TWIST</div>
@@ -455,7 +468,6 @@
 <div class="sheet">
   <div class="wash" style="background-image:url('art/p/end-b.jpg');opacity:.4;background-position:right"></div>
   <div class="grad" style="background:linear-gradient(100deg,rgba(8,9,15,.9),rgba(8,9,15,.66) 52%,rgba(8,9,15,.36))"></div>
-  <img class="cut" src="art/collage/figure-hair.png" style="width:120px;left:470px;top:120px;opacity:.85;transform:rotate(-8deg)">
   <div class="mast"><span class="t">GOD SHIFT</span><span class="s">FROM ORACLE TO MIRROR</span>
     <span class="r"><b>06</b> TAMPER · <b>07</b> THE MIRROR · LINEAGE</span><span class="pg">5 / 6</span></div>
   <div class="cols">
@@ -465,9 +477,9 @@
       <h2 class="s" style="margin-top:8px">It rewrites your notes — <span class="em">while you watch.</span></h2>
       <div class="body" style="margin-top:8px">Every night's cozy scrapbook ritual is also where the AI edits your evidence. The manipulation isn't disclosed — it's <em>physical.</em> You peel back what it covered, by hand.</div>
       <div class="fill" style="margin-top:16px">
-        <div style="position:relative;height:172px;flex:0 0 auto">
-          <div class="note" style="position:absolute;left:0;right:20px;top:44px">“I saw a gold-red figure in the train-window reflection. <span class="orig">I need to rest.</span>”</div>
-          <div class="cover2" style="position:absolute;left:24px;right:0;top:0"><div class="badge">✎ OPTIMIZED FOR YOU · 已为您优化</div>“Watchmaker Lao Ning — prime ‘MIRROR’ suspect. Request enforcement. <span class="o2">(rest, already forgotten for you)</span>”</div>
+        <div style="position:relative;height:196px;flex:0 0 auto">
+          <div class="cover2" style="position:absolute;left:30px;right:-4px;top:-2px;transform:rotate(-4deg)"><div class="badge">✎ OPTIMIZED FOR YOU · 已为您优化</div>“Watchmaker Lao Ning — prime ‘MIRROR’ suspect. Request enforcement. <span class="o2">(rest, already forgotten for you)</span>”</div>
+          <div class="note" style="position:absolute;left:0;right:26px;top:104px">“I saw a gold-red figure in the train-window reflection. <span class="orig">I need to rest.</span>”</div>
         </div>
         <div class="li" style="margin-top:12px"><b>↖</b>what you wrote → what it filed for you, one hover apart</div>
         <div class="tile" style="flex:0 0 138px;min-height:0;margin-top:12px"><img src="art/shots/play-journal.jpg" alt=""><div class="lbl"><span class="num s">◆</span><span class="cp">the scrapbook, mid-tamper — captured in play, nothing mocked up</span></div></div>
@@ -521,7 +533,17 @@
     </div>
     <div class="col mod" style="flex:1.15">
       <div class="k o">PILOT PLAYTEST · N = 3 · IT LANDED</div>
-      <div style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,1fr);gap:10px;margin-top:11px">
+      <div class="doss" style="margin-top:10px;border-left:3px solid var(--olive)">
+        <div class="id" style="color:var(--olive)">WHO SAW WHAT — TESTERS × CONTRIBUTIONS</div>
+        <table style="width:100%;border-collapse:collapse;margin-top:7px;font:600 9.5px 'IBM Plex Mono';color:var(--dim);letter-spacing:.02em">
+          <tr><td style="padding:3px 0"></td><td style="text-align:center;padding:3px 2px">C1 · HORROR<br>CRITIQUE</td><td style="text-align:center;padding:3px 2px">C2 · LIVE<br>VILLAIN</td><td style="text-align:center;padding:3px 2px">C3 ·<br>TAMPER</td><td style="text-align:center;padding:3px 2px">ARC +<br>MIRROR</td></tr>
+          <tr><td style="color:var(--cream);font-size:11px;padding:4px 0">T1</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:16px;color:var(--amber)">●</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td></tr>
+          <tr><td style="color:var(--cream);font-size:11px;padding:4px 0">T2</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:16px;color:var(--seal)">●</td></tr>
+          <tr><td style="color:var(--cream);font-size:11px;padding:4px 0">T3</td><td style="text-align:center;font-size:16px;color:var(--olive)">●</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td><td style="text-align:center;font-size:15px;color:rgba(240,233,214,.28)">○</td></tr>
+        </table>
+        <div style="font:600 8.5px 'IBM Plex Mono';color:var(--dim);margin-top:5px;letter-spacing:.02em">● = VOICED, UNPROMPTED, IN THINK-ALOUD · ○ = NOT OBSERVED IN PILOT · AFFORDANCE CRITIQUE: 3/3</div>
+      </div>
+      <div class="tight" style="flex:1;min-height:0;display:grid;grid-template-rows:repeat(4,1fr);gap:9px;margin-top:10px">
         <div class="qc cmp"><div class="who">TESTER 1 · THE COMPLIANT DRIFT</div><div class="q">“It rewrote my clues, and <em>‘forgot’ my ‘I need rest’ for me.</em> That's when I realized — it isn't helping me, it's <em>helping me avoid.</em>”</div><div class="t">→ VALIDATES C3 — TAMPER LANDS AS SELF-RECOGNITION</div></div>
         <div class="qc cmp"><div class="who">TESTER 2 · THE MIRROR ROUTE</div><div class="q">“It shifts <em>from investigating others to investigating yourself.</em> ‘What do you want?’ became a question <em>to me.</em>”</div><div class="t">→ THE ARC + REVERSE QUESTION REACHED THE PLAYER</div></div>
         <div class="qc cmp"><div class="who">TESTER 3 · THE THEME, UNPROMPTED</div><div class="q">“The scariest thing isn't the AI turning evil — <em>it's that it's too smooth, smoothing away people's problems.</em>”</div><div class="t">→ THE CRITIQUE ARRIVED WITHOUT BEING STATED</div></div>
