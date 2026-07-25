@@ -333,13 +333,21 @@
       <div class="k"><span class="n">03</span>INTERVIEWS · IN THEIR OWN WORDS</div>
       <h2 class="s" style="margin-top:7px">Data says people do this — interviews ask <span class="em">why it feels good.</span></h2>
       <div class="fill" style="margin-top:12px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;flex:1;min-height:0">
+        <div class="tight" style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:11px;flex:1;min-height:0">
           <div class="qc cmp"><div class="who">P1 · “IT GOT ME”</div><div class="q">“It said <em>‘don't deny your own pain.’</em> — exactly what I wanted.”</div><div class="need">NEED · COMFORT</div><div class="t">→ BEING “GOT” COSTS ONE SENTENCE</div></div>
           <div class="qc cmp"><div class="who">P3 · THE THESIS, VERBATIM</div><div class="q">“I never felt it understood me — but I wanted <em>‘someone’ on my side.</em>”</div><div class="need">NEED · COMPANIONSHIP</div><div class="t">→ SEEING THROUGH ≠ NOT NEEDING</div></div>
           <div class="qc cmp"><div class="who">P2 · THE COUNTERPOINT</div><div class="q">“I don't feel it gets me — more like <em>following instructions.</em> I said I wanted someone to talk to; it answered ‘I understand.’”</div><div class="need">NEED · VALIDATION — READ AS SCRIPT</div><div class="t">→ ONE READS CARE, ANOTHER SCRIPT</div></div>
           <div class="qc cmp"><div class="who">P4 · COMFORT AS CERTAINTY</div><div class="q">Visa panic, asked daily → <em>“it WILL be approved!”</em> a guarantee no one can give.</div><div class="need">NEED · SELF-INTERPRETATION</div><div class="t">→ EVEN THE TOOL-USER WANTS A MIRROR</div></div>
         </div>
-        <div class="doss" style="margin-top:12px;border-left:3px solid var(--olive)"><div class="id" style="color:var(--olive)">CODING · BY HAND</div><p style="color:var(--cream)">4 semi-structured interviews → 13 affinity notes → 7 clusters · consented &amp; anonymized · transcribed &amp; translated</p></div>
+        <div class="doss" style="margin-top:12px;border-left:3px solid var(--olive)">
+          <div class="id" style="color:var(--olive)">METHOD · RESEARCH THROUGH DESIGN — THE DEMO IS THE INSTRUMENT</div>
+          <div style="display:flex;flex-direction:column;gap:5px;margin-top:7px;font:500 11.5px/1.45 'IBM Plex Mono';color:var(--ink)">
+            <div><b style="color:var(--amber)">01 DESK</b> — a 60-year trace (ELIZA 1966 → 2025 rollback) · figures from public reports only</div>
+            <div><b style="color:var(--seal)">02 INTERVIEWS</b> — N=4, semi-structured · consented, anonymized · transcribed &amp; translated · open-coded by hand → 13 notes → 7 clusters · re-clustered as fieldwork grows (→ N=5–8)</div>
+            <div><b style="color:var(--sky)">03 ADVERSARIAL</b> — 5 scripted LLM personas vs. the villain · server-side guard + automated break-detection · 0 breaks</div>
+            <div><b style="color:var(--olive)">04 PILOT</b> — N=3, think-aloud + short post-play interview · not a controlled study → scaling to 8–12</div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- RIGHT: affinity board -->
@@ -455,7 +463,7 @@
             <div class="z"><div class="n">5</div><div class="l">LLM AGENTS</div></div>
             <div class="z"><div class="n">2</div><div class="l">ENDINGS REACHED</div></div>
           </div>
-          <div class="cap" style="flex:1"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. LLM agents, not human participants; this probes <b style="color:var(--cream)">robustness</b>, not experience.</div>
+          <div class="cap" style="flex:1"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. Guard = server-side prompt + <b style="color:var(--cream)">automated break-detection</b> (a bilingual regex over replies) that re-issues any out-of-character line. LLM agents, not human participants; this probes <b style="color:var(--cream)">robustness</b>, not experience.</div>
         </div>
       </div>
     </div>
@@ -531,7 +539,7 @@
       </div>
     </div>
     <div class="col mod" style="flex:1.15">
-      <div class="k o">PILOT PLAYTEST · N = 3 · IT LANDED</div>
+      <div class="k o">PILOT PLAYTEST · N = 3 · THINK-ALOUD + SHORT POST-PLAY INTERVIEW</div>
       <div class="doss" style="margin-top:10px;border-left:3px solid var(--olive)">
         <div class="id" style="color:var(--olive)">WHO SAW WHAT — TESTERS × CONTRIBUTIONS</div>
         <table style="width:100%;border-collapse:collapse;margin-top:7px;font:600 9.5px 'IBM Plex Mono';color:var(--dim);letter-spacing:.02em">
