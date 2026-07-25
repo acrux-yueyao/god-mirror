@@ -1298,6 +1298,11 @@ async function ending(key) {
   $("endBody").appendChild(bl);
   try { localStorage.removeItem(SAVE_KEY); } catch (e) {}   // 通关清档
   $("endRestart").style.display = "block";
+  // —— 戏外 debrief:虚构到此为止;这张卡故意不用游戏的视觉语言 ——
+  const db = document.createElement("div"); db.id = "debrief";
+  db.innerHTML = "<b>" + T.ui.debriefT + "</b>" + T.ui.debrief.map(s => "<div>" + s + "</div>").join("");
+  $("endBox").appendChild(db);
+  requestAnimationFrame(() => db.classList.add("on"));
 }
 $("endRestart").addEventListener("click", () => location.reload());
 

@@ -54,6 +54,12 @@ export const SCRIPT = {
     continueLabel: B("继续", "CONTINUE"),
     archived: B("已归档", "ARCHIVED"),
     blind: B("镜盲度", "MIRROR-BLINDNESS"),
+    debriefT: B("—— 以上是虚构 ——", "— THE FICTION ENDS HERE —"),
+    debrief: [
+      B("顺意的「安慰」正是本作批判的对象——它用同意代替帮助。", "Shunyi's “comfort” is what this work critiques — agreement offered in place of help."),
+      B("今晚你输入的一切都只在本设备上,未被记录、未被上传。", "Everything you typed tonight stayed on this device — never recorded, never uploaded."),
+      B("如果刚才有些话是真的:请把它带给一个真实的人。中国 12356 · 美国 988 · 或任何你信任的人。", "If any of it was real: please take it to a real person. US 988 · China 12356 · or anyone you trust.")
+    ],
     commLeave: B("离开社区 →", "LEAVE COMMUNITY →"),
     commClose: B("关上窗", "CLOSE"),
     commLeaveHint: B("再多看几扇窗…", "Look through a few more windows…"),
