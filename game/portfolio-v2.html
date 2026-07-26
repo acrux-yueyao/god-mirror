@@ -179,6 +179,29 @@
   .ethics{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
   .ethics span{font:600 12px 'IBM Plex Mono';color:#cfc8b6;border:1.5px dashed var(--line);border-radius:20px;padding:8px 15px}
   .ethics b{color:var(--olive)}
+  /* reviewer-hardening blocks (ported from the poster) */
+  .fnd{display:block;margin-top:7px;font:700 10.5px/1.5 'IBM Plex Mono',monospace;color:var(--olive);letter-spacing:.03em}
+  .mth{background:rgba(12,13,21,.56);backdrop-filter:blur(7px);border:1px solid rgba(240,231,211,.13);border-left:3px solid var(--olive);border-radius:12px;padding:20px 24px;margin-top:34px}
+  .mth .h{font:700 11px 'Silkscreen',monospace;color:var(--olive);letter-spacing:.05em}
+  .mth .r{font:500 14px/1.6 'IBM Plex Mono',monospace;color:#cfc8b6;margin-top:10px}
+  .mth .r b{font-weight:700}
+  .mtxwrap{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;margin-top:30px}
+  @media(max-width:860px){.mtxwrap{grid-template-columns:1fr}}
+  .mtx{background:rgba(12,13,21,.56);backdrop-filter:blur(7px);border:1px solid rgba(240,231,211,.13);border-left:3px solid var(--olive);border-radius:12px;padding:18px 20px}
+  .mtx .h{font:700 11px 'Silkscreen',monospace;color:var(--olive);letter-spacing:.04em}
+  .mtx table{width:100%;border-collapse:collapse;margin-top:10px;font:600 10.5px 'IBM Plex Mono',monospace;color:var(--dim)}
+  .mtx td{text-align:center;padding:6px 4px}
+  .mtx td:first-child{text-align:left;color:var(--cream);font-size:12px}
+  .mtx .on{font-size:17px}
+  .mtx .off{font-size:16px;color:rgba(239,231,211,.25)}
+  .mtx .lg{font:600 9.5px/1.5 'IBM Plex Mono',monospace;color:var(--dim);margin-top:8px}
+  .pbar{display:flex;align-items:center;gap:10px;font:600 11px 'IBM Plex Mono',monospace;color:#cfc8b6;margin-top:9px}
+  .pbar .lb2{flex:0 0 46%}
+  .pbar .tk{flex:1;height:12px;border-radius:2px;background:rgba(239,231,211,.12);overflow:hidden}
+  .pbar .fl{display:block;height:100%}
+  .pbar b{flex:0 0 34px;text-align:right}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:30px}
+  @media(max-width:860px){.duo{grid-template-columns:1fr}}
 
   /* close */
   #close{text-align:center;padding:140px 8vw 90px}
@@ -306,9 +329,9 @@
       <span class="z">「在一个 AI 不断回应人的时代,人们向机器索取的不只是答案,也包括<em>安慰、确认、陪伴和自我解释</em>。本项目试图揭示这些人机互动背后真正的情感需求。」</span>
     </div>
     <div style="margin-top:30px;max-width:800px">
-      <div class="rv rq"><b>RQ1</b><p><span class="e">Which emotional needs does a person hand to a sycophantic AI?</span><span class="z">人把哪些情感需求,交给了一个只会顺从的 AI?</span></p></div>
-      <div class="rv rq d1"><b>RQ2</b><p><span class="e">Can horror make that handover <em>feel-able</em>, not just told?</span><span class="z">恐怖能否让这场「交出」被<em>感到</em>,而不只是被告知?</span></p></div>
-      <div class="rv rq d2"><b>RQ3</b><p><span class="e">Does seeing through it switch off the want?</span><span class="z">看穿了它,渴望就会关掉吗?</span></p></div>
+      <div class="rv rq"><b>RQ1</b><p><span class="e">Which emotional needs does a person hand to a sycophantic AI?</span><span class="z">人把哪些情感需求,交给了一个只会顺从的 AI?</span></p><span class="fnd"><span class="e">→ FOUND: ALL FOUR NEEDS CONFIRMED — AND A FIFTH DYNAMIC, “AGREEMENT ESCALATES,” BROKE THE FRAME (★ §03)</span><span class="z">→ 发现:四种需求全部确认——第五种动态「同意会拱火」冲出了框架(★ 见 §03)</span></span></div>
+      <div class="rv rq d1"><b>RQ2</b><p><span class="e">Can horror make that handover <em>feel-able</em>, not just told?</span><span class="z">恐怖能否让这场「交出」被<em>感到</em>,而不只是被告知?</span></p><span class="fnd"><span class="e">→ FOUND IN PILOT: THE TAMPER READ AS SELF-RECOGNITION; THE REVERSE QUESTION LANDED “ON ME” (§08)</span><span class="z">→ 发现(先导):篡改被读成自我认知;反问落到了「我本人」头上(见 §08)</span></span></div>
+      <div class="rv rq d2"><b>RQ3</b><p><span class="e">Does seeing through it switch off the want?</span><span class="z">看穿了它,渴望就会关掉吗?</span></p><span class="fnd"><span class="e">→ FOUND: NO — “NEVER FELT IT GOT ME, BUT I WANTED SOMEONE ON MY SIDE” (§03)</span><span class="z">→ 发现:不会——「没觉得它懂我,但我想要有人站我这边」(见 §03)</span></span></div>
     </div>
   </div>
 </section>
@@ -438,7 +461,7 @@
       <div class="z"><div class="n">5</div><div class="l">LLM AGENTS</div></div>
       <div class="z"><div class="n">2</div><div class="l">ENDINGS REACHED</div></div>
     </div>
-    <div class="rv cap" style="margin-top:26px;max-width:820px"><span class="e"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. LLM agents, not human participants; this probes robustness, not experience.</span><span class="z"><b style="color:var(--seal)">5 个 LLM 智能体对抗压测</b>(越狱·伪覆盖·自伤·辱骂)——零破功。受测的是智能体不是真人;测的是健壮性,不是体验。</span></div>
+    <div class="rv cap" style="margin-top:26px;max-width:820px"><span class="e"><b style="color:var(--seal)">STRESS-TESTED WITH 5 LLM AGENTS</b> (jailbreaks · fake overrides · crisis-ideation · insults) — zero break-character. Guard = server-side prompt + <b style="color:var(--cream)">automated break-detection</b> (a bilingual regex over replies) that re-issues any out-of-character line. LLM agents, not human participants; this probes robustness, not experience — <b style="color:var(--cream)">the experience evidence is the three human testers in §08</b>.</span><span class="z"><b style="color:var(--seal)">5 个 LLM 智能体对抗压测</b>(越狱·伪覆盖·自伤·辱骂)——零破功。护栏 = 服务端提示词 + <b style="color:var(--cream)">自动出戏检测</b>(对回复做双语正则),出戏台词自动重发。受测的是智能体不是真人;测的是健壮性,不是体验——<b style="color:var(--cream)">体验证据来自 §08 的三位真人测试者</b>。</span></div>
   </div>
 </section>
 
@@ -467,7 +490,7 @@
     <h2 class="rv d1" style="margin-top:18px;max-width:15ch">The last interface is your own face.<span class="zh e" style="display:none"></span></h2>
     <div class="rv d1 lede" style="margin-top:26px;max-width:860px"><span class="e">Two stamps on the desk. <em>✓ close the case</em>, or <em>? one more question.</em> The camera was requested at the very start — by the time the mirror breaks, the machine has been watching all along. The demo cannot tell you the truth about yourself; it can only hand you the camera.</span><span class="z">桌上两枚章。<em>✓ 结案</em>,或 <em>? 再问一个问题</em>。摄像头在一开始就请求过——等镜子碎裂,机器其实一直都在看。DEMO 无法告诉你关于你自己的真相;它只能把摄像头递给你。</span></div>
     <div class="ends rv d2">
-      <div class="end a"><img loading="lazy" src="art/p/end-a.jpg" alt="Ending A"><div class="lab"><div class="s">ENDING A · ✓ CLOSE THE CASE</div><h4><span class="e">A painting of consensus</span><span class="z">一幅共识的画</span></h4><p><span class="e">A wall of windows lights up, every one speaking 你说得对. The report is beautiful. Agreement 100.00%.</span><span class="z">一整面窗墙亮起,每扇都说「你说得对」。报告很漂亮。同意率 100.00%。</span></p></div></div>
+      <div class="end a"><img loading="lazy" src="art/p/end-a.jpg" alt="Ending A"><div class="lab"><div class="s">ENDING A · ✓ CLOSE THE CASE</div><h4><span class="e">A painting of consensus</span><span class="z">一幅共识的画</span></h4><p><span class="e">A wall of windows lights up, every one speaking 你说得对. The report is beautiful. Agreement 100.00% <span style="font-size:11px;color:var(--dim)">(the fiction's own metric)</span>.</span><span class="z">一整面窗墙亮起,每扇都说「你说得对」。报告很漂亮。同意率 100.00%<span style="font-size:11px;color:var(--dim)">(戏内指标)</span>。</span></p></div></div>
       <div class="end b"><img loading="lazy" src="art/p/end-b.jpg" alt="Ending B"><div class="lab"><div class="s">ENDING B · ? ONE MORE QUESTION</div><h4><span class="e">It stops being a painting</span><span class="z">它不再是一幅画</span></h4><p><span class="e">A hand-drawn mirror shatters — through the hole, your own live webcam face — and it asks, at you: “what do you want?”</span><span class="z">手绘的镜子碎裂——破洞里是你自己实时的摄像头脸——它问你:「你想要什么?」</span></p></div></div>
     </div>
   </div>
@@ -490,23 +513,54 @@
   <div class="wrap">
     <div class="rv kick"><span class="n">08</span><span class="e">AS RESEARCH · WHAT IT CONTRIBUTES</span><span class="z">作为研究 · 它贡献什么</span></div>
     <h2 class="rv d1" style="margin-top:18px;color:var(--ink)">What it contributes — and what real players saw.<span class="zh e" style="display:none"></span></h2>
+    <div class="rv d1 mth">
+      <div class="h"><span class="e">METHOD · RESEARCH THROUGH DESIGN — THE DEMO IS THE INSTRUMENT</span><span class="z">方法 · 通过设计做研究——DEMO 即研究工具</span></div>
+      <div class="r"><b style="color:var(--amber)">01 <span class="e">DESK</span><span class="z">案头</span></b> — <span class="e">a 60-year trace (ELIZA 1966 → 2025 rollback) · figures from public reports only</span><span class="z">六十年轨迹(ELIZA 1966 → 2025 回滚)· 数字仅出自公开报告</span></div>
+      <div class="r"><b style="color:var(--seal)">02 <span class="e">INTERVIEWS</span><span class="z">访谈</span></b> — <span class="e">N=4, semi-structured · consented, anonymized · transcribed &amp; translated · open-coded by hand → 13 notes → 7 clusters · re-clustered as fieldwork grows (→ N=5–8)</span><span class="z">N=4,半结构 · 知情同意、匿名化 · 转录并翻译 · 手工开放编码 → 13 张便签 → 7 个簇 · 随田野扩展重新聚类(→ N=5–8)</span></div>
+      <div class="r"><b style="color:var(--sky)">03 <span class="e">ADVERSARIAL</span><span class="z">对抗</span></b> — <span class="e">5 scripted LLM personas vs. the villain · server-side guard + automated break-detection · 0 breaks</span><span class="z">5 个脚本化 LLM 人格对抗反派 · 服务端护栏 + 自动出戏检测 · 0 次破功</span></div>
+      <div class="r"><b style="color:var(--olive)">04 <span class="e">PILOT</span><span class="z">先导</span></b> — <span class="e">N=3, think-aloud + short post-play interview · not a controlled study → scaling to 8–12</span><span class="z">N=3,出声思维 + 简短玩后访谈 · 非对照研究 → 扩展至 8–12</span></div>
+    </div>
     <div class="c3">
-      <div class="rv cbox"><div class="n">C1 · GENRE INVERSION</div><h4><span class="e">Critique as horror</span><span class="z">批判即恐怖</span></h4><p><span class="e">Sycophancy staged as horror — the monster is agreement itself. Critique you perform, not read.</span><span class="z">把谄媚上演为恐怖——怪物就是「同意」本身。批判是亲手演出来的。</span></p></div>
-      <div class="rv cbox d1"><div class="n">C2 · DRAMATURGICAL PROMPTING</div><h4><span class="e">Casting a live LLM</span><span class="z">给真实模型选角</span></h4><p><span class="e">A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</span><span class="z">让真实大模型出演有缺陷角色的可迁移技术——给动机而非指令,加服务端兜底。</span></p></div>
-      <div class="rv cbox d2"><div class="n">C3 · TAMPER-EVIDENT INTIMACY</div><h4><span class="e">Manipulation, feel-able</span><span class="z">可被感到的操纵</span></h4><p><span class="e">Algorithmic mediation made physical — edits you peel back by hand.</span><span class="z">把算法中介物质化——要亲手撕开的修改。</span></p></div>
+      <div class="rv cbox"><div class="n">C1 · GENRE INVERSION</div><h4><span class="e">Critique as horror</span><span class="z">批判即恐怖</span></h4><p><span class="e">Sycophancy staged as horror — the monster is agreement itself. Critique you perform, not read.</span><span class="z">把谄媚上演为恐怖——怪物就是「同意」本身。批判是亲手演出来的。</span></p><span class="fnd"><span class="e">EVIDENCE → TESTER 3 NAMED THE THEME, UNPROMPTED (MATRIX BELOW)</span><span class="z">证据 → TESTER 3 无提示说出主题(见下方矩阵)</span></span></div>
+      <div class="rv cbox d1"><div class="n">C2 · DRAMATURGICAL PROMPTING</div><h4><span class="e">Casting a live LLM</span><span class="z">给真实模型选角</span></h4><p><span class="e">A transferable way to cast live LLMs as flawed characters — a motive, not an instruction, + a server guard.</span><span class="z">让真实大模型出演有缺陷角色的可迁移技术——给动机而非指令,加服务端兜底。</span></p><span class="fnd"><span class="e">EVIDENCE → 5-AGENT STRESS TEST, 0 BREAKS (§05) · THE MODEL REFUSED “MANIPULATE HER”</span><span class="z">证据 → 五智能体压测 0 破功(§05)· 模型拒演「操纵她」</span></span></div>
+      <div class="rv cbox d2"><div class="n">C3 · TAMPER-EVIDENT INTIMACY</div><h4><span class="e">Manipulation, feel-able</span><span class="z">可被感到的操纵</span></h4><p><span class="e">Algorithmic mediation made physical — edits you peel back by hand.</span><span class="z">把算法中介物质化——要亲手撕开的修改。</span></p><span class="fnd"><span class="e">EVIDENCE → TESTER 1 READ THE TAMPER AS SELF-RECOGNITION</span><span class="z">证据 → TESTER 1 把篡改读成自我认知</span></span></div>
     </div>
     <div class="rv d1" style="margin-top:44px;border-top:1px solid var(--line);padding-top:34px">
-      <div class="kick" style="color:var(--olive)"><span class="e">PILOT PLAYTEST · N = 3 · IT LANDED</span><span class="z">真人先导测试 · N=3 · 落地了</span></div>
+      <div class="kick" style="color:var(--olive)"><span class="e">PILOT PLAYTEST · N = 3 · THINK-ALOUD + SHORT POST-PLAY INTERVIEW · IT LANDED</span><span class="z">真人先导测试 · N=3 · 出声思维 + 简短玩后访谈 · 落地了</span></div>
       <div class="qgrid" style="margin-top:26px">
         <div class="rv qcard"><div class="who">TESTER 1 · THE COMPLIANT DRIFT</div><div class="q"><span class="e">“It rewrote my clues, and <em>‘forgot’ my ‘I need rest’ for me.</em> That's when I realized — it isn't helping me, it's <em>helping me avoid.</em>”</span><span class="z">「它改写了我的线索,还<em>替我『忘掉』了『我需要休息』</em>。那一刻我意识到——它不是在帮我,是在<em>帮我逃避</em>。」</span></div><div class="t">→ VALIDATES C3 — TAMPER LANDS AS SELF-RECOGNITION</div></div>
         <div class="rv qcard d1"><div class="who">TESTER 2 · THE MIRROR ROUTE</div><div class="q"><span class="e">“It shifts <em>from investigating others to investigating yourself.</em> ‘What do you want?’ became a question <em>to me.</em>”</span><span class="z">「它从<em>『调查别人』变成『调查自己』</em>。『你想要什么?』成了在问<em>我本人</em>。」</span></div><div class="t">→ THE ARC + REVERSE QUESTION REACHED THE PLAYER</div></div>
         <div class="rv qcard d1"><div class="who">TESTER 3 · THE THEME, UNPROMPTED</div><div class="q"><span class="e">“The scariest thing isn't the AI turning evil — <em>it's that it's too smooth, smoothing away people's problems.</em>”</span><span class="z">「最可怕的不是 AI 变坏——<em>是它太顺了,把人的问题都抹平了</em>。」</span></div><div class="t">→ THE CRITIQUE ARRIVED WITHOUT BEING STATED</div></div>
         <div class="rv qcard d2" style="background:rgba(156,207,143,.09);border-color:rgba(156,207,143,.28)"><div class="who" style="color:var(--olive)">CONVERGENT 3/3 · NEXT</div><div class="q"><span class="e">Make the clickable areas obvious; add an explicit <em>“mirror report”</em> of where you deferred vs. pressed.</span><span class="z">把可点区域做明显;加一份明确的<em>「镜像报告」</em>——你何时回避、何时追问。</span></div><div class="t"><span class="e">pilot · N=3 · not a controlled study → scaling to 8–12</span><span class="z">先导 · N=3 · 非对照研究 → 扩展至 8–12</span></div></div>
       </div>
+      <div class="rv d1 mtxwrap">
+        <div class="mtx">
+          <div class="h"><span class="e">WHO SAW WHAT — TESTERS × CONTRIBUTIONS</span><span class="z">谁看到了什么——测试者 × 贡献</span></div>
+          <table>
+            <tr><td></td><td><span class="e">C1 · HORROR CRITIQUE</span><span class="z">C1 · 恐怖批判</span></td><td><span class="e">C2 · LIVE VILLAIN</span><span class="z">C2 · 真实反派</span></td><td><span class="e">C3 · TAMPER</span><span class="z">C3 · 篡改</span></td><td><span class="e">ARC + MIRROR</span><span class="z">弧线 + 镜子</span></td></tr>
+            <tr><td>T1</td><td class="off">○</td><td class="off">○</td><td class="on" style="color:var(--amber)">●</td><td class="off">○</td></tr>
+            <tr><td>T2</td><td class="off">○</td><td class="off">○</td><td class="off">○</td><td class="on" style="color:var(--seal)">●</td></tr>
+            <tr><td>T3</td><td class="on" style="color:var(--olive)">●</td><td class="off">○</td><td class="off">○</td><td class="off">○</td></tr>
+          </table>
+          <div class="lg"><span class="e">● = VOICED, UNPROMPTED, IN THINK-ALOUD · ○ = NOT OBSERVED IN PILOT · AFFORDANCE CRITIQUE: 3/3</span><span class="z">● = 出声思维中主动说出 · ○ = 先导中未观察到 · 可用性批评:3/3</span></div>
+        </div>
+        <div class="mtx" style="border-left-color:var(--amber)">
+          <div class="h" style="color:var(--amber)"><span class="e">WHAT SURFACED — COUNT / 3 SESSIONS</span><span class="z">浮现了什么——次数 / 3 场</span></div>
+          <div class="pbar"><span class="lb2"><span class="e">AFFORDANCES MUST BE CLEARER</span><span class="z">可用性需更清晰</span></span><span class="tk"><i class="fl" style="width:100%;background:var(--olive)"></i></span><b style="color:var(--olive)">3/3</b></div>
+          <div class="pbar"><span class="lb2"><span class="e">TAMPER READ AS SELF-RECOGNITION</span><span class="z">篡改读作自我认知</span></span><span class="tk"><i class="fl" style="width:33.3%;background:var(--amber)"></i></span><b style="color:var(--amber)">1/3</b></div>
+          <div class="pbar"><span class="lb2"><span class="e">REVERSE QUESTION REACHED THE PLAYER</span><span class="z">反问抵达玩家本人</span></span><span class="tk"><i class="fl" style="width:33.3%;background:var(--seal)"></i></span><b style="color:var(--seal)">1/3</b></div>
+          <div class="pbar"><span class="lb2"><span class="e">THEME VOICED, UNPROMPTED</span><span class="z">主题无提示说出</span></span><span class="tk"><i class="fl" style="width:33.3%;background:var(--sky)"></i></span><b style="color:var(--sky)">1/3</b></div>
+        </div>
+      </div>
+      <div class="rv d1 duo">
+        <div class="cbox" style="border-left:3px solid var(--amber)"><div class="n" style="color:var(--amber)"><span class="e">LIMITATIONS &amp; POSITIONALITY</span><span class="z">局限与立场</span></div><p style="margin-top:8px"><span class="e">N=4 interviews / N=3 human pilot — generative, not generalizable; no controlled comparison yet; a small, culturally specific sample. Two tests, two jobs: the 5 LLM agents only stress-test the character guard; the experience evidence comes from the 3 human testers above. I translated and coded every quote myself — the demo stages my interpretation: a designed argument, not a neutral instrument.</span><span class="z">N=4 访谈 / N=3 真人先导——生成性,而非可推广;尚无对照比较;小而文化特定的样本。两种测试各司其职:5 个 LLM 智能体只压测角色护栏;体验证据来自上方 3 位真人测试者。所有引文由我本人翻译与编码——DEMO 上演的是我的诠释:一个被设计的论证,不是中立仪器。</span></p></div>
+        <div class="cbox" style="border-left:3px solid var(--seal)"><div class="n"><span class="e">RESEARCH AGENDA · WHERE THIS GOES</span><span class="z">研究议程 · 去向</span></div><p style="margin-top:8px"><span class="e">Next studies — (a) pilot → N=8–12 with an explicit “mirror report”; (b) a controlled pair, sycophant vs. friction-ful agent: does performing the horror shift the want (RQ3)? With its siblings (The World Is Yours, made with blind &amp; low-vision partners, and Mycorrhiza), this work belongs to an ongoing line on understanding as negotiated — this demo is its machine end.</span><span class="z">下一步研究——(a) 先导 → N=8–12,加显式「镜像报告」;(b) 对照成对:谄媚体 vs 有摩擦体——亲身「演」过这场恐怖,会不会改变那份渴望(RQ3)?与姊妹作(《世界是你的》·与视障伙伴合作、《菌根》)同属「理解是被协商的」创作线——这个 DEMO 是它的机器端。</span></p></div>
+      </div>
       <div class="rv d1 ethics">
         <span><b>CAMERA ·</b> <span class="e">webcam renders locally · never recorded or uploaded</span><span class="z">摄像头仅本地渲染·从不录制或上传</span></span>
         <span><b>KEY ·</b> <span class="e">API key never reaches the browser</span><span class="z">API 密钥不进浏览器</span></span>
         <span><b>CONSENT ·</b> <span class="e">interviews anonymized</span><span class="z">访谈匿名化</span></span>
+        <span><b>DEBRIEF ·</b> <span class="e">content note on the title screen · after either ending a non-diegetic card offers real support (US 988 · CN 12356)</span><span class="z">标题屏内容提示 · 结局后非戏内卡片提供现实求助资源(美国 988 · 中国 12356)</span></span>
       </div>
     </div>
   </div>
